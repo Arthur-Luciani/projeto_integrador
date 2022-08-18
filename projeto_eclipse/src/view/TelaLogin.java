@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.UsuarioDao;
+import model.Usuario;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import net.miginfocom.swing.MigLayout;
@@ -18,6 +22,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame {
 
@@ -102,6 +109,26 @@ public class TelaLogin extends JFrame {
 		panel_2.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String login = txtLogin.getText();
+				String senha = txtSenha.getText();
+				
+				Usuario usuario = new Usuario();
+				usuario.setLogin(login);
+				usuario.setSenha(senha);
+				try {
+					UsuarioDao usuarioDao = new UsuarioDao();
+					if (usuarioDao.verificacao(usuario)==true) {
+						//Ir para tela inicial
+					} else {
+						//Mensagem erro
+					}
+				} catch (SQLException e) {
+					// TODO: handle exception
+				}
+			}
+		});
 		btnEntrar.setBackground(new Color(85, 107, 47));
 		btnEntrar.setForeground(new Color(255, 255, 255));
 		btnEntrar.setFont(new Font("Segoe Script", Font.PLAIN, 16));

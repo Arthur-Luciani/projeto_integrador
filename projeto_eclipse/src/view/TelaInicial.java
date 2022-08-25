@@ -51,7 +51,7 @@ public class TelaInicial extends JFrame {
 		setContentPane(contentPane);
 		
 		JButton btnEstoque = new JButton("Estoque");
-		btnEstoque.setBounds(137, 276, 95, 39);
+		btnEstoque.setBounds(49, 276, 198, 39);
 		btnEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -63,7 +63,7 @@ public class TelaInicial extends JFrame {
 		contentPane.add(btnEstoque);
 		
 		JButton btnNewButton = new JButton("Rel\u00E1t\u00F3rios");
-		btnNewButton.setBounds(364, 276, 113, 39);
+		btnNewButton.setBounds(327, 276, 162, 39);
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnNewButton.setBackground(new Color(85, 107, 47));
@@ -83,7 +83,7 @@ public class TelaInicial extends JFrame {
 		panel.add(lblViridiSinus);
 		
 		JButton btnCadastroDeClientes = new JButton("Cadastro de Clientes");
-		btnCadastroDeClientes.setBounds(549, 276, 199, 39);
+		btnCadastroDeClientes.setBounds(582, 276, 230, 39);
 		btnCadastroDeClientes.setToolTipText("");
 		btnCadastroDeClientes.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnCadastroDeClientes.setBackground(new Color(85, 107, 47));

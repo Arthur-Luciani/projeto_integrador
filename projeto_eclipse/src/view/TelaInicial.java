@@ -58,6 +58,8 @@ public class TelaInicial extends JFrame {
 		btnEstoque.setBounds(137, 276, 95, 39);
 		btnEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				TelaEstoque telaEstoque = new TelaEstoque();
+				telaEstoque.setVisible(true);
 			}
 		});
 		contentPane.setLayout(null);

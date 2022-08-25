@@ -40,8 +40,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Venda` (
   `codigoVenda` INT NOT NULL,
   `data` DATE NOT NULL,
-  `comissaoVendedor` DECIMAL(1000) NULL,
-  `lucro` DECIMAL(10000) NOT NULL,
+  `comissaoVendedor` DECIMAL(65) NULL,
+  `lucro` DECIMAL(65) NOT NULL,
   `Cliente_nome` VARCHAR(200) NOT NULL,
   `vendedorNome` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`codigoVenda`, `Cliente_nome`),
@@ -58,27 +58,29 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Fornecedor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Fornecedor` (
+  `id_fornecedor` INT NOT NULL,
   `nome` VARCHAR(200) NULL,
   `localizacao` VARCHAR(400) NULL,
   `telefone` VARCHAR(30) NULL,
-  PRIMARY KEY (`nome`))
+  PRIMARY KEY (`id_fornecedor`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Produto`
+-- Table `mydb`.`Produto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Produto` (
   `codigoProduto` INT NOT NULL,
   `nome` VARCHAR(200) NULL,
-  `precoProduto` DECIMAL(1000) NOT NULL,
+  `precoProduto` DECIMAL(65) NOT NULL,
   `quant_no_estoque` INT NOT NULL,
-  `Fornecedor_nome` VARCHAR(200) NOT NULL,
-  PRIMARY KEY (`codigoProduto`, `Fornecedor_nome`),
-  INDEX `fk_Produto_Fornecedor_idx` (`Fornecedor_nome` ASC),
+  `id_fornecedor` INT NOT NULL,
+  PRIMARY KEY (`codigoProduto`, `id_fornecedor`),
+  INDEX `FK_id_fornecedor` (`id_fornecedor` ASC),
   CONSTRAINT `fk_Produto_Fornecedor`
-    FOREIGN KEY (`Fornecedor_nome`)
-    REFERENCES `mydb`.`Fornecedor` (`nome`)
+    FOREIGN KEY (`id_fornecedor`)
+    REFERENCES `mydb`.`Fornecedor` (`id_fornecedor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -88,11 +90,12 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Usuarios` (
-  `login` INT NOT NULL,
+  `id_usuario` INT NOT NULL,
+  `login` VARCHAR(200) NOT NULL,
   `nome` VARCHAR(200) NOT NULL,
   `senha` VARCHAR(10) NOT NULL,
   `permissao` TINYINT NOT NULL,
-  PRIMARY KEY (`login`))
+  PRIMARY KEY (`id_usuario`))
 ENGINE = InnoDB;
 
 

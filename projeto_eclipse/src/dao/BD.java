@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 public class BD {
 	Connection conexao;
+
 	public BD() throws SQLException {
-		this.conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/mybd", "root", "aluno");
+		this.conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "aluno");
 	}
 }

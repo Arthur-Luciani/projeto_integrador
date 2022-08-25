@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -25,6 +26,7 @@ public class TelaLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtLogin;
 	private JTextField txtSenha;
+	private static TelaLogin frame;
 
 	/**
 	 * Launch the application.
@@ -33,7 +35,7 @@ public class TelaLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaLogin frame = new TelaLogin();
+					frame = new TelaLogin();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -109,18 +111,27 @@ public class TelaLogin extends JFrame {
 				String senha = txtSenha.getText();
 
 				Usuario usuario = null;
+
 				if (!login.isEmpty() && !senha.isEmpty()) {
+					UsuarioDao usuarioDao;
 					try {
-						UsuarioDao usuarioDao = new UsuarioDao();
+						usuarioDao = new UsuarioDao();
+
 						usuario = usuarioDao.verificacao(new Usuario(login, senha));
+
 						if (usuario != null) {
-							// TODO abrir tela normal passando as informacoes do usuario							
+							TelaInicial telaInicial = new TelaInicial(usuario);
+							telaInicial.setVisible(true); // abre a tela inicial
+							frame.dispose(); // fecha a tela login
 						} else {
-							// Mensagem erro
+							JOptionPane.showConfirmDialog(null, "Olá");
 						}
+
 					} catch (SQLException e) {
-						// TODO: handle exception
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+
 				}
 			}
 		});

@@ -1,6 +1,7 @@
 package model;
 
 public class Usuario {
+	String nome;
 	String login;
 	String senha;
 	int Id;
@@ -13,6 +14,14 @@ public class Usuario {
 		super();
 		this.login = login;
 		this.senha = senha;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getLogin() {

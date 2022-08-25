@@ -1,23 +1,27 @@
 package view;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
+
+import model.Usuario;
 
 public class TelaInicial extends JFrame {
+
+	private Usuario usuario;
+
+	public TelaInicial(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	private JPanel contentPane;
 
@@ -49,7 +53,7 @@ public class TelaInicial extends JFrame {
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JButton btnEstoque = new JButton("Estoque");
 		btnEstoque.setBounds(137, 276, 95, 39);
 		btnEstoque.addActionListener(new ActionListener() {
@@ -61,14 +65,14 @@ public class TelaInicial extends JFrame {
 		btnEstoque.setBackground(new Color(85, 107, 47));
 		btnEstoque.setForeground(new Color(255, 255, 255));
 		contentPane.add(btnEstoque);
-		
+
 		JButton btnNewButton = new JButton("Rel\u00E1t\u00F3rios");
 		btnNewButton.setBounds(364, 276, 113, 39);
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		contentPane.add(btnNewButton);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 5, 824, 99);
 		panel.setBackground(new Color(85, 107, 47));
@@ -76,12 +80,12 @@ public class TelaInicial extends JFrame {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel);
-		
+
 		JLabel lblViridiSinus = new JLabel("Viridi Sinus");
 		lblViridiSinus.setForeground(Color.WHITE);
 		lblViridiSinus.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblViridiSinus);
-		
+
 		JButton btnCadastroDeClientes = new JButton("Cadastro de Clientes");
 		btnCadastroDeClientes.setBounds(549, 276, 199, 39);
 		btnCadastroDeClientes.setToolTipText("");
@@ -89,11 +93,11 @@ public class TelaInicial extends JFrame {
 		btnCadastroDeClientes.setBackground(new Color(85, 107, 47));
 		btnCadastroDeClientes.setForeground(new Color(255, 255, 255));
 		contentPane.add(btnCadastroDeClientes);
-		
+
 		JLabel label = new JLabel("");
 		label.setBounds(839, 257, 0, 0);
 		contentPane.add(label);
-		
+
 		JLabel label_1 = new JLabel("");
 		label_1.setBounds(839, 257, 0, 0);
 		contentPane.add(label_1);

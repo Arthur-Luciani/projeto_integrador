@@ -139,8 +139,8 @@ public class TelaLogin extends JFrame {
 		});
 		
 		JButton btnNewButton = new JButton("Cadastrar usuário");
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(240, 255, 240));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_2.add(btnNewButton);
 		btnEntrar.setBackground(new Color(85, 107, 47));

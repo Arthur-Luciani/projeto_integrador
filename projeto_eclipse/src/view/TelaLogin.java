@@ -12,15 +12,14 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import dao.UsuarioDao;
 import model.Usuario;
-import javax.swing.JPasswordField;
 
 public class TelaLogin extends JFrame {
 
@@ -96,7 +95,7 @@ public class TelaLogin extends JFrame {
 		txtPassSenha = new JPasswordField();
 		txtPassSenha.setBounds(233, 134, 217, 33);
 		panel_1.add(txtPassSenha);
-		txtPassSenha.setEchoChar('*');
+		txtPassSenha.setEchoChar('•');
 		
 
 		JPanel panel_2 = new JPanel();
@@ -137,6 +136,7 @@ public class TelaLogin extends JFrame {
 				}
 			}
 		});
+				
 		
 		JButton btnNewButton = new JButton("Cadastrar usuário");
 		btnNewButton.setForeground(new Color(0, 0, 0));

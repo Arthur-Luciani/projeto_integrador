@@ -31,9 +31,9 @@ public class UsuarioDao extends BD {
 				String login = rs.getString("login");
 				String senha =rs.getString("senha");
 				String cep =rs.getString("cep");
-				String cpf = rs.getString("cpf");
-				LocalDate dataNascimento = rs.getDate("data_nasUsuario").toLocalDate() ;
-				int id = rs.getInt("id_usuario");
+				String cpf = rs.getString("cpfUsuario");
+				LocalDate dataNascimento = rs.getDate("data_de_nascUsuario").toLocalDate() ;
+				int id = rs.getInt("idUsuario");
 				boolean permissao = rs.getBoolean("permissao");
 				
 				usuarioLogado.setNome(nome);

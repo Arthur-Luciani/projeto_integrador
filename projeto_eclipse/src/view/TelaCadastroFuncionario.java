@@ -166,25 +166,33 @@ public class TelaCadastroFuncionario extends JFrame {
 				String login = txtLogin.getText();
 				String senha = txtSenha.getText();
 				String confSenha = txtConfSenha.getText();
+				String dataNascimento = txtDataNascimento.getText();
 				
 				if (nome.isEmpty() || cpf.isEmpty() || login.isEmpty() || senha.isEmpty() || confSenha.isEmpty()) {
 					if(nome.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Nome'");
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Nome'");
+						m.setVisible(true);
 					}
 					if(cpf.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Cpf'");
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Cpf'");
+						m.setVisible(true);
 					}
 					if(login.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Login'");
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Login'");
+						m.setVisible(true);
 					}
 					if(senha.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Senha'");
-						telalogin.setVisible(false);
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Senha'");
+						m.setVisible(true);
 					}
 					if(confSenha.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Confirmar senha'");
-						telalogin.setVisible(false);
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Confirmar senha'");
+						m.setVisible(true);
 					} 
+					if (dataNascimento.isEmpty()) {
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Confirmar senha'");
+						m.setVisible(true);
+					}
 				}else {
 					telalogin.setVisible(true);
 				}

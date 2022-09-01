@@ -18,7 +18,7 @@ public class TelaMensagem extends JFrame {
 
 	private JPanel contentPane;
 	private static TelaMensagem frame;
-
+	
 	/**
 	 * Launch the application.
 	 */

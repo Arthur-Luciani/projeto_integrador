@@ -1,11 +1,19 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 public class Usuario {
-	String nome;
-	String login;
-	String senha;
-	int Id;
-	boolean permissao;
+	private String nome;
+	private String login;
+	private String senha;
+	private String cep;
+	private String cpf;
+	private LocalDate dataNascimento;
+	private int idade;
+	private int id;
+	private boolean permissao;
 
 	public Usuario() {
 	}
@@ -40,12 +48,45 @@ public class Usuario {
 		this.senha = senha;
 	}
 
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimentoStr) {
+		this.dataNascimento = dataNascimentoStr;
+		idade = Period.between(dataNascimento, LocalDate.now()).getYears();
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public boolean isPermissao() {
@@ -55,5 +96,7 @@ public class Usuario {
 	public void setPermissao(boolean permissao) {
 		this.permissao = permissao;
 	}
+	
+	
 
 }

@@ -17,11 +17,7 @@ import model.Usuario;
 
 public class TelaInicial extends JFrame {
 
-	private Usuario usuario;
-
-	public TelaInicial(Usuario usuario) {
-		this.usuario = usuario;
-	}
+	private static Usuario usuario;
 
 	private JPanel contentPane;
 
@@ -32,7 +28,7 @@ public class TelaInicial extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaInicial frame = new TelaInicial();
+					TelaInicial frame = new TelaInicial(usuario);
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -45,7 +41,7 @@ public class TelaInicial extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaInicial() {
+	public TelaInicial(Usuario usuario) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);

@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import model.Usuario;
 
@@ -25,27 +26,31 @@ public class UsuarioDao extends BD {
 			ResultSet rs = ps.executeQuery();
 			Usuario usuarioLogado = new Usuario(); // pegar os dados da consulta
 
-			//
-			rs.next();
-			
-			int id = rs.getInt("id_usuario");
-			String login = rs.getString("login");
-			String nome = rs.getString("nome");
-			String senha = rs.getString("senha");
-			
-			usuarioLogado.setId(id);
-			usuarioLogado.setLogin(login);
-			usuarioLogado.setNome(nome);
-			usuarioLogado.setSenha(senha);
-			usuarioLogado.setPermissao(rs.getBoolean("permissao"));
-			return usuarioLogado;
+			while (rs.next()) {
+				String nome = rs.getString("nome");
+				String login = rs.getString("login");
+				String senha =rs.getString("senha");
+				String cep =rs.getString("cep");
+				String cpf = rs.getString("cpf");
+				LocalDate dataNascimento = rs.getDate("data_nasUsuario").toLocalDate() ;
+				int id = rs.getInt("id_usuario");
+				boolean permissao = rs.getBoolean("permissao");
+				
+				usuarioLogado.setNome(nome);
+				usuarioLogado.setLogin(login);
+				usuarioLogado.setSenha(senha);
+				usuarioLogado.setCep(cep);
+				usuarioLogado.setCpf(cpf);
+				usuarioLogado.setDataNascimento(dataNascimento);
+				usuarioLogado.setId(id);
+				usuarioLogado.setPermissao(permissao);
+				return usuarioLogado;
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return null;
-
 	}
 
 }

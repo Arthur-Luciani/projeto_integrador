@@ -107,7 +107,20 @@ public class CadastroProduto extends JFrame {
 		panel_4.setBackground(new Color(240, 255, 240));
 		panel_4.setForeground(new Color(240, 255, 240));
 		contentPane.add(panel_4);
-		panel_4.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][][][][][][][][][][]", "[][]"));
+		panel_4.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][][][][][][][][][][][][]", "[][]"));
+		
+		JButton btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+				
+				telaListaProdutos.setVisible(true);
+			}
+		});
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
+		btnNewButton_1.setBackground(new Color(85, 107, 47));
+		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_4.add(btnNewButton_1, "cell 3 1");
 		
 		JButton btnNewButton = new JButton("Atualizar/Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -128,9 +141,13 @@ public class CadastroProduto extends JFrame {
 					}if(preco.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Nome'");
 					}
-				}//else {
-					//TelaProdutos.setVisible(true);
-				//}
+				}else {
+					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+					
+					telaListaProdutos.setVisible(true);
+					
+					
+				}
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 255, 255));

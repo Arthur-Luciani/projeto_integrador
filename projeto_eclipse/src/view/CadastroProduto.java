@@ -1,4 +1,5 @@
 package view;
+import java.sql.*;
 
 import java.awt.EventQueue;
 
@@ -24,6 +25,8 @@ public class CadastroProduto extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtId;
+	Connection c;
+	PreparedStatement s;
 
 	/**
 	 * Launch the application.

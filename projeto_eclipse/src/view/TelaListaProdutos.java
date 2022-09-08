@@ -80,10 +80,10 @@ public class TelaListaProdutos extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "Pre\u00E7o", "Quantidade no estoque"
+				"C\u00F3digo", "Nome", "Pre\u00E7o", "Quantidade no estoque"
 			}
 		));
-		table.getColumnModel().getColumn(2).setPreferredWidth(123);
+		table.getColumnModel().getColumn(3).setPreferredWidth(123);
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();

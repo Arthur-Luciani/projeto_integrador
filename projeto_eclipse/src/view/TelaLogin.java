@@ -20,13 +20,14 @@ import javax.swing.border.EmptyBorder;
 
 import dao.UsuarioDao;
 import model.Usuario;
+import javax.swing.JPasswordField;
 
 public class TelaLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtLogin;
-	private JTextField txtSenha;
 	private static TelaLogin frame;
+	private JPasswordField txtPassSenha;
 
 	/**
 	 * Launch the application.
@@ -91,13 +92,12 @@ public class TelaLogin extends JFrame {
 		lblSenha.setBounds(150, 133, 48, 30);
 		lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblSenha);
-
-		txtSenha = new JTextField();
-		txtSenha.setHorizontalAlignment(SwingConstants.LEFT);
-		txtSenha.setBounds(233, 130, 217, 36);
-		txtSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(txtSenha);
-		txtSenha.setColumns(10);
+		
+		txtPassSenha = new JPasswordField();
+		txtPassSenha.setBounds(233, 134, 217, 33);
+		panel_1.add(txtPassSenha);
+		txtPassSenha.setEchoChar('*');
+		
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(240, 255, 240));
@@ -108,9 +108,9 @@ public class TelaLogin extends JFrame {
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String login = txtLogin.getText();
-				String senha = txtSenha.getText();
+				String senha = txtPassSenha.getText();
 
-				Usuario usuario = null;
+				Usuario usuario = null; 
 
 				if (!login.isEmpty() && !senha.isEmpty()) {
 					UsuarioDao usuarioDao;
@@ -123,8 +123,10 @@ public class TelaLogin extends JFrame {
 							TelaInicial telaInicial = new TelaInicial(usuario);
 							telaInicial.setVisible(true); // abre a tela inicial
 							frame.dispose(); // fecha a tela login
+							System.out.println("foi"); 
 						} else {
-							JOptionPane.showConfirmDialog(null, "Olá");
+							TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
+							telaMensagem.setVisible(true); 
 						}
 
 					} catch (SQLException e) {
@@ -135,10 +137,15 @@ public class TelaLogin extends JFrame {
 				}
 			}
 		});
+		
+		JButton btnNewButton = new JButton("Cadastrar usuário");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(85, 107, 47));
+		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_2.add(btnNewButton);
 		btnEntrar.setBackground(new Color(85, 107, 47));
 		btnEntrar.setForeground(new Color(255, 255, 255));
 		btnEntrar.setFont(new Font("Segoe Script", Font.PLAIN, 16));
 		panel_2.add(btnEntrar);
 	}
-
 }

@@ -39,6 +39,7 @@ public class UsuarioDao extends BD {
 			usuarioLogado.setSenha(senha);
 			usuarioLogado.setPermissao(rs.getBoolean("permissao"));
 			return usuarioLogado;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

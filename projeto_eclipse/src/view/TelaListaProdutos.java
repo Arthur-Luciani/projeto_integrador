@@ -10,6 +10,10 @@ import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import dao.ProdutoDao;
+import model.Produto;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -18,13 +22,14 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TelaListaProdutos extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
+	ArrayList listaProdutos = new ArrayList();
 	/**
 	 * Launch the application.
 	 */
@@ -34,6 +39,11 @@ public class TelaListaProdutos extends JFrame {
 				try {
 					TelaListaProdutos frame = new TelaListaProdutos();
 					frame.setVisible(true);
+					
+					//ArrayList produtos = new ArrayList();
+					
+					ProdutoDao produto = new ProdutoDao();
+					listaProdutos = produto.resgatarProdutos();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -122,6 +132,21 @@ public class TelaListaProdutos extends JFrame {
 		btnNewButton_2.setBackground(new Color(85, 107, 47));
 		btnNewButton_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel.add(btnNewButton_2, "cell 14 2");
+	}
+	protected void atualizarJTable() {
+		DefaultTableModel modelo = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"C\u00F3digo", "Nome", "Pre\u00E7o", "Quantidade no estoque"
+				}
+			);
+		for(int i=0; i< produtos.size(); i++) {
+			Produto p = produtos.get(i);
+			modelo.addRow(new Object[] { p.getNome(), p.getCpf() });
+		}
+		
+		table.setModel(modelo);
 	}
 
 }

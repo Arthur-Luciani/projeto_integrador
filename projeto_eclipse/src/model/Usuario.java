@@ -1,12 +1,18 @@
 package model;
 
-public class Usuario {
-	String nome;
-	String login;
-	String senha;
-	int Id;
-	boolean permissao;
+import java.time.LocalDate;
 
+public class Usuario {
+	
+	String login;
+	String nome;
+	String senha;
+	boolean permissao;
+	int idUsuario;
+	LocalDate dataNascimento;
+	String cpfUsuario;
+	int idade;
+	
 	public Usuario() {
 	}
 
@@ -14,14 +20,6 @@ public class Usuario {
 		super();
 		this.login = login;
 		this.senha = senha;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getLogin() {
@@ -32,20 +30,20 @@ public class Usuario {
 		this.login = login;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getSenha() {
 		return senha;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public int getId() {
-		return Id;
-	}
-
-	public void setId(int id) {
-		Id = id;
 	}
 
 	public boolean isPermissao() {
@@ -56,4 +54,37 @@ public class Usuario {
 		this.permissao = permissao;
 	}
 
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getCpfUsuario() {
+		return cpfUsuario;
+	}
+
+	public void setCpfUsuario(String cpfUsuario) {
+		this.cpfUsuario = cpfUsuario;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+
+	
 }

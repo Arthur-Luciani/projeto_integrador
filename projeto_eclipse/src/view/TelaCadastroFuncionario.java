@@ -158,9 +158,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				TelaLogin telalogin = new TelaLogin();
-				
+			public void actionPerformed(ActionEvent e) {				
 				String nome = txtNome.getText();
 				String cpf = txtCpf.getText();
 				String login = txtLogin.getText();
@@ -190,13 +188,27 @@ public class TelaCadastroFuncionario extends JFrame {
 						m.setVisible(true);
 					} 
 					if (dataNascimento.isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Confirmar senha'");
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Data de nascimento'");
 						m.setVisible(true);
+					}				
+					
+				} else if (nome.isEmpty() && cpf.isEmpty() && login.isEmpty() && senha.isEmpty() && confSenha.isEmpty()) {
+					TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida");
+					m.setVisible(true);
+				} else {
+					if (senha.equals(confSenha) != true) {
+						TelaMensagem m = new TelaMensagem("As senhas não coincidem");
+						m.setVisible(true);
+					} else {
+						TelaLogin telalogin = new TelaLogin();
+						telalogin.setVisible(true);
+						
+						
+						
 					}
-				}else {
-					telalogin.setVisible(true);
+					
+					
 				}
-				/*- Falta data de nascimento */
 
 				frame.dispose();
 			}

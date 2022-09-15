@@ -112,7 +112,7 @@ public class TelaLogin extends JFrame {
 
 				Usuario usuario = null; 
 
-				if (!login.isEmpty() && !senha.isEmpty()) {
+				if (!login.isEmpty() && !senha.isEmpty()) {					
 					UsuarioDao usuarioDao;
 					try {
 						usuarioDao = new UsuarioDao();

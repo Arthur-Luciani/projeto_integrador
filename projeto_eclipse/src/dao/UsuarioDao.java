@@ -19,15 +19,14 @@ public class UsuarioDao extends BD {
 	public void cadastro(Usuario novoUsuario) {
 		try {
 			PreparedStatement ps = conexao
-					.prepareStatement("insert into Usuarios (login, nome, senha, idUsuario, data_de_nascUsuario, cpfUsuario, idade)"
-							+ "values ( ? , ? , ? , ? , ? , ? , ?)");
+					.prepareStatement("insert into Usuarios (login, nome, senha, data_de_nascUsuario, cpfUsuario, idade)"
+							+ "values ( ? , ? , ? , ? , ? , ? )");
 			ps.setString(1, novoUsuario.getLogin());
 			ps.setString(2, novoUsuario.getNome());
 			ps.setString(3, novoUsuario.getSenha());
-			ps.setInt(4, 1);
-			ps.setDate(5, novoUsuario.getDatanascimentoDB());
-			ps.setString(6, novoUsuario.getCpfUsuario());
-			ps.setInt(7, novoUsuario.getIdade());
+			ps.setDate(4, Date.valueOf(novoUsuario.getDataNascimento()));
+			ps.setString(5, novoUsuario.getCpfUsuario());
+			ps.setInt(6, novoUsuario.getIdade());
 			ps.execute();
 			conexao.close();
 			
@@ -58,7 +57,7 @@ public class UsuarioDao extends BD {
 				String nome = rs.getString("nome");
 				String senha = rs.getString("senha");
 				boolean permissao = rs.getBoolean("permissao");
-				int idUsuario = rs.getInt("id_usuario");
+				int idUsuario = rs.getInt("idUsuario");
 				LocalDate dataNascimento = rs.getDate("data_de_nascUsuario").toLocalDate();
 				String cpf = rs.getString("cpfUsuario");
 				int idade = rs.getInt("idade");

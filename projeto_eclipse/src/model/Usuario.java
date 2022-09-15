@@ -13,7 +13,7 @@ public class Usuario {
 	String senha;
 	boolean permissao;
 	int idUsuario;
-	Date dataNascimento;
+	LocalDate dataNascimento;
 	String cpfUsuario;
 	int idade;
 	
@@ -26,9 +26,9 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public Usuario(String login, String nome, String senha, Date dataNascimento, String cpfUsuario) {
+	public Usuario(String login, String nome, String senha, LocalDate dataNascimento, String cpfUsuario) {
 		super();
-		idade = Period.between(dataNascimento.getYear(), LocalDate.now()).getYears();
+		idade = Period.between(dataNascimento, LocalDate.now()).getYears();
 		this.login = login;
 		this.nome = nome;
 		this.senha = senha;

@@ -207,17 +207,17 @@ public class TelaCadastroFuncionario extends JFrame {
 						TelaMensagem m = new TelaMensagem("As senhas não coincidem");
 						m.setVisible(true);
 					} else {
-						Usuario novoUsuario = new Usuario(login, nome, senha, Date.valueOf(dataNascimento), cpf);
+						Usuario novoUsuario = new Usuario(login, nome, senha, dataNascimento, cpf);
 						try {
 							UsuarioDao dao = new UsuarioDao();
 							dao.cadastro(novoUsuario);
+							TelaLogin telalogin = new TelaLogin();
+							telalogin.setVisible(true);
+
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-
-						TelaLogin telalogin = new TelaLogin();
-						telalogin.setVisible(true);
 
 					}
 

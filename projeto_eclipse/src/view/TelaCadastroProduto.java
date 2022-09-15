@@ -141,11 +141,17 @@ public class TelaCadastroProduto extends JFrame {
 		JButton btnNewButton_1 = new JButton("Voltar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
-				
-				telaListaProdutos.setVisible(true);
-				
-				dispose();
+				ProdutoDao dao;
+				try {
+					dao = new ProdutoDao();
+					ArrayList<Produto> listaProduto = dao.resgatarProdutos();
+					TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProduto);
+					
+					telaListaProdutos.setVisible(true);
+					dispose();
+				} catch (SQLException e2) {
+					// TODO: handle exception
+				}
 			}
 		});
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
@@ -189,11 +195,11 @@ public class TelaCadastroProduto extends JFrame {
 					try {
 						dao = new ProdutoDao();
 						dao.cadastroProduto(novoProduto);
+						ArrayList<Produto> listaProduto = dao.resgatarProdutos();
 						
 						
 						
-						
-						TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProduto);
 						telaListaProdutos.setVisible(true);
 						dispose();
 						

@@ -39,7 +39,7 @@ public class TelaListaProdutos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaListaProdutos frame = new TelaListaProdutos();
+					TelaListaProdutos frame = new TelaListaProdutos(null);
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -52,20 +52,12 @@ public class TelaListaProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListaProdutos() {
+	public TelaListaProdutos(ArrayList<Produto> listaProdutos) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
-		ProdutoDao produto;
-		try {
-			produto = new ProdutoDao();
-			listaProdutos = produto.resgatarProdutos();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(3, 0, 0, 0));

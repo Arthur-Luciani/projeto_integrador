@@ -9,8 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.ProdutoDao;
+import model.Produto;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TelaEstoque extends JFrame {
@@ -66,9 +72,18 @@ public class TelaEstoque extends JFrame {
 		btnProdutos.setForeground(new Color(255, 255, 255));
 		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
-				
-				telaListaProdutos.setVisible(true);
+				ProdutoDao dao;
+				try {
+					dao = new ProdutoDao();
+					ArrayList<Produto> listaProduto = dao.resgatarProdutos();
+					
+					TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProduto);
+					telaListaProdutos.setVisible(true);
+					dispose();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnProdutos.setBounds(94, 295, 183, 58);

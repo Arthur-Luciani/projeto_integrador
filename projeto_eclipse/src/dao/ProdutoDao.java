@@ -26,11 +26,7 @@ public class ProdutoDao extends BD{
 			ps.setInt(4, produto.getQuantEstoque());
 			ps.setString(5, produto.getNomeFornecedor());
 			ps.execute();
-			
-			
-			
 			conexao.close();
-			
 			
 		} catch (SQLException e) {
 			// TODO: handle exception
@@ -40,7 +36,7 @@ public class ProdutoDao extends BD{
 	}
 	
 	ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-	public ArrayList resgatarProdutos() {
+	public ArrayList resgatarProdutos() {		
 		try {
 			PreparedStatement ps = conexao
 					.prepareStatement("select * from Produto ");
@@ -62,11 +58,14 @@ public class ProdutoDao extends BD{
 				
 				listaProduto.add(produtoCadastrado);
 				
+				System.out.println(listaProduto.size());
+				
 				return listaProduto;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 		return null;

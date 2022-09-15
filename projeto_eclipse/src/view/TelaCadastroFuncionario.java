@@ -213,7 +213,8 @@ public class TelaCadastroFuncionario extends JFrame {
 							dao.cadastro(novoUsuario);
 							TelaLogin telalogin = new TelaLogin();
 							telalogin.setVisible(true);
-
+							dispose();
+							
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -225,7 +226,6 @@ public class TelaCadastroFuncionario extends JFrame {
 
 				}
 
-				frame.dispose();
 			}
 		});
 		panel_1.add(btnCadastrar);
@@ -239,7 +239,7 @@ public class TelaCadastroFuncionario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaLogin telaLogin = new TelaLogin();
 				telaLogin.setVisible(true);
-				frame.dispose();
+				dispose();
 			}
 		});
 		btnVoltar.setForeground(Color.WHITE);

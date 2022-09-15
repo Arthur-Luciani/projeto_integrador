@@ -145,11 +145,12 @@ public class TelaLogin extends JFrame {
 				try {
 					TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario();
 					telaCadastroFuncionario.setVisible(true);
-					frame.dispose();
+					
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				frame.dispose();
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 255, 255));

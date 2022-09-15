@@ -1,6 +1,10 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Usuario {
 	
@@ -9,7 +13,7 @@ public class Usuario {
 	String senha;
 	boolean permissao;
 	int idUsuario;
-	LocalDate dataNascimento;
+	Date dataNascimento;
 	String cpfUsuario;
 	int idade;
 	
@@ -20,6 +24,16 @@ public class Usuario {
 		super();
 		this.login = login;
 		this.senha = senha;
+	}
+
+	public Usuario(String login, String nome, String senha, Date dataNascimento, String cpfUsuario) {
+		super();
+		idade = Period.between(dataNascimento.getYear(), LocalDate.now()).getYears();
+		this.login = login;
+		this.nome = nome;
+		this.senha = senha;
+		this.dataNascimento = dataNascimento;
+		this.cpfUsuario = cpfUsuario;
 	}
 
 	public String getLogin() {
@@ -64,6 +78,10 @@ public class Usuario {
 
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
+	}
+	
+	public Date getDatanascimentoDB() {
+		return Date.from(dataNascimento.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
 	public void setDataNascimento(LocalDate dataNascimento) {

@@ -23,8 +23,12 @@ import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 
 public class TelaCadastroFuncionario extends JFrame {
@@ -57,7 +61,8 @@ public class TelaCadastroFuncionario extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws ParseException 
+	 * 
+	 * @throws ParseException
 	 */
 	public TelaCadastroFuncionario() throws ParseException {
 		setResizable(false);
@@ -158,41 +163,43 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();
 				String cpf = txtCpf.getText();
 				String login = txtLogin.getText();
 				String senha = txtSenha.getText();
 				String confSenha = txtConfSenha.getText();
-				String dataNascimento = txtDataNascimento.getText();
-				
+				DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate dataNascimento = LocalDate.parse(txtDataNascimento.getText(), formatacao);
+
 				if (nome.isEmpty() || cpf.isEmpty() || login.isEmpty() || senha.isEmpty() || confSenha.isEmpty()) {
-					if(nome.isEmpty()) {
+					if (nome.isEmpty()) {
 						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Nome'");
 						m.setVisible(true);
 					}
-					if(cpf.isEmpty()) {
+					if (cpf.isEmpty()) {
 						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Cpf'");
 						m.setVisible(true);
 					}
-					if(login.isEmpty()) {
+					if (login.isEmpty()) {
 						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Login'");
 						m.setVisible(true);
 					}
-					if(senha.isEmpty()) {
+					if (senha.isEmpty()) {
 						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Senha'");
 						m.setVisible(true);
 					}
-					if(confSenha.isEmpty()) {
+					if (confSenha.isEmpty()) {
 						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Confirmar senha'");
 						m.setVisible(true);
-					} 
-					if (dataNascimento.isEmpty()) {
+					}
+					if (txtDataNascimento.getText().isEmpty()) {
 						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Data de nascimento'");
 						m.setVisible(true);
-					}				
-					
-				} else if (nome.isEmpty() && cpf.isEmpty() && login.isEmpty() && senha.isEmpty() && confSenha.isEmpty()) {
+					}
+
+				} else if (nome.isEmpty() && cpf.isEmpty() && login.isEmpty() && senha.isEmpty()
+						&& confSenha.isEmpty()) {
 					TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida");
 					m.setVisible(true);
 				} else {
@@ -200,14 +207,20 @@ public class TelaCadastroFuncionario extends JFrame {
 						TelaMensagem m = new TelaMensagem("As senhas não coincidem");
 						m.setVisible(true);
 					} else {
+						Usuario novoUsuario = new Usuario(login, nome, senha, Date.valueOf(dataNascimento), cpf);
+						try {
+							UsuarioDao dao = new UsuarioDao();
+							dao.cadastro(novoUsuario);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 						TelaLogin telalogin = new TelaLogin();
 						telalogin.setVisible(true);
-						
-						
-						
+
 					}
-					
-					
+
 				}
 
 				frame.dispose();

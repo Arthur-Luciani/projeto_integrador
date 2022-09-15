@@ -35,40 +35,31 @@ public class ProdutoDao extends BD{
 		
 	}
 	
-	ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-	public ArrayList resgatarProdutos() {		
+	public ArrayList<Produto> resgatarProdutos(){
+		ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 		try {
 			PreparedStatement ps = conexao
-					.prepareStatement("select * from Produto ");
-
+					.prepareStatement("select * from Produto");
 			ResultSet rs = ps.executeQuery();
 			
-			while (rs.next()) {
-				int id = rs.getInt("codigoProduto");
-				String nome = rs.getString("nome");
-				float preco = rs.getFloat("precoProduto");
-				int quantEstoque = rs.getInt("quant_no_estoque");
-				
-				Produto produtoCadastrado = new Produto(null, 0, 0);
-				
-				produtoCadastrado.setId(id);
-				produtoCadastrado.setPreco(preco);
-				produtoCadastrado.setNome(nome);
-				produtoCadastrado.setQuantEstoque(quantEstoque);
-				
-				listaProduto.add(produtoCadastrado);
-				
-				System.out.println(listaProduto.size());
-				
-				return listaProduto;
+			if (rs.next()) {
+				do {
+					Produto produto = new Produto();
+					produto.setId(rs.getInt("codigoProduto"));
+					produto.setPreco(rs.getFloat("precoProduto"));
+					produto.setNome(rs.getString("nome"));
+					produto.setQuantEstoque(rs.getInt("quant_no_estoque"));
+					
+					listaProduto.add(produto);
+				} while (rs.next());
 			}
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
-
-		return null;
-
+		System.out.println(listaProduto);
+		return listaProduto;
 	}
+	
 }

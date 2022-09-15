@@ -6,6 +6,10 @@ public class Produto {
 	float preco;
 	int id, quantEstoque;
 	
+	public Produto() {
+		super();
+	}
+
 	public Produto(String nome, float preco, int quantEstoque) {
 		super();
 		this.nome = nome;

@@ -26,12 +26,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class TelaListaProdutos extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+	ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 	/**
 	 * Launch the application.
 	 */
@@ -39,7 +41,7 @@ public class TelaListaProdutos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaListaProdutos frame = new TelaListaProdutos(null);
+					TelaListaProdutos frame = new TelaListaProdutos();
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -52,7 +54,37 @@ public class TelaListaProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListaProdutos(ArrayList<Produto> listaProdutos) {
+	public TelaListaProdutos() {
+		
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				ProdutoDao dao;
+				try {
+					dao = new ProdutoDao();
+					listaProduto = dao.resgatarProdutos();
+					atualizarJTable();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			}
+			/*@Override
+			public void windowActivated(WindowEvent e) {
+				ProdutoDao dao;
+				try {
+					dao = new ProdutoDao();
+					listaProduto = dao.resgatarProdutos();
+					atualizarJTable();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}*/
+		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -149,9 +181,9 @@ public class TelaListaProdutos extends JFrame {
 					"C\u00F3digo", "Nome", "Pre\u00E7o", "Quantidade no estoque"
 				}
 			);
-		for(int i=0; i< listaProdutos.size(); i++) {
-			Produto p = listaProdutos.get(i);
-			modelo.addRow(new Object[] { p.getId(), p.getNome(), p.getPreco(), p.getQuantEstoque()});
+		for(int i=0; i< listaProduto.size(); i++) {
+			Produto p = listaProduto.get(i);
+			modelo.addRow(new Object[] { p.getId(), p.getNome(),"R$"+p.getPreco(), p.getQuantEstoque()});
 		}
 		
 		table.setModel(modelo);

@@ -28,7 +28,7 @@ public class UsuarioDao extends BD {
 			//
 			rs.next();
 			
-			int id = rs.getInt("id_usuario");
+			int id = rs.getInt("idUsuario");
 			String login = rs.getString("login");
 			String nome = rs.getString("nome");
 			String senha = rs.getString("senha");

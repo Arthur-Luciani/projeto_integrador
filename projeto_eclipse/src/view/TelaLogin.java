@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -139,6 +140,18 @@ public class TelaLogin extends JFrame {
 		});
 		
 		JButton btnNewButton = new JButton("Cadastrar usuário");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario();
+					telaCadastroFuncionario.setVisible(true);
+					frame.dispose();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));

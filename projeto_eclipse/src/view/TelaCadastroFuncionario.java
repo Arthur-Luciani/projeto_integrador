@@ -217,6 +217,8 @@ public class TelaCadastroFuncionario extends JFrame {
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
+							TelaMensagem m = new TelaMensagem("Não foi possível cadastrar o usuário");
+							m.setVisible(true);
 						}
 
 					}
@@ -231,6 +233,20 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnCadastrar.setForeground(new Color(255, 255, 255));
 		btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnCadastrar.setBackground(new Color(85, 107, 47));
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaLogin telaLogin = new TelaLogin();
+				telaLogin.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnVoltar.setBackground(new Color(85, 107, 47));
+		btnVoltar.setBounds(65, 367, 134, 37);
+		panel_1.add(btnVoltar);
 
 	}
 }

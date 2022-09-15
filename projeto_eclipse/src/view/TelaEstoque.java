@@ -75,6 +75,15 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(btnProdutos);
 		
 		JButton btnVenda = new JButton("Venda");
+		btnVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroVenda telaVenda = new TelaCadastroVenda();
+				
+				telaVenda.setVisible(true);
+				
+				dispose();
+			}
+		});
 		btnVenda.setForeground(Color.WHITE);
 		btnVenda.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVenda.setBackground(new Color(85, 107, 47));

@@ -26,7 +26,7 @@ import dao.ProdutoDao;
 import model.Produto;
 import net.miginfocom.swing.MigLayout;
 
-public class CadastroProduto extends JFrame {
+public class TelaCadastroProduto extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -43,7 +43,7 @@ public class CadastroProduto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroProduto frame = new CadastroProduto();
+					TelaCadastroProduto frame = new TelaCadastroProduto();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +56,7 @@ public class CadastroProduto extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public CadastroProduto() throws ParseException {
+	public TelaCadastroProduto() throws ParseException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();

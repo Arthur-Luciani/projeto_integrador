@@ -110,9 +110,9 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnNewButton = new JButton("Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroProduto cadastroProduto;
+				TelaCadastroProduto cadastroProduto;
 				try {
-					cadastroProduto = new CadastroProduto();
+					cadastroProduto = new TelaCadastroProduto();
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
@@ -134,9 +134,9 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnNewButton_2 = new JButton("Atualizar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroProduto cadastroProduto;
+				TelaCadastroProduto cadastroProduto;
 				try {
-					cadastroProduto = new CadastroProduto();
+					cadastroProduto = new TelaCadastroProduto();
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();

@@ -24,9 +24,9 @@ public class ProdutoDao extends BD{
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				int id = rs.getInt("id_produto");
+				int id = rs.getInt("codigoProduto");
 				String nome = rs.getString("nome");
-				float preco = rs.getFloat("preco");
+				float preco = rs.getFloat("precoProduto");
 				int quantEstoque = rs.getInt("quant_no_estoque");
 				
 				Produto produtoCadastrado = new Produto(null, 0, 0);

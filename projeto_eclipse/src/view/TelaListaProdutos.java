@@ -22,6 +22,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -29,7 +30,7 @@ public class TelaListaProdutos extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	ArrayList listaProdutos = new ArrayList();
+	ArrayList<Produto> listaProdutos = new ArrayList<>();
 	/**
 	 * Launch the application.
 	 */
@@ -40,10 +41,6 @@ public class TelaListaProdutos extends JFrame {
 					TelaListaProdutos frame = new TelaListaProdutos();
 					frame.setVisible(true);
 					
-					//ArrayList produtos = new ArrayList();
-					
-					ProdutoDao produto = new ProdutoDao();
-					listaProdutos = produto.resgatarProdutos();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,6 +57,14 @@ public class TelaListaProdutos extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		ProdutoDao produto;
+		try {
+			produto = new ProdutoDao();
+			listaProdutos = produto.resgatarProdutos();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(3, 0, 0, 0));
@@ -141,9 +146,9 @@ public class TelaListaProdutos extends JFrame {
 					"C\u00F3digo", "Nome", "Pre\u00E7o", "Quantidade no estoque"
 				}
 			);
-		for(int i=0; i< produtos.size(); i++) {
-			Produto p = produtos.get(i);
-			modelo.addRow(new Object[] { p.getNome(), p.getCpf() });
+		for(int i=0; i< listaProdutos.size(); i++) {
+			Produto p = listaProdutos.get(i);
+			modelo.addRow(new Object[] { p.getId(), p.getNome(), p.getPreco(), p.getQuantEstoque()});
 		}
 		
 		table.setModel(modelo);

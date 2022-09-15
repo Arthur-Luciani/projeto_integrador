@@ -31,7 +31,7 @@ public class TelaListaProdutos extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	ArrayList<Produto> listaProdutos = new ArrayList<>();
+	ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
 	/**
 	 * Launch the application.
 	 */

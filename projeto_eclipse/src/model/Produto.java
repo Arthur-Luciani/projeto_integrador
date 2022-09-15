@@ -2,7 +2,7 @@ package model;
 
 public class Produto {
 	
-	String nome;
+	String nome, nomeFornecedor;
 	float preco;
 	int id, quantEstoque;
 	
@@ -11,6 +11,25 @@ public class Produto {
 		this.nome = nome;
 		this.preco = preco;
 		this.quantEstoque = quantEstoque;
+	}
+	
+	public Produto(String nome, float preco, int id, int quantEstoque, String nomeFornecedor) {
+		super();
+		this.nome = nome;
+		this.preco = preco;
+		this.id = id;
+		this.quantEstoque = quantEstoque;
+		this.nomeFornecedor = nomeFornecedor;
+	}
+	
+	
+
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
 	}
 
 	public String getNome() {

@@ -14,8 +14,32 @@ public class ProdutoDao extends BD{
 		// TODO Auto-generated constructor stub
 	}
 	
-		ArrayList listaProduto = new ArrayList();
+	public void cadastroProduto(Produto produto) {
+		
+		try {
+			PreparedStatement ps = conexao
+					.prepareStatement("insert into Produto (codigoProduto, nome, precoProduto, quant_no_estoque, Fornecedor_nome)"
+							+ "values ( ? , ? , ? , ? , ? )");
+			ps.setInt(1, produto.getId());
+			ps.setString(2, produto.getNome());
+			ps.setFloat(3, produto.getPreco());
+			ps.setInt(4, produto.getQuantEstoque());
+			ps.setString(5, produto.getNomeFornecedor());
+			ps.execute();
+			
+			
+			
+			conexao.close();
+			
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		
+	}
 	
+	ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 	public ArrayList resgatarProdutos() {
 		try {
 			PreparedStatement ps = conexao

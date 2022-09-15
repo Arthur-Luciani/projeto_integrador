@@ -32,9 +32,8 @@ public class TelaCadastroProduto extends JFrame {
 	private JTextField txtNome;
 	private JTextField txtId;
 	private JTextField txtPreco;
-	Connection c;
-	PreparedStatement s;
-	ArrayList<Produto> listaCadastroProduto = new ArrayList<>();
+	private JTextField txtQuantidade;
+	private JTextField txtNomeFornecedor;
 
 	/**
 	 * Launch the application.
@@ -63,13 +62,7 @@ public class TelaCadastroProduto extends JFrame {
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-		ProdutoDao produto;
-		try {
-			produto = new ProdutoDao();
-			listaCadastroProduto = produto.resgatarProdutos(); //** método resgatar é o select, precisa fazer método de insert e colocar no lugar
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+	
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(5, 0, 0, 0));
@@ -113,7 +106,7 @@ public class TelaCadastroProduto extends JFrame {
 		panel_3.setBackground(new Color(240, 255, 240));
 		panel_3.setForeground(new Color(240, 255, 240));
 		contentPane.add(panel_3);
-		panel_3.setLayout(new MigLayout("", "[][][][][grow]", "[][]"));
+		panel_3.setLayout(new MigLayout("", "[][][][][grow]", "[][][][]"));
 		
 		JLabel lblPreco = new JLabel("Preço:");
 		lblPreco.setFont(new Font("Segoe Print", Font.PLAIN, 16));
@@ -122,6 +115,22 @@ public class TelaCadastroProduto extends JFrame {
 		txtPreco = new JTextField();
 		panel_3.add(txtPreco, "cell 4 1,growx");
 		txtPreco.setColumns(10);
+		
+		txtNomeFornecedor = new JTextField();
+		txtNomeFornecedor.setColumns(10);
+		panel_3.add(txtNomeFornecedor, "cell 4 2,growx");
+		
+		JLabel lblQuantidade = new JLabel("Quantidade:");
+		lblQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_3.add(lblQuantidade, "flowy,cell 2 3");
+		
+		txtQuantidade = new JTextField();
+		txtQuantidade.setColumns(10);
+		panel_3.add(txtQuantidade, "cell 4 3,growx");
+		
+		JLabel lblNomeDoFornecedor = new JLabel("Nome do fornecedor");
+		lblNomeDoFornecedor.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_3.add(lblNomeDoFornecedor, "cell 2 3");
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(new Color(240, 255, 240));
@@ -147,37 +156,56 @@ public class TelaCadastroProduto extends JFrame {
 		JButton btnNewButton = new JButton("Atualizar/Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nome = txtNome.getText();
-				String id = txtId.getText();
-				String preco = txtPreco.getText();
 				
-				int idInt = Integer.parseInt(id);
-				float precoFloat = Float.parseFloat(preco);
-				
-				if (nome.isEmpty() || id.isEmpty() || preco.isEmpty()) {
-					if (nome.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Nome'");
+				if (txtNome.getText().isEmpty() || txtId.getText().isEmpty() || txtPreco.getText().isEmpty() || txtQuantidade.getText().isEmpty()) {
+					if (txtNome.getText().isEmpty()) {
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Nome'");
+						m.setVisible(true);
 					}
-					if(id.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Código'");
-					}if(preco.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nenhuma informação preenchida para 'Nome'");
+					if(txtId.getText().isEmpty()) {
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Código'");
+						m.setVisible(true);
+					}if(txtPreco.getText().isEmpty()) {
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Preço'");
+						m.setVisible(true);
+					}if (txtQuantidade.getText().isEmpty()) {
+						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Quantidade'");
+						m.setVisible(true);
 					}
-				}else {
-					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+				} else if (txtNome.getText().isEmpty() && txtId.getText().isEmpty() && txtPreco.getText().isEmpty()) {
+					TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida");
+					m.setVisible(true);
+				} else {
 					
-					telaListaProdutos.setVisible(true);
+					String nome = txtNome.getText();
+					int id = Integer.parseInt(txtId.getText());
+					float preco = Float.parseFloat(txtPreco.getText());
+					int quantidade = Integer.parseInt(txtQuantidade.getText());
+					String forncecedorNome = txtNomeFornecedor.getText();
+					
+					
+					Produto novoProduto = new Produto(nome, preco, id, quantidade, forncecedorNome);
+					ProdutoDao dao;
+					try {
+						dao = new ProdutoDao();
+						dao.cadastroProduto(novoProduto);
+						
+						
+						
+						
+						TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+						telaListaProdutos.setVisible(true);
+						dispose();
+						
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						
+						
+					}
+					
 				}
-				Produto p = new Produto(nome, precoFloat, idInt);
-				p.setId(idInt);
-				p.setNome(nome);
-				p.setPreco(precoFloat);
 				
-				TelaListaProdutos telaProdutos = new TelaListaProdutos();
-				
-				telaProdutos.atualizarJTable();
-				
-				dispose();
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 255, 255));

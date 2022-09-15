@@ -1,32 +1,40 @@
 package view;
-import java.sql.*;
-
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
-
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.Color;
-import net.miginfocom.swing.MigLayout;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+
+import dao.ProdutoDao;
+import model.Produto;
+import net.miginfocom.swing.MigLayout;
 
 public class CadastroProduto extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtId;
+	private JTextField txtPreco;
 	Connection c;
 	PreparedStatement s;
+	ArrayList<Produto> listaCadastroProduto = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -46,13 +54,22 @@ public class CadastroProduto extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public CadastroProduto() {
+	public CadastroProduto() throws ParseException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		ProdutoDao produto;
+		try {
+			produto = new ProdutoDao();
+			listaCadastroProduto = produto.resgatarProdutos(); //** método resgatar é o select, precisa fazer método de insert e colocar no lugar
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(5, 0, 0, 0));
@@ -102,7 +119,7 @@ public class CadastroProduto extends JFrame {
 		lblPreco.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_3.add(lblPreco, "cell 2 1");
 		
-		JTextField txtPreco = new JTextField();
+		txtPreco = new JTextField();
 		panel_3.add(txtPreco, "cell 4 1,growx");
 		txtPreco.setColumns(10);
 		
@@ -118,6 +135,8 @@ public class CadastroProduto extends JFrame {
 				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
 				
 				telaListaProdutos.setVisible(true);
+				
+				dispose();
 			}
 		});
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
@@ -148,9 +167,17 @@ public class CadastroProduto extends JFrame {
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
 					
 					telaListaProdutos.setVisible(true);
-					
-					
 				}
+				Produto p = new Produto(nome, precoFloat, idInt);
+				p.setId(idInt);
+				p.setNome(nome);
+				p.setPreco(precoFloat);
+				
+				TelaListaProdutos telaProdutos = new TelaListaProdutos();
+				
+				telaProdutos.atualizarJTable();
+				
+				dispose();
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 255, 255));
@@ -158,5 +185,4 @@ public class CadastroProduto extends JFrame {
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_4.add(btnNewButton, "cell 24 1");
 	}
-
 }

@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -109,9 +110,14 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnNewButton = new JButton("Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroProduto cadastroProduto = new CadastroProduto();
-				
-				cadastroProduto.setVisible(true);
+				CadastroProduto cadastroProduto;
+				try {
+					cadastroProduto = new CadastroProduto();
+					cadastroProduto.setVisible(true);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				dispose();
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 255, 255));
@@ -128,9 +134,14 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnNewButton_2 = new JButton("Atualizar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroProduto cadastroProduto = new CadastroProduto();
-				
-				cadastroProduto.setVisible(true);
+				CadastroProduto cadastroProduto;
+				try {
+					cadastroProduto = new CadastroProduto();
+					cadastroProduto.setVisible(true);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				dispose();
 			}
 		});
 		btnNewButton_2.setForeground(new Color(255, 255, 255));

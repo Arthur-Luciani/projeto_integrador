@@ -196,7 +196,6 @@ public class TelaCadastroFuncionario extends JFrame {
 				}else {
 					telalogin.setVisible(true);
 				}
-				/*- Falta data de nascimento */
 
 				frame.dispose();
 			}

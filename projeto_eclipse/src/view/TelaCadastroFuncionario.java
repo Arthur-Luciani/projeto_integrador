@@ -30,6 +30,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class TelaCadastroFuncionario extends JFrame {
 
@@ -133,6 +135,13 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_1.add(lblLogin);
 
 		txtLogin = new JTextField();
+		txtLogin.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtLogin.setForeground(Color.DARK_GRAY);
+				
+			}
+		});
 		txtLogin.setBounds(320, 197, 263, 35);
 		txtLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtLogin.setColumns(10);
@@ -210,10 +219,17 @@ public class TelaCadastroFuncionario extends JFrame {
 						Usuario novoUsuario = new Usuario(login, nome, senha, dataNascimento, cpf);
 						try {
 							UsuarioDao dao = new UsuarioDao();
-							dao.cadastro(novoUsuario);
-							TelaLogin telalogin = new TelaLogin();
-							telalogin.setVisible(true);
-							dispose();
+							if (dao.cadastro(novoUsuario)== true) {
+								TelaLogin telalogin = new TelaLogin();
+								telalogin.setVisible(true);
+								dispose();
+							} else {
+								TelaMensagem m = new TelaMensagem("Login já utilizado");
+								m.setVisible(true);
+								txtLogin.setForeground(new Color(255, 0, 0));
+							}
+							
+							
 							
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block

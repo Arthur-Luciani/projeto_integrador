@@ -16,25 +16,31 @@ public class UsuarioDao extends BD {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void cadastro(Usuario novoUsuario) {
+	public boolean cadastro(Usuario novoUsuario) {
 		try {
 			PreparedStatement ps = conexao
-					.prepareStatement("insert into Usuarios (login, nome, senha, data_de_nascUsuario, cpfUsuario, idade)"
-							+ "values ( ? , ? , ? , ? , ? , ? )");
+					.prepareStatement("select login from Usuarios where login like ? ");
 			ps.setString(1, novoUsuario.getLogin());
-			ps.setString(2, novoUsuario.getNome());
-			ps.setString(3, novoUsuario.getSenha());
-			ps.setDate(4, Date.valueOf(novoUsuario.getDataNascimento()));
-			ps.setString(5, novoUsuario.getCpfUsuario());
-			ps.setInt(6, novoUsuario.getIdade());
-			ps.execute();
-			conexao.close();
+			ResultSet rs = ps.executeQuery();
 			
-			
+			if (rs.next() != true) {
+				ps = conexao
+						.prepareStatement("insert into Usuarios (login, nome, senha, data_de_nascUsuario, cpfUsuario, idade)"
+								+ "values ( ? , ? , ? , ? , ? , ? )");
+				ps.setString(1, novoUsuario.getLogin());
+				ps.setString(2, novoUsuario.getNome());
+				ps.setString(3, novoUsuario.getSenha());
+				ps.setDate(4, Date.valueOf(novoUsuario.getDataNascimento()));
+				ps.setString(5, novoUsuario.getCpfUsuario());
+				ps.setInt(6, novoUsuario.getIdade());
+				ps.execute();
+				conexao.close();
+				return true;
+			} 			
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}
-		
+		return false;
 	}
 	
 	

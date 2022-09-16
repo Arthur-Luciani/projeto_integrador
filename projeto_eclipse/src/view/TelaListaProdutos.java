@@ -72,18 +72,6 @@ public class TelaListaProdutos extends JFrame {
 				
 				
 			}
-			/*@Override
-			public void windowActivated(WindowEvent e) {
-				ProdutoDao dao;
-				try {
-					dao = new ProdutoDao();
-					listaProduto = dao.resgatarProdutos();
-					atualizarJTable();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}*/
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);

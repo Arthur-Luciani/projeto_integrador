@@ -139,7 +139,6 @@ public class TelaCadastroFuncionario extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				txtLogin.setForeground(Color.DARK_GRAY);
-				
 			}
 		});
 		txtLogin.setBounds(320, 197, 263, 35);

@@ -229,7 +229,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				} catch (DateTimeException e2) {
 					txtDataNascimento.setBorder(bordaVermelha);
 				}
-				
+
 				if (nome.isEmpty() || login.isEmpty() || senha.isEmpty() || confSenha.isEmpty() || dataNascimentoStr.equals("  /  /    ") || senha.equals(confSenha)!=true || ValidaCPF.isCPF(cpf)!=true) {
 					if (nome.isEmpty()) {
 						txtNome.setBorder(bordaVermelha);
@@ -260,7 +260,7 @@ public class TelaCadastroFuncionario extends JFrame {
 							telalogin.setVisible(true);
 							dispose();
 						} else {
-							TelaMensagem m = new TelaMensagem("Login já utilizado");
+							TelaMensagem m = new TelaMensagem("Login jï¿½ utilizado");
 							m.setVisible(true);
 							txtLogin.setForeground(new Color(255, 0, 0));
 						}		

@@ -77,7 +77,7 @@ public class TelaLogin extends JFrame {
 		panel_1.setLayout(null);
 
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setBounds(150, 64, 44, 30);
+		lblLogin.setBounds(150, 64, 81, 30);
 		lblLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblLogin);
 
@@ -89,14 +89,14 @@ public class TelaLogin extends JFrame {
 		txtLogin.setColumns(10);
 
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(150, 133, 48, 30);
+		lblSenha.setBounds(150, 133, 81, 30);
 		lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblSenha);
 		
 		txtPassSenha = new JPasswordField();
 		txtPassSenha.setBounds(233, 134, 217, 33);
 		panel_1.add(txtPassSenha);
-		txtPassSenha.setEchoChar('*');
+		
 		
 
 		JPanel panel_2 = new JPanel();
@@ -112,7 +112,7 @@ public class TelaLogin extends JFrame {
 
 				Usuario usuario = null; 
 
-				if (!login.isEmpty() && !senha.isEmpty()) {					
+				if (!login.isEmpty() && !senha.isEmpty()) {				
 					UsuarioDao usuarioDao;
 					try {
 						usuarioDao = new UsuarioDao();

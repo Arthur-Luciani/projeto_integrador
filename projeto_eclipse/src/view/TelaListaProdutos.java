@@ -55,8 +55,6 @@ public class TelaListaProdutos extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaListaProdutos() {
-		
-		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -69,8 +67,6 @@ public class TelaListaProdutos extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,7 +120,7 @@ public class TelaListaProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProduto cadastroProduto;
 				try {
-					cadastroProduto = new TelaCadastroProduto();
+					cadastroProduto = new TelaCadastroProduto(true);
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
@@ -148,7 +144,7 @@ public class TelaListaProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProduto cadastroProduto;
 				try {
-					cadastroProduto = new TelaCadastroProduto();
+					cadastroProduto = new TelaCadastroProduto(false);
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();

@@ -35,27 +35,12 @@ public class TelaCadastroProduto extends JFrame {
 	private JTextField txtQuantidade;
 	private JTextField txtNomeFornecedor;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroProduto frame = new TelaCadastroProduto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroProduto() throws ParseException {
+	public TelaCadastroProduto(Boolean atualizarCadastrar) throws ParseException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -71,10 +56,19 @@ public class TelaCadastroProduto extends JFrame {
 		panel_1.setBackground(new Color(85, 107, 47));
 		contentPane.add(panel_1);
 		
-		JLabel lblNewLabel = new JLabel("Atualizar/Adicionar");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Segoe Print", Font.PLAIN, 50));
-		panel_1.add(lblNewLabel);
+		if (atualizarCadastrar == true) {
+			JLabel lbAtualizaCadastrar = new JLabel("Adicionar");
+			lbAtualizaCadastrar.setForeground(new Color(255, 255, 255));
+			lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
+			panel_1.add(lbAtualizaCadastrar);
+		}	else {
+			JLabel lbAtualizaCadastrar = new JLabel("Atualizar");
+			lbAtualizaCadastrar.setForeground(new Color(255, 255, 255));
+			lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
+			panel_1.add(lbAtualizaCadastrar);
+		}
+		
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(240, 255, 240));
@@ -142,6 +136,7 @@ public class TelaCadastroProduto extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+				
 				telaListaProdutos.setVisible(true);
 				dispose();
 			}
@@ -151,8 +146,13 @@ public class TelaCadastroProduto extends JFrame {
 		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_4.add(btnNewButton_1, "cell 3 1");
 		
-		JButton btnNewButton = new JButton("Atualizar/Adicionar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAtualizarCadastrar;
+		if (atualizarCadastrar == true) {
+			btnAtualizarCadastrar = new JButton("Adicionar");
+		} else {
+			btnAtualizarCadastrar = new JButton("Atualizar");
+		}
+		btnAtualizarCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (txtNome.getText().isEmpty() || txtId.getText().isEmpty() || txtPreco.getText().isEmpty() || txtQuantidade.getText().isEmpty()) {
@@ -193,18 +193,16 @@ public class TelaCadastroProduto extends JFrame {
 						dispose();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						
-						
+						e1.printStackTrace();	
 					}
 					
 				}
 				
 			}
 		});
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(85, 107, 47));
-		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_4.add(btnNewButton, "cell 24 1");
+		btnAtualizarCadastrar.setForeground(new Color(255, 255, 255));
+		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
+		btnAtualizarCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_4.add(btnAtualizarCadastrar, "cell 24 1");
 	}
 }

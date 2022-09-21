@@ -84,9 +84,7 @@ public class TelaEstoque extends JFrame {
 		btnVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroVenda telaVenda = new TelaCadastroVenda();
-				
 				telaVenda.setVisible(true);
-				
 				dispose();
 			}
 		});

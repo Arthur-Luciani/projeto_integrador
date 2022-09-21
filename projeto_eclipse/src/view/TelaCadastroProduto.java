@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -18,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -25,128 +28,197 @@ import javax.swing.text.MaskFormatter;
 import dao.ProdutoDao;
 import model.Produto;
 import net.miginfocom.swing.MigLayout;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.JComboBox;
 
 public class TelaCadastroProduto extends JFrame {
 
 	private JPanel contentPane;
+	
+	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
+	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
 	private JTextField txtNome;
-	private JTextField txtId;
 	private JTextField txtPreco;
 	private JTextField txtQuantidade;
-	private JTextField txtNomeFornecedor;
+	
+	ArrayList<String> listaFornecedor;
+	
 
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroProduto(Boolean atualizarCadastrar) throws ParseException {
+	public TelaCadastroProduto(Boolean atualizarCadastrar, ArrayList<String> listaFornecedor) throws ParseException {
+		this.listaFornecedor = listaFornecedor;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
-	
-
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(5, 0, 0, 0));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(85, 107, 47));
-		contentPane.add(panel_1);
+		JPanel Botoes = new JPanel();
+		contentPane.add(Botoes, BorderLayout.SOUTH);
+		Botoes.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		if (atualizarCadastrar == true) {
-			JLabel lbAtualizaCadastrar = new JLabel("Adicionar");
-			lbAtualizaCadastrar.setForeground(new Color(255, 255, 255));
-			lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
-			panel_1.add(lbAtualizaCadastrar);
-		}	else {
-			JLabel lbAtualizaCadastrar = new JLabel("Atualizar");
-			lbAtualizaCadastrar.setForeground(new Color(255, 255, 255));
-			lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
-			panel_1.add(lbAtualizaCadastrar);
-		}
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(240, 255, 240));
+		Botoes.add(panel_6);
+		panel_6.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
-		
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(240, 255, 240));
-		contentPane.add(panel);
-		panel.setLayout(new MigLayout("", "[][][][][grow]", "[][]"));
-		
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel.add(lblNome, "cell 2 1");
-		
-		txtNome = new JTextField();
-		panel.add(txtNome, "cell 4 1,growx");
-		txtNome.setColumns(10);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(240, 255, 240));
-		contentPane.add(panel_2);
-		panel_2.setLayout(new MigLayout("", "[][][][][grow]", "[][]"));
-		
-		JLabel lblId = new JLabel("Código:");
-		lblId.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_2.add(lblId, "cell 2 1");
-		
-		txtId = new JTextField();
-		panel_2.add(txtId, "cell 4 1,growx");
-		txtId.setColumns(10);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(240, 255, 240));
-		panel_3.setForeground(new Color(240, 255, 240));
-		contentPane.add(panel_3);
-		panel_3.setLayout(new MigLayout("", "[][][][][grow]", "[][][][]"));
-		
-		JLabel lblPreco = new JLabel("Preço:");
-		lblPreco.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_3.add(lblPreco, "cell 2 1");
-		
-		txtPreco = new JTextField();
-		panel_3.add(txtPreco, "cell 4 1,growx");
-		txtPreco.setColumns(10);
-		
-		txtNomeFornecedor = new JTextField();
-		txtNomeFornecedor.setColumns(10);
-		panel_3.add(txtNomeFornecedor, "cell 4 2,growx");
-		
-		JLabel lblQuantidade = new JLabel("Quantidade:");
-		lblQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_3.add(lblQuantidade, "flowy,cell 2 3");
-		
-		txtQuantidade = new JTextField();
-		txtQuantidade.setColumns(10);
-		panel_3.add(txtQuantidade, "cell 4 3,growx");
-		
-		JLabel lblNomeDoFornecedor = new JLabel("Nome do fornecedor");
-		lblNomeDoFornecedor.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_3.add(lblNomeDoFornecedor, "cell 2 3");
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(240, 255, 240));
-		panel_4.setForeground(new Color(240, 255, 240));
-		contentPane.add(panel_4);
-		panel_4.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][][][][][][][][][][][][]", "[][]"));
-		
-		JButton btnNewButton_1 = new JButton("Voltar");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
-				
 				telaListaProdutos.setVisible(true);
 				dispose();
 			}
 		});
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setBackground(new Color(85, 107, 47));
-		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_4.add(btnNewButton_1, "cell 3 1");
+		panel_6.add(btnVoltar);
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnVoltar.setBackground(new Color(85, 107, 47));
 		
-		JButton btnAtualizarCadastrar;
+		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(new Color(240, 255, 240));
+		Botoes.add(panel_7);
+		panel_7.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		
+		
+		JPanel Titulo = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) Titulo.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.TRAILING);
+		Titulo.setBackground(new Color(85, 107, 47));
+		contentPane.add(Titulo, BorderLayout.NORTH);
+		
+		JLabel lbAtualizaCadastrar = new JLabel("Teste");
+		if (atualizarCadastrar == true) {
+			lbAtualizaCadastrar = new JLabel("Adicionar");
+			
+		}	else {
+			lbAtualizaCadastrar = new JLabel("Atualizar");
+
+		}
+		lbAtualizaCadastrar.setForeground(Color.WHITE);
+		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
+		Titulo.add(lbAtualizaCadastrar);
+		
+		JPanel Lbls = new JPanel();
+		contentPane.add(Lbls, BorderLayout.WEST);
+		Lbls.setLayout(new GridLayout(4, 2, 0, 0));
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(240, 255, 240));
+		Lbls.add(panel_3);
+		
+		JPanel panel_9 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_9.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		panel_9.setBackground(new Color(240, 255, 240));
+		Lbls.add(panel_9);
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_9.add(lblNome);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(240, 255, 240));
+		Lbls.add(panel_2);
+		
+		JPanel panel_11 = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) panel_11.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.RIGHT);
+		panel_11.setBackground(new Color(240, 255, 240));
+		Lbls.add(panel_11);
+		
+		JLabel lblNomeDoFornecedor = new JLabel("Nome do fornecedor:");
+		lblNomeDoFornecedor.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_11.add(lblNomeDoFornecedor);
+		
+		JPanel panel_15 = new JPanel();
+		panel_15.setBackground(new Color(240, 255, 240));
+		Lbls.add(panel_15);
+		
+		JPanel panel_12 = new JPanel();
+		FlowLayout flowLayout_3 = (FlowLayout) panel_12.getLayout();
+		flowLayout_3.setAlignment(FlowLayout.LEFT);
+		panel_12.setBackground(new Color(240, 255, 240));
+		Lbls.add(panel_12);
+		
+		JLabel lblQuantidade = new JLabel("Quantidade:");
+		lblQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_12.add(lblQuantidade);
+		
+		JPanel panel_16 = new JPanel();
+		panel_16.setBackground(new Color(240, 255, 240));
+		Lbls.add(panel_16);
+		
+		JPanel panel_13 = new JPanel();
+		FlowLayout flowLayout_4 = (FlowLayout) panel_13.getLayout();
+		flowLayout_4.setAlignment(FlowLayout.LEFT);
+		panel_13.setBackground(new Color(240, 255, 240));
+		Lbls.add(panel_13);
+		
+		JLabel lblPreco = new JLabel("Pre\u00C3\u00A7o:");
+		lblPreco.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_13.add(lblPreco);
+		
+		JPanel Txts = new JPanel();
+		contentPane.add(Txts, BorderLayout.CENTER);
+		Txts.setLayout(new GridLayout(4, 0, 0, 0));
+		
+		JPanel panel = new JPanel();
+		FlowLayout flowLayout_8 = (FlowLayout) panel.getLayout();
+		flowLayout_8.setAlignment(FlowLayout.LEFT);
+		panel.setBackground(new Color(240, 255, 240));
+		Txts.add(panel);
+		
+		txtNome = new JTextField();
+		txtNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtNome.setColumns(20);
+		panel.add(txtNome);
+		
+		JPanel panel_5 = new JPanel();
+		FlowLayout flowLayout_6 = (FlowLayout) panel_5.getLayout();
+		flowLayout_6.setAlignment(FlowLayout.LEFT);
+		panel_5.setBackground(new Color(240, 255, 240));
+		Txts.add(panel_5);
+		
+		JComboBox cbFornecedores = new JComboBox();
+		cbFornecedores.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		cbFornecedores.setModel(new DefaultComboBoxModel<String>(listaFornecedor.toArray(new String[0])));
+		panel_5.add(cbFornecedores);
+		
+		
+		
+		
+		JPanel panel_8 = new JPanel();
+		FlowLayout flowLayout_7 = (FlowLayout) panel_8.getLayout();
+		flowLayout_7.setAlignment(FlowLayout.LEFT);
+		panel_8.setBackground(new Color(240, 255, 240));
+		Txts.add(panel_8);
+		
+		txtQuantidade = new JTextField();
+		txtQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtQuantidade.setColumns(20);
+		panel_8.add(txtQuantidade);
+		
+		JPanel panel_14 = new JPanel();
+		FlowLayout flowLayout_5 = (FlowLayout) panel_14.getLayout();
+		flowLayout_5.setAlignment(FlowLayout.LEFT);
+		panel_14.setBackground(new Color(240, 255, 240));
+		Txts.add(panel_14);
+		
+		txtPreco = new JFormattedTextField(new MaskFormatter("R$ ##,##"));
+		txtPreco.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtPreco.setColumns(20);
+		panel_14.add(txtPreco);
+		
+		JButton btnAtualizarCadastrar = new JButton();
 		if (atualizarCadastrar == true) {
 			btnAtualizarCadastrar = new JButton("Adicionar");
 		} else {
@@ -154,55 +226,51 @@ public class TelaCadastroProduto extends JFrame {
 		}
 		btnAtualizarCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String preco = txtPreco.getText().replace("R$ ", "");
+				String nome = txtNome.getText();
+				String nomeFornecedor = cbFornecedores.getSelectedItem().toString();
+				int quantidade = Integer.parseInt(txtQuantidade.getText());
+				float precoFloat = Float.parseFloat(preco.replace(",", "."));
 				
-				if (txtNome.getText().isEmpty() || txtId.getText().isEmpty() || txtPreco.getText().isEmpty() || txtQuantidade.getText().isEmpty()) {
-					if (txtNome.getText().isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Nome'");
-						m.setVisible(true);
+				if (nome.isEmpty() || nomeFornecedor.isEmpty() || txtQuantidade.getText().isEmpty() || txtPreco.getText().equals("R$   ,  ") ) {
+					if (nome.isEmpty()) {
+						txtNome.setBorder(bordaVermelha);
 					}
-					if(txtId.getText().isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Código'");
-						m.setVisible(true);
-					}if(txtPreco.getText().isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Preço'");
-						m.setVisible(true);
-					}if (txtQuantidade.getText().isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Quantidade'");
-						m.setVisible(true);
+					if (nomeFornecedor.isEmpty()) {
+						cbFornecedores.setBorder(bordaVermelha);
 					}
-				} else if (txtNome.getText().isEmpty() && txtId.getText().isEmpty() && txtPreco.getText().isEmpty()) {
-					TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida");
-					m.setVisible(true);
+					if (txtQuantidade.getText().isEmpty()) {
+						txtQuantidade.setBorder(bordaVermelha);
+					}
+					if (txtPreco.getText().equals("R$   ,  ")) {
+						txtPreco.setBorder(bordaVermelha);
+					}
 				} else {
-					
-					String nome = txtNome.getText();
-					int id = Integer.parseInt(txtId.getText());
-					float preco = Float.parseFloat(txtPreco.getText());
-					int quantidade = Integer.parseInt(txtQuantidade.getText());
-					String forncecedorNome = txtNomeFornecedor.getText();
-					
-					
-					Produto novoProduto = new Produto(nome, preco, id, quantidade, forncecedorNome);
-					ProdutoDao dao;
+					Produto produto = new Produto(nome, precoFloat, quantidade, nomeFornecedor);
 					try {
-						dao = new ProdutoDao();
-						dao.cadastroProduto(novoProduto);
+						ProdutoDao dao = new ProdutoDao();
 						
-						TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
-						telaListaProdutos.setVisible(true);
-						dispose();
+						if (atualizarCadastrar==true) {
+							dao.cadastroProduto(produto);
+						}
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();	
+						e1.printStackTrace();
 					}
+					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+					telaListaProdutos.setVisible(true);
+					dispose();
+					
 					
 				}
 				
+				
 			}
 		});
-		btnAtualizarCadastrar.setForeground(new Color(255, 255, 255));
-		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
+		
+		panel_7.add(btnAtualizarCadastrar);
+		btnAtualizarCadastrar.setForeground(Color.WHITE);
 		btnAtualizarCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_4.add(btnAtualizarCadastrar, "cell 24 1");
+		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
 	}
 }

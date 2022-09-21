@@ -17,11 +17,10 @@ public class Produto {
 		this.quantEstoque = quantEstoque;
 	}
 	
-	public Produto(String nome, float preco, int id, int quantEstoque, String nomeFornecedor) {
+	public Produto(String nome, float preco, int quantEstoque, String nomeFornecedor) {
 		super();
 		this.nome = nome;
 		this.preco = preco;
-		this.id = id;
 		this.quantEstoque = quantEstoque;
 		this.nomeFornecedor = nomeFornecedor;
 	}

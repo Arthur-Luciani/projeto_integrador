@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dao.FornecedorDao;
 import dao.ProdutoDao;
 import model.Produto;
 
@@ -34,22 +35,7 @@ public class TelaListaProdutos extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaListaProdutos frame = new TelaListaProdutos();
-					frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -120,9 +106,15 @@ public class TelaListaProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProduto cadastroProduto;
 				try {
-					cadastroProduto = new TelaCadastroProduto(true);
+					FornecedorDao dao = new FornecedorDao();
+					ArrayList<String> listaFornecedores= dao.nomeFornecedores();
+					
+					cadastroProduto = new TelaCadastroProduto(true, listaFornecedores);
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				dispose();
@@ -142,13 +134,13 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnNewButton_2 = new JButton("Atualizar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroProduto cadastroProduto;
+				/*TelaCadastroProduto cadastroProduto;
 				try {
-					cadastroProduto = new TelaCadastroProduto(false);
-					cadastroProduto.setVisible(true);
+					//cadastroProduto = new TelaCadastroProduto(false);
+					//cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
-				}
+				}*/
 				dispose();
 			}
 		});

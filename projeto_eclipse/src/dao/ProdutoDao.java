@@ -53,13 +53,37 @@ public class ProdutoDao extends BD{
 					listaProduto.add(produto);
 				} while (rs.next());
 			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(listaProduto);
 		return listaProduto;
 	}
 	
+	public void atualizarProduto(Produto produto) {
+		try {
+			PreparedStatement ps = conexao
+					.prepareStatement("update Produto set nome=?, precoProduto=?, quant_no_estoque=?, Fornecedor_nome=? where codigoProduto=?");
+			
+			ps.setString(1, produto.getNome());
+			ps.setFloat(2, produto.getPreco());
+			ps.setInt(3, produto.getQuantEstoque());
+			ps.setString(4, produto.getNomeFornecedor());
+			ps.setInt(5, produto.getId());
+			ps.executeUpdate();
+			conexao.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+	}
+	public void deletarProduto(int id) throws SQLException {
+		PreparedStatement ps = conexao
+				.prepareStatement("delete from Produto where codigoProduto=?");
+		ps.setInt(1, id);
+		ps.execute();
+		conexao.close();
+	}
 }
+	

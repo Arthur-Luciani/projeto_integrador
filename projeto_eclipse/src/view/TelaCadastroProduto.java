@@ -31,6 +31,8 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JComboBox;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class TelaCadastroProduto extends JFrame {
 
@@ -43,15 +45,16 @@ public class TelaCadastroProduto extends JFrame {
 	private JTextField txtQuantidade;
 	
 	ArrayList<String> listaFornecedor;
-	
+	Produto produtoSelecionado;
 
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroProduto(Boolean atualizarCadastrar, ArrayList<String> listaFornecedor) throws ParseException {
+	public TelaCadastroProduto(Boolean atualizarCadastrar, ArrayList<String> listaFornecedor, Produto produtoSelecionado) throws ParseException {
 		this.listaFornecedor = listaFornecedor;
+		this.produtoSelecionado =produtoSelecionado;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -178,6 +181,12 @@ public class TelaCadastroProduto extends JFrame {
 		Txts.add(panel);
 		
 		txtNome = new JTextField();
+		txtNome.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				txtNome.setBorder(bordaNormal);
+			}
+		});
 		txtNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtNome.setColumns(20);
 		panel.add(txtNome);
@@ -189,6 +198,12 @@ public class TelaCadastroProduto extends JFrame {
 		Txts.add(panel_5);
 		
 		JComboBox cbFornecedores = new JComboBox();
+		cbFornecedores.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				cbFornecedores.setBorder(bordaNormal);
+			}
+		});
 		cbFornecedores.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		cbFornecedores.setModel(new DefaultComboBoxModel<String>(listaFornecedor.toArray(new String[0])));
 		panel_5.add(cbFornecedores);
@@ -203,6 +218,12 @@ public class TelaCadastroProduto extends JFrame {
 		Txts.add(panel_8);
 		
 		txtQuantidade = new JTextField();
+		txtQuantidade.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				txtQuantidade.setBorder(bordaNormal);
+			}
+		});
 		txtQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtQuantidade.setColumns(20);
 		panel_8.add(txtQuantidade);
@@ -214,6 +235,12 @@ public class TelaCadastroProduto extends JFrame {
 		Txts.add(panel_14);
 		
 		txtPreco = new JFormattedTextField(new MaskFormatter("R$ ##,##"));
+		txtPreco.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				txtPreco.setBorder(bordaNormal);
+			}
+		});
 		txtPreco.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtPreco.setColumns(20);
 		panel_14.add(txtPreco);
@@ -226,32 +253,37 @@ public class TelaCadastroProduto extends JFrame {
 		}
 		btnAtualizarCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String preco = txtPreco.getText().replace("R$ ", "");
 				String nome = txtNome.getText();
 				String nomeFornecedor = cbFornecedores.getSelectedItem().toString();
-				int quantidade = Integer.parseInt(txtQuantidade.getText());
-				float precoFloat = Float.parseFloat(preco.replace(",", "."));
-				
-				if (nome.isEmpty() || nomeFornecedor.isEmpty() || txtQuantidade.getText().isEmpty() || txtPreco.getText().equals("R$   ,  ") ) {
+				int quantidade = 0;
+				float preco = 0;
+				try {
+					quantidade= Integer.parseInt(txtQuantidade.getText());
+					String precoStr = txtPreco.getText().replace("R$ ", "");
+					preco = Float.parseFloat(precoStr.replace(",", "."));
+				} catch (NumberFormatException e2) {
+					// TODO: handle exception
+					txtQuantidade.setBorder(bordaVermelha);
+				}				
+				if (nome.isEmpty() || nomeFornecedor.isEmpty() || txtPreco.getText().equals("R$   ,  ") ) {
 					if (nome.isEmpty()) {
 						txtNome.setBorder(bordaVermelha);
 					}
 					if (nomeFornecedor.isEmpty()) {
 						cbFornecedores.setBorder(bordaVermelha);
 					}
-					if (txtQuantidade.getText().isEmpty()) {
-						txtQuantidade.setBorder(bordaVermelha);
-					}
 					if (txtPreco.getText().equals("R$   ,  ")) {
 						txtPreco.setBorder(bordaVermelha);
 					}
 				} else {
-					Produto produto = new Produto(nome, precoFloat, quantidade, nomeFornecedor);
+					Produto produto = new Produto(nome, preco, quantidade, nomeFornecedor);
 					try {
 						ProdutoDao dao = new ProdutoDao();
-						
 						if (atualizarCadastrar==true) {
 							dao.cadastroProduto(produto);
+						} else {
+							produto.setId(produtoSelecionado.getId());
+							dao.atualizarProduto(produto);
 						}
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -260,17 +292,42 @@ public class TelaCadastroProduto extends JFrame {
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
 					telaListaProdutos.setVisible(true);
 					dispose();
-					
-					
 				}
-				
-				
 			}
 		});
-		
 		panel_7.add(btnAtualizarCadastrar);
 		btnAtualizarCadastrar.setForeground(Color.WHITE);
 		btnAtualizarCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
+		
+		
+		if (atualizarCadastrar==false) {
+			txtNome.setText(produtoSelecionado.getNome());
+			cbFornecedores.setSelectedItem(produtoSelecionado);
+			txtQuantidade.setText(String.valueOf(produtoSelecionado.getQuantEstoque()));
+			txtPreco.setText("R$ "+String.valueOf(produtoSelecionado.getPreco()).replace(".", ","));
+			
+			JButton btnExcluir = new JButton("Excluir");
+			btnExcluir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ProdutoDao dao;
+					try {
+						dao = new ProdutoDao();
+						dao.deletarProduto(produtoSelecionado.getId());
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+					telaListaProdutos.setVisible(true);
+					dispose();
+				}
+			});
+			btnExcluir.setForeground(Color.WHITE);
+			btnExcluir.setFont(new Font("Segoe Script", Font.PLAIN, 16));
+			btnExcluir.setBackground(new Color(85, 107, 47));
+			panel_7.add(btnExcluir);
+		}
+		
 	}
 }

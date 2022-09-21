@@ -29,13 +29,15 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaListaProdutos extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-	
+	private ArrayList<Produto> listaProduto = new ArrayList<Produto>();
+	private Produto produtoSelecionado;
 
 	/**
 	 * Create the frame.
@@ -83,6 +85,13 @@ public class TelaListaProdutos extends JFrame {
 		panel_2.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int posicaoProduto = table.getSelectedRow();
+				produtoSelecionado = listaProduto.get(posicaoProduto);
+			}
+		});
 		table.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(85, 107, 47)));
 		table.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		table.setBackground(new Color(240, 255, 240));
@@ -109,7 +118,7 @@ public class TelaListaProdutos extends JFrame {
 					FornecedorDao dao = new FornecedorDao();
 					ArrayList<String> listaFornecedores= dao.nomeFornecedores();
 					
-					cadastroProduto = new TelaCadastroProduto(true, listaFornecedores);
+					cadastroProduto = new TelaCadastroProduto(true, listaFornecedores, null);
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
@@ -134,13 +143,18 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnNewButton_2 = new JButton("Atualizar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*TelaCadastroProduto cadastroProduto;
+				TelaCadastroProduto cadastroProduto;
 				try {
-					//cadastroProduto = new TelaCadastroProduto(false);
-					//cadastroProduto.setVisible(true);
+					FornecedorDao dao = new FornecedorDao();
+					ArrayList<String> listaFornecedores = dao.nomeFornecedores();
+					cadastroProduto = new TelaCadastroProduto(false,listaFornecedores, produtoSelecionado);
+					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
-				}*/
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				dispose();
 			}
 		});

@@ -14,6 +14,7 @@ public class UsuarioDao {
 	private Connection conexao = BD.getConexao();
 
 	public UsuarioDao() {
+		
 	}
 
 	public boolean cadastro(Usuario novoUsuario) {

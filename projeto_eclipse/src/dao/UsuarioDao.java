@@ -1,31 +1,33 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-
 import model.Usuario;
 
-public class UsuarioDao extends BD {
+public class UsuarioDao {
 
-	public UsuarioDao() throws SQLException {
-		super();
-		// TODO Auto-generated constructor stub
+	private Connection conexao = BD.getConexao();
+
+	public UsuarioDao() {
 	}
-	
+
 	public boolean cadastro(Usuario novoUsuario) {
+
+		conexao = BD.getConexao();
+
 		try {
-			PreparedStatement ps = conexao
-					.prepareStatement("select login from Usuarios where login like ? ");
+			PreparedStatement ps = conexao.prepareStatement("select login from Usuarios where login like ? ");
 			ps.setString(1, novoUsuario.getLogin());
 			ResultSet rs = ps.executeQuery();
-			
+
 			if (rs.next() != true) {
-				ps = conexao
-						.prepareStatement("insert into Usuarios (login, nome, senha, data_de_nascUsuario, cpfUsuario, idade)"
+				ps = conexao.prepareStatement(
+						"insert into Usuarios (login, nome, senha, data_de_nascUsuario, cpfUsuario, idade)"
 								+ "values ( ? , ? , ? , ? , ? , ? )");
 				ps.setString(1, novoUsuario.getLogin());
 				ps.setString(2, novoUsuario.getNome());
@@ -36,14 +38,12 @@ public class UsuarioDao extends BD {
 				ps.execute();
 				conexao.close();
 				return true;
-			} 			
+			}
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 		return false;
 	}
-	
-	
 
 	public Usuario verificacao(Usuario usuario) {
 		try {
@@ -58,7 +58,7 @@ public class UsuarioDao extends BD {
 			Usuario usuarioLogado = new Usuario(); // pegar os dados da consulta
 
 			while (rs.next()) {
-				
+
 				String login = rs.getString("login");
 				String nome = rs.getString("nome");
 				String senha = rs.getString("senha");
@@ -67,7 +67,7 @@ public class UsuarioDao extends BD {
 				LocalDate dataNascimento = rs.getDate("data_de_nascUsuario").toLocalDate();
 				String cpf = rs.getString("cpfUsuario");
 				int idade = rs.getInt("idade");
-				
+
 				usuarioLogado.setLogin(login);
 				usuarioLogado.setNome(nome);
 				usuarioLogado.setSenha(senha);
@@ -76,10 +76,10 @@ public class UsuarioDao extends BD {
 				usuarioLogado.setDataNascimento(dataNascimento);
 				usuarioLogado.setCpfUsuario(cpf);
 				usuarioLogado.setIdade(idade);
-				
+
 				return usuarioLogado;
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

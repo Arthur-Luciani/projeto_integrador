@@ -253,26 +253,17 @@ public class TelaCadastroFuncionario extends JFrame {
 					
 				} else {
 					Usuario novoUsuario = new Usuario(login, nome, senha, LocalDate.parse(dataNascimentoStr, formatacao), cpf);
-					try {
-						UsuarioDao dao = new UsuarioDao();
-						if (dao.cadastro(novoUsuario)== true) {
-							TelaLogin telalogin = new TelaLogin();
-							telalogin.setVisible(true);
-							dispose();
-						} else {
-							TelaMensagem m = new TelaMensagem("Login j� utilizado");
-							m.setVisible(true);
-							txtLogin.setForeground(new Color(255, 0, 0));
-						}		
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						TelaMensagem m = new TelaMensagem("Não foi possível cadastrar o usuário");
+					UsuarioDao dao = new UsuarioDao();
+					if (dao.cadastro(novoUsuario)== true) {
+						TelaLogin telalogin = new TelaLogin();
+						telalogin.setVisible(true);
+						dispose();
+					} else {
+						TelaMensagem m = new TelaMensagem("Login j� utilizado");
 						m.setVisible(true);
+						txtLogin.setForeground(new Color(255, 0, 0));
 					}
 				}
-
-				
 			}
 		});
 		panel_1.add(btnCadastrar);

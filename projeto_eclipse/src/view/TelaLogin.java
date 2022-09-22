@@ -93,12 +93,10 @@ public class TelaLogin extends JFrame {
 		lblSenha.setBounds(150, 133, 81, 30);
 		lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblSenha);
-		
+
 		txtPassSenha = new JPasswordField();
 		txtPassSenha.setBounds(233, 134, 217, 33);
 		panel_1.add(txtPassSenha);
-		
-		
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(240, 255, 240));
@@ -111,33 +109,27 @@ public class TelaLogin extends JFrame {
 				String login = txtLogin.getText();
 				String senha = txtPassSenha.getText();
 
-				Usuario usuario = null; 
+				Usuario usuario = null;
 
-				if (!login.isEmpty() && !senha.isEmpty()) {				
+				if (!login.isEmpty() && !senha.isEmpty()) {
 					UsuarioDao usuarioDao;
-					try {
-						usuarioDao = new UsuarioDao();
+					usuarioDao = new UsuarioDao();
 
-						usuario = usuarioDao.verificacao(new Usuario(login, senha));
+					usuario = usuarioDao.verificacao(new Usuario(login, senha));
 
-						if (usuario != null) {
-							TelaInicial telaInicial = new TelaInicial(usuario);
-							telaInicial.setVisible(true);
-							dispose();
-						} else {
-							TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
-							telaMensagem.setVisible(true); 
-						}
-
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if (usuario != null) {
+						TelaInicial telaInicial = new TelaInicial(usuario);
+						telaInicial.setVisible(true);
+						dispose();
+					} else {
+						TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
+						telaMensagem.setVisible(true);
 					}
 
 				}
 			}
 		});
-		
+
 		JButton btnNewButton = new JButton("Cadastrar usuário");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,7 +142,7 @@ public class TelaLogin extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 255, 255));

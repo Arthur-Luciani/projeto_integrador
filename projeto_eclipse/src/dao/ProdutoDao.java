@@ -86,19 +86,26 @@ public class ProdutoDao {
 		}
 	}
 
-	public void deletarProduto(int id) throws SQLException {
-		PreparedStatement ps = conexao.prepareStatement("update Produto set statusProduto=0 where codigoProduto=?");
-		ps.setInt(1, id);
-		ps.execute();
-		conexao.close();
+	public void deletarProduto(int id) {
+		PreparedStatement ps;
+		try {
+			ps = conexao.prepareStatement("update Produto set statusProduto=0 where codigoProduto=?");
+			ps.setInt(1, id);
+			ps.execute();
+			conexao.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
-	public ArrayList<AtualizacaoProduto> historicoPreco(Produto produtoSelecionado) {
-		ArrayList<AtualizacaoProduto> listaAtualizacoes = null;
+	public ArrayList<AtualizacaoProduto> historicoPreco(int id) {
+		ArrayList<AtualizacaoProduto> listaAtualizacoes = new ArrayList<AtualizacaoProduto>();
 		PreparedStatement ps;
 		try {
 			ps = conexao
-					.prepareStatement("select * from historico_produto where codigoProduto=? order by data desc");
-			ps.setInt(1, produtoSelecionado.getId());
+					.prepareStatement("select * from historico_produto where codigoProduto=? order by id desc");
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
 			

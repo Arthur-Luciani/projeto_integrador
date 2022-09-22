@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.FornecedorDao;
 import dao.ProdutoDao;
+import model.AtualizacaoProduto;
 import model.Produto;
 
 import java.awt.Font;
@@ -162,6 +163,28 @@ public class TelaListaProdutos extends JFrame {
 		pBotoesDireita.add(btnAdicionar);
 		
 		JButton btnHistorico = new JButton("Histórico de preços");
+		btnHistorico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(produtoSelecionado);
+				if (!produtoSelecionado.equals(null)) {
+					try {
+						ProdutoDao dao = new ProdutoDao();
+						ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
+						TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
+						telaHistoricoPrecos.atualizarJTable();
+						telaHistoricoPrecos.setVisible(true);
+						dispose();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					System.out.println(produtoSelecionado);
+				}
+				
+				
+			}
+		});
 		btnHistorico.setForeground(new Color(255, 255, 255));
 		btnHistorico.setBackground(new Color(85, 107, 47));
 		btnHistorico.setFont(new Font("Segoe Print", Font.PLAIN, 16));

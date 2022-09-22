@@ -16,6 +16,7 @@ import model.Produto;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -83,9 +84,15 @@ public class TelaEstoque extends JFrame {
 		JButton btnVenda = new JButton("Venda");
 		btnVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroVenda telaVenda = new TelaCadastroVenda();
-				telaVenda.setVisible(true);
-				dispose();
+				TelaCadastroVenda telaVenda;
+				try {
+					telaVenda = new TelaCadastroVenda();
+					telaVenda.setVisible(true);
+					dispose();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnVenda.setForeground(Color.WHITE);

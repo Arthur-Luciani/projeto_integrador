@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -14,11 +16,15 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import javax.swing.JSplitPane;
 import java.awt.FlowLayout;
+import javax.swing.JRadioButton;
 
 public class TelaCadastroVenda extends JFrame {
 
@@ -48,8 +54,9 @@ public class TelaCadastroVenda extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public TelaCadastroVenda() {
+	public TelaCadastroVenda() throws ParseException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -78,7 +85,7 @@ public class TelaCadastroVenda extends JFrame {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_14);
 		
-		txtData = new JTextField();
+		txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		panel_14.add(txtData);
 		txtData.setColumns(50);
 		
@@ -101,23 +108,30 @@ public class TelaCadastroVenda extends JFrame {
 		panel_20.add(txtVendedor);
 		txtVendedor.setColumns(50);
 		
+		JPanel panel_7 = new JPanel();
+		panel_1.add(panel_7);
+		
 		JPanel panel_23 = new JPanel();
-		FlowLayout flowLayout_3 = (FlowLayout) panel_23.getLayout();
-		flowLayout_3.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_23);
+		panel_23.setLayout(new MigLayout("", "[10px][][][][][][][][][][][][][][][][][][][][][][][]", "[29px]"));
 		
 		JLabel lblLucroResul = new JLabel("-\r\n");
 		lblLucroResul.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_23.add(lblLucroResul);
+		panel_23.add(lblLucroResul, "cell 1 0,alignx left,aligny top");
 		
-		JPanel panel_26 = new JPanel();
-		FlowLayout flowLayout_4 = (FlowLayout) panel_26.getLayout();
-		flowLayout_4.setAlignment(FlowLayout.LEFT);
-		panel_1.add(panel_26);
+		JLabel lblComissao = new JLabel("Comissão:");
+		panel_23.add(lblComissao, "cell 10 0");
+		lblComissao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JLabel lblComissaoResul = new JLabel("-");
+		panel_23.add(lblComissaoResul, "cell 13 0");
 		lblComissaoResul.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_26.add(lblComissaoResul);
+		
+		JButton btnNewButton_2 = new JButton("Calcular");
+		btnNewButton_2.setForeground(new Color(255, 255, 255));
+		btnNewButton_2.setBackground(new Color(85, 107, 47));
+		btnNewButton_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_23.add(btnNewButton_2, "cell 22 0");
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(240, 255, 240));
@@ -205,16 +219,19 @@ public class TelaCadastroVenda extends JFrame {
 		JPanel panel_13 = new JPanel();
 		panel_3.add(panel_13);
 		
-		JLabel lblLucro = new JLabel("Lucro:");
-		panel_13.add(lblLucro);
-		lblLucro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		JLabel lblNewLabel_1 = new JLabel("Produtos:");
+		lblNewLabel_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_13.add(lblNewLabel_1);
 		
 		JPanel panel_15 = new JPanel();
 		panel_3.add(panel_15);
 		
-		JLabel lblComissao = new JLabel("Comissão:");
-		panel_3.add(lblComissao);
-		lblComissao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		JPanel panel_5 = new JPanel();
+		panel_3.add(panel_5);
+		
+		JLabel lblLucro = new JLabel("Lucro:");
+		panel_5.add(lblLucro);
+		lblLucro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 	}
 
 }

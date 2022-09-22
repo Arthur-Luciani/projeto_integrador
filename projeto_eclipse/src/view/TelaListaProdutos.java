@@ -135,6 +135,20 @@ public class TelaListaProdutos extends JFrame {
 		panel.add(btnNewButton, "cell 2 2");
 		
 		JButton btnNewButton_1 = new JButton("Histórico de preços");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					ProdutoDao dao = new ProdutoDao();
+					dao.historicoPreco(produtoSelecionado);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(null);
+			}
+		});
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
 		btnNewButton_1.setBackground(new Color(85, 107, 47));
 		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));

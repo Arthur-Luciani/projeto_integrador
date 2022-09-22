@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.AtualizacaoProduto;
 import model.Produto;
 
 public class ProdutoDao extends BD{
@@ -84,6 +85,31 @@ public class ProdutoDao extends BD{
 		ps.setInt(1, id);
 		ps.execute();
 		conexao.close();
+	}
+	public ArrayList<AtualizacaoProduto> historicoPreco(Produto produtoSelecionado) {
+		ArrayList<AtualizacaoProduto> listaAtualizacoes = null;
+		PreparedStatement ps;
+		try {
+			ps = conexao
+					.prepareStatement("select * from historico_produto where codigoProduto=? order by data desc");
+			ps.setInt(1, produtoSelecionado.getId());
+			ResultSet rs = ps.executeQuery();
+			
+			
+			if (rs.next()) {
+				do {
+					AtualizacaoProduto a= new AtualizacaoProduto();
+					a.setDataAtualizacao(rs.getDate("data"));
+					a.setPreco(rs.getFloat("preco"));
+					listaAtualizacoes.add(a);
+				} while (rs.next());
+			}
+			return listaAtualizacoes;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
 	

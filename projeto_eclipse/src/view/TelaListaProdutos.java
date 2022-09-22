@@ -108,7 +108,7 @@ public class TelaListaProdutos extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(240, 255, 240));
 		contentPane.add(panel);
-		panel.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][]", "[][][]"));
+		panel.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][]", "[][][][][]"));
 		
 		JButton btnNewButton = new JButton("Adicionar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -129,6 +129,19 @@ public class TelaListaProdutos extends JFrame {
 				dispose();
 			}
 		});
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaEstoque telaEstoque = new TelaEstoque();
+				telaEstoque.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnVoltar.setBackground(new Color(85, 107, 47));
+		panel.add(btnVoltar, "cell 0 2");
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
@@ -162,7 +175,11 @@ public class TelaListaProdutos extends JFrame {
 		btnNewButton_2.setBackground(new Color(85, 107, 47));
 		btnNewButton_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel.add(btnNewButton_2, "cell 14 2");
+		
+		
 	}
+	
+	
 	protected void atualizarJTable() {
 		DefaultTableModel modelo = new DefaultTableModel(
 				new Object[][] {

@@ -100,6 +100,20 @@ public class TelaEstoque extends JFrame {
 		btnFornecedores.setBackground(new Color(85, 107, 47));
 		btnFornecedores.setBounds(571, 295, 183, 58);
 		contentPane.add(btnFornecedores);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaInicial telaInicial = new TelaInicial(null);
+				telaInicial.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnVoltar.setBackground(new Color(85, 107, 47));
+		btnVoltar.setBounds(10, 461, 142, 39);
+		contentPane.add(btnVoltar);
 
 	}
 }

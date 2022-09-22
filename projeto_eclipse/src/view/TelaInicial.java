@@ -55,6 +55,7 @@ public class TelaInicial extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaEstoque telaEstoque = new TelaEstoque();
 				telaEstoque.setVisible(true);
+				dispose();
 			}
 		});
 		contentPane.setLayout(null);
@@ -98,5 +99,7 @@ public class TelaInicial extends JFrame {
 		JLabel label_1 = new JLabel("");
 		label_1.setBounds(839, 257, 0, 0);
 		contentPane.add(label_1);
+		
+
 	}
 }

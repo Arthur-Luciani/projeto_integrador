@@ -32,6 +32,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 
 public class TelaListaProdutos extends JFrame {
 
@@ -109,6 +110,7 @@ public class TelaListaProdutos extends JFrame {
 		JPanel pBotoes = new JPanel();
 		pBotoes.setBackground(new Color(240, 255, 240));
 		contentPane.add(pBotoes, BorderLayout.SOUTH);
+		pBotoes.setLayout(new BoxLayout(pBotoes, BoxLayout.X_AXIS));
 		
 		
 		JPanel pBotoesEsquerda = new JPanel();
@@ -118,12 +120,12 @@ public class TelaListaProdutos extends JFrame {
 		
 		JPanel pBotoesDireita = new JPanel();
 		FlowLayout fl_pBotoesDireita = (FlowLayout) pBotoesDireita.getLayout();
-		fl_pBotoesDireita.setAlignment(FlowLayout.RIGHT);
+		fl_pBotoesDireita.setAlignment(FlowLayout.TRAILING);
 		pBotoes.add(pBotoesDireita);
 		
 		
-		JButton btnNewButton = new JButton("Adicionar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProduto cadastroProduto;
 				try {
@@ -150,44 +152,48 @@ public class TelaListaProdutos extends JFrame {
 				dispose();
 			}
 		});
-		pBotoes.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
-		pBotoes.add(btnVoltar);
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(85, 107, 47));
-		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		pBotoesEsquerda.add(btnNewButton);
+		pBotoesEsquerda.add(btnVoltar);
+		btnAdicionar.setForeground(new Color(255, 255, 255));
+		btnAdicionar.setBackground(new Color(85, 107, 47));
+		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pBotoesDireita.add(btnAdicionar);
 		
-		JButton btnNewButton_1 = new JButton("Histórico de preços");
-		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setBackground(new Color(85, 107, 47));
-		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		pBotoes.add(btnNewButton_1);
+		JButton btnHistorico = new JButton("Histórico de preços");
+		btnHistorico.setForeground(new Color(255, 255, 255));
+		btnHistorico.setBackground(new Color(85, 107, 47));
+		btnHistorico.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pBotoesDireita.add(btnHistorico);
 		
-		JButton btnNewButton_2 = new JButton("Atualizar");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProduto cadastroProduto;
 				try {
-					FornecedorDao dao = new FornecedorDao();
-					ArrayList<String> listaFornecedores = dao.nomeFornecedores();
-					cadastroProduto = new TelaCadastroProduto(false,listaFornecedores, produtoSelecionado);
-					cadastroProduto.setVisible(true);
+					if (produtoSelecionado != null) {
+						FornecedorDao dao = new FornecedorDao();
+						ArrayList<String> listaFornecedores = dao.nomeFornecedores();
+						cadastroProduto = new TelaCadastroProduto(false,listaFornecedores, produtoSelecionado);
+						cadastroProduto.setVisible(true);
+						dispose();
+					} else {
+						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado para atualizar");
+						telaMensagem.setVisible(true);
+					}
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				dispose();
 			}
 		});
-		btnNewButton_2.setForeground(new Color(255, 255, 255));
-		btnNewButton_2.setBackground(new Color(85, 107, 47));
-		btnNewButton_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		pBotoes.add(btnNewButton_2);
+		btnAtualizar.setForeground(new Color(255, 255, 255));
+		btnAtualizar.setBackground(new Color(85, 107, 47));
+		btnAtualizar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pBotoesDireita.add(btnAtualizar);
 		
 		
 		

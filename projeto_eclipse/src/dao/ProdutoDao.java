@@ -23,13 +23,14 @@ public class ProdutoDao {
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"insert into Produto (codigoProduto, nome, precoProduto, quant_no_estoque, Fornecedor_nome)"
-							+ "values ( ? , ? , ? , ? , ? )");
+					"insert into Produto (codigoProduto, nome, precoProduto, quant_no_estoque, Fornecedor_nome, statusProduto)"
+							+ "values ( ? , ? , ? , ? , ? , ?)");
 			ps.setInt(1, produto.getId());
 			ps.setString(2, produto.getNome());
 			ps.setFloat(3, produto.getPreco());
 			ps.setInt(4, produto.getQuantEstoque());
 			ps.setString(5, produto.getNomeFornecedor());
+			ps.setInt(6, 1);
 			ps.execute();
 
 			BD.fechaConexao();
@@ -44,7 +45,7 @@ public class ProdutoDao {
 	public ArrayList<Produto> resgatarProdutos() {
 		ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select * from Produto");
+			PreparedStatement ps = conexao.prepareStatement("select * from Produto where statusProduto = 1");
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
@@ -85,7 +86,7 @@ public class ProdutoDao {
 	}
 
 	public void deletarProduto(int id) throws SQLException {
-		PreparedStatement ps = conexao.prepareStatement("delete from Produto where codigoProduto=?");
+		PreparedStatement ps = conexao.prepareStatement("update Produto set statusProduto=0 where codigoProduto=?");
 		ps.setInt(1, id);
 		ps.execute();
 		conexao.close();

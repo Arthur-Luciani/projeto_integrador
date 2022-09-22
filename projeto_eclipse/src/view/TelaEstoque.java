@@ -9,8 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.ProdutoDao;
+import model.Produto;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TelaEstoque extends JFrame {
@@ -66,12 +72,22 @@ public class TelaEstoque extends JFrame {
 		btnProdutos.setForeground(new Color(255, 255, 255));
 		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+				telaListaProdutos.setVisible(true);
+				dispose();
 			}
 		});
 		btnProdutos.setBounds(94, 295, 183, 58);
 		contentPane.add(btnProdutos);
 		
 		JButton btnVenda = new JButton("Venda");
+		btnVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroVenda telaVenda = new TelaCadastroVenda();
+				telaVenda.setVisible(true);
+				dispose();
+			}
+		});
 		btnVenda.setForeground(Color.WHITE);
 		btnVenda.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVenda.setBackground(new Color(85, 107, 47));

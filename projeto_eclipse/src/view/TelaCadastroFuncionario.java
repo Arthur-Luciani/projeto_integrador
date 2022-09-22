@@ -270,7 +270,11 @@ public class TelaCadastroFuncionario extends JFrame {
 						TelaMensagem m = new TelaMensagem("Não foi possível cadastrar o usuário");
 						m.setVisible(true);
 					}
-				}  		
+				}else {
+					telalogin.setVisible(true);
+				}
+
+				frame.dispose();
 			}
 		});
 		panel_1.add(btnCadastrar);

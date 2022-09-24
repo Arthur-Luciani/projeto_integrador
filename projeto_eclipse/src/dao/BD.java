@@ -16,7 +16,6 @@ public class BD {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 
 	public static void fechaConexao() {

@@ -8,3 +8,5 @@ insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissa
 insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'gklemmt7', 'Grover Klemmt', 'HAah310Z', '779', '2021-11-25', 8, false);
 insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'sgrinyer8', 'Susanne Grinyer', 'RcmeFVb', '5', '2022-07-11', 9, false);
 insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'avasnetsov9', 'Allie Vasnetsov', 'x8Ur2PU', '5695', '2022-07-16', 10, true);
+
+select * from usuarios;

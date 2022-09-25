@@ -8,3 +8,5 @@ insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values 
 insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Juice - Apple 284ml', 46.2, 52, 'Fiveclub');
 insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Rabbit - Saddles', 4.99, 23, 'Meedoo');
 insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Bread - Flat Bread', 17.21, 69, 'Feednation');
+
+select * from produto;

@@ -44,8 +44,8 @@ public class TelaCadastroProduto extends JFrame {
 	private JTextField txtPreco;
 	private JTextField txtQuantidade;
 	
-	ArrayList<String> listaFornecedor;
-	Produto produtoSelecionado;
+	private ArrayList<String> listaFornecedor;
+	private Produto produtoSelecionado;
 
 
 	/**
@@ -254,7 +254,7 @@ public class TelaCadastroProduto extends JFrame {
 		btnAtualizarCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();
-				String nomeFornecedor = cbFornecedores.getSelectedItem().toString();
+				String nomeFornecedor = String.valueOf(cbFornecedores.getSelectedItem());
 				int quantidade = 0;
 				float preco = 0;
 				try {
@@ -299,7 +299,6 @@ public class TelaCadastroProduto extends JFrame {
 		btnAtualizarCadastrar.setForeground(Color.WHITE);
 		btnAtualizarCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
-		
 		
 		if (atualizarCadastrar==false) {
 			txtNome.setText(produtoSelecionado.getNome());

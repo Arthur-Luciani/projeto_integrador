@@ -47,7 +47,7 @@ public class ProdutoDao {
 					produto.setPreco(rs.getFloat("preco_produto"));
 					produto.setNome(rs.getString("nome_produto"));
 					produto.setQuantEstoque(rs.getInt("estoque"));
-					produto.setNomeFornecedor("nome_empresa");
+					produto.setNomeFornecedor(rs.getString("nome_empresa"));
 
 					listaProduto.add(produto);
 				} while (rs.next());

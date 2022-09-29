@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -77,7 +78,7 @@ public class TelaLogin extends JFrame {
 		panel_1.setLayout(null);
 
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setBounds(150, 64, 44, 30);
+		lblLogin.setBounds(150, 64, 81, 30);
 		lblLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblLogin);
 
@@ -89,15 +90,13 @@ public class TelaLogin extends JFrame {
 		txtLogin.setColumns(10);
 
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(150, 133, 48, 30);
+		lblSenha.setBounds(150, 133, 81, 30);
 		lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblSenha);
-		
+
 		txtPassSenha = new JPasswordField();
 		txtPassSenha.setBounds(233, 134, 217, 33);
 		panel_1.add(txtPassSenha);
-		txtPassSenha.setEchoChar('*');
-		
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(240, 255, 240));
@@ -110,35 +109,42 @@ public class TelaLogin extends JFrame {
 				String login = txtLogin.getText();
 				String senha = txtPassSenha.getText();
 
-				Usuario usuario = null; 
+				Usuario usuario = null;
 
 				if (!login.isEmpty() && !senha.isEmpty()) {
 					UsuarioDao usuarioDao;
-					try {
-						usuarioDao = new UsuarioDao();
+					usuarioDao = new UsuarioDao();
 
-						usuario = usuarioDao.verificacao(new Usuario(login, senha));
+					usuario = usuarioDao.verificacao(new Usuario(login, senha));
 
-						if (usuario != null) {
-							TelaInicial telaInicial = new TelaInicial(usuario);
-							telaInicial.setVisible(true); // abre a tela inicial
-							frame.dispose(); // fecha a tela login
-							System.out.println("foi"); 
-						} else {
-							TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
-							telaMensagem.setVisible(true); 
-						}
-
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if (usuario != null) {
+						TelaInicial telaInicial = new TelaInicial(usuario);
+						telaInicial.setVisible(true);
+						dispose();
+					} else {
+						TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
+						telaMensagem.setVisible(true);
 					}
 
 				}
 			}
 		});
-		
+
 		JButton btnNewButton = new JButton("Cadastrar usuário");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroFuncionario telaCadastroFuncionario;
+				try {
+					telaCadastroFuncionario = new TelaCadastroFuncionario();
+					telaCadastroFuncionario.setVisible(true);
+					dispose();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));

@@ -133,22 +133,17 @@ public class ProdutoDao {
 		}
 		return listaNomesProdutos;
 	}
-	public ArrayList<String> precoProdutos(String nome) throws SQLException {
+	public Float precoProdutos(String nome) throws SQLException {
 
 		conexao = BD.getConexao();
-		ArrayList<String> listaPrecoProdutos = new ArrayList<String>();
 		PreparedStatement ps = conexao.prepareStatement("select preco_produto from produto where nome_produto like ?");
 		ps.setString(1, nome);
 		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
-			do {
-				String precoProduto = rs.getString("preco_produto");
-				listaPrecoProdutos.add(precoProduto);
-			} while (rs.next());
-
+			return rs.getFloat("preco_produto");
 		}
-		return listaPrecoProdutos;
+		return (float) 0;
 	}
 
 }

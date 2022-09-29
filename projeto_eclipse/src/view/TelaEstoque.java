@@ -84,18 +84,13 @@ public class TelaEstoque extends JFrame {
 		JButton btnVenda = new JButton("Venda");
 		btnVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroVenda telaVenda;
 				try {
-					ProdutoDao dao = new ProdutoDao();
-					ArrayList<String> listaNomesProdutos = dao.nomeProdutos();
-					telaVenda = new TelaCadastroVenda(listaNomesProdutos);
+					TelaCadastroVenda telaVenda = new TelaCadastroVenda(null);
 					telaVenda.setVisible(true);
 					dispose();
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}catch(SQLException e2) {
-					
 				}
 			}
 		});

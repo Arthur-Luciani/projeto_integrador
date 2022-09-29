@@ -13,22 +13,17 @@ public class UsuarioDao {
 
 	private Connection conexao = BD.getConexao();
 
-	public UsuarioDao() {
-		
-	}
+	public UsuarioDao() {}
 
 	public boolean cadastro(Usuario novoUsuario) {
-
-		conexao = BD.getConexao();
-
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select login from Usuarios where login like ? ");
+			PreparedStatement ps = conexao.prepareStatement("select login from usuarios where login like ? ");
 			ps.setString(1, novoUsuario.getLogin());
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next() != true) {
 				ps = conexao.prepareStatement(
-						"insert into Usuarios (login, nome, senha, data_de_nascUsuario, cpfUsuario, idade)"
+						"insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade)"
 								+ "values ( ? , ? , ? , ? , ? , ? )");
 				ps.setString(1, novoUsuario.getLogin());
 				ps.setString(2, novoUsuario.getNome());
@@ -37,7 +32,7 @@ public class UsuarioDao {
 				ps.setString(5, novoUsuario.getCpfUsuario());
 				ps.setInt(6, novoUsuario.getIdade());
 				ps.execute();
-				conexao.close();
+				BD.fechaConexao();
 				return true;
 			}
 		} catch (SQLException e) {
@@ -50,23 +45,20 @@ public class UsuarioDao {
 		try {
 			PreparedStatement ps = conexao
 					.prepareStatement("select * from usuarios where login like ? and senha like ?");
-
 			ps.setString(1, usuario.getLogin());
-
 			ps.setString(2, usuario.getSenha());
 
 			ResultSet rs = ps.executeQuery();
-			Usuario usuarioLogado = new Usuario(); // pegar os dados da consulta
+			Usuario usuarioLogado = new Usuario();
 
 			while (rs.next()) {
-
 				String login = rs.getString("login");
 				String nome = rs.getString("nome");
 				String senha = rs.getString("senha");
 				boolean permissao = rs.getBoolean("permissao");
-				int idUsuario = rs.getInt("idUsuario");
-				LocalDate dataNascimento = rs.getDate("data_de_nascUsuario").toLocalDate();
-				String cpf = rs.getString("cpfUsuario");
+				int idUsuario = rs.getInt("id_usuario");
+				LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
+				String cpf = rs.getString("cpf");
 				int idade = rs.getInt("idade");
 
 				usuarioLogado.setLogin(login);
@@ -77,16 +69,13 @@ public class UsuarioDao {
 				usuarioLogado.setDataNascimento(dataNascimento);
 				usuarioLogado.setCpfUsuario(cpf);
 				usuarioLogado.setIdade(idade);
-
+				BD.fechaConexao();
 				return usuarioLogado;
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return null;
-
 	}
-
 }

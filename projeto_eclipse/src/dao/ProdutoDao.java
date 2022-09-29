@@ -13,29 +13,20 @@ public class ProdutoDao {
 
 	private Connection conexao = BD.getConexao();
 
-	public ProdutoDao() throws SQLException {
-
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public ProdutoDao() throws SQLException {}
 	
 	public void cadastroProduto(Produto produto) {
-		
-
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"insert into Produto (codigoProduto, nome, precoProduto, quant_no_estoque, Fornecedor_nome, statusProduto)"
+					"insert into produto (id_produto, nome_produto, preco_produto, estoque, nome_empresa)"
 							+ "values ( ? , ? , ? , ? , ? , ?)");
 			ps.setInt(1, produto.getId());
 			ps.setString(2, produto.getNome());
 			ps.setFloat(3, produto.getPreco());
 			ps.setInt(4, produto.getQuantEstoque());
 			ps.setString(5, produto.getNomeFornecedor());
-			ps.setInt(6, 1);
 			ps.execute();
-
 			BD.fechaConexao();
-
 		} catch (SQLException e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
@@ -46,19 +37,21 @@ public class ProdutoDao {
 	public ArrayList<Produto> resgatarProdutos() {
 		ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select * from Produto where statusProduto = 1");
+			PreparedStatement ps = conexao.prepareStatement("select * from produto");
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
 				do {
 					Produto produto = new Produto();
-					produto.setId(rs.getInt("codigoProduto"));
-					produto.setPreco(rs.getFloat("precoProduto"));
-					produto.setNome(rs.getString("nome"));
-					produto.setQuantEstoque(rs.getInt("quant_no_estoque"));
+					produto.setId(rs.getInt("id_produto"));
+					produto.setPreco(rs.getFloat("preco_produto"));
+					produto.setNome(rs.getString("nome_produto"));
+					produto.setQuantEstoque(rs.getInt("estoque"));
+					produto.setNomeFornecedor("nome_empresa");
 
 					listaProduto.add(produto);
 				} while (rs.next());
+				BD.fechaConexao();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -70,7 +63,7 @@ public class ProdutoDao {
 	public void atualizarProduto(Produto produto) {
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"update Produto set nome=?, precoProduto=?, quant_no_estoque=?, Fornecedor_nome=? where codigoProduto=?");
+					"update Produto set nome_produto=?, preco_produto=?, estoque=?, nome_empresa=? where id_produto=?");
 
 			ps.setString(1, produto.getNome());
 			ps.setFloat(2, produto.getPreco());
@@ -78,7 +71,7 @@ public class ProdutoDao {
 			ps.setString(4, produto.getNomeFornecedor());
 			ps.setInt(5, produto.getId());
 			ps.executeUpdate();
-			conexao.close();
+			BD.fechaConexao();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,10 +82,10 @@ public class ProdutoDao {
 	public void deletarProduto(int id) {
 		PreparedStatement ps;
 		try {
-			ps = conexao.prepareStatement("update Produto set statusProduto=0 where codigoProduto=?");
+			ps = conexao.prepareStatement("delete from produto where id_produto=?");
 			ps.setInt(1, id);
 			ps.execute();
-			conexao.close();
+			BD.fechaConexao();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

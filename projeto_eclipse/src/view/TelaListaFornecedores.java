@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -21,6 +25,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
+import dao.FornecedorDao;
+import dao.ProdutoDao;
 import model.Produto;
 import net.miginfocom.swing.MigLayout;
 
@@ -29,8 +35,10 @@ public class TelaListaFornecedores extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	
+	
 
 	public TelaListaFornecedores() {
+		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -93,12 +101,35 @@ public class TelaListaFornecedores extends JFrame {
 		panel.add(btnVoltar, "cell 0 3");
 		
 		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroFornecedor telaCadastroFornecedor = null;
+				try {
+					telaCadastroFornecedor = new TelaCadastroFornecedor(true);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				telaCadastroFornecedor.setVisible(true);
+				dispose();
+			}
+		});
 		btnAtualizar.setForeground(Color.WHITE);
 		btnAtualizar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAtualizar.setBackground(new Color(85, 107, 47));
 		panel.add(btnAtualizar, "cell 2 3");
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroFornecedor cadastroFornecedor;
+				
+				
+				dispose();
+			}
+		});
+		
 		btnAdicionar.setForeground(Color.WHITE);
 		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAdicionar.setBackground(new Color(85, 107, 47));

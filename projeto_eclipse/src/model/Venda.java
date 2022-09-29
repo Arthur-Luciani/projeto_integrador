@@ -1,28 +1,31 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Venda {
 	
-	int id, idCliente, idUsuario;
-	float lucro, comissao;
-	String data;
+	private int idVenda, idCliente, idVendedor;
+	private LocalDate dataVenda;
+	private float comissaoVendedor, lucro;
+	private String  nomeCliente, nomeVendedor;
 	
-	public int getId() {
-		return id;
+	public int getIdVenda() {
+		return idVenda;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdVenda(int idVenda) {
+		this.idVenda = idVenda;
 	}
-	public int getIdCliente() {
-		return idCliente;
+	public LocalDate getDataVenda() {
+		return dataVenda;
 	}
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setDataVenda(LocalDate dataVenda) {
+		this.dataVenda = dataVenda;
 	}
-	public int getIdUsuario() {
-		return idUsuario;
+	public float getComissaoVendedor() {
+		return comissaoVendedor;
 	}
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setComissaoVendedor(float comissaoVendedor) {
+		this.comissaoVendedor = comissaoVendedor;
 	}
 	public float getLucro() {
 		return lucro;
@@ -30,16 +33,31 @@ public class Venda {
 	public void setLucro(float lucro) {
 		this.lucro = lucro;
 	}
-	public float getComissao() {
-		return comissao;
+	public String getNomeCliente() {
+		return nomeCliente;
 	}
-	public void setComissao(float comissao) {
-		this.comissao = comissao;
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
 	}
-	public String getData() {
-		return data;
+	public String getNomeVendedor() {
+		return nomeVendedor;
 	}
-	public void setData(String data) {
-		this.data = data;
+	public void setNomeVendedor(String nomeVendedor) {
+		this.nomeVendedor = nomeVendedor;
 	}
+	public int getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+	public int getIdVendedor() {
+		return idVendedor;
+	}
+	public void setIdVendedor(int idVendedor) {
+		this.idVendedor = idVendedor;
+	}
+	
+	
+	
 }

@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import dao.ProdutoDao;
+import model.AtualizacaoProduto;
 import model.Produto;
 
 import java.awt.GridLayout;
@@ -22,6 +23,9 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -39,31 +43,18 @@ public class TelaCadastroVenda extends JFrame {
 	private JTextField txtCliente;
 	private JTextField txtVendedor;
 	
+	private static ArrayList<String>  listaProduto= new ArrayList<String>(); 
+	
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
-	private JTextField txtProduto;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroVenda frame = new TelaCadastroVenda();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroVenda() throws ParseException {
+	public TelaCadastroVenda(ArrayList<String> listaProduto) throws ParseException {
+		this.listaProduto = listaProduto;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -120,9 +111,16 @@ public class TelaCadastroVenda extends JFrame {
 		flowLayout_3.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_7);
 		
-		txtProduto = new JTextField();
-		panel_7.add(txtProduto);
-		txtProduto.setColumns(50);
+		JComboBox cbProduto = new JComboBox();
+		cbProduto.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				cbProduto.setBorder(bordaNormal);
+			}
+		});
+		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		cbProduto.setModel(new DefaultComboBoxModel<String>(listaProduto.toArray(new String[0])));
+		panel_7.add(cbProduto);
 		
 		JPanel panel_23 = new JPanel();
 		panel_1.add(panel_23);
@@ -143,11 +141,7 @@ public class TelaCadastroVenda extends JFrame {
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//String produto = txtProduto.getText();
 				
-				// ProdutoDao classProduto = new ProdutoDao();
-				
-				 //ArrayList<Produto> nomeProduto = classProduto.resgatarProdutos();
 			}
 		});
 		btnCalcular.setForeground(new Color(255, 255, 255));

@@ -117,4 +117,21 @@ public class ProdutoDao {
 		}
 		return null;
 	}
+	public ArrayList<String> nomeProdutos() throws SQLException {
+
+		conexao = BD.getConexao();
+		ArrayList<String> listaNomesProdutos = new ArrayList<String>();
+		PreparedStatement ps = conexao.prepareStatement("select nome_produto from produto");
+		ResultSet rs = ps.executeQuery();
+
+		if (rs.next()) {
+			do {
+				String nomeProduto = rs.getString("nome_produto");
+				listaNomesProdutos.add(nomeProduto);
+			} while (rs.next());
+
+		}
+		return listaNomesProdutos;
+	}
+
 }

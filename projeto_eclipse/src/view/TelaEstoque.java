@@ -86,12 +86,16 @@ public class TelaEstoque extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroVenda telaVenda;
 				try {
-					telaVenda = new TelaCadastroVenda();
+					ProdutoDao dao = new ProdutoDao();
+					ArrayList<String> listaNomesProdutos = dao.nomeProdutos();
+					telaVenda = new TelaCadastroVenda(listaNomesProdutos);
 					telaVenda.setVisible(true);
 					dispose();
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				}catch(SQLException e2) {
+					
 				}
 			}
 		});

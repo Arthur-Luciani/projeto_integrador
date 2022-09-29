@@ -19,7 +19,7 @@ public class ProdutoDao {
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"insert into produto (id_produto, nome_produto, preco_produto, estoque, nome_empresa)"
-							+ "values ( ? , ? , ? , ? , ? , ?)");
+							+ "values ( ? , ? , ? , ? , ?)");
 			ps.setInt(1, produto.getId());
 			ps.setString(2, produto.getNome());
 			ps.setFloat(3, produto.getPreco());
@@ -93,11 +93,11 @@ public class ProdutoDao {
 		
 	}
 	public ArrayList<AtualizacaoProduto> historicoPreco(int id) {
-		ArrayList<AtualizacaoProduto> listaAtualizacoes = new ArrayList<AtualizacaoProduto>();
+		ArrayList<AtualizacaoProduto> listaAtualizacoes = new ArrayList<>();
 		PreparedStatement ps;
 		try {
 			ps = conexao
-					.prepareStatement("select * from historico_produto where codigoProduto=? order by id desc");
+					.prepareStatement("select * from historico_produto where id_produto=? order by id_historico_produto desc");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
@@ -105,8 +105,8 @@ public class ProdutoDao {
 			if (rs.next()) {
 				do {
 					AtualizacaoProduto a= new AtualizacaoProduto();
-					a.setDataAtualizacao(rs.getDate("data"));
-					a.setPreco(rs.getFloat("preco"));
+					a.setDataAtualizacao(rs.getDate("data_atualizacao"));
+					a.setPreco(rs.getFloat("preco_novo"));
 					listaAtualizacoes.add(a);
 				} while (rs.next());
 			}

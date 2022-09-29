@@ -11,21 +11,33 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
 import dao.UsuarioDao;
 import model.Usuario;
+import model.ValidaCPF;
 
 import javax.swing.JTextField;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class TelaCadastroFuncionario extends JFrame {
 
@@ -34,10 +46,13 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtCpf;
 	private JTextField txtDataNascimento;
 	private JTextField txtLogin;
-	private JTextField txtSenha;
-	private JTextField txtConfSenha;
+	private JPasswordField txtSenha;
+	private JPasswordField txtConfSenha;
 	private static TelaCadastroFuncionario frame;
-
+	
+	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
+	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
+	
 	/**
 	 * Launch the application.
 	 */
@@ -57,7 +72,8 @@ public class TelaCadastroFuncionario extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws ParseException 
+	 * 
+	 * @throws ParseException
 	 */
 	public TelaCadastroFuncionario() throws ParseException {
 		setResizable(false);
@@ -95,50 +111,82 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_1.add(lblNome);
 
 		txtNome = new JTextField();
+		txtNome.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtNome.setBorder(bordaNormal);
+			}
+		});
 		txtNome.setBounds(320, 7, 263, 35);
 		txtNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(txtNome);
 		txtNome.setColumns(10);
 
 		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(65, 73, 31, 29);
+		lblCpf.setBounds(65, 73, 197, 29);
 		lblCpf.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCpf);
 
 		txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		txtCpf.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtCpf.setBorder(bordaNormal);
+			}
+		});
 		txtCpf.setBounds(320, 70, 263, 35);
 		txtCpf.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(txtCpf);
 		txtCpf.setColumns(10);
 
 		JLabel lblDataNascimento = new JLabel("Data de Nascimento");
-		lblDataNascimento.setBounds(65, 139, 170, 26);
+		lblDataNascimento.setBounds(65, 139, 197, 26);
 		lblDataNascimento.setFont(new Font("Segoe Script", Font.PLAIN, 16));
 		panel_1.add(lblDataNascimento);
 
 		txtDataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		txtDataNascimento.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtDataNascimento.setBorder(bordaNormal);
+			}
+		});
 		txtDataNascimento.setBounds(320, 134, 263, 35);
 		txtDataNascimento.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtDataNascimento.setColumns(10);
 		panel_1.add(txtDataNascimento);
 
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setBounds(65, 200, 44, 29);
+		lblLogin.setBounds(65, 200, 197, 29);
 		lblLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblLogin);
 
 		txtLogin = new JTextField();
+		txtLogin.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtLogin.setBorder(bordaNormal);
+				txtLogin.setForeground(Color.DARK_GRAY);
+			}
+		});
 		txtLogin.setBounds(320, 197, 263, 35);
 		txtLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtLogin.setColumns(10);
 		panel_1.add(txtLogin);
 
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(65, 264, 48, 29);
+		lblSenha.setBounds(65, 264, 197, 29);
 		lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblSenha);
 
-		txtSenha = new JTextField();
+		txtSenha = new JPasswordField();
+		
+		txtSenha.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtSenha.setBorder(bordaNormal);
+			}
+		});
 		txtSenha.setBounds(320, 261, 263, 35);
 		txtSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtSenha.setColumns(10);
@@ -149,7 +197,13 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblConfSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblConfSenha);
 
-		txtConfSenha = new JTextField();
+		txtConfSenha = new JPasswordField();
+		txtConfSenha.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtConfSenha.setBorder(bordaNormal);
+			}
+		});
 		txtConfSenha.setBounds(320, 324, 263, 35);
 		txtConfSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtConfSenha.setColumns(10);
@@ -159,45 +213,57 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				TelaLogin telalogin = new TelaLogin();
 				
 				String nome = txtNome.getText();
 				String cpf = txtCpf.getText();
+				cpf = cpf.replaceAll("[^0-9]", "");
 				String login = txtLogin.getText();
 				String senha = txtSenha.getText();
 				String confSenha = txtConfSenha.getText();
-				String dataNascimento = txtDataNascimento.getText();
+				String dataNascimentoStr = txtDataNascimento.getText();
+				LocalDate dataNascimento = null;	
+				DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				
-				if (nome.isEmpty() || cpf.isEmpty() || login.isEmpty() || senha.isEmpty() || confSenha.isEmpty()) {
-					if(nome.isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Nome'");
-						m.setVisible(true);
-					}
-					if(cpf.isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Cpf'");
-						m.setVisible(true);
-					}
-					if(login.isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Login'");
-						m.setVisible(true);
-					}
-					if(senha.isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Senha'");
-						m.setVisible(true);
-					}
-					if(confSenha.isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Confirmar senha'");
-						m.setVisible(true);
-					} 
-					if (dataNascimento.isEmpty()) {
-						TelaMensagem m = new TelaMensagem("Nenhuma informação preenchida para 'Confirmar senha'");
-						m.setVisible(true);
-					}
-				}else {
-					telalogin.setVisible(true);
+				try {
+					dataNascimento = LocalDate.parse(txtDataNascimento.getText(), formatacao);
+				} catch (DateTimeException e2) {
+					txtDataNascimento.setBorder(bordaVermelha);
 				}
 
-				frame.dispose();
+				if (nome.isEmpty() || login.isEmpty() || senha.isEmpty() || confSenha.isEmpty() || dataNascimentoStr.equals("  /  /    ") || senha.equals(confSenha)!=true || ValidaCPF.isCPF(cpf)!=true) {
+					if (nome.isEmpty()) {
+						txtNome.setBorder(bordaVermelha);
+					}
+					if (login.isEmpty()) {
+						txtLogin.setBorder(bordaVermelha);
+					}
+					if (senha.isEmpty()) {
+						txtSenha.setBorder(bordaVermelha);
+					}
+					if (confSenha.isEmpty()) {
+						txtConfSenha.setBorder(bordaVermelha);
+					}
+					if (txtSenha.getText().equals(txtConfSenha.getText()) != true) {
+						TelaMensagem m = new TelaMensagem("As senhas não coincidem");
+						m.setVisible(true);
+					}
+					if (ValidaCPF.isCPF(cpf) != true) {
+						txtCpf.setBorder(bordaVermelha);
+					}
+					
+				} else {
+					Usuario novoUsuario = new Usuario(login, nome, senha, LocalDate.parse(dataNascimentoStr, formatacao), cpf);
+					UsuarioDao dao = new UsuarioDao();
+					if (dao.cadastro(novoUsuario)== true) {
+						TelaLogin telalogin = new TelaLogin();
+						telalogin.setVisible(true);
+						dispose();
+					} else {
+						TelaMensagem m = new TelaMensagem("Login j� utilizado");
+						m.setVisible(true);
+						txtLogin.setForeground(new Color(255, 0, 0));
+					}
+				}
 			}
 		});
 		panel_1.add(btnCadastrar);
@@ -205,6 +271,20 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnCadastrar.setForeground(new Color(255, 255, 255));
 		btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnCadastrar.setBackground(new Color(85, 107, 47));
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaLogin telaLogin = new TelaLogin();
+				telaLogin.setVisible(true);
+				dispose();
+			}
+		}); 
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnVoltar.setBackground(new Color(85, 107, 47));
+		btnVoltar.setBounds(65, 367, 134, 37);
+		panel_1.add(btnVoltar);
 
 	}
 }

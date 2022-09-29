@@ -47,6 +47,7 @@ public class TelaCadastroVenda extends JFrame {
 	
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
+	private JTextField txtProduto;
 
 	/**
 	 * Create the frame.
@@ -118,6 +119,10 @@ public class TelaCadastroVenda extends JFrame {
 				cbProduto.setBorder(bordaNormal);
 			}
 		});
+		
+		txtProduto = new JTextField();
+		panel_7.add(txtProduto);
+		txtProduto.setColumns(50);
 		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		cbProduto.setModel(new DefaultComboBoxModel<String>(listaProduto.toArray(new String[0])));
 		panel_7.add(cbProduto);
@@ -141,7 +146,15 @@ public class TelaCadastroVenda extends JFrame {
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String nomeproduto = cbProduto.getSelectedItem().toString();
 				
+				try {
+					ProdutoDao dao = new ProdutoDao();
+					dao.precoProdutos(nomeproduto);
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnCalcular.setForeground(new Color(255, 255, 255));
@@ -234,6 +247,10 @@ public class TelaCadastroVenda extends JFrame {
 		
 		JPanel panel_13 = new JPanel();
 		panel_3.add(panel_13);
+		
+		JLabel lblQuant = new JLabel("Quantidade");
+		lblQuant.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_13.add(lblQuant);
 		
 		JLabel lblProduto = new JLabel("Produtos:");
 		lblProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));

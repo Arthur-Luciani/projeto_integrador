@@ -33,13 +33,16 @@ public class TelaAdicionarProduto extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtQuantidade;
+	private ArrayList<Float> listaLucro; 
 	
 
 	/**
 	 * Create the frame.
 	 * @param listaNomesProdutos 
 	 */
-	public TelaAdicionarProduto(ArrayList<String> listaNomesProdutos) {
+	public TelaAdicionarProduto(ArrayList<String> listaNomesProdutos, ArrayList<Float>listaLucro) {
+		this.listaLucro = listaLucro;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -79,13 +82,23 @@ public class TelaAdicionarProduto extends JFrame {
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
 		panel_3.add(panel_14);
 		
-		txtQuantidade = new JTextField();
-		panel_14.add(txtQuantidade);
-		txtQuantidade.setColumns(50);
+		JComboBox cbProduto = new JComboBox();
+		panel_14.add(cbProduto);
+		cbProduto.addFocusListener(new FocusAdapter() {
+		});
+		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		cbProduto.setModel(new DefaultComboBoxModel<String>(listaNomesProdutos.toArray(new String[0])));
+		cbProduto.setForeground(new Color(255, 255, 255));
+		cbProduto.setBackground(new Color(85, 107, 47));
+		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JPanel panel_15 = new JPanel();
 		panel_15.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_15);
+		
+		txtQuantidade = new JTextField();
+		panel_15.add(txtQuantidade);
+		txtQuantidade.setColumns(50);
 		
 		JPanel panel_13 = new JPanel();
 		panel_13.setBackground(new Color(240, 255, 240));
@@ -93,35 +106,22 @@ public class TelaAdicionarProduto extends JFrame {
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panel_3.add(panel_13);
 		
-		JComboBox cbProduto = new JComboBox();
-		cbProduto.addFocusListener(new FocusAdapter() {
-		});
-		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		cbProduto.setModel(new DefaultComboBoxModel<String>(listaNomesProdutos.toArray(new String[0])));
-		panel_13.add(cbProduto);
-		cbProduto.setForeground(new Color(255, 255, 255));
-		cbProduto.setBackground(new Color(85, 107, 47));
-		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		
 		
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Float> lucro1 = new ArrayList<Float>();
-				
 				String nomeProduto = cbProduto.getSelectedItem().toString();
-				
 				float quant = Float.parseFloat(txtQuantidade.getText());
 				
 				try {
-					TelaCadastroVenda telaVenda = new TelaCadastroVenda(null);
-					telaVenda.setVisible(true);
-					dispose();		
-					
 					ProdutoDao dao = new ProdutoDao();
 					float lucro = dao.precoProdutos(nomeProduto)*quant;
+					listaLucro.add(lucro);
 					
-					lucro1.add(lucro);
+					TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaLucro);
+					//telaCadastroVenda = new TelaAdicionarProduto(lucro1);
+					telaCadastroVenda.setVisible(true);
+					dispose();	
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

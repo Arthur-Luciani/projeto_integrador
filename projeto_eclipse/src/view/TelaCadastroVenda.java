@@ -40,10 +40,8 @@ public class TelaCadastroVenda extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtData;
-	private JTextField txtCliente;
-	private JTextField txtVendedor;
 	
-	private static ArrayList<String>  listaProduto= new ArrayList<String>(); 
+	private ArrayList<Float>  listaLucro= new ArrayList<>(); 
 	
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
@@ -52,8 +50,8 @@ public class TelaCadastroVenda extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroVenda(ArrayList<String> listaProduto) throws ParseException {
-		this.listaProduto = listaProduto;
+	public TelaCadastroVenda(ArrayList<Float> listaLucro) throws ParseException {
+		this.listaLucro = listaLucro;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -79,6 +77,7 @@ public class TelaCadastroVenda extends JFrame {
 		panel_1.setLayout(new GridLayout(5, 2, 0, 0));
 		
 		JPanel panel_14 = new JPanel();
+		panel_14.setBackground(new Color(240, 255, 240));
 		FlowLayout flowLayout = (FlowLayout) panel_14.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_14);
@@ -88,25 +87,31 @@ public class TelaCadastroVenda extends JFrame {
 		txtData.setColumns(50);
 		
 		JPanel panel_17 = new JPanel();
+		panel_17.setBackground(new Color(240, 255, 240));
 		FlowLayout flowLayout_1 = (FlowLayout) panel_17.getLayout();
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_17);
 		
-		txtCliente = new JTextField();
-		panel_17.add(txtCliente);
-		txtCliente.setColumns(50);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBackground(new Color(85, 107, 47));
+		comboBox.setForeground(new Color(255, 255, 255));
+		comboBox.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_17.add(comboBox);
 		
 		JPanel panel_20 = new JPanel();
+		panel_20.setBackground(new Color(240, 255, 240));
 		FlowLayout flowLayout_2 = (FlowLayout) panel_20.getLayout();
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_20);
 		
-		txtVendedor = new JTextField();
-		txtVendedor.setText("");
-		panel_20.add(txtVendedor);
-		txtVendedor.setColumns(50);
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBackground(new Color(85, 107, 47));
+		comboBox_1.setForeground(new Color(255, 255, 255));
+		comboBox_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_20.add(comboBox_1);
 		
 		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(new Color(240, 255, 240));
 		FlowLayout flowLayout_3 = (FlowLayout) panel_7.getLayout();
 		flowLayout_3.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_7);
@@ -118,7 +123,7 @@ public class TelaCadastroVenda extends JFrame {
 				try {
 					ProdutoDao dao = new ProdutoDao();
 					ArrayList<String> listaNomesProdutos = dao.nomeProdutos();
-					telaAdicionaProduto = new TelaAdicionarProduto(listaNomesProdutos);
+					telaAdicionaProduto = new TelaAdicionarProduto(listaNomesProdutos, listaLucro);
 					telaAdicionaProduto.setVisible(true);
 					dispose();
 				}catch(SQLException e2) {
@@ -132,6 +137,7 @@ public class TelaCadastroVenda extends JFrame {
 		panel_7.add(btnAdicionar);
 		
 		JPanel panel_23 = new JPanel();
+		panel_23.setBackground(new Color(240, 255, 240));
 		panel_1.add(panel_23);
 		panel_23.setLayout(new MigLayout("", "[10px][][][][][][][][][][][][][][][][][][][][][][][]", "[29px]"));
 		
@@ -150,7 +156,15 @@ public class TelaCadastroVenda extends JFrame {
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				float lucroTotal = 0;
+				for(int i=0; i< listaLucro.size(); i++) {
+					float l = listaLucro.get(i);
+					lucroTotal = lucroTotal+l;
+				}
+				float comissao = lucroTotal*5/100;
+				
+				lblLucroResul.setText(String.valueOf(lucroTotal));
+				lblComissaoResul.setText(String.valueOf(comissao));
 			}
 		});
 		btnCalcular.setForeground(new Color(255, 255, 255));
@@ -179,20 +193,10 @@ public class TelaCadastroVenda extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String data = txtData.getText();
-				String cliente = txtCliente.getText();
-				String vendedor = txtVendedor.getText();
 				
-				if (data.isEmpty() || cliente.isEmpty() || vendedor.isEmpty()) {
 					if(data.isEmpty()) {
 						txtData.setBorder(bordaVermelha);
-					}
-					if(cliente.isEmpty()) {
-						txtCliente.setBorder(bordaVermelha);
-					}
-					if(vendedor.isEmpty()) {
-						txtVendedor.setBorder(bordaVermelha);
-					}
-				}else {
+					}else {
 					TelaEstoque telaEstoque = new TelaEstoque();
 					telaEstoque.setVisible(true);
 					dispose();
@@ -209,9 +213,11 @@ public class TelaCadastroVenda extends JFrame {
 		panel_3.setLayout(new GridLayout(5, 2, 0, 0));
 		
 		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_4);
 		
 		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_6);
 		
 		JLabel lblData = new JLabel("Data:");
@@ -219,9 +225,11 @@ public class TelaCadastroVenda extends JFrame {
 		lblData.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JPanel panel_8 = new JPanel();
+		panel_8.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_8);
 		
 		JPanel panel_9 = new JPanel();
+		panel_9.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_9);
 		
 		JLabel lblCliente = new JLabel("Cliente:");
@@ -229,9 +237,11 @@ public class TelaCadastroVenda extends JFrame {
 		lblCliente.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JPanel panel_10 = new JPanel();
+		panel_10.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_10);
 		
 		JPanel panel_11 = new JPanel();
+		panel_11.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_11);
 		
 		JLabel lblVendedor = new JLabel("Vendedor:");
@@ -239,15 +249,19 @@ public class TelaCadastroVenda extends JFrame {
 		lblVendedor.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JPanel panel_12 = new JPanel();
+		panel_12.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_12);
 		
 		JPanel panel_13 = new JPanel();
+		panel_13.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_13);
 		
 		JPanel panel_15 = new JPanel();
+		panel_15.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_15);
 		
 		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_5);
 		
 		JLabel lblLucro = new JLabel("Lucro:");

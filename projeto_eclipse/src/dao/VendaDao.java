@@ -1,11 +1,12 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.Produto;
 import model.Venda;
 
 public class VendaDao extends BD {
@@ -16,24 +17,43 @@ public class VendaDao extends BD {
 	}
 	
 	public void cadastroVenda(Venda venda) {
+		Connection conexao = BD.getConexao();
 		try {
+			int idCliente, idVendedor;
+			
 			PreparedStatement ps = conexao
-					.prepareStatement("insert into Venda (codigoVenda, data, comissaoVendedor, lucro, idCliente, idUsuario)"
-							+ "values ( ? , ? , ? , ? , ?, ? )");
-			ps.setInt(1, venda.getId());
-			ps.setString(2, venda.getData());
-			ps.setFloat(3, venda.getComissao());
-			ps.setFloat(4, venda.getLucro());
-			ps.setInt(5, venda.getIdCliente());
-			ps.setInt(6, venda.getIdUsuario());
+					.prepareStatement("select id_cliente from cliente where nome = ?");
+			ps.setString(1, venda.getNomeCliente());
+			ResultSet rs = ps.executeQuery();
+			do {
+				idCliente = rs.getInt("id_cliente");
+			} while (rs.next());
+			
+			ps = conexao.prepareStatement("select id_usuario from usuarios where nome = ?");
+			ps.setString(1, venda.getNomeVendedor());
+			
+			do {
+				idVendedor = rs.getInt("id_usuario");
+			} while (rs.next());
+			
+			ps = conexao.prepareStatement("insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)"
+					+ "values (? ,? , ?, ?, ?)");
+			ps.setDate(1, Date.valueOf(venda.getDataVenda()));
+			ps.setFloat(2, venda.getComissaoVendedor());
+			ps.setFloat(3, venda.getLucro());
+			ps.setInt(4, idCliente);
+			ps.setInt(5, idVendedor);
 			ps.execute();
-			conexao.close();
-		}catch(SQLException e){
-			System.out.println(e.getMessage());
+			BD.fechaConexao();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
-	public ArrayList<Venda> resgatarVenda(){
+	
+	public ArrayList<Venda> resgatarVendas(){
+		Connection conexao = BD.getConexao();
 		ArrayList<Venda> listaVenda = new ArrayList<Venda>();
 		try {
 			PreparedStatement ps = conexao
@@ -43,12 +63,12 @@ public class VendaDao extends BD {
 			if (rs.next()) {
 				do {
 					Venda venda = new Venda();
-					venda.setId(rs.getInt("codigoVenda"));
-					venda.setData(rs.getString("data"));
-					venda.setComissao(rs.getFloat("comissaoVendedor"));
+					venda.setIdVenda(rs.getInt("codigoVenda"));
+					venda.setDataVenda(rs.getDate("data_venda").toLocalDate());
+					venda.setComissaoVendedor(rs.getFloat("comissaoVendedor"));
 					venda.setLucro(rs.getFloat("lucro"));
 					venda.setIdCliente(rs.getInt("idCliente"));
-					venda.setIdUsuario(rs.getInt("idUsuario"));
+					venda.setIdVendedor(rs.getInt("idUsuario"));
 					
 					listaVenda.add(venda);
 				} while (rs.next());
@@ -60,24 +80,39 @@ public class VendaDao extends BD {
 		return listaVenda;
 	}
 	
-	public void atualizarVenda(Venda venda){
+	public void atualizarVenda(Venda venda){		
+		Connection conexao = BD.getConexao();
 		try {
-			PreparedStatement ps = conexao
-					.prepareStatement("update Venda set data=?, comissaoVendedor=?, lucro=?, idCliente=?, idUsuario=? where codigoVenda=?");
+			int idCliente, idVendedor;
 			
-			ps.setInt(1, venda.getId());
-			ps.setString(2, venda.getData());
-			ps.setFloat(3, venda.getComissao());
-			ps.setFloat(4, venda.getLucro());
-			ps.setInt(5, venda.getIdCliente());
-			ps.setInt(6, venda.getIdUsuario());
+			PreparedStatement ps = conexao
+					.prepareStatement("select id_cliente from cliente where nome = ?");
+			ps.setString(1, venda.getNomeCliente());
+			ResultSet rs = ps.executeQuery();
+			do {
+				idCliente = rs.getInt("id_cliente");
+			} while (rs.next());
+			
+			ps = conexao.prepareStatement("select id_usuario from usuarios where nome = ?");
+			ps.setString(1, venda.getNomeVendedor());
+			
+			do {
+				idVendedor = rs.getInt("id_usuario");
+			} while (rs.next());
+			
+			ps = conexao.prepareStatement("update venda  set data_venda=? , comissao_vendedor=?, lucro=?, id_cliente=?, id_usuario=?)"
+					+ "values (? ,? , ?, ?, ?)");
+			ps.setDate(1, Date.valueOf(venda.getDataVenda()));
+			ps.setFloat(2, venda.getComissaoVendedor());
+			ps.setFloat(3, venda.getLucro());
+			ps.setInt(4, idCliente);
+			ps.setInt(5, idVendedor);
 			ps.execute();
-			conexao.close();
-		}catch(SQLException e) {
+			BD.fechaConexao();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 	}
-	//falta update para "deletar"
 
 }

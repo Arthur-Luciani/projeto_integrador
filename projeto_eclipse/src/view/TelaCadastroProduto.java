@@ -303,7 +303,7 @@ public class TelaCadastroProduto extends JFrame {
 		
 		if (atualizarCadastrar==false) {
 			txtNome.setText(produtoSelecionado.getNome());
-			cbFornecedores.setSelectedItem(produtoSelecionado);
+			cbFornecedores.setSelectedItem(produtoSelecionado.getNomeFornecedor());
 			txtQuantidade.setText(String.valueOf(produtoSelecionado.getQuantEstoque()));
 			txtPreco.setText("R$ "+String.valueOf(produtoSelecionado.getPreco()).replace(".", ","));
 			

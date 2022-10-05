@@ -180,6 +180,12 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(panel_3);
 		
 		txtCPF = new JTextField();
+		txtCPF.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtCPF.setBorder(bordaNormal);
+			}
+		});
 		txtCPF.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_3.add(txtCPF);
 		txtCPF.setColumns(10);
@@ -197,6 +203,12 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t5);
 		
 		txtRua = new JTextField();
+		txtRua.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtRua.setBorder(bordaNormal);
+			}
+		});
 		txtRua.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		t5.add(txtRua);
 		txtRua.setColumns(10);
@@ -208,6 +220,12 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t6);
 		
 		txtBairro = new JTextField();
+		txtBairro.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtBairro.setBorder(bordaNormal);
+			}
+		});
 		txtBairro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		t6.add(txtBairro);
 		txtBairro.setColumns(10);
@@ -219,6 +237,12 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t7);
 		
 		txtCidade = new JTextField();
+		txtCidade.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtCidade.setBorder(bordaNormal);
+			}
+		});
 		txtCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		t7.add(txtCidade);
 		txtCidade.setColumns(10);
@@ -230,6 +254,12 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t8);
 		
 		txtNumero = new JTextField();
+		txtNumero.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtNumero.setBorder(bordaNormal);
+			}
+		});
 		txtNumero.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		t8.add(txtNumero);
 		txtNumero.setColumns(10);
@@ -315,6 +345,12 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t10);
 		
 		txtCep = new JTextField();
+		txtCep.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtCep.setBorder(bordaNormal);
+			}
+		});
 		txtCep.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		t10.add(txtCep);
 		txtCep.setColumns(10);

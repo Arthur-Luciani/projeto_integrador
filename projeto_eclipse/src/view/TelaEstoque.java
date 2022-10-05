@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.ProdutoDao;
+import dao.UsuarioDao;
 import model.Produto;
 
 import javax.swing.JButton;
@@ -85,9 +86,17 @@ public class TelaEstoque extends JFrame {
 		btnVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					TelaCadastroVenda telaVenda = new TelaCadastroVenda(null);
-					telaVenda.setVisible(true);
-					dispose();
+					try {
+						UsuarioDao dao = new UsuarioDao();
+						ArrayList<String> listaNomesUsuarios;
+						listaNomesUsuarios = dao.nomeUsuarios();
+						TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(null, listaNomesUsuarios);
+						telaCadastroVenda.setVisible(true);
+						dispose();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -50,7 +50,7 @@ public class TelaCadastroVenda extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroVenda(ArrayList<Float> listaLucro) throws ParseException {
+	public TelaCadastroVenda(ArrayList<Float> listaLucro, ArrayList<String> listaNomesUsuarios) throws ParseException {
 		this.listaLucro = listaLucro;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

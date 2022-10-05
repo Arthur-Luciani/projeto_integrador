@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import model.Usuario;
 
@@ -77,5 +78,21 @@ public class UsuarioDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public ArrayList<String> nomeUsuarios() throws SQLException {
+
+		conexao = BD.getConexao();
+		ArrayList<String> listaNomesUsuarios = new ArrayList<String>();
+		PreparedStatement ps = conexao.prepareStatement("select nome from usuarios");
+		ResultSet rs = ps.executeQuery();
+
+		if (rs.next()) {
+			do {
+				String nomeUsuario = rs.getString("nome");
+				listaNomesUsuarios.add(nomeUsuario);
+			} while (rs.next());
+
+		}
+		return listaNomesUsuarios;
 	}
 }

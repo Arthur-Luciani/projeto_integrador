@@ -114,7 +114,7 @@ public class TelaAdicionarProduto extends JFrame {
 					float lucro = dao.precoProdutos(nomeProduto) * quant;
 					listaLucro.add(lucro);
 
-					TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaLucro);
+					TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaLucro, null);
 					// telaCadastroVenda = new TelaAdicionarProduto(lucro1);
 					telaCadastroVenda.setVisible(true);
 					dispose();

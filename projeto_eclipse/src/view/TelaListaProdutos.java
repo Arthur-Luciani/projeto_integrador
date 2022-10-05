@@ -49,15 +49,9 @@ public class TelaListaProdutos extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				ProdutoDao dao;
-				try {
-					dao = new ProdutoDao();
-					listaProduto = dao.resgatarProdutos();
-					atualizarJTable();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				ProdutoDao dao = new ProdutoDao();
+				listaProduto = dao.resgatarProdutos();
+				atualizarJTable();
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,17 +161,12 @@ public class TelaListaProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(produtoSelecionado);
 				if (!produtoSelecionado.equals(null)) {
-					try {
-						ProdutoDao dao = new ProdutoDao();
-						ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
-						TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
-						telaHistoricoPrecos.atualizarJTable();
-						telaHistoricoPrecos.setVisible(true);
+					ProdutoDao dao = new ProdutoDao();
+					ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
+					TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
+					telaHistoricoPrecos.atualizarJTable();
+					telaHistoricoPrecos.setVisible(true);
 						dispose();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 				} else {
 					System.out.println(produtoSelecionado);
 				}

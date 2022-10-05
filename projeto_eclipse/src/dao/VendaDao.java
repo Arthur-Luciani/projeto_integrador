@@ -9,12 +9,9 @@ import java.util.ArrayList;
 
 import model.Venda;
 
-public class VendaDao extends BD {
+public class VendaDao {
 
-	public VendaDao() throws SQLException {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public VendaDao(){}
 	
 	public void cadastroVenda(Venda venda) {
 		Connection conexao = BD.getConexao();

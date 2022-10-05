@@ -21,7 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import dao.ClienteDao;
 import dao.ProdutoDao;
+import dao.UsuarioDao;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaAdicionarProduto extends JFrame {
@@ -105,24 +107,30 @@ public class TelaAdicionarProduto extends JFrame {
 
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nomeProduto = cbProduto.getSelectedItem().toString();
-				float quant = Float.parseFloat(txtQuantidade.getText());
-
+			public void actionPerformed(ActionEvent e) {				
+				
+				UsuarioDao daoUsuario = new UsuarioDao();
+				ClienteDao daoCliente = new ClienteDao();
+				ProdutoDao daoProduto =  new ProdutoDao();
+				ArrayList<String> listaNomesUsuarios = new ArrayList<>();
+				ArrayList<String> listaNomesClientes = new ArrayList<>(); 
 				try {
-					ProdutoDao dao = new ProdutoDao();
-					float lucro = dao.precoProdutos(nomeProduto) * quant;
+					listaNomesUsuarios = daoUsuario.nomeUsuarios();
+					listaNomesClientes = daoCliente.nomesClientes();
+					String nomeProduto = cbProduto.getSelectedItem().toString();
+					float quant = Float.parseFloat(txtQuantidade.getText());
+					float lucro = daoProduto.precoProdutos(nomeProduto) * quant;
 					listaLucro.add(lucro);
-
-					TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaLucro, null);
-					// telaCadastroVenda = new TelaAdicionarProduto(lucro1);
-					telaCadastroVenda.setVisible(true);
-					dispose();
-				} catch (ParseException e1) {
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (SQLException e2) {
-					e2.printStackTrace();
 				}
+				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaLucro, listaNomesUsuarios, listaNomesClientes);
+				telaCadastroVenda.setVisible(true);
+				dispose();
+				
+				
+				
 			}
 		});
 

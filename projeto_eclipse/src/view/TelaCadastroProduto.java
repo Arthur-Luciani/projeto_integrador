@@ -276,18 +276,13 @@ public class TelaCadastroProduto extends JFrame {
 						txtPreco.setBorder(bordaVermelha);
 					}
 				} else {
-					Produto produto = new Produto(nome, preco, quantidade, nomeFornecedor);
-					try {
-						ProdutoDao dao = new ProdutoDao();
-						if (atualizarCadastrar==true) {
-							dao.cadastroProduto(produto);
-						} else {
-							produto.setId(produtoSelecionado.getId());
-							dao.atualizarProduto(produto);
-						}
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					Produto produto = new Produto(nome, preco, quantidade, nomeFornecedor);					
+					ProdutoDao dao = new ProdutoDao();
+					if (atualizarCadastrar==true) {
+						dao.cadastroProduto(produto);
+					} else {
+						produto.setId(produtoSelecionado.getId());
+						dao.atualizarProduto(produto);
 					}
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
 					telaListaProdutos.setVisible(true);
@@ -310,14 +305,8 @@ public class TelaCadastroProduto extends JFrame {
 			JButton btnExcluir = new JButton("Excluir");
 			btnExcluir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ProdutoDao dao;
-					try {
-						dao = new ProdutoDao();
-						dao.deletarProduto(produtoSelecionado.getId());
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					ProdutoDao dao = new ProdutoDao();
+					dao.deletarProduto(produtoSelecionado.getId());
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
 					telaListaProdutos.setVisible(true);
 					dispose();

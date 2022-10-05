@@ -50,7 +50,7 @@ public class TelaCadastroVenda extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroVenda(ArrayList<Float> listaLucro, ArrayList<String> listaNomesUsuarios) throws ParseException {
+	public TelaCadastroVenda(ArrayList<Float> listaLucro, ArrayList<String> listaNomesUsuarios, ArrayList<String> listaNomesCliente){
 		this.listaLucro = listaLucro;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +82,12 @@ public class TelaCadastroVenda extends JFrame {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_14);
 		
-		txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		try {
+			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		panel_14.add(txtData);
 		txtData.setColumns(50);
 		
@@ -92,11 +97,12 @@ public class TelaCadastroVenda extends JFrame {
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_17);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBackground(new Color(85, 107, 47));
-		comboBox.setForeground(new Color(255, 255, 255));
-		comboBox.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_17.add(comboBox);
+		JComboBox cbClientes = new JComboBox();
+		cbClientes.setBackground(new Color(85, 107, 47));
+		cbClientes.setForeground(new Color(255, 255, 255));
+		cbClientes.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		cbClientes.setModel(new DefaultComboBoxModel<String>(listaNomesCliente.toArray(new String[0])));
+		panel_17.add(cbClientes);
 		
 		JPanel panel_20 = new JPanel();
 		panel_20.setBackground(new Color(240, 255, 240));
@@ -104,11 +110,12 @@ public class TelaCadastroVenda extends JFrame {
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_20);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBackground(new Color(85, 107, 47));
-		comboBox_1.setForeground(new Color(255, 255, 255));
-		comboBox_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_20.add(comboBox_1);
+		JComboBox cbVendedor = new JComboBox();
+		cbVendedor.setBackground(new Color(85, 107, 47));
+		cbVendedor.setForeground(new Color(255, 255, 255));
+		cbVendedor.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		cbVendedor.setModel(new DefaultComboBoxModel<String>(listaNomesUsuarios.toArray(new String[0])));
+		panel_20.add(cbVendedor);
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(240, 255, 240));

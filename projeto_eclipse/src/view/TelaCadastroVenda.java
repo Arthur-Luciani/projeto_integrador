@@ -1,44 +1,35 @@
 package view;
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import dao.ProdutoDao;
 import dao.VendaDao;
-import model.AtualizacaoProduto;
-import model.Produto;
 import model.Venda;
-
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Color;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextField;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import javax.swing.JSplitPane;
-import java.awt.FlowLayout;
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 public class TelaCadastroVenda extends JFrame {
 

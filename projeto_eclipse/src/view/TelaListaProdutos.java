@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import dao.FornecedorDao;
 import dao.ProdutoDao;
 import model.AtualizacaoProduto;
-import model.Fornecedores;
 import model.Produto;
 
 import java.awt.Font;
@@ -47,7 +46,20 @@ public class TelaListaProdutos extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaListaProdutos() {
-		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				ProdutoDao dao;
+				try {
+					dao = new ProdutoDao();
+					listaProduto = dao.resgatarProdutos();
+					atualizarJTable();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -119,11 +131,14 @@ public class TelaListaProdutos extends JFrame {
 				TelaCadastroProduto cadastroProduto;
 				try {
 					FornecedorDao dao = new FornecedorDao();
-					ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
+					ArrayList<String> listaFornecedores= dao.nomeFornecedores();
 					
 					cadastroProduto = new TelaCadastroProduto(true, listaFornecedores, null);
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				dispose();
@@ -152,12 +167,17 @@ public class TelaListaProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(produtoSelecionado);
 				if (!produtoSelecionado.equals(null)) {
-					ProdutoDao dao = new ProdutoDao();
-					ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
-					TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
-					telaHistoricoPrecos.atualizarJTable();
-					telaHistoricoPrecos.setVisible(true);
-					dispose();
+					try {
+						ProdutoDao dao = new ProdutoDao();
+						ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
+						TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
+						telaHistoricoPrecos.atualizarJTable();
+						telaHistoricoPrecos.setVisible(true);
+						dispose();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				} else {
 					System.out.println(produtoSelecionado);
 				}
@@ -177,7 +197,7 @@ public class TelaListaProdutos extends JFrame {
 				try {
 					if (produtoSelecionado != null) {
 						FornecedorDao dao = new FornecedorDao();
-						ArrayList<Fornecedores> listaFornecedores = dao.resgatarFornecedores();
+						ArrayList<String> listaFornecedores = dao.nomeFornecedores();
 						cadastroProduto = new TelaCadastroProduto(false,listaFornecedores, produtoSelecionado);
 						cadastroProduto.setVisible(true);
 						dispose();
@@ -186,6 +206,9 @@ public class TelaListaProdutos extends JFrame {
 						telaMensagem.setVisible(true);
 					}
 				} catch (ParseException e1) {
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

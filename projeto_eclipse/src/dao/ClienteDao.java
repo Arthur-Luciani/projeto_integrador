@@ -4,29 +4,54 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Statement;
+import java.util.Date;
+
+import model.Cliente;
 
 public class ClienteDao {
-	private Connection conexao = BD.getConexao();
-
-	public ClienteDao() {}
+	Connection conexao;
 	
-	public ArrayList<String> nomesClientes() {
-		ArrayList<String>listaClientes= new ArrayList<>();
+	public ClienteDao() {
+		conexao = BD.getConexao();
+	}
+	
+	public boolean cadastrarCliente(Cliente cliente) {
+		PreparedStatement ps;
 		try {
-			PreparedStatement ps = conexao
-					.prepareStatement("select nome from cliente");
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				do {
-					String nome = rs.getString("nome");
-					listaClientes.add(nome);
-				} while (rs.next());
-			}
+			
+			ps = conexao.prepareStatement("insert into endereco ( bairro, rua, cidade, cep, id_estado) values (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, cliente.getBairro());
+			ps.setString(2, cliente.getRua());
+			ps.setString(3, cliente.getCidade());
+			ps.setString(4, cliente.getCep());
+			ps.setInt(5, cliente.getIdEstado());
+			System.out.println(ps);
+			ps.execute();
+			ResultSet generetedKeys = ps.getGeneratedKeys();
+			generetedKeys.next();
+			cliente.setId_endereco(generetedKeys.getInt(1));
+			
+			ps = conexao
+					.prepareStatement("insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)"
+							+ "values (?,?,?,?,?)");
+			ps.setString(1, cliente.getNome());
+			ps.setString(2, cliente.getCpf());
+			ps.setString(3, cliente.getEmail());
+			ps.setDate(4, java.sql.Date.valueOf(cliente.getDataNascimento()));
+			ps.setInt(5, cliente.getId_endereco());
+			ps.execute();
+			System.out.println(ps);
+			BD.fechaConexao();
+			return true;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
-		return listaClientes;
+		
+		return false;
 	}
+
 }

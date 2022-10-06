@@ -64,8 +64,6 @@ public class TelaRelatorios extends JFrame {
 		btnVendaPeriodo.setForeground(new Color(255, 255, 255));
 		btnVendaPeriodo.setBackground(new Color(85, 107, 47));
 		btnVendaPeriodo.setBounds(new Rectangle(58, 202, 180, 58));
-		ImageIcon iconSalvar = new ImageIcon("file:///C:/Users/Aluno/Documents/projeto_integrador/projeto_eclipse/src/Imagens/folha-de-papel.png");
-		iconSalvar.setImage(iconSalvar.getImage().getScaledInstance(15, 15, 15));
 		btnVendaPeriodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

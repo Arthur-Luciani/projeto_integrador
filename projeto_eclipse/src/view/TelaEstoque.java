@@ -13,13 +13,16 @@ import javax.swing.border.EmptyBorder;
 import dao.ClienteDao;
 import dao.ProdutoDao;
 import dao.UsuarioDao;
+import model.Cliente;
 import model.Produto;
+import model.Usuario;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
 public class TelaEstoque extends JFrame {
@@ -89,15 +92,10 @@ public class TelaEstoque extends JFrame {
 				
 				UsuarioDao daoUsuario = new UsuarioDao();
 				ClienteDao daoCliente = new ClienteDao();
-				ArrayList<String> listaNomesUsuarios = new ArrayList<>();
-				ArrayList<String> listaNomesClientes = new ArrayList<>(); 
-				try {
-					listaNomesUsuarios = daoUsuario.nomeUsuarios();
-					listaNomesClientes = daoCliente.nomesClientes();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				LinkedList<Usuario> listaNomesUsuarios = new LinkedList<>();
+				LinkedList<Cliente> listaNomesClientes = new LinkedList<>(); 
+				listaNomesUsuarios = daoUsuario.resgatarUsuarios();
+				listaNomesClientes = daoCliente.resgatarClientes();
 				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(null, listaNomesUsuarios, listaNomesClientes);
 				telaCadastroVenda.setVisible(true);
 				dispose();

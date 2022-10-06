@@ -4,19 +4,25 @@ import java.time.LocalDate;
 
 public class Venda {
 	
-	private int idVenda, idCliente, idVendedor;
+	private int idVenda;
 	private LocalDate dataVenda;
-	private float comissaoVendedor, lucro;
-	private String  nomeCliente, nomeVendedor;
+	private float comissaoVendedor;
+	private float lucro;
+	private Cliente cliente;
+	private Usuario vendedor;
 	
-	public Venda(LocalDate dataVenda, float comissaoVendedor, float lucro, String nomeCliente, String nomeVendedor) {
+	
+	
+	public Venda( LocalDate dataVenda, float comissaoVendedor, float lucro, Cliente cliente,
+			Usuario vendedor) {
 		super();
-		this.comissaoVendedor = comissaoVendedor;
 		this.dataVenda = dataVenda;
+		this.comissaoVendedor = comissaoVendedor;
 		this.lucro = lucro;
-		this.nomeCliente = nomeCliente;
-		this.nomeVendedor = nomeVendedor;
+		this.cliente = cliente;
+		this.vendedor = vendedor;
 	}
+	public Venda() {}
 	
 	public int getIdVenda() {
 		return idVenda;
@@ -42,29 +48,17 @@ public class Venda {
 	public void setLucro(float lucro) {
 		this.lucro = lucro;
 	}
-	public String getNomeCliente() {
-		return nomeCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-	public String getNomeVendedor() {
-		return nomeVendedor;
+	public Usuario getVendedor() {
+		return vendedor;
 	}
-	public void setNomeVendedor(String nomeVendedor) {
-		this.nomeVendedor = nomeVendedor;
-	}
-	public int getIdCliente() {
-		return idCliente;
-	}
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-	public int getIdVendedor() {
-		return idVendedor;
-	}
-	public void setIdVendedor(int idVendedor) {
-		this.idVendedor = idVendedor;
+	public void setVendedor(Usuario vendedor) {
+		this.vendedor = vendedor;
 	}
 	
 	

@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -28,6 +29,9 @@ import javax.swing.text.MaskFormatter;
 
 import dao.ProdutoDao;
 import dao.VendaDao;
+import model.Cliente;
+import model.Estado;
+import model.Usuario;
 import model.Venda;
 import net.miginfocom.swing.MigLayout;
 
@@ -45,7 +49,7 @@ public class TelaCadastroVenda extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroVenda(ArrayList<Float> listaLucro, ArrayList<String> listaNomesUsuarios, ArrayList<String> listaNomesCliente){
+	public TelaCadastroVenda(ArrayList<Float> listaLucro, LinkedList<Usuario> listaNomesUsuarios, LinkedList<Cliente> listaNomesCliente){
 		this.listaLucro = listaLucro;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,11 +97,16 @@ public class TelaCadastroVenda extends JFrame {
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_17);
 		
-		JComboBox cbClientes = new JComboBox();
+		String[] arrayClientes = new String[listaNomesCliente.size()];
+		for(int i = 0; i < arrayClientes.length; i++) {
+		    Cliente cliente = listaNomesCliente.get(i);
+		    
+			arrayClientes[i] = cliente.getNome();
+		}
+		JComboBox cbClientes = new JComboBox(arrayClientes);
 		cbClientes.setBackground(new Color(85, 107, 47));
 		cbClientes.setForeground(new Color(255, 255, 255));
 		cbClientes.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		cbClientes.setModel(new DefaultComboBoxModel<String>(listaNomesCliente.toArray(new String[0])));
 		panel_17.add(cbClientes);
 		
 		JPanel panel_20 = new JPanel();
@@ -106,11 +115,16 @@ public class TelaCadastroVenda extends JFrame {
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
 		panel_1.add(panel_20);
 		
-		JComboBox cbVendedor = new JComboBox();
+		String[] arrayVendedores = new String[listaNomesUsuarios.size()];
+		for(int i = 0; i < arrayVendedores.length; i++) {
+		    Usuario usuario = listaNomesUsuarios.get(i);
+			arrayVendedores[i] = usuario.getNome();
+		}
+		
+		JComboBox cbVendedor = new JComboBox(arrayVendedores);
 		cbVendedor.setBackground(new Color(85, 107, 47));
 		cbVendedor.setForeground(new Color(255, 255, 255));
 		cbVendedor.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		cbVendedor.setModel(new DefaultComboBoxModel<String>(listaNomesUsuarios.toArray(new String[0])));
 		panel_20.add(cbVendedor);
 		
 		JPanel panel_7 = new JPanel();
@@ -195,21 +209,24 @@ public class TelaCadastroVenda extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String data = txtData.getText(); // variável criada para o isEmpty funcionar
-				String nomeCliente = cbClientes.getSelectedItem().toString();
-				String nomeVendedor = cbVendedor.getSelectedItem().toString();
+				Usuario vendedor = listaNomesUsuarios.get(cbVendedor.getSelectedIndex());
+				Cliente cliente = listaNomesCliente.get(cbClientes.getSelectedIndex());
 				
-				float lucroTotal = lblLucroResul.getAlignmentX();
-				float comissao = lblComissaoResul.getAlignmentX();
+				
+				float lucroTotal = Float.parseFloat(lblLucroResul.getText()) ;
+				float comissao = Float.parseFloat(lblComissaoResul.getText());
 				
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //o LocalDate.parse cobra essa linha para funcionar
-				LocalDate dataa = LocalDate.parse(data, formatter);
+				LocalDate dataLD = LocalDate.parse(data, formatter);
 				
 					if(data.isEmpty()) {
 						txtData.setBorder(bordaVermelha);
 					}else {
-						Venda venda = new Venda(dataa, comissao, lucroTotal, nomeCliente, nomeVendedor);
-						VendaDao vendaDao = new VendaDao();
-						vendaDao.cadastroVenda(venda);
+						Venda venda = new Venda(dataLD, comissao, lucroTotal, cliente, vendedor);
+						VendaDao dao = new VendaDao();
+						dao.cadastroVenda(venda);
+						
+						
 						
 						TelaEstoque telaEstoque = new TelaEstoque();
 						telaEstoque.setVisible(true);

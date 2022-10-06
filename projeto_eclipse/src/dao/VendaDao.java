@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.Cliente;
+import model.Usuario;
 import model.Venda;
 
 public class VendaDao {
@@ -15,33 +17,20 @@ public class VendaDao {
 	
 	public void cadastroVenda(Venda venda) {
 		Connection conexao = BD.getConexao();
+		Cliente cliente = venda.getCliente();
+		Usuario usuario = venda.getVendedor();
+
 		try {
-			int idCliente, idVendedor;
-			
 			PreparedStatement ps = conexao
-					.prepareStatement("select id_cliente from cliente where nome = ?");
-			ps.setString(1, venda.getNomeCliente());
-			ResultSet rs = ps.executeQuery();
-			do {
-				idCliente = rs.getInt("id_cliente");
-			} while (rs.next());
-			
-			ps = conexao.prepareStatement("select id_usuario from usuarios where nome = ?");
-			ps.setString(1, venda.getNomeVendedor());
-			
-			do {
-				idVendedor = rs.getInt("id_usuario");
-			} while (rs.next());
-			
-			ps = conexao.prepareStatement("insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)"
-					+ "values (? ,? , ?, ?, ?)");
+					.prepareStatement("insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)"
+							+ "values (?,?,?,?,?)");
 			ps.setDate(1, Date.valueOf(venda.getDataVenda()));
 			ps.setFloat(2, venda.getComissaoVendedor());
 			ps.setFloat(3, venda.getLucro());
-			ps.setInt(4, idCliente);
-			ps.setInt(5, idVendedor);
+			ps.setInt(4, cliente.getId());
+			ps.setInt(5, usuario.getIdUsuario());
 			ps.execute();
-			BD.fechaConexao();
+			System.out.println(ps);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,13 +48,14 @@ public class VendaDao {
 			
 			if (rs.next()) {
 				do {
-					Venda venda = new Venda(null, 0, 0, null, null);
+					Venda venda = new Venda();
 					venda.setIdVenda(rs.getInt("codigoVenda"));
 					venda.setDataVenda(rs.getDate("data_venda").toLocalDate());
 					venda.setComissaoVendedor(rs.getFloat("comissaoVendedor"));
 					venda.setLucro(rs.getFloat("lucro"));
-					venda.setIdCliente(rs.getInt("idCliente"));
-					venda.setIdVendedor(rs.getInt("idUsuario"));
+					
+					
+					//falta fazer a parte de vendedor e de cliente
 					
 					listaVenda.add(venda);
 				} while (rs.next());
@@ -76,7 +66,7 @@ public class VendaDao {
 		}
 		return listaVenda;
 	}
-	
+	/*
 	public void atualizarVenda(Venda venda){		
 		Connection conexao = BD.getConexao();
 		try {
@@ -110,6 +100,6 @@ public class VendaDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

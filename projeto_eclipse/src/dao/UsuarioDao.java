@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import model.Usuario;
 
@@ -81,18 +82,20 @@ public class UsuarioDao {
 		}
 		return null;
 	}
-	public ArrayList<String> nomeUsuarios() throws SQLException {
-		ArrayList<String> listaNomesUsuarios = new ArrayList<String>();
+	public LinkedList<Usuario> resgatarUsuarios() {
+		LinkedList<Usuario> listaNomesUsuarios = new LinkedList<>();
 		Connection conexao = BD.getConexao();
 		try {
 			
-			PreparedStatement ps = conexao.prepareStatement("select nome from usuarios");
+			PreparedStatement ps = conexao.prepareStatement("select * from usuarios");
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
 				do {
-					String nomeUsuario = rs.getString("nome");
-					listaNomesUsuarios.add(nomeUsuario);
+					Usuario usuario = new Usuario();
+					usuario.setNome(rs.getString("nome"));
+					usuario.setIdUsuario(rs.getInt("id_usuario"));
+					listaNomesUsuarios.add(usuario);
 				} while (rs.next());
 			}
 		} catch (SQLException e) {

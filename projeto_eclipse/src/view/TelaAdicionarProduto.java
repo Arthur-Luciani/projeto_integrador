@@ -11,6 +11,7 @@ import java.awt.event.FocusAdapter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -24,6 +25,8 @@ import javax.swing.border.EmptyBorder;
 import dao.ClienteDao;
 import dao.ProdutoDao;
 import dao.UsuarioDao;
+import model.Cliente;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 
 public class TelaAdicionarProduto extends JFrame {
@@ -113,11 +116,11 @@ public class TelaAdicionarProduto extends JFrame {
 				UsuarioDao daoUsuario = new UsuarioDao();
 				ClienteDao daoCliente = new ClienteDao();
 				ProdutoDao daoProduto =  new ProdutoDao();
-				ArrayList<String> listaNomesUsuarios = new ArrayList<>();
-				ArrayList<String> listaNomesClientes = new ArrayList<>(); 
+				LinkedList<Usuario> listaNomesUsuarios = new LinkedList<>();
+				LinkedList<Cliente> listaNomesClientes = new LinkedList<>(); 
 				try {
-					listaNomesUsuarios = daoUsuario.nomeUsuarios();
-					listaNomesClientes = daoCliente.nomesClientes();
+					listaNomesUsuarios = daoUsuario.resgatarUsuarios();
+					listaNomesClientes = daoCliente.resgatarClientes();
 					String nomeProduto = cbProduto.getSelectedItem().toString();
 					float quant = Float.parseFloat(txtQuantidade.getText());
 					float lucro = daoProduto.precoProdutos(nomeProduto) * quant;

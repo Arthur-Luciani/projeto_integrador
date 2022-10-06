@@ -15,11 +15,14 @@ import javax.swing.JPasswordField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import dao.ClienteDao;
 import dao.UsuarioDao;
+import model.AtualizacaoProduto;
 import model.Cliente;
+import model.Estado;
 import model.Usuario;
 import model.ValidaCPF;
 
@@ -39,6 +42,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
@@ -70,7 +75,7 @@ public class TelaCadastroCliente extends JFrame {
 	 * Create the frame.
 	 * 
 	 */
-	public TelaCadastroCliente(LinkedList<String>listaEstados)  {
+	public TelaCadastroCliente(LinkedList<Estado> listaEstados)  {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -270,10 +275,18 @@ public class TelaCadastroCliente extends JFrame {
 		t9.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t9);
 		
-		JComboBox<String> cbEstados = new JComboBox();
+		
+		
+		String[] arrayEstados = new String[listaEstados.size()];
+		for(int i = 0; i < arrayEstados.length; i++) {
+		    Estado estado = listaEstados.get(i);
+		    
+			arrayEstados[i] = estado.getNome();
+		}
+
+		JComboBox cbEstados = new JComboBox(arrayEstados);
 		cbEstados.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		t9.add(cbEstados);
-		cbEstados.setModel(new DefaultComboBoxModel<String>(listaEstados.toArray(new String[0])));
 
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setBounds(65, 10, 46, 29);
@@ -396,11 +409,12 @@ public class TelaCadastroCliente extends JFrame {
 				String bairro = txtBairro.getText();
 				String cidade = txtCidade.getText();
 				String numero = txtNumero.getText();
-				String estado = cbEstados.getSelectedItem().toString();
+				Estado estado = listaEstados.get(cbEstados.getSelectedIndex());
+				String idEstado = String.valueOf(estado.getId());
 				String cep = txtCep.getText();
-				
+
 				if (nome.isEmpty() || dataNascimento.equals("  /  /    ") || cpf.isEmpty() || email.isEmpty() || rua.isEmpty() || bairro.isEmpty() 
-						|| cidade.isEmpty() || numero.isEmpty() || estado.isEmpty() || cep.isEmpty()) {
+						|| cidade.isEmpty() || numero.isEmpty() || idEstado.isEmpty() || cep.isEmpty()) {
 					if (nome.isEmpty()) {
 						txtNome.setBorder(bordaVermelha);
 					}
@@ -425,7 +439,7 @@ public class TelaCadastroCliente extends JFrame {
 					if (numero.isEmpty()) {
 						txtNumero.setBorder(bordaVermelha);
 					}
-					if (estado.isEmpty()) {
+					if (idEstado.isEmpty()) {
 						cbEstados.setBorder(bordaVermelha);
 					}
 					if (cep.isEmpty()) {
@@ -434,8 +448,10 @@ public class TelaCadastroCliente extends JFrame {
 				} else {
 					LocalDate dataNascimentoLD = LocalDate.parse(dataNascimento, formatacao);
 					int NumeroInt = Integer.parseInt(numero);
+					int idEstadoInt = Integer.parseInt(idEstado);
 					
-					Cliente cliente = new Cliente(nome, cpf, email, dataNascimentoLD, rua, bairro, cidade, cep, estado, NumeroInt);
+					Cliente cliente = new Cliente(nome, cpf, email, dataNascimentoLD, rua, bairro, cidade, cep, idEstadoInt, NumeroInt);
+					
 					ClienteDao dao;
 					dao = new ClienteDao();
 					dao.cadastrarCliente(cliente);
@@ -448,11 +464,5 @@ public class TelaCadastroCliente extends JFrame {
 		btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnCadastrar.setBackground(new Color(85, 107, 47));
 		p_direita.add(btnCadastrar);
-		
-		
-		
-		
-		
-
 	}
 }

@@ -7,11 +7,20 @@ public class Cliente extends Endereco{
 	private String cpf;
 	private String email;
 	private LocalDate dataNascimento;
+	private int id;
 	
 	
 	
 	
-	public Cliente(String nome, String cpf, String email, LocalDate dataNascimento, String rua, String bairro, String cidade, String cep, String estado, int numero) {
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Cliente(String nome, String cpf, String email, LocalDate dataNascimento, String rua, String bairro, String cidade, String cep, int idEstado, int numero) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -21,7 +30,7 @@ public class Cliente extends Endereco{
 		setBairro(bairro);
 		setCidade(cidade);
 		setCep(cep);
-		setEstado(estado);
+		setEstado(idEstado);
 		setNumero(numero);
 	}
 	public String getNome() {

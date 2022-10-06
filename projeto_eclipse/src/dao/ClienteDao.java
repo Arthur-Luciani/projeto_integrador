@@ -19,22 +19,25 @@ public class ClienteDao {
 		PreparedStatement ps;
 		try {
 			ps = conexao
-					.prepareStatement("insert into mydb.endereco (bairro, rua, cidade, cep, id_estado) "
-							+ "values ('fortaleza','cacilda','blumenau','23432', (select id from mydb.estados where nome like 'Acre') );");
-			
-			
-			/*
-			ps.setString(1, cliente.getBairro());
-			ps.setString(2, cliente.getRua());
-			ps.setString(3, cliente.getCidade());
-			ps.setString(4, cliente.getCep());
-			ps.setString(5, cliente.getEstado());
-			
-			*/
+					.prepareStatement("insert into endereco (id_endereco, bairro, rua, cidade, cep, id_estado) values (?,?,?,?,?,?);");
+			ps.setInt(1, cliente.getId());
+			ps.setString(2, cliente.getBairro());
+			ps.setString(3, cliente.getRua());
+			ps.setString(4, cliente.getCidade());
+			ps.setString(5, cliente.getCep());
+			ps.setInt(6, cliente.getIdEstado());
+			System.out.println(ps);
 			ps.execute();
 			
-			
-			
+			/*
+			ps = conexao
+					.prepareStatement("insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)"
+							+ "values (?,?,?,?,?)");
+			ps.setString(1, cliente.getNome());
+			ps.setString(2, cliente.getCpf());
+			ps.setString(3, cliente.getEmail());
+			ps.setDate(4, java.sql.Date.valueOf(cliente.getDataNascimento()));
+			*/
 			BD.fechaConexao();
 			return true;
 			

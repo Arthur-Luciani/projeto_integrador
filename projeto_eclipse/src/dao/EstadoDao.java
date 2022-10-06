@@ -8,21 +8,27 @@ import java.util.LinkedList;
 
 import com.mysql.cj.protocol.Message;
 
+import model.Estado;
+
 public class EstadoDao {
-	Connection conexao;
-	public EstadoDao() {
-		conexao = BD.getConexao();
-	}
-	public LinkedList<String> nomeEstados(){
-		LinkedList<String>listaEstados = new LinkedList<>();
+	
+	public EstadoDao() {}
+	
+	public LinkedList<Estado> resgatarEstados(){
+		Connection conexao = BD.getConexao();
+		LinkedList<Estado>listaEstados = new LinkedList<>();
 		try {
 			PreparedStatement ps = conexao
-					.prepareStatement("select nome from estados");
+					.prepareStatement("select * from estados");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				do {
+					Estado estado = new Estado();
+					int id = rs.getInt("id");
 					String nome = rs.getString("nome");
-					listaEstados.add(nome);
+					estado.setId(id);
+					estado.setNome(nome);
+					listaEstados.add(estado);
 				} while (rs.next());
 			}
 			

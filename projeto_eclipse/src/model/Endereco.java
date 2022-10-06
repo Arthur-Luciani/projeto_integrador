@@ -5,7 +5,7 @@ public abstract class Endereco {
 	private String rua;
 	private String cidade;
 	private String cep;
-	private String estado;
+	private int idEstado;
 	private int numero;
 	
 	
@@ -34,11 +34,11 @@ public abstract class Endereco {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	public String getEstado() {
-		return estado;
+	public int getIdEstado() {
+		return idEstado;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstado(int idEstado) {
+		this.idEstado = idEstado;
 	}
 	public int getNumero() {
 		return numero;

@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.EstadoDao;
+import model.Estado;
 import model.Usuario;
 
 public class TelaInicial extends JFrame {
@@ -91,13 +93,13 @@ public class TelaInicial extends JFrame {
 		btnCadastroDeClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EstadoDao dao = new EstadoDao();
-				LinkedList<String>listaEstado = dao.nomeEstados();
-				TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(listaEstado);
+				LinkedList<Estado>listaEstados= dao.resgatarEstados();
+				TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(listaEstados);
 				telaCadastroCliente.setVisible(true);
-			
 				dispose();
 			}
 		});
+		
 		btnCadastroDeClientes.setBounds(578, 276, 232, 39);
 		btnCadastroDeClientes.setToolTipText("");
 		btnCadastroDeClientes.setFont(new Font("Segoe Print", Font.PLAIN, 16));

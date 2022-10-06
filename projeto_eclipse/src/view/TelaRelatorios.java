@@ -1,28 +1,22 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.Border;
-import javax.swing.JTextPane;
-import javax.swing.JSlider;
-import java.awt.Canvas;
+import javax.swing.border.EmptyBorder;
 
 public class TelaRelatorios extends JFrame {
 	private JButton btnVendaPeriodo;
@@ -38,6 +32,7 @@ public class TelaRelatorios extends JFrame {
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
+		
 		panel.setBackground(new Color(85, 107, 47));
 		getContentPane().add(panel, BorderLayout.NORTH);
 		
@@ -61,14 +56,18 @@ public class TelaRelatorios extends JFrame {
 		panel_1.add(panel_9);
 		
 		btnVendaPeriodo = new JButton("Reatório venda por período");
+		btnVendaPeriodo.setBounds(new Rectangle(15, 30, 0, 0));
+		panel_9.add(btnVendaPeriodo);
+		btnVendaPeriodo.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\src\\Imagens\\iconPapel.png"));
 		btnVendaPeriodo.setForeground(new Color(255, 255, 255));
 		btnVendaPeriodo.setBackground(new Color(85, 107, 47));
-		btnVendaPeriodo.setBounds(new Rectangle(58, 202, 180, 58));
+		
+
+		//iconPapel.setIconImag(iconPapel);
 		btnVendaPeriodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		panel_9.add(btnVendaPeriodo);
 		btnVendaPeriodo.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JPanel panel_10 = new JPanel();

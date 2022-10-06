@@ -96,8 +96,9 @@ public class TelaAdicionarProduto extends JFrame {
 		panel_3.add(panel_15);
 
 		txtQuantidade = new JTextField();
+		txtQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_15.add(txtQuantidade);
-		txtQuantidade.setColumns(50);
+		txtQuantidade.setColumns(20);
 
 		JPanel panel_13 = new JPanel();
 		panel_13.setBackground(new Color(240, 255, 240));

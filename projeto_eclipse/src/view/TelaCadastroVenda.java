@@ -79,12 +79,13 @@ public class TelaCadastroVenda extends JFrame {
 		
 		try {
 			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			txtData.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		panel_14.add(txtData);
-		txtData.setColumns(50);
+		txtData.setColumns(20);
 		
 		JPanel panel_17 = new JPanel();
 		panel_17.setBackground(new Color(240, 255, 240));

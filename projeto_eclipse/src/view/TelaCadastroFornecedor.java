@@ -101,12 +101,21 @@ public class TelaCadastroFornecedor extends JFrame {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel);
+		
+		
+		JLabel lbAtualizaCadastrar = new JLabel("Teste");
+		if (atualizarCadastrar == true) {
+			lbAtualizaCadastrar = new JLabel("Adicionar");
+			
+		}	else {
+			lbAtualizaCadastrar = new JLabel("Atualizar");
 
-		JLabel lblCadastro = new JLabel("Cadastro");
-		lblCadastro.setForeground(Color.WHITE);
-		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
-		panel.add(lblCadastro);
+		}
+		lbAtualizaCadastrar.setForeground(Color.WHITE);
+		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
+		panel.add(lbAtualizaCadastrar);
 
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(240, 255, 240));
 		panel_1.setBounds(20, 104, 814, 407);

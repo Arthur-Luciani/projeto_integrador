@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`endereco` (
   `cep` VARCHAR(45) NULL,
   `id_estado` INT(11) NOT NULL,
   PRIMARY KEY (`id_endereco`),
-  INDEX `fk_endereco_estados1_idx` (`id_estado` ASC) VISIBLE,
+  INDEX `fk_endereco_estados1_idx` (`id_estado` ASC) ,
   CONSTRAINT `fk_endereco_estados1`
     FOREIGN KEY (`id_estado`)
     REFERENCES `mydb`.`estados` (`id`)
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`cliente` (
   `data_de_nasc` DATE NULL DEFAULT NULL,
   `id_endereco` INT NOT NULL,
   PRIMARY KEY (`id_cliente`),
-  INDEX `fk_cliente_endereco1_idx` (`id_endereco` ASC) VISIBLE,
+  INDEX `fk_cliente_endereco1_idx` (`id_endereco` ASC),
   CONSTRAINT `fk_cliente_endereco1`
     FOREIGN KEY (`id_endereco`)
     REFERENCES `mydb`.`endereco` (`id_endereco`)
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`fornecedor` (
   `id_endereco` INT NOT NULL,
   `cnpj` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`nome_empresa`, `cnpj`),
-  INDEX `fk_fornecedor_endereco1_idx` (`id_endereco` ASC) VISIBLE,
+  INDEX `fk_fornecedor_endereco1_idx` (`id_endereco` ASC),
   CONSTRAINT `fk_fornecedor_endereco1`
     FOREIGN KEY (`id_endereco`)
     REFERENCES `mydb`.`endereco` (`id_endereco`)
@@ -139,8 +139,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`venda` (
   `id_cliente` INT(11) NOT NULL,
   `id_usuario` INT(11) NOT NULL,
   PRIMARY KEY (`id_venda`),
-  INDEX `fk_Venda_idCliente` (`id_cliente` ASC) VISIBLE,
-  INDEX `fk_Venda_idUsuario` (`id_usuario` ASC) VISIBLE,
+  INDEX `fk_Venda_idCliente` (`id_cliente` ASC) ,
+  INDEX `fk_Venda_idUsuario` (`id_usuario` ASC),
   CONSTRAINT `fk_Venda_idCliente`
     FOREIGN KEY (`id_cliente`)
     REFERENCES `mydb`.`cliente` (`id_cliente`)
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`historico_produto` (
   `preco_antigo` FLOAT NULL,
   `nome_empresa` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id_historico_produto`),
-  INDEX `fk_historico_produto_fornecedor1_idx` (`nome_empresa` ASC) VISIBLE,
+  INDEX `fk_historico_produto_fornecedor1_idx` (`nome_empresa` ASC),
   CONSTRAINT `fk_historico_produto_fornecedor1`
     FOREIGN KEY (`nome_empresa`)
     REFERENCES `mydb`.`fornecedor` (`nome_empresa`)
@@ -184,8 +184,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`venda_produtos` (
   `quantidade_produto` INT(11) NOT NULL,
   `id_historico_produto` INT NOT NULL,
   PRIMARY KEY (`id_venda`),
-  INDEX `fk_Venda_has_Produto_Venda1_idx` (`id_venda` ASC) VISIBLE,
-  INDEX `fk_vendaprodutos_historico_produto1_idx` (`id_historico_produto` ASC) VISIBLE,
+  INDEX `fk_Venda_has_Produto_Venda1_idx` (`id_venda` ASC),
+  INDEX `fk_vendaprodutos_historico_produto1_idx` (`id_historico_produto` ASC),
   CONSTRAINT `fk_Venda_has_Produto_Venda1`
     FOREIGN KEY (`id_venda`)
     REFERENCES `mydb`.`venda` (`id_venda`)

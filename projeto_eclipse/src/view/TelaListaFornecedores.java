@@ -76,7 +76,7 @@ public class TelaListaFornecedores extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "Localização", "Telefone"
+				"CNPJ", "Nome", "Email", "Localização", "Telefone"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -123,9 +123,14 @@ public class TelaListaFornecedores extends JFrame {
 		
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFornecedor cadastroFornecedor;
-				
-				
+				TelaCadastroFornecedor telaCadastroFornecedor = null;
+				try {
+					telaCadastroFornecedor = new TelaCadastroFornecedor(true);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				telaCadastroFornecedor.setVisible(true);
 				dispose();
 			}
 		});

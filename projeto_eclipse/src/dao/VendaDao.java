@@ -59,7 +59,7 @@ public class VendaDao {
 			
 			if (rs.next()) {
 				do {
-					Venda venda = new Venda();
+					Venda venda = new Venda(null, 0, 0, null, null);
 					venda.setIdVenda(rs.getInt("codigoVenda"));
 					venda.setDataVenda(rs.getDate("data_venda").toLocalDate());
 					venda.setComissaoVendedor(rs.getFloat("comissaoVendedor"));

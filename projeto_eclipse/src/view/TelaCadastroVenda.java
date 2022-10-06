@@ -9,8 +9,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import dao.ProdutoDao;
+import dao.VendaDao;
 import model.AtualizacaoProduto;
 import model.Produto;
+import model.Venda;
 
 import java.awt.GridLayout;
 import javax.swing.JLabel;
@@ -27,6 +29,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
@@ -159,7 +163,6 @@ public class TelaCadastroVenda extends JFrame {
 		JLabel lblComissaoResul = new JLabel("-");
 		panel_23.add(lblComissaoResul, "cell 13 0");
 		lblComissaoResul.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -199,14 +202,26 @@ public class TelaCadastroVenda extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String data = txtData.getText();
+				String data = txtData.getText(); // variável criada para o isEmpty funcionar
+				String nomeCliente = cbClientes.getSelectedItem().toString();
+				String nomeVendedor = cbVendedor.getSelectedItem().toString();
+				
+				float lucroTotal = lblLucroResul.getAlignmentX();
+				float comissao = lblComissaoResul.getAlignmentX();
+				
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //o LocalDate.parse cobra essa linha para funcionar
+				LocalDate dataa = LocalDate.parse(data, formatter);
 				
 					if(data.isEmpty()) {
 						txtData.setBorder(bordaVermelha);
 					}else {
-					TelaEstoque telaEstoque = new TelaEstoque();
-					telaEstoque.setVisible(true);
-					dispose();
+						Venda venda = new Venda(dataa, comissao, lucroTotal, nomeCliente, nomeVendedor);
+						VendaDao vendaDao = new VendaDao();
+						vendaDao.cadastroVenda(venda);
+						
+						TelaEstoque telaEstoque = new TelaEstoque();
+						telaEstoque.setVisible(true);
+						dispose();
 				}
 			}
 		});

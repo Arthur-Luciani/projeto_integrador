@@ -9,6 +9,15 @@ public class Venda {
 	private float comissaoVendedor, lucro;
 	private String  nomeCliente, nomeVendedor;
 	
+	public Venda(LocalDate dataVenda, float comissaoVendedor, float lucro, String nomeCliente, String nomeVendedor) {
+		super();
+		this.comissaoVendedor = comissaoVendedor;
+		this.dataVenda = dataVenda;
+		this.lucro = lucro;
+		this.nomeCliente = nomeCliente;
+		this.nomeVendedor = nomeVendedor;
+	}
+	
 	public int getIdVenda() {
 		return idVenda;
 	}

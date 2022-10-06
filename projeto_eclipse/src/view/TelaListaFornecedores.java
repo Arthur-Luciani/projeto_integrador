@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.FornecedorDao;
 import dao.ProdutoDao;
+import model.Fornecedores;
 import model.Produto;
 import net.miginfocom.swing.MigLayout;
 
@@ -34,12 +35,14 @@ public class TelaListaFornecedores extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private ArrayList<Fornecedores> listaFornecedores = new ArrayList<Fornecedores>();
+	private Fornecedores fornecedorSelecionado;
+
 	
 	
 
-	public TelaListaFornecedores() {
-		
-
+	public TelaListaFornecedores(ArrayList<Fornecedores> listaFornecedores) {
+		this.listaFornecedores = listaFornecedores;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -76,7 +79,7 @@ public class TelaListaFornecedores extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"CNPJ", "Nome", "Email", "Localização", "Telefone"
+				"CNPJ", "Email", "Nome", "Telefone", "Localização"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -103,15 +106,21 @@ public class TelaListaFornecedores extends JFrame {
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFornecedor telaCadastroFornecedor = null;
+				TelaCadastroFornecedor cadastroFornecedor;
 				try {
-					telaCadastroFornecedor = new TelaCadastroFornecedor(true);
+					if (fornecedorSelecionado != null) {
+						FornecedorDao dao = new FornecedorDao();
+						ArrayList<Fornecedores> listaFornecedores = dao.resgatarFornecedores();
+						cadastroFornecedor = new TelaCadastroFornecedor(true, listaFornecedores, fornecedorSelecionado);
+						cadastroFornecedor.setVisible(true);
+						dispose();
+					} else {
+						TelaMensagem telaMensagem = new TelaMensagem("Nenhum fornecedor selecionado para atualizar");
+						telaMensagem.setVisible(true);
+					}
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				telaCadastroFornecedor.setVisible(true);
-				dispose();
 			}
 		});
 		btnAtualizar.setForeground(Color.WHITE);
@@ -122,18 +131,24 @@ public class TelaListaFornecedores extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		
 		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFornecedor telaCadastroFornecedor = null;
-				try {
-					telaCadastroFornecedor = new TelaCadastroFornecedor(true);
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				public void actionPerformed(ActionEvent e) {
+					TelaCadastroFornecedor cadastroFornecedor;
+					try {
+						FornecedorDao dao = new FornecedorDao();
+						ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
+						
+						cadastroFornecedor = new TelaCadastroFornecedor(true, listaFornecedores, fornecedorSelecionado);
+						cadastroFornecedor.setVisible(true);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					dispose();
 				}
-				telaCadastroFornecedor.setVisible(true);
-				dispose();
-			}
+			 
 		});
+		
+		
+		
 		
 		btnAdicionar.setForeground(Color.WHITE);
 		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
@@ -143,6 +158,21 @@ public class TelaListaFornecedores extends JFrame {
 	}
 	
 
+	protected void atualizarJTable() {
+		DefaultTableModel modelo = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"CNPJ", "Email", "Nome", "Telefone", "Localização"
+				}
+			);
+		for(int i=0; i< listaFornecedores.size(); i++) {
+			Fornecedores f = listaFornecedores.get(i);
+			modelo.addRow(new Object[] { f.getCnpj(), f.getEmail(), f.getNomeEmpresa(), f.getTelefone()});
+		}
+		
+		table.setModel(modelo);
+	}
 
 
 }

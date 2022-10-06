@@ -19,6 +19,7 @@ import javax.swing.text.MaskFormatter;
 
 import dao.ProdutoDao;
 import dao.UsuarioDao;
+import model.Fornecedores;
 import model.Produto;
 import model.Usuario;
 import model.ValidaCPF;
@@ -37,6 +38,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -60,6 +62,8 @@ public class TelaCadastroFornecedor extends JFrame {
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
 	private JPasswordField txtCidade;
 	private JPasswordField txtCep;
+	private ArrayList<Fornecedores> listaFornecedor;
+	Fornecedores fornecedorSelecionado;
 
 	/**
 	 * Launch the application.
@@ -83,7 +87,10 @@ public class TelaCadastroFornecedor extends JFrame {
 	 * 
 	 * @throws ParseException
 	 */
-	public TelaCadastroFornecedor(Boolean atualizarCadastrar) throws ParseException {
+	public TelaCadastroFornecedor(Boolean atualizarCadastrar, ArrayList<Fornecedores> listaFornecedores, Fornecedores FornecedorSelecionado) throws ParseException {
+		this.listaFornecedor = listaFornecedores;
+		this.fornecedorSelecionado = fornecedorSelecionado;
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -230,11 +237,16 @@ public class TelaCadastroFornecedor extends JFrame {
 		btnVoltar.setBounds(65, 360, 115, 37);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores();
-				telaListaFornecedores.setVisible(true);
+				
+				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
+				
+				telaFornecedores.setVisible(true);
 				dispose();
 			}
 		});
+		
+		
+	
 
 		JLabel lblCidade = new JLabel("Cidade");
 		lblCidade.setBounds(65, 243, 55, 29);

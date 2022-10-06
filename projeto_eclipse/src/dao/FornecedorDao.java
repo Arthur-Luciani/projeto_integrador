@@ -38,7 +38,7 @@ public class FornecedorDao {
 	public ArrayList<Fornecedores> resgatarFornecedores()  {
 		ArrayList<Fornecedores> listaFornecedores = new ArrayList<Fornecedores>();
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select nome_empresa from fornecedor");
+			PreparedStatement ps = conexao.prepareStatement("select * from fornecedor");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				do {

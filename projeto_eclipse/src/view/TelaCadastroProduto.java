@@ -53,8 +53,8 @@ public class TelaCadastroProduto extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroProduto(Boolean atualizarCadastrar, ArrayList<Fornecedores> listaFornecedor, Produto produtoSelecionado) throws ParseException {
-		this.listaFornecedor = listaFornecedor;
+	public TelaCadastroProduto(Boolean atualizarCadastrar, ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado) throws ParseException {
+		this.listaFornecedor = listaFornecedores;
 		this.produtoSelecionado =produtoSelecionado;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -206,7 +206,7 @@ public class TelaCadastroProduto extends JFrame {
 			}
 		});
 		cbFornecedores.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		cbFornecedores.setModel(new DefaultComboBoxModel<String>(listaFornecedor.toArray(new String[0])));
+		cbFornecedores.setModel(new DefaultComboBoxModel<String>(listaFornecedores.toArray(new String[0])));
 		panel_5.add(cbFornecedores);
 		
 		

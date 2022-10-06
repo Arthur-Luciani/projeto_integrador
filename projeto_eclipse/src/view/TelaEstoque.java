@@ -10,7 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dao.FornecedorDao;
 import dao.ProdutoDao;
+import model.Fornecedores;
 import model.Produto;
 
 import javax.swing.JButton;
@@ -97,7 +99,12 @@ public class TelaEstoque extends JFrame {
 		JButton btnFornecedores = new JButton("Fornecedores");
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					TelaListaFornecedores telaFornecedores = new TelaListaFornecedores();
+				FornecedorDao dao;
+				dao = new FornecedorDao();
+				ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
+				
+					TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
+					telaFornecedores.atualizarJTable();
 					telaFornecedores.setVisible(true);
 					dispose();
 			}

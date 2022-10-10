@@ -117,33 +117,6 @@ public class ProdutoDao {
 		}
 		return null;
 	}
-	public ArrayList<String> nomeProdutos() throws SQLException {
-
-		conexao = BD.getConexao();
-		ArrayList<String> listaNomesProdutos = new ArrayList<String>();
-		PreparedStatement ps = conexao.prepareStatement("select nome_produto from produto");
-		ResultSet rs = ps.executeQuery();
-
-		if (rs.next()) {
-			do {
-				String nomeProduto = rs.getString("nome_produto");
-				listaNomesProdutos.add(nomeProduto);
-			} while (rs.next());
-
-		}
-		return listaNomesProdutos;
-	}
-	public Float precoProdutos(String nome) throws SQLException {
-
-		conexao = BD.getConexao();
-		PreparedStatement ps = conexao.prepareStatement("select preco_produto from produto where nome_produto like ?");
-		ps.setString(1, nome);
-		ResultSet rs = ps.executeQuery();
-
-		if (rs.next()) {
-			return rs.getFloat("preco_produto");
-		}
-		return (float) 0;
-	}
+	
 
 }

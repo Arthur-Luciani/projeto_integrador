@@ -1,20 +1,19 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Venda {
-	
 	private int idVenda;
 	private LocalDate dataVenda;
 	private float comissaoVendedor;
 	private float lucro;
 	private Cliente cliente;
 	private Usuario vendedor;
+	private ArrayList<ProdutoVenda>listaProdutosVendidos;
 	
 	
-	
-	public Venda( LocalDate dataVenda, float comissaoVendedor, float lucro, Cliente cliente,
-			Usuario vendedor) {
+	public Venda( LocalDate dataVenda, float comissaoVendedor, float lucro, Cliente cliente, Usuario vendedor) {
 		super();
 		this.dataVenda = dataVenda;
 		this.comissaoVendedor = comissaoVendedor;
@@ -59,6 +58,12 @@ public class Venda {
 	}
 	public void setVendedor(Usuario vendedor) {
 		this.vendedor = vendedor;
+	}
+	public ArrayList<ProdutoVenda> getListaProdutosVendidos() {
+		return listaProdutosVendidos;
+	}
+	public void setListaProdutosVendidos(ArrayList<ProdutoVenda> listaProdutosVendidos) {
+		this.listaProdutosVendidos = listaProdutosVendidos;
 	}
 	
 	

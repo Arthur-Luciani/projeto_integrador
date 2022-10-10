@@ -1,7 +1,6 @@
 package model;
 
 public class Produto {
-	
 	String nome, nomeFornecedor;
 	float preco;
 	int id, quantEstoque;

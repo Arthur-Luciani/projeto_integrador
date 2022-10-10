@@ -26,6 +26,8 @@ import dao.ClienteDao;
 import dao.ProdutoDao;
 import dao.UsuarioDao;
 import model.Cliente;
+import model.Produto;
+import model.ProdutoVenda;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 
@@ -33,18 +35,20 @@ public class TelaAdicionarProduto extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtQuantidade;
-	private static ArrayList<Float> listaLucro;
+	private ArrayList<ProdutoVenda> listaProdutosVendidos = new ArrayList<>();
 
 	/**
 	 * Create the frame.
 	 * 
 	 * @param listaNomesProdutos
 	 */
-	public TelaAdicionarProduto(ArrayList<String> listaNomesProdutos, ArrayList<Float> lucros) {
-		if (lucros == null || listaLucro == null) {
-			listaLucro = new ArrayList<>();
+	public TelaAdicionarProduto(ArrayList<Produto> listaProdutos, ArrayList<ProdutoVenda> listaProdutosVendidos, int usuarioSelecionado, int clienteSelecionado) {
+		if (listaProdutosVendidos.isEmpty()) {
+			this.listaProdutosVendidos = new ArrayList<>();
+		} else {
+			this.listaProdutosVendidos = listaProdutosVendidos;
 		}
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -68,7 +72,6 @@ public class TelaAdicionarProduto extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(240, 255, 240));
 		contentPane.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new MigLayout("", "[][][][][][][][][][][][]", "[]"));
 
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.CENTER);
@@ -84,64 +87,91 @@ public class TelaAdicionarProduto extends JFrame {
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
 		panel_3.add(panel_14);
 
-		JComboBox cbProduto = new JComboBox();
+		String[] arrayProdutos = new String[listaProdutos.size()];
+		for(int i = 0; i < arrayProdutos.length; i++) {
+		    Produto produto = listaProdutos.get(i);
+			arrayProdutos[i] = produto.getNome();
+		}
+		JComboBox cbProduto = new JComboBox(arrayProdutos);
 		panel_14.add(cbProduto);
 		cbProduto.addFocusListener(new FocusAdapter() {
 		});
 		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		cbProduto.setModel(new DefaultComboBoxModel<String>(listaNomesProdutos.toArray(new String[0])));
 		cbProduto.setForeground(new Color(255, 255, 255));
 		cbProduto.setBackground(new Color(85, 107, 47));
 		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 
 		JPanel panel_15 = new JPanel();
+		FlowLayout flowLayout_5 = (FlowLayout) panel_15.getLayout();
+		flowLayout_5.setAlignment(FlowLayout.LEFT);
 		panel_15.setBackground(new Color(240, 255, 240));
 		panel_3.add(panel_15);
 
 		txtQuantidade = new JTextField();
 		txtQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_15.add(txtQuantidade);
-		txtQuantidade.setColumns(20);
+		txtQuantidade.setColumns(10);
 
 		JPanel panel_13 = new JPanel();
 		panel_13.setBackground(new Color(240, 255, 240));
 		FlowLayout flowLayout_1 = (FlowLayout) panel_13.getLayout();
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panel_3.add(panel_13);
-
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				
+		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel_16 = new JPanel();
+		FlowLayout flowLayout_3 = (FlowLayout) panel_16.getLayout();
+		flowLayout_3.setAlignment(FlowLayout.LEFT);
+		panel_16.setBackground(new Color(240, 255, 240));
+		panel_1.add(panel_16);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				UsuarioDao daoUsuario = new UsuarioDao();
 				ClienteDao daoCliente = new ClienteDao();
-				ProdutoDao daoProduto =  new ProdutoDao();
-				LinkedList<Usuario> listaNomesUsuarios = new LinkedList<>();
-				LinkedList<Cliente> listaNomesClientes = new LinkedList<>(); 
-				try {
-					listaNomesUsuarios = daoUsuario.resgatarUsuarios();
-					listaNomesClientes = daoCliente.resgatarClientes();
-					String nomeProduto = cbProduto.getSelectedItem().toString();
-					float quant = Float.parseFloat(txtQuantidade.getText());
-					float lucro = daoProduto.precoProdutos(nomeProduto) * quant;
-					listaLucro.add(lucro);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaLucro, listaNomesUsuarios, listaNomesClientes);
+				LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
+				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
+				telaCadastroVenda.atualizarJTable();
+				telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);
 				telaCadastroVenda.setVisible(true);
 				dispose();
-				
-				
-				
 			}
 		});
-
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnVoltar.setBackground(new Color(85, 107, 47));
+		panel_16.add(btnVoltar);
+		
+		JPanel panel_17 = new JPanel();
+		FlowLayout flowLayout_4 = (FlowLayout) panel_17.getLayout();
+		flowLayout_4.setAlignment(FlowLayout.RIGHT);
+		panel_17.setBackground(new Color(240, 255, 240));
+		panel_1.add(panel_17);
+		
+				JButton btnAdicionar = new JButton("Adicionar");
+				panel_17.add(btnAdicionar);
+				btnAdicionar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {				
+						
+						UsuarioDao daoUsuario = new UsuarioDao();
+						ClienteDao daoCliente = new ClienteDao();
+						LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
+						LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+						Produto produto = listaProdutos.get(cbProduto.getSelectedIndex());
+						ProdutoVenda produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);							
+						listaProdutosVendidos.add(produtoVenda);
+						TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
+						telaCadastroVenda.atualizarJTable();
+						telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);
+						telaCadastroVenda.setVisible(true);
+						dispose();
+					}
+				});
 		btnAdicionar.setBackground(new Color(85, 107, 47));
 		btnAdicionar.setForeground(new Color(255, 255, 255));
 		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(btnAdicionar, "cell 11 0");
 
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.WEST);

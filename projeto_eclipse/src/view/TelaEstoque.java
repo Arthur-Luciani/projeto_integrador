@@ -15,6 +15,7 @@ import dao.ProdutoDao;
 import dao.UsuarioDao;
 import model.Cliente;
 import model.Produto;
+import model.ProdutoVenda;
 import model.Usuario;
 
 import javax.swing.JButton;
@@ -92,11 +93,10 @@ public class TelaEstoque extends JFrame {
 				
 				UsuarioDao daoUsuario = new UsuarioDao();
 				ClienteDao daoCliente = new ClienteDao();
-				LinkedList<Usuario> listaNomesUsuarios = new LinkedList<>();
-				LinkedList<Cliente> listaNomesClientes = new LinkedList<>(); 
-				listaNomesUsuarios = daoUsuario.resgatarUsuarios();
-				listaNomesClientes = daoCliente.resgatarClientes();
-				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(null, listaNomesUsuarios, listaNomesClientes);
+				LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
+				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+				ArrayList<ProdutoVenda> listaProdutosVendidos = new ArrayList<>();
+				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
 				telaCadastroVenda.setVisible(true);
 				dispose();
 

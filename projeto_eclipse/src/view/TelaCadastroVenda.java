@@ -31,26 +31,41 @@ import dao.ProdutoDao;
 import dao.VendaDao;
 import model.Cliente;
 import model.Estado;
+import model.Produto;
+import model.ProdutoVenda;
 import model.Usuario;
 import model.Venda;
 import net.miginfocom.swing.MigLayout;
+import swingDesign.JTableViridisSinus;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JRadioButton;
 
 public class TelaCadastroVenda extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtData;
 	
-	private ArrayList<Float>  listaLucro= new ArrayList<>(); 
+	private ArrayList<ProdutoVenda> listaProdutosVendidos = new ArrayList<>();
 	
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
+	private JTable table;
+	private	JComboBox cbClientes;
+	private JComboBox cbVendedor;
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroVenda(ArrayList<Float> listaLucro, LinkedList<Usuario> listaNomesUsuarios, LinkedList<Cliente> listaNomesCliente){
-		this.listaLucro = listaLucro;
+	public TelaCadastroVenda(ArrayList<ProdutoVenda> listaProdutosVendidos, LinkedList<Usuario> listaNomesUsuarios, 
+			LinkedList<Cliente> listaNomesCliente){
+		if (listaProdutosVendidos.isEmpty()) {
+			this.listaProdutosVendidos = new ArrayList<>();
+		} else {
+			this.listaProdutosVendidos = listaProdutosVendidos;
+		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -61,41 +76,46 @@ public class TelaCadastroVenda extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(85, 107, 47));
-		contentPane.add(panel, BorderLayout.NORTH);
+		JPanel pTitulo = new JPanel();
+		pTitulo.setBackground(new Color(85, 107, 47));
+		contentPane.add(pTitulo, BorderLayout.NORTH);
+		
+		JPanel pBorderEsq = new JPanel();
+		pBorderEsq.setBackground(new Color(240, 255, 240));
+		contentPane.add(pBorderEsq, BorderLayout.WEST);
+		
+		JPanel pBorderDir = new JPanel();
+		pBorderDir.setBackground(new Color(240, 255, 240));
+		contentPane.add(pBorderDir, BorderLayout.EAST);
 		
 		JLabel lblNewLabel = new JLabel("Cadastro das vendas");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Segoe Print", Font.PLAIN, 50));
-		panel.add(lblNewLabel);
+		pTitulo.add(lblNewLabel);
+		pBorderEsq.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(240, 255, 240));
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new GridLayout(5, 2, 0, 0));
+		JPanel ptxt = new JPanel();
+		ptxt.setBackground(new Color(240, 255, 240));
+		pBorderEsq.add(ptxt, BorderLayout.EAST);
+		ptxt.setLayout(new GridLayout(3, 2, 0, 0));
 		
 		JPanel panel_14 = new JPanel();
 		panel_14.setBackground(new Color(240, 255, 240));
 		FlowLayout flowLayout = (FlowLayout) panel_14.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
-		panel_1.add(panel_14);
-		
-		try {
-			txtData = new JFormattedTextField(new MaskFormatter("##/##/####"));
-			txtData.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		ptxt.add(panel_14);
+		DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		JLabel txtData = new JLabel(LocalDate.now().format(formatacao));
+		txtData.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_14.add(txtData);
-		txtData.setColumns(20);
+		
+	
 		
 		JPanel panel_17 = new JPanel();
 		panel_17.setBackground(new Color(240, 255, 240));
 		FlowLayout flowLayout_1 = (FlowLayout) panel_17.getLayout();
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
-		panel_1.add(panel_17);
+		ptxt.add(panel_17);
 		
 		String[] arrayClientes = new String[listaNomesCliente.size()];
 		for(int i = 0; i < arrayClientes.length; i++) {
@@ -103,7 +123,7 @@ public class TelaCadastroVenda extends JFrame {
 		    
 			arrayClientes[i] = cliente.getNome();
 		}
-		JComboBox cbClientes = new JComboBox(arrayClientes);
+		cbClientes = new JComboBox(arrayClientes);
 		cbClientes.setBackground(new Color(85, 107, 47));
 		cbClientes.setForeground(new Color(255, 255, 255));
 		cbClientes.setFont(new Font("Segoe Print", Font.PLAIN, 16));
@@ -113,7 +133,7 @@ public class TelaCadastroVenda extends JFrame {
 		panel_20.setBackground(new Color(240, 255, 240));
 		FlowLayout flowLayout_2 = (FlowLayout) panel_20.getLayout();
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
-		panel_1.add(panel_20);
+		ptxt.add(panel_20);
 		
 		String[] arrayVendedores = new String[listaNomesUsuarios.size()];
 		for(int i = 0; i < arrayVendedores.length; i++) {
@@ -121,78 +141,38 @@ public class TelaCadastroVenda extends JFrame {
 			arrayVendedores[i] = usuario.getNome();
 		}
 		
-		JComboBox cbVendedor = new JComboBox(arrayVendedores);
+		cbVendedor = new JComboBox(arrayVendedores);
 		cbVendedor.setBackground(new Color(85, 107, 47));
 		cbVendedor.setForeground(new Color(255, 255, 255));
 		cbVendedor.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_20.add(cbVendedor);
 		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBackground(new Color(240, 255, 240));
-		FlowLayout flowLayout_3 = (FlowLayout) panel_7.getLayout();
-		flowLayout_3.setAlignment(FlowLayout.LEFT);
-		panel_1.add(panel_7);
+		JPanel pLbls = new JPanel();
+		pLbls.setBackground(new Color(240, 255, 240));
+		pBorderEsq.add(pLbls, BorderLayout.WEST);
+		pLbls.setLayout(new GridLayout(3, 1, 0, 0));
 		
-		JButton btnAdicionar = new JButton("Adicionar produtos");
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaAdicionarProduto telaAdicionaProduto;
-				try {
-					ProdutoDao dao = new ProdutoDao();
-					ArrayList<String> listaNomesProdutos = dao.nomeProdutos();
-					telaAdicionaProduto = new TelaAdicionarProduto(listaNomesProdutos, listaLucro);
-					telaAdicionaProduto.setVisible(true);
-					dispose();
-				}catch(SQLException e2) {
-					
-				}
-			}
-		});
-		btnAdicionar.setBackground(new Color(85, 107, 47));
-		btnAdicionar.setForeground(new Color(255, 255, 255));
-		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_7.add(btnAdicionar);
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(240, 255, 240));
+		pLbls.add(panel);
 		
-		JPanel panel_23 = new JPanel();
-		panel_23.setBackground(new Color(240, 255, 240));
-		panel_1.add(panel_23);
-		panel_23.setLayout(new MigLayout("", "[10px][][][][][][][][][][][][][][][][][][][][][][][]", "[29px]"));
+		JLabel lblData = new JLabel("Data:");
+		panel.add(lblData);
+		lblData.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
-		JLabel lblLucroResul = new JLabel("-\r\n");
-		lblLucroResul.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_23.add(lblLucroResul, "cell 1 0,alignx left,aligny top");
+		JPanel pBotoes = new JPanel();
+		pBotoes.setBackground(new Color(240, 255, 240));
+		contentPane.add(pBotoes, BorderLayout.SOUTH);
+		pBotoes.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblComissao = new JLabel("Comissão:");
-		panel_23.add(lblComissao, "cell 10 0");
-		lblComissao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		
-		JLabel lblComissaoResul = new JLabel("-");
-		panel_23.add(lblComissaoResul, "cell 13 0");
-		lblComissaoResul.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		JButton btnCalcular = new JButton("Calcular");
-		btnCalcular.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				float lucroTotal = 0;
-				for(int i=0; i< listaLucro.size(); i++) {
-					float l = listaLucro.get(i);
-					lucroTotal = lucroTotal+l;
-				}
-				float comissao = lucroTotal*5/100;
-				
-				lblLucroResul.setText(String.valueOf(lucroTotal));
-				lblComissaoResul.setText(String.valueOf(comissao));
-			}
-		});
-		btnCalcular.setForeground(new Color(255, 255, 255));
-		btnCalcular.setBackground(new Color(85, 107, 47));
-		btnCalcular.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_23.add(btnCalcular, "cell 22 0");
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(240, 255, 240));
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_4 = (FlowLayout) panel_4.getLayout();
+		flowLayout_4.setAlignment(FlowLayout.LEFT);
+		pBotoes.add(panel_4);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		panel_4.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaEstoque telaEstoque = new TelaEstoque();
@@ -203,101 +183,101 @@ public class TelaCadastroVenda extends JFrame {
 		btnVoltar.setBackground(new Color(85, 107, 47));
 		btnVoltar.setForeground(new Color(255, 255, 255));
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_2.add(btnVoltar);
-		
-		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String data = txtData.getText(); // variável criada para o isEmpty funcionar
-				Usuario vendedor = listaNomesUsuarios.get(cbVendedor.getSelectedIndex());
-				Cliente cliente = listaNomesCliente.get(cbClientes.getSelectedIndex());
-				
-				
-				float lucroTotal = Float.parseFloat(lblLucroResul.getText()) ;
-				float comissao = Float.parseFloat(lblComissaoResul.getText());
-				
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //o LocalDate.parse cobra essa linha para funcionar
-				LocalDate dataLD = LocalDate.parse(data, formatter);
-				
-					if(data.isEmpty()) {
-						txtData.setBorder(bordaVermelha);
-					}else {
-						Venda venda = new Venda(dataLD, comissao, lucroTotal, cliente, vendedor);
-						VendaDao dao = new VendaDao();
-						dao.cadastroVenda(venda);
-						
-						
-						
-						TelaEstoque telaEstoque = new TelaEstoque();
-						telaEstoque.setVisible(true);
-						dispose();
-				}
-			}
-		});
-		btnCadastrar.setBackground(new Color(85, 107, 47));
-		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_2.add(btnCadastrar);
-		
-		JPanel panel_3 = new JPanel();
-		contentPane.add(panel_3, BorderLayout.WEST);
-		panel_3.setLayout(new GridLayout(5, 2, 0, 0));
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_4);
-		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_6);
-		
-		JLabel lblData = new JLabel("Data:");
-		panel_6.add(lblData);
-		lblData.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JPanel panel_8 = new JPanel();
 		panel_8.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_8);
+		FlowLayout flowLayout_5 = (FlowLayout) panel_8.getLayout();
+		flowLayout_5.setAlignment(FlowLayout.RIGHT);
+		pBotoes.add(panel_8);
+		
+		
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(240, 255, 240));
+		pLbls.add(panel_6);
+		
+		JLabel lblCliente = new JLabel("Cliente:");
+		panel_6.add(lblCliente);
+		lblCliente.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JPanel panel_9 = new JPanel();
 		panel_9.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_9);
-		
-		JLabel lblCliente = new JLabel("Cliente:");
-		panel_9.add(lblCliente);
-		lblCliente.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		
-		JPanel panel_10 = new JPanel();
-		panel_10.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_10);
-		
-		JPanel panel_11 = new JPanel();
-		panel_11.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_11);
+		pLbls.add(panel_9);
 		
 		JLabel lblVendedor = new JLabel("Vendedor:");
-		panel_11.add(lblVendedor);
+		panel_9.add(lblVendedor);
 		lblVendedor.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pBorderDir.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_12 = new JPanel();
-		panel_12.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_12);
+		JScrollPane scrollPane = new JScrollPane();
+		pBorderDir.add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel_13 = new JPanel();
-		panel_13.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_13);
+		table = new JTableViridisSinus().padraoJtable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Produto", "Pre\u00E7o", "Quantidade"
+			}
+		));
+		scrollPane.setViewportView(table);
 		
-		JPanel panel_15 = new JPanel();
-		panel_15.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_15);
+		JPanel pBtnsTabela = new JPanel();
+		pBtnsTabela.setBackground(new Color(240, 255, 240));
+		pBorderDir.add(pBtnsTabela, BorderLayout.SOUTH);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(new Color(240, 255, 240));
-		panel_3.add(panel_5);
+		JButton btnContinuar = new JButton("Continuar");
+		panel_8.add(btnContinuar);
+		btnContinuar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaConfirmarVenda telaConfirmarVenda = new TelaConfirmarVenda
+						(listaProdutosVendidos, listaNomesUsuarios.get(cbVendedor.getSelectedIndex()),
+						 listaNomesCliente.get(cbClientes.getSelectedIndex()), cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
+				telaConfirmarVenda.setVisible(true);
+				telaConfirmarVenda.atualizarJTable();
+				telaConfirmarVenda.atualizarCampos();
+				dispose();
+			}
+		});
+		btnContinuar.setBackground(new Color(85, 107, 47));
+		btnContinuar.setForeground(new Color(255, 255, 255));
+		btnContinuar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
-		JLabel lblLucro = new JLabel("Lucro:");
-		panel_5.add(lblLucro);
-		lblLucro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		JButton btnAdicionar = new JButton("Adicionar produtos");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaAdicionarProduto telaAdicionaProduto;
+				ProdutoDao dao = new ProdutoDao();
+				ArrayList<Produto> listaProdutos = dao.resgatarProdutos();
+				telaAdicionaProduto = new TelaAdicionarProduto(listaProdutos, listaProdutosVendidos, cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
+				telaAdicionaProduto.setVisible(true);
+				dispose();
+			
+			}
+		});
+		btnAdicionar.setBackground(new Color(85, 107, 47));
+		btnAdicionar.setForeground(new Color(255, 255, 255));
+		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pBtnsTabela.add(btnAdicionar);
+	}
+	protected void atualizarJTable() {
+		DefaultTableModel modelo = new DefaultTableModel(
+				
+				new Object[][] {
+				},
+				new String[] {
+						"Produto", "Pre\u00E7o", "Quantidade"
+				}
+			);
+		for(int i=0; i< listaProdutosVendidos.size(); i++) {
+			ProdutoVenda produtoVenda = listaProdutosVendidos.get(i);
+			modelo.addRow(new Object[] { produtoVenda.getNome(),"R$"+produtoVenda.getPreco(), produtoVenda.getQuantidade() });
+		}
+		
+		table.setModel(modelo);
+	}
+	protected void atualizarComboBox(int clienteSelecionado, int vendedorSelecionado) {
+		cbClientes.setSelectedIndex(clienteSelecionado);
+		cbVendedor.setSelectedIndex(vendedorSelecionado);
 	}
 
 }

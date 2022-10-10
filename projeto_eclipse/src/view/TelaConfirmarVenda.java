@@ -310,7 +310,7 @@ public class TelaConfirmarVenda extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Venda venda = new Venda(LocalDate.now(), comissao, lucroTotal, cliente, usuario);
 				VendaDao dao = new VendaDao();
-				dao.cadastroVenda(venda);
+				dao.cadastroVenda(venda, listaProdutosVendidos);
 				
 			}
 		});

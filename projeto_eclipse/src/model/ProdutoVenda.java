@@ -6,8 +6,11 @@ public class ProdutoVenda extends Produto{
 	
 	public ProdutoVenda(int quantidade, Produto produto) {
 		super();
-		this.nome =produto.getNome();
+		this.id = produto.getId();
+		this.nome = produto.getNome();
+		this.nomeFornecedor = produto.getNomeFornecedor();
 		this.preco = produto.getPreco();
+		this.quantEstoque = produto.getQuantEstoque();
 		this.quantidade = quantidade;
 	}
 

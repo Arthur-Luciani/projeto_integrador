@@ -5,9 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Cliente;
+import model.ProdutoVenda;
 import model.Usuario;
 import model.Venda;
 
@@ -15,7 +17,7 @@ public class VendaDao {
 
 	public VendaDao(){}
 	
-	public void cadastroVenda(Venda venda) {
+	public void cadastroVenda(Venda venda, ArrayList<ProdutoVenda>listaProdutosVendidos) {
 		Connection conexao = BD.getConexao();
 		Cliente cliente = venda.getCliente();
 		Usuario usuario = venda.getVendedor();
@@ -23,17 +25,46 @@ public class VendaDao {
 		try {
 			PreparedStatement ps = conexao
 					.prepareStatement("insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)"
-							+ "values (?,?,?,?,?)");
+							+ "values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setDate(1, Date.valueOf(venda.getDataVenda()));
 			ps.setFloat(2, venda.getComissaoVendedor());
 			ps.setFloat(3, venda.getLucro());
 			ps.setInt(4, cliente.getId());
 			ps.setInt(5, usuario.getIdUsuario());
 			ps.execute();
-			System.out.println(ps);
+			ResultSet generetedKeys = ps.getGeneratedKeys();
+			
+			if (generetedKeys.next()) {
+				venda.setIdVenda(generetedKeys.getInt(1));
+			}
+		
+			for (ProdutoVenda produtoVenda : listaProdutosVendidos) {
+				
+				int idHistorico=0;
+				ps = conexao
+						.prepareStatement("select id_historico_produto from historico_produto where id_produto=? order by data_atualizacao desc");
+				ps.setInt(1, produtoVenda.getId());
+				ResultSet rs = ps.executeQuery();
+				
+				if (rs.next()) {
+					idHistorico = rs.getInt("id_historico_produto");
+					System.out.println(idHistorico);
+				}
+				ps = conexao
+						.prepareStatement("insert into venda_produtos  "
+								+ "values (?,?,?)");
+				ps.setInt(1, venda.getIdVenda());
+				ps.setInt(2, produtoVenda.getQuantidade());
+				ps.setInt(3, idHistorico);
+				ps.execute();
+				
+				System.out.println(ps);
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	

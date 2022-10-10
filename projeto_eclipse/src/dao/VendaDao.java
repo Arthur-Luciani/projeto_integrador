@@ -42,7 +42,7 @@ public class VendaDao {
 				
 				int idHistorico=0;
 				ps = conexao
-						.prepareStatement("select id_historico_produto from historico_produto where id_produto=? order by data_atualizacao desc");
+						.prepareStatement("select id_historico_produto from historico_produto where id_produto=? order by id_historico_produto desc");
 				ps.setInt(1, produtoVenda.getId());
 				ResultSet rs = ps.executeQuery();
 				

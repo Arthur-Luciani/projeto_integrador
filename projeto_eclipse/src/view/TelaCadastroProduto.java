@@ -304,8 +304,11 @@ public class TelaCadastroProduto extends JFrame {
 		if (atualizarCadastrar==false) {
 			txtNome.setText(produtoSelecionado.getNome());
 			cbFornecedores.setSelectedItem(produtoSelecionado.getNomeFornecedor());
-			txtQuantidade.setText(String.valueOf(produtoSelecionado.getQuantEstoque()));
-			txtPreco.setText("R$ "+String.valueOf(produtoSelecionado.getPreco()).replace(".", ","));
+			txtQuantidade.setText(String.valueOf(produtoSelecionado.getQuantEstoque()));		
+			String strPreco = String.valueOf(produtoSelecionado.getPreco()).replace(".", ",");
+			txtPreco.setText("R$ "+strPreco);
+			
+			System.out.println(txtPreco.getText());
 			
 			JButton btnExcluir = new JButton("Excluir");
 			btnExcluir.addActionListener(new ActionListener() {

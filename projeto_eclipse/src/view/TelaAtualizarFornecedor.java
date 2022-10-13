@@ -53,7 +53,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JComboBox;
 
-public class TelaCadastroFornecedor extends JFrame {
+public class TelaAtualizarFornecedor extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -66,34 +66,19 @@ public class TelaCadastroFornecedor extends JFrame {
 
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
+	private int estadoSelecionado;
+	
 	private JTextField txtCidade;
 	private JTextField txtCep;
 	private ArrayList<Fornecedores> listaFornecedor;
 	Fornecedores fornecedorSelecionado;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new TelaCadastroFuncionario();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 * 
 	 * @throws ParseException
 	 */
-	public TelaCadastroFornecedor(ArrayList<Fornecedores> listaFornecedores, Fornecedores FornecedorSelecionado, LinkedList<Estado>listaEstados) {
+	public TelaAtualizarFornecedor(ArrayList<Fornecedores> listaFornecedores, Fornecedores fornecedorSelecionado, LinkedList<Estado>listaEstados) {
 		this.listaFornecedor = listaFornecedores;
 		this.fornecedorSelecionado = fornecedorSelecionado;
 		
@@ -116,7 +101,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		contentPane.add(panel);
 		
 		
-		JLabel lbAtualizaCadastrar = new JLabel("Adicionar");
+		JLabel lbAtualizaCadastrar = new JLabel("Atualizar");
 		lbAtualizaCadastrar.setForeground(Color.WHITE);
 		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lbAtualizaCadastrar);
@@ -133,7 +118,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblNome);
 
-		txtNome = new JTextField();
+		txtNome = new JTextField(fornecedorSelecionado.getNome());
 		txtNome.setBounds(320, 0, 265, 35);
 		txtNome.addFocusListener(new FocusAdapter() {
 			@Override
@@ -152,6 +137,7 @@ public class TelaCadastroFornecedor extends JFrame {
 
 		try {
 			txtTelefone = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
+			txtTelefone.setText(fornecedorSelecionado.getTelefone());
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -172,7 +158,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblEmail.setFont(new Font("Segoe Script", Font.PLAIN, 16));
 		panel_1.add(lblEmail);
 
-		txtRua = new JTextField();
+		txtRua = new JTextField(fornecedorSelecionado.getRua());
 		txtRua.setBounds(320, 160, 265, 35);
 
 		txtRua.addFocusListener(new FocusAdapter() {
@@ -182,7 +168,7 @@ public class TelaCadastroFornecedor extends JFrame {
 			}
 		});
 
-		txtEmail = new JTextField();
+		txtEmail = new JTextField(fornecedorSelecionado.getEmail());
 		txtEmail.setBounds(320, 80, 265, 35);
 		txtEmail.addFocusListener(new FocusAdapter() {
 			@Override
@@ -199,7 +185,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblCnpj.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCnpj);
 
-		txtCnpj = new JTextField();
+		txtCnpj = new JTextField(fornecedorSelecionado.getCnpj());
 		txtCnpj.setBounds(320, 120, 265, 35);
 		txtCnpj.addFocusListener(new FocusAdapter() {
 			@Override
@@ -225,7 +211,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblBairro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblBairro);
 
-		txtBairro = new JTextField();
+		txtBairro = new JTextField(fornecedorSelecionado.getBairro());
 		txtBairro.setBounds(320, 200, 265, 35);
 		txtBairro.addFocusListener(new FocusAdapter() {
 			@Override
@@ -254,7 +240,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCidade);
 
-		txtCidade = new JTextField();
+		txtCidade = new JTextField(fornecedorSelecionado.getCidade());
 		txtCidade.setBounds(320, 240, 265, 35);
 		txtCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtCidade.setColumns(10);
@@ -265,7 +251,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblCep.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCep);
 
-		txtCep = new JTextField();
+		txtCep = new JTextField(fornecedorSelecionado.getCep());
 		txtCep.setBounds(320, 281, 265, 35);
 		txtCep.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtCep.setColumns(10);
@@ -279,11 +265,15 @@ public class TelaCadastroFornecedor extends JFrame {
 		String[] arrayEstados = new String[listaEstados.size()];
 		for(int i = 0; i < arrayEstados.length; i++) {
 		    Estado estado = listaEstados.get(i);
-		    
+		    if (estado.getIdEstado() == fornecedorSelecionado.getIdEstado()) {
+		    	estadoSelecionado = i;
+		    }
 			arrayEstados[i] = estado.getNomeEstado();
 		}
+	
 		
 		JComboBox cbEstado = new JComboBox(arrayEstados);
+		cbEstado.setSelectedIndex(estadoSelecionado);
 		cbEstado.setBounds(320, 321, 265, 34);
 		cbEstado.setFont(new Font("Segoe Script", Font.ITALIC, 16));
 		panel_1.add(cbEstado);
@@ -292,7 +282,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		btnVoltar.setBackground(new Color(85, 107, 47));
 		panel_1.add(btnVoltar);
 		
-		JButton btnAdicionar = new JButton("Adicionar");
+		JButton btnAdicionar = new JButton("Atualizar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Validacoes validacoes = new Validacoes();
@@ -338,7 +328,7 @@ public class TelaCadastroFornecedor extends JFrame {
 				} else {
 					Fornecedores fornecedores = new Fornecedores(nome, email, telefone, cnpj, rua, bairro, cidade, cep, estado.getIdEstado(), estado);
 					FornecedorDao dao = new FornecedorDao();
-					dao.cadastroFornecedor(fornecedores);
+					dao.atualizarFornecedor(fornecedores);
 				}
 			}
 		});

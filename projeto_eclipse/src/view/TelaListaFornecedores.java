@@ -74,6 +74,13 @@ public class TelaListaFornecedores extends JFrame {
 		panel_2.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int posicaoProduto = table.getSelectedRow();
+				fornecedorSelecionado = listaFornecedores.get(posicaoProduto);
+			}
+		});
 		
 		table.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(85, 107, 47)));
 		table.setFont(new Font("Segoe Print", Font.PLAIN, 16));
@@ -109,14 +116,14 @@ public class TelaListaFornecedores extends JFrame {
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFornecedor cadastroFornecedor;
+				TelaAtualizarFornecedor telaAtualizarFornecedor;
 				if (fornecedorSelecionado != null) {
 					FornecedorDao daoFornecedor = new FornecedorDao();
 					EstadoDao daoEstado = new EstadoDao();
 					ArrayList<Fornecedores> listaFornecedores = daoFornecedor.resgatarFornecedores();
 					LinkedList<Estado>listaEstados = daoEstado.resgatarEstados();
-					cadastroFornecedor = new TelaCadastroFornecedor(true, listaFornecedores, fornecedorSelecionado, listaEstados);
-					cadastroFornecedor.setVisible(true);
+					telaAtualizarFornecedor = new TelaAtualizarFornecedor(listaFornecedores, fornecedorSelecionado, listaEstados);
+					telaAtualizarFornecedor.setVisible(true);
 					dispose();
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum fornecedor selecionado para atualizar");
@@ -138,7 +145,7 @@ public class TelaListaFornecedores extends JFrame {
 					EstadoDao  daoEstado = new EstadoDao();
 					ArrayList<Fornecedores> listaFornecedores= daoFornecedor.resgatarFornecedores();
 					LinkedList<Estado> listaEstado = daoEstado.resgatarEstados();
-					cadastroFornecedor = new TelaCadastroFornecedor(true, listaFornecedores, fornecedorSelecionado, listaEstado);
+					cadastroFornecedor = new TelaCadastroFornecedor(listaFornecedores, fornecedorSelecionado, listaEstado);
 					cadastroFornecedor.setVisible(true);
 					dispose();
 				}
@@ -166,7 +173,7 @@ public class TelaListaFornecedores extends JFrame {
 			);
 		for(int i=0; i< listaFornecedores.size(); i++) {
 			Fornecedores f = listaFornecedores.get(i);
-			modelo.addRow(new Object[] { f.getCnpj(), f.getEmail(), f.getNomeEmpresa(), f.getTelefone()});
+			modelo.addRow(new Object[] { f.getCnpj(), f.getEmail(), f.getNome(), f.getTelefone()});
 		}
 		
 		table.setModel(modelo);

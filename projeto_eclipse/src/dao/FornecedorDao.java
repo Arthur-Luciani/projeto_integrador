@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import model.Fornecedores;
 import model.Produto;
@@ -16,15 +18,29 @@ public class FornecedorDao {
 	public FornecedorDao() {}
 	
 	public void cadastroFornecedor(Fornecedores fornecedores) {
+		PreparedStatement ps;
 		try {
-			PreparedStatement ps = conexao.prepareStatement(
-					"insert into fornecedores (nome_empresa, telefone,email,cnpj)"
+			ps = conexao.prepareStatement("insert into endereco ( bairro, rua, cidade, cep, id_estado) values (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, fornecedores.getBairro());
+			ps.setString(2, fornecedores.getRua());
+			ps.setString(3, fornecedores.getCidade());
+			ps.setString(4, fornecedores.getCep());
+			ps.setInt(5, fornecedores.getIdEstado());
+			System.out.println(ps);
+			ps.execute();
+			ResultSet generetedKeys = ps.getGeneratedKeys();
+			generetedKeys.next();
+			fornecedores.setIdEndereco(generetedKeys.getInt(1));		
+			
+			ps = conexao.prepareStatement(
+					"insert into fornecedores (nome_empresa, telefone,email, id_endereco,cnpj)"
 							+ "values ( ? , ? , ? , ? )");
 			
-			ps.setString(1, fornecedores.getCnpj());
-			ps.setString(2, fornecedores.getEmail());
-			ps.setString(3, fornecedores.getNomeEmpresa());
-			ps.setString(4, fornecedores.getTelefone());
+			ps.setString(1, fornecedores.getNome());
+			ps.setString(2, fornecedores.getTelefone());
+			ps.setString(3, fornecedores.getEmail());
+			ps.setInt(4, fornecedores.getIdEndereco());
+			ps.setString(5, fornecedores.getCnpj());
 			ps.execute();
 			BD.fechaConexao();
 		} catch (SQLException e) {
@@ -32,22 +48,26 @@ public class FornecedorDao {
 			System.out.println(e.getMessage());
 		}
 
-	}
-	
+	}	
 
 	public ArrayList<Fornecedores> resgatarFornecedores()  {
 		ArrayList<Fornecedores> listaFornecedores = new ArrayList<Fornecedores>();
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select * from fornecedor");
+			PreparedStatement ps = conexao.prepareStatement("select * from fornecedor inner join endereco on (fornecedor.id_endereco=endereco.id_endereco)");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				do {
 					Fornecedores fornecedores = new Fornecedores();
-					fornecedores.setCnpj(rs.getString("cnpj"));
-					fornecedores.setEmail(rs.getString("email"));
-					fornecedores.setNomeEmpresa(rs.getString("nome_empresa"));
+					fornecedores.setNome(rs.getString("nome_empresa"));
 					fornecedores.setTelefone(rs.getString("telefone"));
-					
+					fornecedores.setEmail(rs.getString("email"));
+					fornecedores.setIdEndereco(rs.getInt("id_endereco"));
+					fornecedores.setCnpj(rs.getString("cnpj"));
+					fornecedores.setBairro(rs.getString("bairro"));
+					fornecedores.setRua(rs.getString("rua"));
+					fornecedores.setCidade(rs.getString("cidade"));
+					fornecedores.setCep(rs.getString("cep"));
+					fornecedores.setEstado(rs.getInt("id_estado"));
 					listaFornecedores.add(fornecedores);
 
 				} while (rs.next());
@@ -63,12 +83,21 @@ public class FornecedorDao {
 	public void atualizarFornecedor(Fornecedores fornecedores) {
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"update fornecedor set cnpj=?, email=?, telefone=?, nome_empresa=? where cnjp=?");
+					"update fornecedor, endereco set "
+					+ "nome_empresa=?, telefone=?,email=?,cnpj=?, bairro=?, rua=?, cidade=?, cep=?, id_estado=?"
+					+ "where fornecedor.id_endereco=? and endereco.id_endereco");
 
-			ps.setString(1, fornecedores.getCnpj() );
-			ps.setString(2, fornecedores.getEmail());
-			ps.setString(3, fornecedores.getNomeEmpresa());
-			ps.setString(4, fornecedores.getTelefone());
+			ps.setString(1, fornecedores.getNome());
+			ps.setString(2, fornecedores.getTelefone());
+			ps.setString(3, fornecedores.getEmail());
+			ps.setString(4, fornecedores.getCnpj());
+			ps.setString(5, fornecedores.getCnpj());
+			ps.setString(6, fornecedores.getBairro());
+			ps.setString(7, fornecedores.getRua());
+			ps.setString(8, fornecedores.getCidade());
+			ps.setString(9, fornecedores.getCep());
+			ps.setInt(10, fornecedores.getIdEstado());
+			
 			ps.executeUpdate();
 			BD.fechaConexao();
 		} catch (SQLException e) {

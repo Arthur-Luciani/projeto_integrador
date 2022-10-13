@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 import model.Cliente;
+import model.Produto;
 
 public class ClienteDao {
 	Connection conexao;
@@ -52,6 +54,29 @@ public class ClienteDao {
 		}
 		
 		return false;
+	}
+	public ArrayList<Cliente> resgatarCliente() {
+		ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
+		try {
+			PreparedStatement ps = conexao.prepareStatement("select * from cliente");
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				do {
+					Cliente cliente = new Cliente();
+					cliente.setNome(rs.getString("nome"));
+					cliente.setCpf(rs.getString("cpf"));
+					cliente.setEmail(rs.getString("email"));
+
+					listaCliente.add(cliente);
+				} while (rs.next());
+				BD.fechaConexao();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listaCliente;
 	}
 
 }

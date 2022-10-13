@@ -5,20 +5,100 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
+
+import dao.ClienteDao;
+import model.Cliente;
+import model.Produto;
+
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaClienteCadastros extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
+	private ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
 	/**
 	 * Create the frame.
 	 */
-	public TelaClienteCadastros() {
+	public TelaClienteCadastros(ArrayList<Cliente> listaCliente) {
+		this.listaCliente = listaCliente;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(85, 107, 47));
+		contentPane.add(panel, BorderLayout.NORTH);
+		
+		JLabel lblNewLabel = new JLabel("Clientes cadastrados");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Segoe Print", Font.PLAIN, 50));
+		panel.add(lblNewLabel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(240, 255, 240));
+		contentPane.add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCliente cliente = new TelaCliente();
+				cliente.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(85, 107, 47));
+		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_1.add(btnNewButton);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+		
+		table = new JTable();
+		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		table.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome", "Email", "CPF"
+			}
+		));
+		scrollPane.setViewportView(table);
+	}
+	protected void atualizarJTable() {
+		DefaultTableModel modelo = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Nome", "Email", "CPF"
+				}
+			);
+		for (int i = 0; i < listaCliente.size(); i++) {
+			Cliente c = listaCliente.get(i);
+			modelo.addRow(new Object[] {c.getNome(), c.getEmail(), c.getCpf()});;
+		}
 	}
 
 }

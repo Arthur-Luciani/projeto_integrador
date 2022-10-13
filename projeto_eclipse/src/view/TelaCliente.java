@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dao.ClienteDao;
 import dao.EstadoDao;
+import model.Cliente;
 import model.Estado;
 
 import java.awt.BorderLayout;
@@ -19,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
@@ -110,7 +113,8 @@ public class TelaCliente extends JFrame {
 		JButton btnNewButton_1 = new JButton("Consultar clientes cadastrados");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaClienteCadastros cadastros = new TelaClienteCadastros();
+				ClienteDao dao = new ClienteDao();
+				TelaClienteCadastros cadastros = new TelaClienteCadastros(dao.resgatarCliente());
 				cadastros.setVisible(true);
 				dispose();
 			}

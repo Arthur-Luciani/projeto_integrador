@@ -86,6 +86,7 @@ public class TelaClienteCadastros extends JFrame {
 			}
 		));
 		scrollPane.setViewportView(table);
+		atualizarJTable();
 	}
 	protected void atualizarJTable() {
 		DefaultTableModel modelo = new DefaultTableModel(
@@ -99,6 +100,7 @@ public class TelaClienteCadastros extends JFrame {
 			Cliente c = listaCliente.get(i);
 			modelo.addRow(new Object[] {c.getNome(), c.getEmail(), c.getCpf()});;
 		}
+		table.setModel(modelo);
 	}
 
 }

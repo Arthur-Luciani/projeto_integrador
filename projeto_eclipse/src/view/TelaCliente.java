@@ -113,8 +113,10 @@ public class TelaCliente extends JFrame {
 		JButton btnNewButton_1 = new JButton("Consultar clientes cadastrados");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
 				ClienteDao dao = new ClienteDao();
-				TelaClienteCadastros cadastros = new TelaClienteCadastros(dao.resgatarCliente());
+				listaCliente = dao.resgatarCliente();
+				TelaClienteCadastros cadastros = new TelaClienteCadastros(listaCliente);
 				cadastros.setVisible(true);
 				dispose();
 			}

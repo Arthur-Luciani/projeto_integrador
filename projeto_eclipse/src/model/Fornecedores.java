@@ -1,8 +1,8 @@
 package model;
 
-public class Fornecedores  {
+public class Fornecedores {
 	
-	private String nomeEmpresa, email, telefone, cnpj;
+	private String nome, email, telefone, cnpj;
 	
 	public Fornecedores() {
 		super();
@@ -12,7 +12,7 @@ public class Fornecedores  {
 	
 	public Fornecedores(String nomeEmpresa, String email, String telefone, String cnpj) {
 		super();
-		this.nomeEmpresa = nomeEmpresa;
+		this.nome = nomeEmpresa;
 		this.email = email;
 		this.telefone = telefone;
 		this.cnpj = cnpj;
@@ -32,10 +32,10 @@ public class Fornecedores  {
 		this.cnpj = cnpj;
 	}
 	public String getNomeEmpresa() {
-		return nomeEmpresa;
+		return nome;
 	}
 	public void setNomeEmpresa(String nomeEmpresa) {
-		this.nomeEmpresa = nomeEmpresa;
+		this.nome = nomeEmpresa;
 	}
 	public String getEmail() {
 		return email;

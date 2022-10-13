@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,8 +26,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
+import dao.EstadoDao;
 import dao.FornecedorDao;
 import dao.ProdutoDao;
+import model.Estado;
 import model.Fornecedores;
 import model.Produto;
 import net.miginfocom.swing.MigLayout;
@@ -107,19 +110,17 @@ public class TelaListaFornecedores extends JFrame {
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroFornecedor cadastroFornecedor;
-				try {
-					if (fornecedorSelecionado != null) {
-						FornecedorDao dao = new FornecedorDao();
-						ArrayList<Fornecedores> listaFornecedores = dao.resgatarFornecedores();
-						cadastroFornecedor = new TelaCadastroFornecedor(true, listaFornecedores, fornecedorSelecionado);
-						cadastroFornecedor.setVisible(true);
-						dispose();
-					} else {
-						TelaMensagem telaMensagem = new TelaMensagem("Nenhum fornecedor selecionado para atualizar");
-						telaMensagem.setVisible(true);
-					}
-				} catch (ParseException e1) {
-					e1.printStackTrace();
+				if (fornecedorSelecionado != null) {
+					FornecedorDao daoFornecedor = new FornecedorDao();
+					EstadoDao daoEstado = new EstadoDao();
+					ArrayList<Fornecedores> listaFornecedores = daoFornecedor.resgatarFornecedores();
+					LinkedList<Estado>listaEstados = daoEstado.resgatarEstados();
+					cadastroFornecedor = new TelaCadastroFornecedor(true, listaFornecedores, fornecedorSelecionado, listaEstados);
+					cadastroFornecedor.setVisible(true);
+					dispose();
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum fornecedor selecionado para atualizar");
+					telaMensagem.setVisible(true);
 				}
 			}
 		});
@@ -133,15 +134,12 @@ public class TelaListaFornecedores extends JFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					TelaCadastroFornecedor cadastroFornecedor;
-					try {
-						FornecedorDao dao = new FornecedorDao();
-						ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
-						
-						cadastroFornecedor = new TelaCadastroFornecedor(true, listaFornecedores, fornecedorSelecionado);
-						cadastroFornecedor.setVisible(true);
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
+					FornecedorDao daoFornecedor = new FornecedorDao();
+					EstadoDao  daoEstado = new EstadoDao();
+					ArrayList<Fornecedores> listaFornecedores= daoFornecedor.resgatarFornecedores();
+					LinkedList<Estado> listaEstado = daoEstado.resgatarEstados();
+					cadastroFornecedor = new TelaCadastroFornecedor(true, listaFornecedores, fornecedorSelecionado, listaEstado);
+					cadastroFornecedor.setVisible(true);
 					dispose();
 				}
 			 

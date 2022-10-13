@@ -17,8 +17,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
+import dao.FornecedorDao;
 import dao.ProdutoDao;
 import dao.UsuarioDao;
+import model.Estado;
 import model.Fornecedores;
 import model.Produto;
 import model.Usuario;
@@ -39,6 +43,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -52,16 +57,16 @@ public class TelaCadastroFornecedor extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtTelefone;
-	private JTextField txtDataNascimento;
+	private JTextField txtEmail;
 	private JTextField txtCnpj;
-	private JPasswordField txtSenha;
-	private JPasswordField txtBairro;
+	private JTextField txtRua;
+	private JTextField txtBairro;
 	private static TelaCadastroFuncionario frame;
 
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
-	private JPasswordField txtCidade;
-	private JPasswordField txtCep;
+	private JTextField txtCidade;
+	private JTextField txtCep;
 	private ArrayList<Fornecedores> listaFornecedor;
 	Fornecedores fornecedorSelecionado;
 
@@ -87,7 +92,7 @@ public class TelaCadastroFornecedor extends JFrame {
 	 * 
 	 * @throws ParseException
 	 */
-	public TelaCadastroFornecedor(Boolean atualizarCadastrar, ArrayList<Fornecedores> listaFornecedores, Fornecedores FornecedorSelecionado) throws ParseException {
+	public TelaCadastroFornecedor(Boolean atualizarCadastrar, ArrayList<Fornecedores> listaFornecedores, Fornecedores FornecedorSelecionado, LinkedList<Estado>listaEstados) {
 		this.listaFornecedor = listaFornecedores;
 		this.fornecedorSelecionado = fornecedorSelecionado;
 		
@@ -113,10 +118,8 @@ public class TelaCadastroFornecedor extends JFrame {
 		JLabel lbAtualizaCadastrar = new JLabel("Teste");
 		if (atualizarCadastrar == true) {
 			lbAtualizaCadastrar = new JLabel("Adicionar");
-			
 		}	else {
 			lbAtualizaCadastrar = new JLabel("Atualizar");
-
 		}
 		lbAtualizaCadastrar.setForeground(Color.WHITE);
 		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
@@ -151,7 +154,12 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblTelefone.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblTelefone);
 
-		txtTelefone = new JFormattedTextField(new MaskFormatter("## #####-####"));
+		try {
+			txtTelefone = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		txtTelefone.setBounds(320, 40, 265, 35);
 		txtTelefone.addFocusListener(new FocusAdapter() {
 			@Override
@@ -168,27 +176,27 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblEmail.setFont(new Font("Segoe Script", Font.PLAIN, 16));
 		panel_1.add(lblEmail);
 
-		txtSenha = new JPasswordField();
-		txtSenha.setBounds(320, 160, 265, 35);
+		txtRua = new JTextField();
+		txtRua.setBounds(320, 160, 265, 35);
 
-		txtSenha.addFocusListener(new FocusAdapter() {
+		txtRua.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				txtSenha.setBorder(bordaNormal);
+				txtRua.setBorder(bordaNormal);
 			}
 		});
 
-		txtDataNascimento = new JFormattedTextField();
-		txtDataNascimento.setBounds(320, 80, 265, 35);
-		txtDataNascimento.addFocusListener(new FocusAdapter() {
+		txtEmail = new JTextField();
+		txtEmail.setBounds(320, 80, 265, 35);
+		txtEmail.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				txtDataNascimento.setBorder(bordaNormal);
+				txtEmail.setBorder(bordaNormal);
 			}
 		});
-		txtDataNascimento.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		txtDataNascimento.setColumns(10);
-		panel_1.add(txtDataNascimento);
+		txtEmail.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtEmail.setColumns(10);
+		panel_1.add(txtEmail);
 
 		JLabel lblCnpj = new JLabel("CNPJ");
 		lblCnpj.setBounds(65, 123, 192, 29);
@@ -212,16 +220,16 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblRua.setBounds(65, 163, 192, 29);
 		lblRua.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblRua);
-		txtSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		txtSenha.setColumns(10);
-		panel_1.add(txtSenha);
+		txtRua.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtRua.setColumns(10);
+		panel_1.add(txtRua);
 
 		JLabel lblBairro = new JLabel("Bairro");
 		lblBairro.setBounds(65, 203, 51, 29);
 		lblBairro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblBairro);
 
-		txtBairro = new JPasswordField();
+		txtBairro = new JTextField();
 		txtBairro.setBounds(320, 200, 265, 35);
 		txtBairro.addFocusListener(new FocusAdapter() {
 			@Override
@@ -237,23 +245,20 @@ public class TelaCadastroFornecedor extends JFrame {
 		btnVoltar.setBounds(65, 360, 115, 37);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				FornecedorDao dao = new FornecedorDao();
+				ArrayList<Fornecedores>listaFornecedores = dao.resgatarFornecedores();
 				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
-				
 				telaFornecedores.setVisible(true);
 				dispose();
 			}
 		});
-		
-		
-	
 
 		JLabel lblCidade = new JLabel("Cidade");
 		lblCidade.setBounds(65, 243, 55, 29);
 		lblCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCidade);
 
-		txtCidade = new JPasswordField();
+		txtCidade = new JTextField();
 		txtCidade.setBounds(320, 240, 265, 35);
 		txtCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtCidade.setColumns(10);
@@ -264,7 +269,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblCep.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCep);
 
-		txtCep = new JPasswordField();
+		txtCep = new JTextField();
 		txtCep.setBounds(320, 281, 265, 35);
 		txtCep.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtCep.setColumns(10);
@@ -275,14 +280,73 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblEstado.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblEstado);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(320, 321, 265, 34);
-		comboBox.setFont(new Font("Segoe Script", Font.ITALIC, 16));
-		panel_1.add(comboBox);
+		String[] arrayEstados = new String[listaEstados.size()];
+		for(int i = 0; i < arrayEstados.length; i++) {
+		    Estado estado = listaEstados.get(i);
+		    
+			arrayEstados[i] = estado.getNomeEstado();
+		}
+		
+		JComboBox cbEstado = new JComboBox(arrayEstados);
+		cbEstado.setBounds(320, 321, 265, 34);
+		cbEstado.setFont(new Font("Segoe Script", Font.ITALIC, 16));
+		panel_1.add(cbEstado);
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
 		panel_1.add(btnVoltar);
+		
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nome = txtNome.getText();
+				String telefone = txtTelefone.getText();
+				String email = txtEmail.getText();
+				String cnpj = txtCnpj.getText();
+				String rua = txtRua.getText();
+				String bairro = txtBairro.getText();
+				String cidade = txtCidade.getText();
+				String cep = txtCep.getText();
+				Estado estado = listaEstados.get(cbEstado.getSelectedIndex());
+				
+				if (nome.equals(null)||telefone.equals(null)||email.equals(null)||cnpj.equals(null)||rua.equals(null)||bairro.equals(null)||cidade.equals(null)||cep.equals(null)||estado.equals(null)) {
+					if (nome.equals(null)) {
+						txtNome.setBorder(bordaVermelha);
+					}
+					if (telefone) {
+						
+					}
+					if (email.equals(null)) {
+						txtEmail.setBorder(bordaVermelha);
+					}
+					if (cnpj.equals(null)) {
+						txtCnpj.setBorder(bordaVermelha);
+					}
+					if (rua.equals(null)) {
+						txtRua.setBorder(bordaVermelha);
+					}
+					if (bairro.equals(null)) {
+						txtBairro.setBorder(bordaVermelha);
+					}
+					if (cidade.equals(null)) {
+						txtCidade.setBorder(bordaVermelha);
+					}
+					if (cep.equals(null)) {
+						txtCep.setBorder(bordaVermelha);
+					}
+					if (estado.equals(null)) {
+						cbEstado.setBorder(bordaVermelha);
+					}
+				} else {
+					Fornecedores fornecedores = new Fornecedores(nome, email, telefone, cnpj)
+				}
+			}
+		});
+		btnAdicionar.setForeground(Color.WHITE);
+		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnAdicionar.setBackground(new Color(85, 107, 47));
+		btnAdicionar.setBounds(676, 360, 115, 37);
+		panel_1.add(btnAdicionar);
 	}
 }
 	

@@ -1,6 +1,6 @@
 package model;
 
-public class Fornecedores {
+public class Fornecedores extends Endereco {
 	
 	private String nome, email, telefone, cnpj;
 	
@@ -10,12 +10,18 @@ public class Fornecedores {
 
 	
 	
-	public Fornecedores(String nomeEmpresa, String email, String telefone, String cnpj) {
+	public Fornecedores(String nomeEmpresa, String email, String telefone, String cnpj, String rua, String bairro, String cidade, String cep, int idEstado, int numero) {
 		super();
 		this.nome = nomeEmpresa;
 		this.email = email;
 		this.telefone = telefone;
 		this.cnpj = cnpj;
+		setRua(rua);
+		setBairro(bairro);
+		setCidade(cidade);
+		setCep(cep);
+		setEstado(idEstado);
+		setNumero(numero);
 	}
 	
 	

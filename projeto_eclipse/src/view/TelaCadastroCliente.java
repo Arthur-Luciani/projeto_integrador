@@ -281,7 +281,7 @@ public class TelaCadastroCliente extends JFrame {
 		for(int i = 0; i < arrayEstados.length; i++) {
 		    Estado estado = listaEstados.get(i);
 		    
-			arrayEstados[i] = estado.getNome();
+			arrayEstados[i] = estado.getNomeEstado();
 		}
 
 		JComboBox cbEstados = new JComboBox(arrayEstados);
@@ -410,7 +410,7 @@ public class TelaCadastroCliente extends JFrame {
 				String cidade = txtCidade.getText();
 				String numero = txtNumero.getText();
 				Estado estado = listaEstados.get(cbEstados.getSelectedIndex());
-				String idEstado = String.valueOf(estado.getId());
+				String idEstado = String.valueOf(estado.getIdEstado());
 				String cep = txtCep.getText();
 
 				if (nome.isEmpty() || dataNascimento.equals("  /  /    ") || cpf.isEmpty() || email.isEmpty() || rua.isEmpty() || bairro.isEmpty() 

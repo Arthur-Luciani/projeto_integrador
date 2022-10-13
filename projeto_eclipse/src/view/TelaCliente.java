@@ -14,6 +14,8 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaCliente extends JFrame {
 
@@ -80,6 +82,14 @@ public class TelaCliente extends JFrame {
 		panel_1.add(panel_5);
 		
 		JButton btnNewButton = new JButton("Cadastrar");
+		btnNewButton.setVerticalAlignment(SwingConstants.TOP);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroCliente cliente = new TelaCadastroCliente(null);
+				cliente.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setForeground(new Color(255, 255, 255));
@@ -90,7 +100,14 @@ public class TelaCliente extends JFrame {
 		panel_6.setBackground(new Color(240, 255, 240));
 		panel_1.add(panel_6);
 		
-		JButton btnNewButton_1 = new JButton("Consultar cliente cadastrados");
+		JButton btnNewButton_1 = new JButton("Consultar clientes cadastrados");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaClienteCadastros cadastros = new TelaClienteCadastros();
+				cadastros.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnNewButton_1.setBackground(new Color(85, 107, 47));
 		btnNewButton_1.setForeground(new Color(255, 255, 255));

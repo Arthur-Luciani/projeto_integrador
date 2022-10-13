@@ -205,14 +205,14 @@ DELIMITER $$
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_INSERT` AFTER INSERT ON `produto` FOR EACH ROW
 BEGIN
-	insert into historico_produto values (null, id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa);
+	insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa);
 END$$
 
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_UPDATE` AFTER UPDATE ON `produto` FOR EACH ROW
 BEGIN
 	if new.preco_produto <> old.preco_produto then
-		insert into historico_produto values (null, id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa);
+		insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa);
 	end if;
 END$$
 
@@ -220,5 +220,5 @@ END$$
 DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET FOREIGN_KEY_CHECKS=0;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -381,8 +381,8 @@ public class TelaCadastroCliente extends JFrame {
 		JButton btnNewButton = new JButton("Voltar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicial telaInicial = new TelaInicial(null);
-				telaInicial.setVisible(true);
+				TelaCliente cliente = new TelaCliente();
+				cliente.setVisible(true);
 				dispose();
 			}
 		});
@@ -455,6 +455,10 @@ public class TelaCadastroCliente extends JFrame {
 					ClienteDao dao;
 					dao = new ClienteDao();
 					dao.cadastrarCliente(cliente);
+					
+					TelaCliente cliente2 = new TelaCliente();
+					cliente2.setVisible(true);
+					dispose();
 					
 				}
 				

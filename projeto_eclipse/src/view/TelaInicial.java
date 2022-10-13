@@ -92,10 +92,8 @@ public class TelaInicial extends JFrame {
 		JButton btnCadastroDeClientes = new JButton("Cadastro de Clientes");
 		btnCadastroDeClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EstadoDao dao = new EstadoDao();
-				LinkedList<Estado>listaEstados= dao.resgatarEstados();
-				TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(listaEstados);
-				telaCadastroCliente.setVisible(true);
+				TelaCliente cliente = new TelaCliente();
+				cliente.setVisible(true);
 				dispose();
 			}
 		});

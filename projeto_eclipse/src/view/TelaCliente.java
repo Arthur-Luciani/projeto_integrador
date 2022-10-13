@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dao.EstadoDao;
+import model.Estado;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -15,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
 public class TelaCliente extends JFrame {
@@ -85,7 +90,9 @@ public class TelaCliente extends JFrame {
 		btnNewButton.setVerticalAlignment(SwingConstants.TOP);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroCliente cliente = new TelaCadastroCliente(null);
+				EstadoDao estados = new EstadoDao();
+				LinkedList<Estado> listaEstados = estados.resgatarEstados();
+				TelaCadastroCliente cliente = new TelaCadastroCliente(listaEstados);
 				cliente.setVisible(true);
 				dispose();
 			}
@@ -130,6 +137,13 @@ public class TelaCliente extends JFrame {
 		panel_2.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
 		JButton btnNewButton_2 = new JButton("Voltar");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaInicial inicio = new TelaInicial(null);
+				inicio.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_2.setForeground(Color.WHITE);
 		btnNewButton_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnNewButton_2.setBackground(new Color(85, 107, 47));

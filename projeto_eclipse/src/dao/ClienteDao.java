@@ -78,5 +78,17 @@ public class ClienteDao {
 		}
 		return listaCliente;
 	}
+	public void deletarCliente(int id) {
+		PreparedStatement ps;
+		try {
+			ps = conexao.prepareStatement("delete from cliente where id_cliente=?");
+			ps.setInt(1, id);
+			ps.execute();
+			BD.fechaConexao();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

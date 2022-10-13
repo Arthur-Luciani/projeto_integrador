@@ -98,7 +98,7 @@ public class TelaCadastroProduto extends JFrame {
 		Titulo.setBackground(new Color(85, 107, 47));
 		contentPane.add(Titulo, BorderLayout.NORTH);
 		
-		JLabel lbAtualizaCadastrar = new JLabel("Teste");
+		JLabel lbAtualizaCadastrar = new JLabel("Cadastro de Produtos");
 		if (atualizarCadastrar == true) {
 			lbAtualizaCadastrar = new JLabel("Adicionar");
 			

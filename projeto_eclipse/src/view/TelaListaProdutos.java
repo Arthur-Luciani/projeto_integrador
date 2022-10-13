@@ -115,11 +115,13 @@ public class TelaListaProdutos extends JFrame {
 		
 		
 		JPanel pBotoesEsquerda = new JPanel();
+		pBotoesEsquerda.setBackground(new Color(240, 255, 240));
 		FlowLayout fl_pBotoesEsquerda = (FlowLayout) pBotoesEsquerda.getLayout();
 		fl_pBotoesEsquerda.setAlignment(FlowLayout.LEFT);
 		pBotoes.add(pBotoesEsquerda);
 		
 		JPanel pBotoesDireita = new JPanel();
+		pBotoesDireita.setBackground(new Color(240, 255, 240));
 		FlowLayout fl_pBotoesDireita = (FlowLayout) pBotoesDireita.getLayout();
 		fl_pBotoesDireita.setAlignment(FlowLayout.TRAILING);
 		pBotoes.add(pBotoesDireita);

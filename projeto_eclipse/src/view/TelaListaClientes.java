@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.ClienteDao;
 import dao.EstadoDao;
+import dao.ProdutoDao;
 import model.Cliente;
 import model.Estado;
 import model.Produto;
@@ -142,6 +143,15 @@ public class TelaListaClientes extends JFrame {
 		panel_1.add(btnNewButton_3);
 		
 		JButton btnNewButton_2 = new JButton("Deletar");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ClienteDao dao;
+				dao = new ClienteDao();
+				dao.deletarCliente(clienteSelecionado.getId());
+				TelaListaClientes.this.listaCliente = dao.resgatarCliente();
+				atualizarJTable();
+			}
+		});
 		btnNewButton_2.setBackground(new Color(85, 107, 47));
 		btnNewButton_2.setForeground(new Color(255, 255, 255));
 		btnNewButton_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));

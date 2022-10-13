@@ -93,7 +93,7 @@ public class TelaAtualizarCliente extends JFrame {
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		JLabel lblCadastro = new JLabel("Cadastro");
+		JLabel lblCadastro = new JLabel("Atualizar");
 		lblCadastro.setForeground(Color.WHITE);
 		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblCadastro);
@@ -263,7 +263,7 @@ public class TelaAtualizarCliente extends JFrame {
 		panel_txt.add(t8);
 		
 		txtNumero = new JTextField();
-		//txtNumero.setToolTipText(clienteSelecionado.getNumero());
+		txtNumero.setText(String.valueOf(clienteSelecionado.getNumero()));
 		txtNumero.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -328,7 +328,7 @@ public class TelaAtualizarCliente extends JFrame {
 				txtDataNascimento.setBorder(bordaNormal);
 			}
 		});
-		//txtDataNascimento.setText(clienteSelecionado.getDataNascimento());
+		//txtDataNascimento.setText(clienteSelecionado.getDataNascimento())
 		txtDataNascimento.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtDataNascimento.setColumns(10);
 		t3.add(txtDataNascimento);

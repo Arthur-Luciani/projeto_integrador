@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`endereco` (
   `cep` VARCHAR(45) NULL,
   `id_estado` INT(11) NOT NULL,
   PRIMARY KEY (`id_endereco`),
-  INDEX `fk_endereco_estados1_idx` (`id_estado` ASC) ,
+  INDEX `fk_endereco_estados1_idx` (`id_estado` ASC),
   CONSTRAINT `fk_endereco_estados1`
     FOREIGN KEY (`id_estado`)
     REFERENCES `mydb`.`estados` (`id`)
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`venda` (
   `id_cliente` INT(11) NOT NULL,
   `id_usuario` INT(11) NOT NULL,
   PRIMARY KEY (`id_venda`),
-  INDEX `fk_Venda_idCliente` (`id_cliente` ASC) ,
+  INDEX `fk_Venda_idCliente` (`id_cliente` ASC),
   INDEX `fk_Venda_idUsuario` (`id_usuario` ASC),
   CONSTRAINT `fk_Venda_idCliente`
     FOREIGN KEY (`id_cliente`)
@@ -220,5 +220,5 @@ END$$
 DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET FOREIGN_KEY_CHECKS=0;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

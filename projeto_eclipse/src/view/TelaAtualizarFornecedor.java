@@ -137,9 +137,11 @@ public class TelaAtualizarFornecedor extends JFrame {
 
 		try {
 			txtTelefone = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
-			txtTelefone.setText(fornecedorSelecionado.getTelefone());
+			String telefone = fornecedorSelecionado.getTelefone().replace("() -", "");
+			System.out.println(telefone);
+			txtTelefone.setText(telefone);
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
+			System.out.println(e1.getMessage());
 			e1.printStackTrace();
 		}
 		txtTelefone.setBounds(320, 40, 265, 35);
@@ -269,8 +271,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		    	estadoSelecionado = i;
 		    }
 			arrayEstados[i] = estado.getNomeEstado();
-		}
-	
+		}	
 		
 		JComboBox cbEstado = new JComboBox(arrayEstados);
 		cbEstado.setSelectedIndex(estadoSelecionado);

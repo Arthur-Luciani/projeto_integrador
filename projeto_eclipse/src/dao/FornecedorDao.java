@@ -20,7 +20,7 @@ public class FornecedorDao {
 	public void cadastroFornecedor(Fornecedores fornecedores) {
 		PreparedStatement ps;
 		try {
-			ps = conexao.prepareStatement("insert into endereco ( bairro, rua, cidade, cep, id_estado) values (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+			ps = conexao.prepareStatement("insert into endereco ( bairro, rua, cidade, cep, id_estado) values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, fornecedores.getBairro());
 			ps.setString(2, fornecedores.getRua());
 			ps.setString(3, fornecedores.getCidade());
@@ -85,18 +85,19 @@ public class FornecedorDao {
 			PreparedStatement ps = conexao.prepareStatement(
 					"update fornecedor, endereco set "
 					+ "nome_empresa=?, telefone=?,email=?,cnpj=?, bairro=?, rua=?, cidade=?, cep=?, id_estado=?"
-					+ "where fornecedor.id_endereco=? and endereco.id_endereco");
+					+ "where fornecedor.id_endereco=? and endereco.id_endereco=?");
 
 			ps.setString(1, fornecedores.getNome());
 			ps.setString(2, fornecedores.getTelefone());
 			ps.setString(3, fornecedores.getEmail());
 			ps.setString(4, fornecedores.getCnpj());
-			ps.setString(5, fornecedores.getCnpj());
-			ps.setString(6, fornecedores.getBairro());
-			ps.setString(7, fornecedores.getRua());
-			ps.setString(8, fornecedores.getCidade());
-			ps.setString(9, fornecedores.getCep());
-			ps.setInt(10, fornecedores.getIdEstado());
+			ps.setString(5, fornecedores.getBairro());
+			ps.setString(6, fornecedores.getRua());
+			ps.setString(7, fornecedores.getCidade());
+			ps.setString(8, fornecedores.getCep());
+			ps.setInt(9, fornecedores.getIdEstado());
+			ps.setInt(10, fornecedores.getIdEndereco());
+			ps.setInt(11, fornecedores.getIdEndereco());
 			
 			ps.executeUpdate();
 			BD.fechaConexao();

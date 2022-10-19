@@ -31,13 +31,16 @@ public class VendaDao {
 			ps.setFloat(3, venda.getLucro());
 			ps.setInt(4, cliente.getId());
 			ps.setInt(5, usuario.getIdUsuario());
+			
+			System.out.println(ps);
+			
 			ps.execute();
 			ResultSet generetedKeys = ps.getGeneratedKeys();
 			
 			if (generetedKeys.next()) {
 				venda.setIdVenda(generetedKeys.getInt(1));
 			}
-		
+			
 			for (ProdutoVenda produtoVenda : listaProdutosVendidos) {
 				
 				int idHistorico=0;
@@ -56,9 +59,12 @@ public class VendaDao {
 				ps.setInt(1, venda.getIdVenda());
 				ps.setInt(2, produtoVenda.getQuantidade());
 				ps.setInt(3, idHistorico);
+				
+				
+				
 				ps.execute();
 				
-				System.out.println(ps);
+				
 			}
 			
 		} catch (SQLException e) {

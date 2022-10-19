@@ -1,5 +1,4 @@
 package model;
-
 public class Estado {
 	private int idEstado;
 	private String nomeEstado;

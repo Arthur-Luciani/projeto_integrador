@@ -22,6 +22,8 @@ import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
 import net.miginfocom.swing.MigLayout;
+import swingDesign.JTableViridisSinus;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -47,7 +49,14 @@ public class TelaListaProdutos extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaListaProdutos() {
-		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				ProdutoDao dao = new ProdutoDao();
+				listaProduto = dao.resgatarProdutos();
+				atualizarJTable();
+			}
+		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -75,7 +84,7 @@ public class TelaListaProdutos extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		pTable.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
+		table = new JTableViridisSinus().padraoJtable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -172,7 +181,7 @@ public class TelaListaProdutos extends JFrame {
 		
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { 
 				TelaCadastroProduto cadastroProduto;
 				try {
 					if (produtoSelecionado != null) {

@@ -277,7 +277,7 @@ public class TelaCadastroProduto extends JFrame {
 						txtPreco.setBorder(bordaVermelha);
 					}
 				} else {
-					Produto produto = new Produto(nome, preco, quantidade, nomeFornecedor);
+					Produto produto = new Produto(nome, preco, quantidade, nomeFornecedor);					
 					ProdutoDao dao = new ProdutoDao();
 					if (atualizarCadastrar==true) {
 						dao.cadastroProduto(produto);
@@ -299,14 +299,16 @@ public class TelaCadastroProduto extends JFrame {
 		if (atualizarCadastrar==false) {
 			txtNome.setText(produtoSelecionado.getNome());
 			cbFornecedores.setSelectedItem(produtoSelecionado.getNomeFornecedor());
-			txtQuantidade.setText(String.valueOf(produtoSelecionado.getQuantEstoque()));
-			txtPreco.setText("R$ "+String.valueOf(produtoSelecionado.getPreco()).replace(".", ","));
+			txtQuantidade.setText(String.valueOf(produtoSelecionado.getQuantEstoque()));		
+			String strPreco = String.valueOf(produtoSelecionado.getPreco()).replace(".", ",");
+			txtPreco.setText("R$ "+strPreco);
+			
+			System.out.println(txtPreco.getText());
 			
 			JButton btnExcluir = new JButton("Excluir");
 			btnExcluir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ProdutoDao dao;
-					dao = new ProdutoDao();
+					ProdutoDao dao = new ProdutoDao();
 					dao.deletarProduto(produtoSelecionado.getId());
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
 					telaListaProdutos.setVisible(true);

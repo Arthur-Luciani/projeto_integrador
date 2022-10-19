@@ -10,15 +10,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import dao.FornecedorDao;
+import dao.ClienteDao;
 import dao.ProdutoDao;
-import model.Fornecedores;
+import dao.UsuarioDao;
+import model.Cliente;
 import model.Produto;
+import model.ProdutoVenda;
+import model.Usuario;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
 public class TelaEstoque extends JFrame {
@@ -85,9 +90,16 @@ public class TelaEstoque extends JFrame {
 		JButton btnVenda = new JButton("Venda");
 		btnVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroVenda telaVenda = new TelaCadastroVenda();
-				telaVenda.setVisible(true);
+				
+				UsuarioDao daoUsuario = new UsuarioDao();
+				ClienteDao daoCliente = new ClienteDao();
+				LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
+				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+				ArrayList<ProdutoVenda> listaProdutosVendidos = new ArrayList<>();
+				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
+				telaCadastroVenda.setVisible(true);
 				dispose();
+
 			}
 		});
 		btnVenda.setForeground(Color.WHITE);

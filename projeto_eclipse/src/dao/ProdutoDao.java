@@ -13,13 +13,13 @@ public class ProdutoDao {
 
 	private Connection conexao = BD.getConexao();
 
-	public ProdutoDao()  {}
+	public ProdutoDao() {}
 	
 	public void cadastroProduto(Produto produto) {
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"insert into produto (id_produto, nome_produto, preco_produto, estoque, nome_empresa)"
-							+ "values ( ? , ? , ? , ? , ?)");
+							+ "values ( ? , ? , ? , ? , ? )");
 			ps.setInt(1, produto.getId());
 			ps.setString(2, produto.getNome());
 			ps.setFloat(3, produto.getPreco());
@@ -117,4 +117,6 @@ public class ProdutoDao {
 		}
 		return null;
 	}
+	
+
 }

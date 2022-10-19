@@ -220,7 +220,7 @@ END$$
 DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=0;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Sena Doerffer', '05739', 'sdoerffer0@parallels.com', '2022-06-13', 1);

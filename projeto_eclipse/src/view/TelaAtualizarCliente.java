@@ -424,7 +424,7 @@ public class TelaAtualizarCliente extends JFrame {
 				String cidade = txtCidade.getText();
 				String numero = txtNumero.getText();
 				Estado estado = listaEstados.get(cbEstados.getSelectedIndex());
-				String idEstado = String.valueOf(estado.getId());
+				String idEstado = String.valueOf(estado.getIdEstado());
 				String cep = txtCep.getText();
 
 				if (nome.isEmpty() || dataNascimento.equals("  /  /    ") || cpf.isEmpty() || email.isEmpty() || rua.isEmpty() || bairro.isEmpty() 

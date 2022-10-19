@@ -26,8 +26,8 @@ public class EstadoDao {
 					Estado estado = new Estado();
 					int id = rs.getInt("id");
 					String nome = rs.getString("nome");
-					estado.setId(id);
-					estado.setNome(nome);
+					estado.setIdEstado(id);
+					estado.setNomeEstado(nome);
 					listaEstados.add(estado);
 				} while (rs.next());
 			}

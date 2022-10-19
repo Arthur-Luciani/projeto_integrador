@@ -11,9 +11,11 @@ import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dao.EstadoDao;
 import dao.FornecedorDao;
 import dao.ProdutoDao;
 import model.AtualizacaoProduto;
+import model.Estado;
 import model.Fornecedores;
 import model.Produto;
 
@@ -30,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -185,19 +188,38 @@ public class TelaListaProdutos extends JFrame {
 				TelaCadastroProduto cadastroProduto;
 				try {
 					if (produtoSelecionado != null) {
+						ProdutoDao da = new ProdutoDao();
 						FornecedorDao dao = new FornecedorDao();
+						ArrayList<Produto> listaproduto = da.resgatarProdutos();
 						ArrayList<Fornecedores> listaFornecedores = dao.resgatarFornecedores();
 						cadastroProduto = new TelaCadastroProduto(false,listaFornecedores, produtoSelecionado);
 						cadastroProduto.setVisible(true);
 						dispose();
 					} else {
-						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado para atualizar");
+						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
 						telaMensagem.setVisible(true);
 					}
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
 			}
+			
+			/*
+			 * TelaAtualizarFornecedor telaAtualizarFornecedor;
+				if (fornecedorSelecionado != null) {
+					FornecedorDao daoFornecedor = new FornecedorDao();
+					EstadoDao daoEstado = new EstadoDao();
+					ArrayList<Fornecedores> listaFornecedores = daoFornecedor.resgatarFornecedores();
+					LinkedList<Estado>listaEstados = daoEstado.resgatarEstados();
+					telaAtualizarFornecedor = new TelaAtualizarFornecedor(listaFornecedores, fornecedorSelecionado, listaEstados);
+					telaAtualizarFornecedor.setVisible(true);
+					dispose();
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum fornecedor selecionado para atualizar");
+					telaMensagem.setVisible(true);
+				}
+			}
+			 */
 		});
 		btnAtualizar.setForeground(new Color(255, 255, 255));
 		btnAtualizar.setBackground(new Color(85, 107, 47));

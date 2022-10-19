@@ -41,7 +41,7 @@ public class TelaListaProdutos extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-	private Produto produtoSelecionado;
+	private Produto produtoSelecionado = new Produto();
 
 	/**
 	 * Create the frame.

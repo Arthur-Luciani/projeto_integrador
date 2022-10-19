@@ -71,22 +71,6 @@ public class TelaCadastroFornecedor extends JFrame {
 	private ArrayList<Fornecedores> listaFornecedor;
 	Fornecedores fornecedorSelecionado;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new TelaCadastroFuncionario();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -244,6 +228,7 @@ public class TelaCadastroFornecedor extends JFrame {
 				FornecedorDao dao = new FornecedorDao();
 				ArrayList<Fornecedores>listaFornecedores = dao.resgatarFornecedores();
 				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
+				telaFornecedores.atualizarJTable();
 				telaFornecedores.setVisible(true);
 				dispose();
 			}

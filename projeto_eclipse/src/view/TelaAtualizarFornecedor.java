@@ -232,6 +232,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 				FornecedorDao dao = new FornecedorDao();
 				ArrayList<Fornecedores>listaFornecedores = dao.resgatarFornecedores();
 				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
+				telaFornecedores.atualizarJTable();
 				telaFornecedores.setVisible(true);
 				dispose();
 			}
@@ -327,7 +328,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 						cbEstado.setBorder(bordaVermelha);
 					}
 				} else {
-					Fornecedores fornecedores = new Fornecedores(nome, email, telefone, cnpj, rua, bairro, cidade, cep, estado.getIdEstado(), estado);
+					Fornecedores fornecedores = new Fornecedores(nome, email, telefone, cnpj, rua, bairro, cidade, cep, estado.getIdEstado(), estado, fornecedorSelecionado.getIdEndereco());
 					FornecedorDao dao = new FornecedorDao();
 					dao.atualizarFornecedor(fornecedores);
 				}

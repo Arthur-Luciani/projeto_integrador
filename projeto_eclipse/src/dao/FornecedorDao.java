@@ -33,8 +33,8 @@ public class FornecedorDao {
 			fornecedores.setIdEndereco(generetedKeys.getInt(1));		
 			
 			ps = conexao.prepareStatement(
-					"insert into fornecedores (nome_empresa, telefone,email, id_endereco,cnpj)"
-							+ "values ( ? , ? , ? , ? )");
+					"insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)"
+							+ "values ( ? , ? , ? , ? , ? )");
 			
 			ps.setString(1, fornecedores.getNome());
 			ps.setString(2, fornecedores.getTelefone());
@@ -84,7 +84,7 @@ public class FornecedorDao {
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"update fornecedor, endereco set "
-					+ "nome_empresa=?, telefone=?,email=?,cnpj=?, bairro=?, rua=?, cidade=?, cep=?, id_estado=?"
+					+ "nome_empresa=?, telefone=?,email=?,cnpj=?, bairro=?, rua=?, cidade=?, cep=?, id_estado=? "
 					+ "where fornecedor.id_endereco=? and endereco.id_endereco=?");
 
 			ps.setString(1, fornecedores.getNome());

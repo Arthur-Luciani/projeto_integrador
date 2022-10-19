@@ -11,9 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.ClienteDao;
+import dao.FornecedorDao;
 import dao.ProdutoDao;
 import dao.UsuarioDao;
 import model.Cliente;
+import model.Fornecedores;
 import model.Produto;
 import model.ProdutoVenda;
 import model.Usuario;

@@ -52,6 +52,7 @@ public class ClienteDao {
 		}
 		return false;
 	}
+	
 	public LinkedList<Cliente> resgatarClientes() {
 		LinkedList<Cliente> listaClientes = new LinkedList<>();
 		try {
@@ -61,27 +62,11 @@ public class ClienteDao {
 			if (rs.next()) {
 				do {
 					Cliente cliente = new Cliente();
-					cliente.setId(rs.getInt("id_cliente"));
-					cliente.setNome(rs.getString("nome"));
-					
-					listaClientes.add(cliente);
-				} while (rs.next());
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return listaClientes;
-	}
-
-			if (rs.next()) {
-				do {
-					Cliente cliente = new Cliente();
 					cliente.setNome(rs.getString("nome"));
 					cliente.setCpf(rs.getString("cpf"));
 					cliente.setEmail(rs.getString("email"));
 
-					listaCliente.add(cliente);
+					listaClientes.add(cliente);
 				} while (rs.next());
 				BD.fechaConexao();
 			}
@@ -89,7 +74,7 @@ public class ClienteDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return listaCliente;
+		return listaClientes;
 	}
 
 }

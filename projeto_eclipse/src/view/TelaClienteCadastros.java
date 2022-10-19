@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
@@ -31,12 +32,12 @@ public class TelaClienteCadastros extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
+	private LinkedList<Cliente> listaCliente;
 	/**
 	 * Create the frame.
 	 */
-	public TelaClienteCadastros(ArrayList<Cliente> listaCliente) {
-		this.listaCliente = listaCliente;
+	public TelaClienteCadastros(LinkedList<Cliente> listaClientes) {
+		this.listaCliente = listaClientes;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();

@@ -10,7 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dao.FornecedorDao;
 import dao.ProdutoDao;
+import model.Fornecedores;
 import model.Produto;
 
 import javax.swing.JButton;
@@ -95,6 +97,18 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(btnVenda);
 		
 		JButton btnFornecedores = new JButton("Fornecedores");
+		btnFornecedores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FornecedorDao dao;
+				dao = new FornecedorDao();
+				ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
+				
+					TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
+					telaFornecedores.atualizarJTable();
+					telaFornecedores.setVisible(true);
+					dispose();
+			}
+		});
 		btnFornecedores.setForeground(Color.WHITE);
 		btnFornecedores.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnFornecedores.setBackground(new Color(85, 107, 47));

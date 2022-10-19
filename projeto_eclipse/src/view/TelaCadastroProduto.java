@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import dao.ProdutoDao;
+import model.Fornecedores;
 import model.Produto;
 import net.miginfocom.swing.MigLayout;
 import java.awt.BorderLayout;
@@ -44,7 +45,7 @@ public class TelaCadastroProduto extends JFrame {
 	private JTextField txtPreco;
 	private JTextField txtQuantidade;
 	
-	ArrayList<String> listaFornecedor;
+	ArrayList<Fornecedores> listaFornecedor;
 	Produto produtoSelecionado;
 
 
@@ -52,8 +53,8 @@ public class TelaCadastroProduto extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroProduto(Boolean atualizarCadastrar, ArrayList<String> listaFornecedor, Produto produtoSelecionado) throws ParseException {
-		this.listaFornecedor = listaFornecedor;
+	public TelaCadastroProduto(Boolean atualizarCadastrar, ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado) throws ParseException {
+		this.listaFornecedor = listaFornecedores;
 		this.produtoSelecionado =produtoSelecionado;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -205,7 +206,7 @@ public class TelaCadastroProduto extends JFrame {
 			}
 		});
 		cbFornecedores.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		cbFornecedores.setModel(new DefaultComboBoxModel<String>(listaFornecedor.toArray(new String[0])));
+		cbFornecedores.setModel(new DefaultComboBoxModel<String>(listaFornecedores.toArray(new String[0])));
 		panel_5.add(cbFornecedores);
 		
 		
@@ -277,17 +278,12 @@ public class TelaCadastroProduto extends JFrame {
 					}
 				} else {
 					Produto produto = new Produto(nome, preco, quantidade, nomeFornecedor);
-					try {
-						ProdutoDao dao = new ProdutoDao();
-						if (atualizarCadastrar==true) {
-							dao.cadastroProduto(produto);
-						} else {
-							produto.setId(produtoSelecionado.getId());
-							dao.atualizarProduto(produto);
-						}
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					ProdutoDao dao = new ProdutoDao();
+					if (atualizarCadastrar==true) {
+						dao.cadastroProduto(produto);
+					} else {
+						produto.setId(produtoSelecionado.getId());
+						dao.atualizarProduto(produto);
 					}
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
 					telaListaProdutos.setVisible(true);
@@ -314,13 +310,8 @@ public class TelaCadastroProduto extends JFrame {
 			btnExcluir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProdutoDao dao;
-					try {
-						dao = new ProdutoDao();
-						dao.deletarProduto(produtoSelecionado.getId());
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					dao = new ProdutoDao();
+					dao.deletarProduto(produtoSelecionado.getId());
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
 					telaListaProdutos.setVisible(true);
 					dispose();

@@ -123,6 +123,8 @@ public class TelaHistoricoPrecos extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		
 	}
 	protected void atualizarJTable() {
 		DefaultTableModel modelo = new DefaultTableModel(

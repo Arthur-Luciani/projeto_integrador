@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dao.EstadoDao;
+import model.Estado;
 import model.Usuario;
 
 public class TelaInicial extends JFrame {
@@ -85,6 +90,14 @@ public class TelaInicial extends JFrame {
 		panel.add(lblViridiSinus);
 
 		JButton btnCadastroDeClientes = new JButton("Cadastro de Clientes");
+		btnCadastroDeClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCliente cliente = new TelaCliente();
+				cliente.setVisible(true);
+				dispose();
+			}
+		});
+		
 		btnCadastroDeClientes.setBounds(578, 276, 232, 39);
 		btnCadastroDeClientes.setToolTipText("");
 		btnCadastroDeClientes.setFont(new Font("Segoe Print", Font.PLAIN, 16));

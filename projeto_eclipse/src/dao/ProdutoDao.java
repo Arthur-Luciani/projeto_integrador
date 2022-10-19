@@ -13,7 +13,7 @@ public class ProdutoDao {
 
 	private Connection conexao = BD.getConexao();
 
-	public ProdutoDao() throws SQLException {}
+	public ProdutoDao()  {}
 	
 	public void cadastroProduto(Produto produto) {
 		try {

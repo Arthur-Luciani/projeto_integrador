@@ -285,8 +285,10 @@ public class TelaAtualizarCliente extends JFrame {
 		String[] arrayEstados = new String[listaEstados.size()];
 		for(int i = 0; i < arrayEstados.length; i++) {
 		    Estado estado = listaEstados.get(i);
-		    
-			arrayEstados[i] = estado.getNome();
+		    if (estado.getIdEstado() == clienteSelecionado.getIdEstado()) {
+		    	estadoSelecionado = i;
+		    }
+			arrayEstados[i] = estado.getNomeEstado();
 		}
 
 		JComboBox cbEstados = new JComboBox(arrayEstados);

@@ -76,6 +76,7 @@ public class ClienteDao {
 					cliente.setCep(rs.getString("cep"));
 					cliente.setCidade(rs.getString("cidade"));
 					cliente.setRua(rs.getString("rua"));
+					cliente.setEstado(rs.getInt("id_estado"));
 					
 					listaCliente.add(cliente);
 				} while (rs.next());

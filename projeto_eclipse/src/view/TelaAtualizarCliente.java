@@ -68,6 +68,7 @@ public class TelaAtualizarCliente extends JFrame {
 	private JTextField txtCep;
 	private JTextField txtCPF;
 	private LinkedList<String>listaEstados= new LinkedList<>();
+	private int estadoSelecionado;
 	
 
 
@@ -293,6 +294,7 @@ public class TelaAtualizarCliente extends JFrame {
 
 		JComboBox cbEstados = new JComboBox(arrayEstados);
 		cbEstados.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		cbEstados.setSelectedIndex(estadoSelecionado);
 		t9.add(cbEstados);
 
 		JLabel lblNome = new JLabel("Nome");

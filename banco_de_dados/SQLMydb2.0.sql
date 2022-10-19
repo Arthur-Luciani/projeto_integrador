@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`estados` (
   `pais` INT(3) NULL DEFAULT NULL,
   `ddd` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB
+ENGINE = MyISAM
 AUTO_INCREMENT = 100
 DEFAULT CHARACTER SET = utf8
 COMMENT = 'Unidades Federativas';
@@ -205,14 +205,14 @@ DELIMITER $$
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_INSERT` AFTER INSERT ON `produto` FOR EACH ROW
 BEGIN
-	insert into historico_produto values (null, id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa);
+	insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa);
 END$$
 
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_UPDATE` AFTER UPDATE ON `produto` FOR EACH ROW
 BEGIN
 	if new.preco_produto <> old.preco_produto then
-		insert into historico_produto values (null, id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa);
+		insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa);
 	end if;
 END$$
 
@@ -222,3 +222,124 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=0;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Sena Doerffer', '05739', 'sdoerffer0@parallels.com', '2022-06-13', 1);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Tillie Jendrach', '86', 'tjendrach1@examiner.com', '2021-11-14', 2);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Kalil Crew', '3503', 'kcrew2@ox.ac.uk', '2022-01-13', 3);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Gabby Lohmeyer', '08', 'glohmeyer3@hhs.gov', '2022-08-09', 4);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Eulalie Testo', '8891', 'etesto4@zdnet.com', '2022-05-08', 5);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Shaina Emmitt', '506', 'semmitt5@vistaprint.com', '2021-11-06', 6);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Christel Branni', '594', 'cbranni6@topsy.com', '2022-03-09', 7);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Gretchen McCutcheon', '12', 'gmccutcheon7@tripod.com', '2021-12-02', 8);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Shalom Walding', '82128', 'swalding8@sitemeter.com', '2022-02-18', 9);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco) values ('Anjela Perry', '864', 'aperry9@addthis.com', '2021-12-05', 10);
+
+select * from cliente;
+
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Vermont', 'Muḩammad Āghah Wuluswālī', '00000000', 1);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Oxford', 'Tsowkêy', '00000000', 2);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Kipling', 'Dowr-e Rabāţ', '00000000', 3);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Gale', 'Chowṉêy', '00000000', 4);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Jenna', 'Qarah Bāgh Bāzār', '00000000', 5);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Prentice', 'Kanḏay', '00000000', 6);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Canary', 'Khulm', '00000000', 7);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Dorton', 'Kafir Qala', '00000000', 8);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Comanche', 'Larkird', '00000000', 9);
+insert into endereco (bairro, rua, cidade, cep, id_estado) values ('Afghanistan', 'Thompson', '’Unābah', '00000000', 10);
+
+select * from endereco;
+
+INSERT INTO Estados(id, nome, uf, ibge, pais, ddd) VALUES
+(1, 'Acre', 'AC', 12, 1, '68'),
+(2, 'Alagoas', 'AL', 27, 1, '82'),
+(3, 'Amazonas', 'AM', 13, 1, '97,92'),
+(4, 'Amapá', 'AP', 16, 1, '96'),
+(5, 'Bahia', 'BA', 29, 1, '77,75,73,74,71'),
+(6, 'Ceará', 'CE', 23, 1, '88,85'),
+(7, 'Distrito Federal', 'DF', 53, 1, '61'),
+(8, 'Espírito Santo', 'ES', 32, 1, '28,27'),
+(9, 'Goiás', 'GO', 52, 1, '62,64,61'),
+(10, 'Maranhão', 'MA', 21, 1, '99,98'),
+(11, 'Minas Gerais', 'MG', 31, 1, '34,37,31,33,35,38,32'),
+(12, 'Mato Grosso do Sul', 'MS', 50, 1, '67'),
+(13, 'Mato Grosso', 'MT', 51, 1, '65,66'),
+(14, 'Pará', 'PA', 15, 1, '91,94,93'),
+(15, 'Paraíba', 'PB', 25, 1, '83'),
+(16, 'Pernambuco', 'PE', 26, 1, '81,87'),
+(17, 'Piauí', 'PI', 22, 1, '89,86'),
+(18, 'Paraná', 'PR', 41, 1, '43,41,42,44,45,46'),
+(19, 'Rio de Janeiro', 'RJ', 33, 1, '24,22,21'),
+(20, 'Rio Grande do Norte', 'RN', 24, 1, '84'),
+(21, 'Rondônia', 'RO', 11, 1, '69'),
+(22, 'Roraima', 'RR', 14, 1, '95'),
+(23, 'Rio Grande do Sul', 'RS', 43, 1, '53,54,55,51'),
+(24, 'Santa Catarina', 'SC', 42, 1, '47,48,49'),
+(25, 'Sergipe', 'SE', 28, 1, '79'),
+(26, 'São Paulo', 'SP', 35, 1, '11,12,13,14,15,16,17,18,19'),
+(27, 'Tocantins', 'TO', 17, 1, '63'),
+(99, 'Exterior', 'EX', 99, NULL, NULL);
+
+select * from estados;
+
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Teklist', '264-786-6150', 'eelcox0@tinyurl.com', 1, '61-838-7295');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Tagtune', '336-671-2387', 'jmcnally1@ucoz.com', 2, '05-091-2083');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Voomm', '659-136-4209', 'rpeschmann2@lycos.com', 3, '55-362-4935');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Topiczoom', '432-695-1529', 'rpasticznyk3@reference.com', 4, '71-333-2887');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Jayo', '130-131-6843', 'ghowatt4@umn.edu', 5, '76-255-7427');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Riffpath', '408-620-4725', 'echristoffersen5@google.fr', 6, '21-354-8472');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Rooxo', '668-803-4692', 'ashobbrook6@psu.edu', 7, '20-014-3875');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Realmix', '364-138-1393', 'bmuldrew7@usnews.com', 8, '94-354-6123');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Rhynyx', '110-680-2434', 'ctrowsdall8@statcounter.com', 9, '21-223-5777');
+insert into fornecedor (nome_empresa, telefone, email, id_endereco, cnpj) values ('Skajo', '176-198-5285', 'kjoddins9@forbes.com', 10, '98-975-9707');
+
+select * from fornecedor;
+
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Veal - Liver', 45.28, 85, 'Edgetag');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Wine - Casablanca Valley', 52.06, 62, 'Realcube');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Peach - Halves', 14.46, 41, 'Kare');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Pasta - Canelloni, Single Serve', 77.27, 73, 'Babbleset');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Banana - Green', 88.83, 56, 'Oodoo');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('The Pop Shoppe - Grape', 8.16, 24, 'Izio');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Oil - Hazelnut', 80.68, 21, 'Thoughtworks');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Juice - Apple 284ml', 46.2, 52, 'Fiveclub');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Rabbit - Saddles', 4.99, 23, 'Meedoo');
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa) values ('Bread - Flat Bread', 17.21, 69, 'Feednation');
+
+select * from produto;
+
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'iriha0', 'Iggy Riha', 'JSkDKs', '40', '2022-07-26', 1, true);
+insert into usuarios (login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'bgowling1', 'Bob Gowling', '7gBYtB69', '7', '2022-06-29', 2, false);
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'slindenberg2', 'Sol Lindenberg', '2dZL9LGh', '6106', '2022-09-10', 3, false);
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'lkampshell3', 'Layney Kampshell', 'dZOGOX', '124', '2022-06-06', 4, false);
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'amcnamara4', 'Aristotle McNamara', 'lzVcEv', '39', '2022-06-18', 5, true);
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'mle5', 'Mycah Le Fevre', '5WvCxTyjk', '3', '2022-09-12', 6, true);
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'ktredwell6', 'Kassey Tredwell', 'pWxF0k', '566', '2022-05-22', 7, false);
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'gklemmt7', 'Grover Klemmt', 'HAah310Z', '779', '2021-11-25', 8, false);
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'sgrinyer8', 'Susanne Grinyer', 'RcmeFVb', '5', '2022-07-11', 9, false);
+insert into usuarios ( login, nome, senha, cpf, data_nascimento, idade, permissao) values ( 'avasnetsov9', 'Allie Vasnetsov', 'x8Ur2PU', '5695', '2022-07-16', 10, true);
+
+select * from usuarios;
+
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2021-09-30', 67.59, 518.19, 1, 1);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2022-09-05', 78.03, 970.79, 2, 2);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2021-11-29', 65.91, 730.95, 3, 3);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2022-06-04', 66.03, 564.68, 4, 4);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2022-03-24', 83.85, 319.45, 5, 5);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2021-07-26', 65.36, 335.84, 6, 6);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2022-04-16', 83.42, 127.97, 7, 7);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2022-06-01', 11.28, 390.35, 8, 8);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2022-02-28', 58.29, 800.48, 9, 9);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario) values ('2022-09-13', 30.17, 233.89, 10, 10);
+
+select * from venda;
+
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (1, 1, 1);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (2, 2, 2);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (3, 3, 3);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (4, 4, 4);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (5, 5, 5);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (6, 6, 6);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (7, 7, 7);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (8, 8, 8);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (9, 9, 9);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (10, 10, 10);

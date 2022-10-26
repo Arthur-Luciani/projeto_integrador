@@ -228,7 +228,8 @@ public class TelaAtualizarProduto extends JFrame {
 		panel_8.setBackground(new Color(240, 255, 240));
 		Txts.add(panel_8);
 		
-		txtQuantidade = new JTextField(produtoSelecionado.getQuantEstoque());
+		txtQuantidade = new JTextField(String.valueOf(produtoSelecionado.getQuantEstoque()));
+		
 		txtQuantidade.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {

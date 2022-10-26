@@ -82,6 +82,9 @@ public class TelaEstoque extends JFrame {
 		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProdutoDao dao = new ProdutoDao();
+
+
+				dao.resgatarProdutos();
 				
 				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
 				telaListaProdutos.atualizarJTable();

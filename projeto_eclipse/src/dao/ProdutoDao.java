@@ -12,11 +12,12 @@ import model.Produto;
 
 public class ProdutoDao {
 
-	private Connection conexao = BD.getConexao();
+	private Connection conexao;
 
 	public ProdutoDao() {}
 	
 	public void cadastroProduto(Produto produto) {
+		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"insert into produto (id_produto, nome_produto, preco_produto, estoque, nome_empresa)"
@@ -36,6 +37,7 @@ public class ProdutoDao {
 	}
 
 	public ArrayList<Produto> resgatarProdutos() {
+		conexao = BD.getConexao();
 		ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from produto");
@@ -83,6 +85,7 @@ public class ProdutoDao {
 	}
 
 	public void atualizarProduto(Produto produto) {
+		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"update Produto set nome_produto=?, preco_produto=?, estoque=?, nome_empresa=? where id_produto=?");
@@ -102,6 +105,7 @@ public class ProdutoDao {
 	}
 
 	public void deletarProduto(int id) {
+		conexao = BD.getConexao();
 		PreparedStatement ps;
 		try {
 			ps = conexao.prepareStatement("delete from produto where id_produto=?");
@@ -115,6 +119,7 @@ public class ProdutoDao {
 		
 	}
 	public ArrayList<AtualizacaoProduto> historicoPreco(int id) {
+		conexao = BD.getConexao();
 		ArrayList<AtualizacaoProduto> listaAtualizacoes = new ArrayList<>();
 		PreparedStatement ps;
 		try {

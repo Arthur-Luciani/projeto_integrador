@@ -183,10 +183,11 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-				TelaCadastroProduto cadastroProduto;
 				try {
 					if (produtoSelecionado != null) {
 						ProdutoDao da = new ProdutoDao();
+						
+						da.resgatarProdutos();
 						FornecedorDao dao = new FornecedorDao();
 						ArrayList<Produto> listaproduto = da.resgatarProdutos();
 						ArrayList<Fornecedores> listaFornecedores = dao.resgatarFornecedores();

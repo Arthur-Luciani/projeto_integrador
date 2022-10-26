@@ -11,9 +11,11 @@ import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dao.EstadoDao;
 import dao.FornecedorDao;
 import dao.ProdutoDao;
 import model.AtualizacaoProduto;
+import model.Estado;
 import model.Fornecedores;
 import model.Produto;
 
@@ -22,12 +24,15 @@ import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
 import net.miginfocom.swing.MigLayout;
+import swingDesign.JTableViridisSinus;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -41,13 +46,15 @@ public class TelaListaProdutos extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-	private Produto produtoSelecionado;
+	private Produto produtoSelecionado = null;
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaListaProdutos() {
+	public TelaListaProdutos(ArrayList<Produto> listaProdutos) {
+		this.listaProduto = listaProdutos;
 		
+		setBackground(new Color(240, 255, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -75,7 +82,7 @@ public class TelaListaProdutos extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		pTable.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
+		table = new JTableViridisSinus().padraoJtable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -103,11 +110,13 @@ public class TelaListaProdutos extends JFrame {
 		
 		
 		JPanel pBotoesEsquerda = new JPanel();
+		pBotoesEsquerda.setBackground(new Color(240, 255, 240));
 		FlowLayout fl_pBotoesEsquerda = (FlowLayout) pBotoesEsquerda.getLayout();
 		fl_pBotoesEsquerda.setAlignment(FlowLayout.LEFT);
 		pBotoes.add(pBotoesEsquerda);
 		
 		JPanel pBotoesDireita = new JPanel();
+		pBotoesDireita.setBackground(new Color(240, 255, 240));
 		FlowLayout fl_pBotoesDireita = (FlowLayout) pBotoesDireita.getLayout();
 		fl_pBotoesDireita.setAlignment(FlowLayout.TRAILING);
 		pBotoes.add(pBotoesDireita);
@@ -121,7 +130,7 @@ public class TelaListaProdutos extends JFrame {
 					FornecedorDao dao = new FornecedorDao();
 					ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
 					
-					cadastroProduto = new TelaCadastroProduto(true, listaFornecedores, null);
+					cadastroProduto = new TelaCadastroProduto(listaFornecedores, null);
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
@@ -159,8 +168,8 @@ public class TelaListaProdutos extends JFrame {
 					telaHistoricoPrecos.setVisible(true);
 					dispose();
 				} else {
-					TelaMensagem mensagem = new TelaMensagem("Nenhum produto selecionado!");
-					mensagem.setVisible(true);
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
+					telaMensagem.setVisible(true);
 				}
 				
 				
@@ -174,22 +183,27 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-				TelaCadastroProduto cadastroProduto;
 				try {
 					if (produtoSelecionado != null) {
+						ProdutoDao da = new ProdutoDao();
+						
+						da.resgatarProdutos();
 						FornecedorDao dao = new FornecedorDao();
+						ArrayList<Produto> listaproduto = da.resgatarProdutos();
 						ArrayList<Fornecedores> listaFornecedores = dao.resgatarFornecedores();
-						cadastroProduto = new TelaCadastroProduto(false,listaFornecedores, produtoSelecionado);
-						cadastroProduto.setVisible(true);
+						TelaAtualizarProduto telaAtualizarProduto = new TelaAtualizarProduto(listaFornecedores, produtoSelecionado);
+						telaAtualizarProduto.setVisible(true);
 						dispose();
 					} else {
-						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado!");
+						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
 						telaMensagem.setVisible(true);
 					}
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
 			}
+			
+	
 		});
 		btnAtualizar.setForeground(new Color(255, 255, 255));
 		btnAtualizar.setBackground(new Color(85, 107, 47));

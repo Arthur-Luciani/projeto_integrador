@@ -114,7 +114,7 @@ public class TelaCliente extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClienteDao dao = new ClienteDao();
-				TelaClienteCadastros cadastros = new TelaClienteCadastros(dao.resgatarCliente());
+				TelaClienteCadastros cadastros = new TelaClienteCadastros(dao.resgatarClientes());
 				cadastros.setVisible(true);
 				dispose();
 			}

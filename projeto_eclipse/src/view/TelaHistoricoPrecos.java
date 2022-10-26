@@ -8,8 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import dao.ProdutoDao;
 import model.AtualizacaoProduto;
 import model.Produto;
+import swingDesign.JTableViridisSinus;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -81,7 +83,7 @@ public class TelaHistoricoPrecos extends JFrame {
 		//
 		pCentro.add(scrollPane);
 		
-		table = new JTable();
+		table = new JTableViridisSinus().padraoJtable();
 		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(85, 107, 47)));
 		table.setForeground(new Color(0, 0, 0));
 		table.setBackground(new Color(240, 255, 240));
@@ -111,7 +113,10 @@ public class TelaHistoricoPrecos extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+				ProdutoDao dao = new ProdutoDao();
+				
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
 				dispose();
 			}

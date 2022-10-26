@@ -7,15 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.AtualizacaoProduto;
+import model.Fornecedores;
 import model.Produto;
 
 public class ProdutoDao {
 
-	private Connection conexao = BD.getConexao();
+	private Connection conexao;
 
-	public ProdutoDao()  {}
+	public ProdutoDao() {}
 	
 	public void cadastroProduto(Produto produto) {
+		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"insert into produto (id_produto, nome_produto, preco_produto, estoque, nome_empresa)"
@@ -24,7 +26,7 @@ public class ProdutoDao {
 			ps.setString(2, produto.getNome());
 			ps.setFloat(3, produto.getPreco());
 			ps.setInt(4, produto.getQuantEstoque());
-			ps.setString(5, produto.getNomeFornecedor());
+			ps.setString(5, produto.getFornecedor().getNome());
 			ps.execute();
 			BD.fechaConexao();
 		} catch (SQLException e) {
@@ -35,6 +37,7 @@ public class ProdutoDao {
 	}
 
 	public ArrayList<Produto> resgatarProdutos() {
+		conexao = BD.getConexao();
 		ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from produto");
@@ -43,12 +46,33 @@ public class ProdutoDao {
 			if (rs.next()) {
 				do {
 					Produto produto = new Produto();
+					Fornecedores fornecedores = new Fornecedores();
 					produto.setId(rs.getInt("id_produto"));
 					produto.setPreco(rs.getFloat("preco_produto"));
 					produto.setNome(rs.getString("nome_produto"));
-					produto.setQuantEstoque(rs.getInt("estoque"));
-					produto.setNomeFornecedor("nome_empresa");
-
+					produto.setQuantEstoque(rs.getInt("estoque"));				
+					fornecedores.setNome(rs.getString("nome_empresa"));
+					
+					PreparedStatement psF = conexao.prepareStatement("select * from fornecedor inner join endereco on (fornecedor.id_endereco=endereco.id_endereco) "
+							+ "where nome_empresa=?");
+					psF.setString(1, fornecedores.getNome());
+					
+					ResultSet rsF = psF.executeQuery();
+					if (rsF.next()) {
+						do {
+							fornecedores.setNome(rsF.getString("nome_empresa"));
+							fornecedores.setTelefone(rsF.getString("telefone"));
+							fornecedores.setEmail(rsF.getString("email"));
+							fornecedores.setIdEndereco(rsF.getInt("id_endereco"));
+							fornecedores.setCnpj(rsF.getString("cnpj"));
+							fornecedores.setBairro(rsF.getString("bairro"));
+							fornecedores.setRua(rsF.getString("rua"));
+							fornecedores.setCidade(rsF.getString("cidade"));
+							fornecedores.setCep(rsF.getString("cep"));
+							fornecedores.setEstado(rsF.getInt("id_estado"));
+						} while (rsF.next());	
+						produto.setFornecedor(fornecedores);
+					}
 					listaProduto.add(produto);
 				} while (rs.next());
 				BD.fechaConexao();
@@ -61,6 +85,7 @@ public class ProdutoDao {
 	}
 
 	public void atualizarProduto(Produto produto) {
+		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"update Produto set nome_produto=?, preco_produto=?, estoque=?, nome_empresa=? where id_produto=?");
@@ -68,7 +93,7 @@ public class ProdutoDao {
 			ps.setString(1, produto.getNome());
 			ps.setFloat(2, produto.getPreco());
 			ps.setInt(3, produto.getQuantEstoque());
-			ps.setString(4, produto.getNomeFornecedor());
+			ps.setString(4, produto.getFornecedor().getNome());
 			ps.setInt(5, produto.getId());
 			ps.executeUpdate();
 			BD.fechaConexao();
@@ -80,6 +105,7 @@ public class ProdutoDao {
 	}
 
 	public void deletarProduto(int id) {
+		conexao = BD.getConexao();
 		PreparedStatement ps;
 		try {
 			ps = conexao.prepareStatement("delete from produto where id_produto=?");
@@ -93,7 +119,8 @@ public class ProdutoDao {
 		
 	}
 	public ArrayList<AtualizacaoProduto> historicoPreco(int id) {
-		ArrayList<AtualizacaoProduto> listaAtualizacoes = new ArrayList<AtualizacaoProduto>();
+		conexao = BD.getConexao();
+		ArrayList<AtualizacaoProduto> listaAtualizacoes = new ArrayList<>();
 		PreparedStatement ps;
 		try {
 			ps = conexao
@@ -117,4 +144,6 @@ public class ProdutoDao {
 		}
 		return null;
 	}
+	
+
 }

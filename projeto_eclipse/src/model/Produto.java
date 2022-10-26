@@ -2,9 +2,12 @@ package model;
 
 public class Produto {
 	
-	String nome, nomeFornecedor;
-	float preco;
-	int id, quantEstoque;
+	private String nome;
+	private float preco;
+	private int id;
+	private int quantEstoque;
+	private Fornecedores fornecedor;
+	
 	
 	public Produto() {
 		super();
@@ -17,23 +20,17 @@ public class Produto {
 		this.quantEstoque = quantEstoque;
 	}
 	
-	public Produto(String nome, float preco, int quantEstoque, String nomeFornecedor) {
+	public Produto(String nome, float preco, int quantEstoque, Fornecedores fornecedor) {
 		super();
 		this.nome = nome;
 		this.preco = preco;
 		this.quantEstoque = quantEstoque;
-		this.nomeFornecedor = nomeFornecedor;
+		this.fornecedor = fornecedor;
 	}
 	
 	
 
-	public String getNomeFornecedor() {
-		return nomeFornecedor;
-	}
 
-	public void setNomeFornecedor(String nomeFornecedor) {
-		this.nomeFornecedor = nomeFornecedor;
-	}
 
 	public String getNome() {
 		return nome;
@@ -65,6 +62,13 @@ public class Produto {
 
 	public void setQuantEstoque(int quantEstoque) {
 		this.quantEstoque = quantEstoque;
+	}
+	public Fornecedores getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedores fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 }

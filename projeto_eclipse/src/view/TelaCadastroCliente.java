@@ -67,9 +67,6 @@ public class TelaCadastroCliente extends JFrame {
 	private JTextField txtNumero;
 	private JTextField txtCep;
 	private JTextField txtCPF;
-	private LinkedList<String>listaEstados= new LinkedList<>();
-	
-
 
 	/**
 	 * Create the frame.
@@ -274,8 +271,6 @@ public class TelaCadastroCliente extends JFrame {
 		flowLayout_4.setAlignment(FlowLayout.LEFT);
 		t9.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t9);
-		
-		
 		
 		String[] arrayEstados = new String[listaEstados.size()];
 		for(int i = 0; i < arrayEstados.length; i++) {

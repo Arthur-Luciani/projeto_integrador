@@ -5,8 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.LinkedList;
 
 import model.Cliente;
 import model.Produto;
@@ -21,7 +20,6 @@ public class ClienteDao {
 	public boolean cadastrarCliente(Cliente cliente) {
 		PreparedStatement ps;
 		try {
-			
 			ps = conexao.prepareStatement("insert into endereco ( bairro, rua, cidade, cep, id_estado) values (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, cliente.getBairro());
 			ps.setString(2, cliente.getRua());
@@ -52,23 +50,24 @@ public class ClienteDao {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-		
 		return false;
 	}
-	public ArrayList<Cliente> resgatarCliente() {
-		ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
+	
+	public LinkedList<Cliente> resgatarClientes() {
+		LinkedList<Cliente> listaClientes = new LinkedList<>();
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select * from cliente");
+			PreparedStatement ps = conexao
+					.prepareStatement("select * from cliente");
 			ResultSet rs = ps.executeQuery();
-
 			if (rs.next()) {
 				do {
 					Cliente cliente = new Cliente();
 					cliente.setNome(rs.getString("nome"));
 					cliente.setCpf(rs.getString("cpf"));
 					cliente.setEmail(rs.getString("email"));
+					cliente.setId(rs.getInt("id_cliente"));
 
-					listaCliente.add(cliente);
+					listaClientes.add(cliente);
 				} while (rs.next());
 				BD.fechaConexao();
 			}
@@ -76,7 +75,7 @@ public class ClienteDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return listaCliente;
+		return listaClientes;
 	}
 
 }

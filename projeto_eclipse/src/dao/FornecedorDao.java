@@ -13,11 +13,12 @@ import model.Produto;
 
 public class FornecedorDao {
 
-	private Connection conexao = BD.getConexao();
+	private Connection conexao;
 
 	public FornecedorDao() {}
 	
 	public void cadastroFornecedor(Fornecedores fornecedores) {
+		conexao = BD.getConexao();
 		PreparedStatement ps;
 		try {
 			ps = conexao.prepareStatement("insert into endereco ( bairro, rua, cidade, cep, id_estado) values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -51,6 +52,7 @@ public class FornecedorDao {
 	}	
 
 	public ArrayList<Fornecedores> resgatarFornecedores()  {
+		conexao = BD.getConexao();
 		ArrayList<Fornecedores> listaFornecedores = new ArrayList<Fornecedores>();
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from fornecedor inner join endereco on (fornecedor.id_endereco=endereco.id_endereco)");
@@ -81,6 +83,7 @@ public class FornecedorDao {
 	}
 	
 	public void atualizarFornecedor(Fornecedores fornecedores) {
+		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"update fornecedor, endereco set "
@@ -99,6 +102,7 @@ public class FornecedorDao {
 			ps.setInt(10, fornecedores.getIdEndereco());
 			ps.setInt(11, fornecedores.getIdEndereco());
 			
+			System.out.println(ps);
 			ps.executeUpdate();
 			BD.fechaConexao();
 		} catch (SQLException e) {
@@ -109,6 +113,7 @@ public class FornecedorDao {
 	}
 	
 	public void deletarFornecedor(String cnpj) {
+		conexao = BD.getConexao();
 		PreparedStatement ps;
 		try {
 			ps = conexao.prepareStatement("delete from fornecedor where cnpj=?");
@@ -119,10 +124,5 @@ public class FornecedorDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
-
-	
-	
-	
 }

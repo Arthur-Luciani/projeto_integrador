@@ -6,17 +6,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 import model.Usuario;
 
 public class UsuarioDao {
 
-	private Connection conexao = BD.getConexao();
+	
 
 	public UsuarioDao() {}
 
 	public boolean cadastro(Usuario novoUsuario) {
 		try {
+			Connection conexao = BD.getConexao();
 			PreparedStatement ps = conexao.prepareStatement("select login from usuarios where login like ? ");
 			ps.setString(1, novoUsuario.getLogin());
 			ResultSet rs = ps.executeQuery();
@@ -43,6 +46,7 @@ public class UsuarioDao {
 
 	public Usuario verificacao(Usuario usuario) {
 		try {
+			Connection conexao = BD.getConexao();
 			PreparedStatement ps = conexao
 					.prepareStatement("select * from usuarios where login like ? and senha like ?");
 			ps.setString(1, usuario.getLogin());
@@ -77,5 +81,26 @@ public class UsuarioDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public LinkedList<Usuario> resgatarUsuarios() {
+		LinkedList<Usuario> listaNomesUsuarios = new LinkedList<>();
+		Connection conexao = BD.getConexao();
+		try {
+			
+			PreparedStatement ps = conexao.prepareStatement("select * from usuarios");
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				do {
+					Usuario usuario = new Usuario();
+					usuario.setNome(rs.getString("nome"));
+					usuario.setIdUsuario(rs.getInt("id_usuario"));
+					listaNomesUsuarios.add(usuario);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return listaNomesUsuarios;
 	}
 }

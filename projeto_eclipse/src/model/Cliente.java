@@ -23,13 +23,9 @@ public class Cliente extends Endereco{
 		setEstado(idEstado);
 		setNumero(numero);
 	}
-
-
 	public Cliente() {
 		// TODO Auto-generated constructor stub
 	}
-
-
 	public String getNome() {
 		return nome;
 	}

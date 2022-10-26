@@ -204,22 +204,7 @@ public class TelaListaProdutos extends JFrame {
 				}
 			}
 			
-			/*
-			 * TelaAtualizarFornecedor telaAtualizarFornecedor;
-				if (fornecedorSelecionado != null) {
-					FornecedorDao daoFornecedor = new FornecedorDao();
-					EstadoDao daoEstado = new EstadoDao();
-					ArrayList<Fornecedores> listaFornecedores = daoFornecedor.resgatarFornecedores();
-					LinkedList<Estado>listaEstados = daoEstado.resgatarEstados();
-					telaAtualizarFornecedor = new TelaAtualizarFornecedor(listaFornecedores, fornecedorSelecionado, listaEstados);
-					telaAtualizarFornecedor.setVisible(true);
-					dispose();
-				} else {
-					TelaMensagem telaMensagem = new TelaMensagem("Nenhum fornecedor selecionado para atualizar");
-					telaMensagem.setVisible(true);
-				}
-			}
-			 */
+	
 		});
 		btnAtualizar.setForeground(new Color(255, 255, 255));
 		btnAtualizar.setBackground(new Color(85, 107, 47));

@@ -250,7 +250,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		panel_1.add(txtCidade);
 
 		JLabel lblCep = new JLabel("CEP");
-		lblCep.setBounds(65, 284, 33, 29);
+		lblCep.setBounds(65, 284, 115, 29);
 		lblCep.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCep);
 
@@ -332,7 +332,8 @@ public class TelaAtualizarFornecedor extends JFrame {
 					FornecedorDao dao = new FornecedorDao();
 					dao.atualizarFornecedor(fornecedores);
 					
-					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(listaFornecedores);
+					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(dao.resgatarFornecedores());
+					telaListaFornecedores.atualizarJTable();
 					telaListaFornecedores.setVisible(true);
 					dispose();
 				}

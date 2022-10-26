@@ -78,6 +78,7 @@ public class TelaCadastroFornecedor extends JFrame {
 	 * @throws ParseException
 	 */
 	public TelaCadastroFornecedor(ArrayList<Fornecedores> listaFornecedores, Fornecedores FornecedorSelecionado, LinkedList<Estado>listaEstados) {
+		setBackground(new Color(240, 255, 240));
 		this.listaFornecedor = listaFornecedores;
 		this.fornecedorSelecionado = fornecedorSelecionado;
 		
@@ -246,7 +247,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		panel_1.add(txtCidade);
 
 		JLabel lblCep = new JLabel("CEP");
-		lblCep.setBounds(65, 284, 33, 29);
+		lblCep.setBounds(65, 284, 115, 29);
 		lblCep.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCep);
 
@@ -324,6 +325,12 @@ public class TelaCadastroFornecedor extends JFrame {
 					Fornecedores fornecedores = new Fornecedores(nome, email, telefone, cnpj, rua, bairro, cidade, cep, estado.getIdEstado(), estado);
 					FornecedorDao dao = new FornecedorDao();
 					dao.cadastroFornecedor(fornecedores);
+					
+					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(dao.resgatarFornecedores());
+					telaListaFornecedores.atualizarJTable();
+					telaListaFornecedores.setVisible(true);
+					
+					dispose();
 				}
 			}
 		});

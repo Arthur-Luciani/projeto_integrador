@@ -33,6 +33,7 @@ import model.Estado;
 import model.Fornecedores;
 import model.Produto;
 import net.miginfocom.swing.MigLayout;
+import java.awt.FlowLayout;
 
 public class TelaListaFornecedores extends JFrame {
 
@@ -45,6 +46,7 @@ public class TelaListaFornecedores extends JFrame {
 	
 
 	public TelaListaFornecedores(ArrayList<Fornecedores> listaFornecedores) {
+		setBackground(new Color(240, 255, 240));
 		this.listaFornecedores = listaFornecedores;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -53,21 +55,22 @@ public class TelaListaFornecedores extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(3, 0, 0, 0));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(85, 107, 47));
-		contentPane.add(panel_1);
-		panel_1.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][]", "[][][]"));
+		contentPane.add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 5));
 		
 		JLabel lblListaFornecedores = new JLabel("Lista de Fornecedores");
 		lblListaFornecedores.setForeground(new Color(255, 255, 255));
 		lblListaFornecedores.setBackground(new Color(85, 107, 47));
 		lblListaFornecedores.setFont(new Font("Segoe Print", Font.PLAIN, 50));
-		panel_1.add(lblListaFornecedores, "cell 15 1");
+		panel_1.add(lblListaFornecedores);
 		
 		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2);
+		panel_2.setBackground(new Color(240, 255, 240));
+		contentPane.add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -96,8 +99,20 @@ public class TelaListaFornecedores extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(240, 255, 240));
-		contentPane.add(panel);
-		panel.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][]", "[][][][][]"));
+		contentPane.add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout = (FlowLayout) panel_3.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		panel.add(panel_3);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_1 = (FlowLayout) panel_4.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.RIGHT);
+		panel.add(panel_4);
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -111,7 +126,7 @@ public class TelaListaFornecedores extends JFrame {
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
-		panel.add(btnVoltar, "cell 0 3");
+		panel_3.add(btnVoltar);
 		
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
@@ -134,7 +149,7 @@ public class TelaListaFornecedores extends JFrame {
 		btnAtualizar.setForeground(Color.WHITE);
 		btnAtualizar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAtualizar.setBackground(new Color(85, 107, 47));
-		panel.add(btnAtualizar, "cell 2 3");
+		panel_4.add(btnAtualizar);
 		
 		JButton btnAdicionar = new JButton("Adicionar");
 		
@@ -158,7 +173,7 @@ public class TelaListaFornecedores extends JFrame {
 		btnAdicionar.setForeground(Color.WHITE);
 		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAdicionar.setBackground(new Color(85, 107, 47));
-		panel.add(btnAdicionar, "cell 4 3");
+		panel_4.add(btnAdicionar);
 		
 	}
 	

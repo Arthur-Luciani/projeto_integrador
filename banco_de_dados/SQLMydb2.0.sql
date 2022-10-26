@@ -105,7 +105,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
   `preco_produto` FLOAT NOT NULL,
   `estoque` INT(11) NOT NULL,
   `nome_empresa` VARCHAR(200) NOT NULL,
-  PRIMARY KEY (`id_produto`))
+  PRIMARY KEY (`id_produto`),
+  INDEX `fk_fornecedor_idx` (`nome_empresa` ASC) VISIBLE,
+  CONSTRAINT `fk_fornecedor`
+    FOREIGN KEY (`nome_empresa`)
+    REFERENCES `mydb`.`fornecedor` (`nome_empresa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 

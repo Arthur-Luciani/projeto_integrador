@@ -33,6 +33,8 @@ import model.Estado;
 import model.Fornecedores;
 import model.Produto;
 import net.miginfocom.swing.MigLayout;
+import swingDesign.JTableViridisSinus;
+
 import java.awt.FlowLayout;
 
 public class TelaListaFornecedores extends JFrame {
@@ -76,7 +78,7 @@ public class TelaListaFornecedores extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_2.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
+		table = new JTableViridisSinus().padraoJtable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -92,7 +94,7 @@ public class TelaListaFornecedores extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"CNPJ", "Email", "Nome", "Telefone", "Localização"
+				"CNPJ", "Email", "Nome", "Telefone", "CEP"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -183,12 +185,12 @@ public class TelaListaFornecedores extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-					"CNPJ", "Email", "Nome", "Telefone", "Localização"
+					"CNPJ", "Email", "Nome", "Telefone", "CEP"
 				}
 			);
 		for(int i=0; i< listaFornecedores.size(); i++) {
 			Fornecedores f = listaFornecedores.get(i);
-			modelo.addRow(new Object[] { f.getCnpj(), f.getEmail(), f.getNome(), f.getTelefone()});
+			modelo.addRow(new Object[] { f.getCnpj(), f.getEmail(), f.getNome(), f.getTelefone(), f.getCep()});
 		}
 		
 		table.setModel(modelo);

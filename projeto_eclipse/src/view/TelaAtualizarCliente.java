@@ -37,7 +37,9 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.Format;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -322,6 +324,9 @@ public class TelaAtualizarCliente extends JFrame {
 
 		try {
 			txtDataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			Date date = Date.valueOf(clienteSelecionado.getDataNascimento());
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			txtDataNascimento.setText(format.format(date));
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -332,7 +337,6 @@ public class TelaAtualizarCliente extends JFrame {
 				txtDataNascimento.setBorder(bordaNormal);
 			}
 		});
-		//txtDataNascimento.setText(clienteSelecionado.getDataNascimento())
 		txtDataNascimento.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtDataNascimento.setColumns(10);
 		t3.add(txtDataNascimento);

@@ -51,15 +51,10 @@ public class TelaListaProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListaProdutos() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowOpened(WindowEvent e) {
-				ProdutoDao dao = new ProdutoDao();
-				listaProduto = dao.resgatarProdutos();
-				atualizarJTable();
-			}
-		});
+	public TelaListaProdutos(ArrayList<Produto> listaProdutos) {
+		this.listaProduto = listaProdutos;
+		
+		setBackground(new Color(240, 255, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -115,11 +110,13 @@ public class TelaListaProdutos extends JFrame {
 		
 		
 		JPanel pBotoesEsquerda = new JPanel();
+		pBotoesEsquerda.setBackground(new Color(240, 255, 240));
 		FlowLayout fl_pBotoesEsquerda = (FlowLayout) pBotoesEsquerda.getLayout();
 		fl_pBotoesEsquerda.setAlignment(FlowLayout.LEFT);
 		pBotoes.add(pBotoesEsquerda);
 		
 		JPanel pBotoesDireita = new JPanel();
+		pBotoesDireita.setBackground(new Color(240, 255, 240));
 		FlowLayout fl_pBotoesDireita = (FlowLayout) pBotoesDireita.getLayout();
 		fl_pBotoesDireita.setAlignment(FlowLayout.TRAILING);
 		pBotoes.add(pBotoesDireita);
@@ -133,7 +130,7 @@ public class TelaListaProdutos extends JFrame {
 					FornecedorDao dao = new FornecedorDao();
 					ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
 					
-					cadastroProduto = new TelaCadastroProduto(true, listaFornecedores, null);
+					cadastroProduto = new TelaCadastroProduto(listaFornecedores, null);
 					cadastroProduto.setVisible(true);
 				} catch (ParseException e1) {
 					e1.printStackTrace();
@@ -193,8 +190,8 @@ public class TelaListaProdutos extends JFrame {
 						FornecedorDao dao = new FornecedorDao();
 						ArrayList<Produto> listaproduto = da.resgatarProdutos();
 						ArrayList<Fornecedores> listaFornecedores = dao.resgatarFornecedores();
-						cadastroProduto = new TelaCadastroProduto(false,listaFornecedores, produtoSelecionado);
-						cadastroProduto.setVisible(true);
+						TelaAtualizarProduto telaAtualizarProduto = new TelaAtualizarProduto(listaFornecedores, produtoSelecionado);
+						telaAtualizarProduto.setVisible(true);
 						dispose();
 					} else {
 						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");

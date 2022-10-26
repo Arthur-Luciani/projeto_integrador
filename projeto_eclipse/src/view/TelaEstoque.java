@@ -81,7 +81,10 @@ public class TelaEstoque extends JFrame {
 		btnProdutos.setForeground(new Color(255, 255, 255));
 		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos();
+				ProdutoDao dao = new ProdutoDao();
+				
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
 				dispose();
 			}

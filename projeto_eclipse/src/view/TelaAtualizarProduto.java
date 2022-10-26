@@ -36,7 +36,7 @@ import javax.swing.JComboBox;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class TelaCadastroProduto extends JFrame {
+public class TelaAtualizarProduto extends JFrame {
 
 	private JPanel contentPane;
 	
@@ -48,13 +48,14 @@ public class TelaCadastroProduto extends JFrame {
 	
 	ArrayList<Fornecedores> listaFornecedor;
 	Produto produtoSelecionado;
+	private int fornecedorSelecionado;
 
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroProduto(ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado) throws ParseException {
+	public TelaAtualizarProduto(ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado) throws ParseException {
 		this.listaFornecedor = listaFornecedores;
 		this.produtoSelecionado =produtoSelecionado;
 		
@@ -103,7 +104,8 @@ public class TelaCadastroProduto extends JFrame {
 		Titulo.setBackground(new Color(85, 107, 47));
 		contentPane.add(Titulo, BorderLayout.NORTH);
 		
-		JLabel lbAtualizaCadastrar = new JLabel("Adicionar");
+		JLabel lbAtualizaCadastrar = new JLabel("Atualizar");
+		
 		lbAtualizaCadastrar.setForeground(Color.WHITE);
 		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		Titulo.add(lbAtualizaCadastrar);
@@ -178,7 +180,7 @@ public class TelaCadastroProduto extends JFrame {
 		panel.setBackground(new Color(240, 255, 240));
 		Txts.add(panel);
 		
-		txtNome = new JTextField();
+		txtNome = new JTextField(produtoSelecionado.getNome());
 		txtNome.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -198,13 +200,16 @@ public class TelaCadastroProduto extends JFrame {
 		
 		String[] arrayFornecedores = new String[listaFornecedores.size()];
 		for(int i = 0; i < arrayFornecedores.length; i++) {
-		    Fornecedores fornecedores = listaFornecedores.get(i);
+		    Fornecedores fornecedor = listaFornecedores.get(i);
+		    if (fornecedor.getCnpj() == produtoSelecionado.getFornecedor().getCnpj()) {
+		    	fornecedorSelecionado = i;
+		    }
 		    
-			arrayFornecedores[i] = fornecedores.getNome();
-		}
-		
-		
+		    
+			arrayFornecedores[i] = fornecedor.getNome();
+		}		
 		JComboBox cbFornecedores = new JComboBox(arrayFornecedores);
+		cbFornecedores.setSelectedIndex(fornecedorSelecionado);
 		cbFornecedores.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -223,7 +228,7 @@ public class TelaCadastroProduto extends JFrame {
 		panel_8.setBackground(new Color(240, 255, 240));
 		Txts.add(panel_8);
 		
-		txtQuantidade = new JTextField();
+		txtQuantidade = new JTextField(produtoSelecionado.getQuantEstoque());
 		txtQuantidade.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -240,7 +245,9 @@ public class TelaCadastroProduto extends JFrame {
 		panel_14.setBackground(new Color(240, 255, 240));
 		Txts.add(panel_14);
 		
+		
 		txtPreco = new JFormattedTextField(new MaskFormatter("R$ ##,##"));
+		txtPreco.setText("R$ "+String.valueOf(produtoSelecionado.getPreco()).replace(".", ","));
 		txtPreco.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -251,7 +258,7 @@ public class TelaCadastroProduto extends JFrame {
 		txtPreco.setColumns(20);
 		panel_14.add(txtPreco);
 		
-		JButton btnAtualizarCadastrar = new JButton("Adicionar");
+		JButton btnAtualizarCadastrar = new JButton("Atualizar");
 		btnAtualizarCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();
@@ -270,7 +277,7 @@ public class TelaCadastroProduto extends JFrame {
 					if (nome.isEmpty()) {
 						txtNome.setBorder(bordaVermelha);
 					}
-					if (fornecedor==null) {
+					if (fornecedor == null) {
 						cbFornecedores.setBorder(bordaVermelha);
 					}
 					if (txtPreco.getText().equals("R$   ,  ")) {
@@ -279,7 +286,11 @@ public class TelaCadastroProduto extends JFrame {
 				} else {
 					Produto produto = new Produto(nome, preco, quantidade, fornecedor);					
 					ProdutoDao dao = new ProdutoDao();
-						dao.cadastroProduto(produto);
+					
+					
+						produto.setId(produtoSelecionado.getId());
+						dao.atualizarProduto(produto);
+					
 					
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
 					telaListaProdutos.atualizarJTable();
@@ -292,6 +303,22 @@ public class TelaCadastroProduto extends JFrame {
 		btnAtualizarCadastrar.setForeground(Color.WHITE);
 		btnAtualizarCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProdutoDao dao = new ProdutoDao();
+				dao.deletarProduto(produtoSelecionado.getId());
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+				telaListaProdutos.atualizarJTable();
+				telaListaProdutos.setVisible(true);
+				dispose();
+			}
+		});
+		btnExcluir.setForeground(Color.WHITE);
+		btnExcluir.setFont(new Font("Segoe Script", Font.PLAIN, 16));
+		btnExcluir.setBackground(new Color(85, 107, 47));
+		panel_7.add(btnExcluir);
 		
 	}
 }

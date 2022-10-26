@@ -4,13 +4,17 @@ public class ProdutoVenda extends Produto{
 	private int quantidade;
 	
 	
+	
+	
 	public ProdutoVenda(int quantidade, Produto produto) {
 		super();
-		this.id = produto.getId();
-		this.nome = produto.getNome();
-		this.nomeFornecedor = produto.getNomeFornecedor();
-		this.preco = produto.getPreco();
-		this.quantEstoque = produto.getQuantEstoque();
+		
+		
+		setId(produto.getId());
+		setNome(produto.getNome()); 
+		setFornecedor(produto.getFornecedor());
+		setPreco(produto.getPreco());
+		setQuantEstoque(produto.getQuantEstoque());
 		this.quantidade = quantidade;
 	}
 

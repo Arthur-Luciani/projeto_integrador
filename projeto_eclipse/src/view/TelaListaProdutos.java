@@ -40,7 +40,7 @@ public class TelaListaProdutos extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-	private Produto produtoSelecionado = new Produto();
+	private Produto produtoSelecionado = null;
 
 	/**
 	 * Create the frame.
@@ -166,7 +166,7 @@ public class TelaListaProdutos extends JFrame {
 		btnHistorico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(produtoSelecionado);
-				if (!produtoSelecionado.equals(null)) {
+				if (produtoSelecionado != null) {
 					try {
 						ProdutoDao dao = new ProdutoDao();
 						ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
@@ -179,7 +179,8 @@ public class TelaListaProdutos extends JFrame {
 						e1.printStackTrace();
 					}
 				} else {
-					System.out.println(produtoSelecionado);
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
+					telaMensagem.setVisible(true);
 				}
 				
 				
@@ -202,7 +203,7 @@ public class TelaListaProdutos extends JFrame {
 						cadastroProduto.setVisible(true);
 						dispose();
 					} else {
-						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado para atualizar");
+						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
 						telaMensagem.setVisible(true);
 					}
 				} catch (ParseException e1) {

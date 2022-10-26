@@ -11,15 +11,17 @@ public class Venda {
 	private Cliente cliente;
 	private Usuario vendedor;
 	private ArrayList<ProdutoVenda>listaProdutosVendidos;
+	private String tipoPagamento;
 	
 	
-	public Venda( LocalDate dataVenda, float comissaoVendedor, float lucro, Cliente cliente, Usuario vendedor) {
+	public Venda( LocalDate dataVenda, float comissaoVendedor, float lucro, Cliente cliente, Usuario vendedor, String tipoPagamento) {
 		super();
 		this.dataVenda = dataVenda;
 		this.comissaoVendedor = comissaoVendedor;
 		this.lucro = lucro;
 		this.cliente = cliente;
 		this.vendedor = vendedor;
+		this.tipoPagamento = tipoPagamento;
 	}
 	public Venda() {}
 	

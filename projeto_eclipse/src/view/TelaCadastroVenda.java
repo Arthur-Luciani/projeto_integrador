@@ -229,13 +229,18 @@ public class TelaCadastroVenda extends JFrame {
 		panel_8.add(btnContinuar);
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaConfirmarVenda telaConfirmarVenda = new TelaConfirmarVenda
-						(listaProdutosVendidos, listaNomesUsuarios.get(cbVendedor.getSelectedIndex()),
-						 listaNomesCliente.get(cbClientes.getSelectedIndex()), cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
-				telaConfirmarVenda.setVisible(true);
-				telaConfirmarVenda.atualizarJTable();
-				telaConfirmarVenda.atualizarCampos();
-				dispose();
+				if (!listaProdutosVendidos.isEmpty()) {
+					TelaConfirmarVenda telaConfirmarVenda = new TelaConfirmarVenda
+							(listaProdutosVendidos, listaNomesUsuarios.get(cbVendedor.getSelectedIndex()),
+							 listaNomesCliente.get(cbClientes.getSelectedIndex()), cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
+					telaConfirmarVenda.setVisible(true);
+					telaConfirmarVenda.atualizarJTable();
+					telaConfirmarVenda.atualizarCampos();
+					dispose();
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto adicionado");
+					telaMensagem.setVisible(true);
+				}
 			}
 		});
 		btnContinuar.setBackground(new Color(85, 107, 47));

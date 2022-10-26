@@ -58,6 +58,7 @@ public class TelaConfirmarVenda extends JFrame {
 	private JLabel lblValorTotal;
 	private JLabel lblComissao;
 	private JRadioButton rBtnCredito;
+	private String tipoPagamento;
 
 	/**
 	 * Create the frame.
@@ -242,9 +243,10 @@ public class TelaConfirmarVenda extends JFrame {
 		rBtnDinheiro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tipoPagamento = "Dinheiro";
 				txtParcelas.setEditable(false);
 				
-				//Calcular Valor total e comissão
+				//Calcular Valor total e comissï¿½o
 				lucroTotal=0;
 				for(int i=0; i< listaProdutosVendidos.size(); i++) {
 					ProdutoVenda p = listaProdutosVendidos.get(i);
@@ -252,13 +254,14 @@ public class TelaConfirmarVenda extends JFrame {
 					lucroTotal = lucroTotal + lucroProduto;
 				}
 				lblValorTotal.setText("Valor total: R$"+ lucroTotal);
-				lblComissao.setText("Comissão: R$"+ lucroTotal*5/100);
+				lblComissao.setText("Comissï¿½o: R$"+ lucroTotal*5/100);
 			}
 		});
 		
 		rBtnDebito.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tipoPagamento = "Debito";
 				txtParcelas.setEditable(false);
 				
 				atualizarCampos();
@@ -268,6 +271,7 @@ public class TelaConfirmarVenda extends JFrame {
 		rBtnPix.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tipoPagamento = "Pix";
 				txtParcelas.setEditable(false);
 				atualizarCampos();
 			}
@@ -276,8 +280,10 @@ public class TelaConfirmarVenda extends JFrame {
 		rBtnCredito.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tipoPagamento = "Credito";
 				txtParcelas.setEditable(true);
 				atualizarCampos();
+				
 			}
 		});
 		
@@ -306,11 +312,16 @@ public class TelaConfirmarVenda extends JFrame {
 		
 		//Cadastrar Venda
 		btnCadastrarVenda.addActionListener(new ActionListener() {
-
+			
 			public void actionPerformed(ActionEvent e) {
-				Venda venda = new Venda(LocalDate.now(), comissao, lucroTotal, cliente, usuario);
-				VendaDao dao = new VendaDao();
-				dao.cadastroVenda(venda, listaProdutosVendidos);
+				if (tipoPagamento!=null) {
+					Venda venda = new Venda(LocalDate.now(), comissao, lucroTotal, cliente, usuario, tipoPagamento);
+					VendaDao dao = new VendaDao();
+					dao.cadastroVenda(venda, listaProdutosVendidos);
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum tipo de pagamento selecionado");
+					telaMensagem.setVisible(true);
+				}
 				
 			}
 		});
@@ -341,7 +352,7 @@ public class TelaConfirmarVenda extends JFrame {
 		}
 		comissao = lucroTotal*5/100;
 		lblValorTotal.setText("Valor total: R$"+ lucroTotal);
-		lblComissao.setText("Comissão: R$"+ lucroTotal*5/100);
+		lblComissao.setText("Comissï¿½o: R$"+ lucroTotal*5/100);
 		
 		if (rBtnCredito.isSelected()) {
 			int parcelas =1;
@@ -355,7 +366,7 @@ public class TelaConfirmarVenda extends JFrame {
 			comissao = lucroTotal*5/100;
 			
 			lblValorTotal.setText("Valor total: R$"+ lucroParcelado+" ("+txtParcelas.getText()+" vezes)");
-			lblComissao.setText("Comissão: R$"+ comissao);
+			lblComissao.setText("Comissï¿½o: R$"+ comissao);
 		}
 		
 	}

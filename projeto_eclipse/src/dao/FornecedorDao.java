@@ -102,6 +102,7 @@ public class FornecedorDao {
 			ps.setInt(10, fornecedores.getIdEndereco());
 			ps.setInt(11, fornecedores.getIdEndereco());
 			
+			System.out.println(ps);
 			ps.executeUpdate();
 			BD.fechaConexao();
 		} catch (SQLException e) {

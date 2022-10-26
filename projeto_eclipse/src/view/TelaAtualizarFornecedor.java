@@ -331,6 +331,10 @@ public class TelaAtualizarFornecedor extends JFrame {
 					Fornecedores fornecedores = new Fornecedores(nome, email, telefone, cnpj, rua, bairro, cidade, cep, estado.getIdEstado(), estado, fornecedorSelecionado.getIdEndereco());
 					FornecedorDao dao = new FornecedorDao();
 					dao.atualizarFornecedor(fornecedores);
+					
+					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(listaFornecedores);
+					telaListaFornecedores.setVisible(true);
+					dispose();
 				}
 			}
 		});

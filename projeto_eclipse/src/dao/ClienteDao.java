@@ -65,6 +65,7 @@ public class ClienteDao {
 					cliente.setNome(rs.getString("nome"));
 					cliente.setCpf(rs.getString("cpf"));
 					cliente.setEmail(rs.getString("email"));
+					cliente.setId(rs.getInt("id_cliente"));
 
 					listaClientes.add(cliente);
 				} while (rs.next());

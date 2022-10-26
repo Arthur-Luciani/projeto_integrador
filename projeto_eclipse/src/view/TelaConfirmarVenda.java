@@ -295,14 +295,17 @@ public class TelaConfirmarVenda extends JFrame {
 			}
 		});
 		
+		//Tela Cadastro Venda
+		UsuarioDao daoUsuario = new UsuarioDao();
+		ClienteDao daoCliente = new ClienteDao();
+		LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
+		LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+		TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
+		
+		
 		//Voltar
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioDao daoUsuario = new UsuarioDao();
-				ClienteDao daoCliente = new ClienteDao();
-				LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
-				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
-				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
 				telaCadastroVenda.atualizarJTable();
 				telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);
 				telaCadastroVenda.setVisible(true);
@@ -318,6 +321,9 @@ public class TelaConfirmarVenda extends JFrame {
 					Venda venda = new Venda(LocalDate.now(), comissao, lucroTotal, cliente, usuario, tipoPagamento);
 					VendaDao dao = new VendaDao();
 					dao.cadastroVenda(venda, listaProdutosVendidos);
+					
+					telaCadastroVenda.setVisible(true);
+					dispose();
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum tipo de pagamento selecionado");
 					telaMensagem.setVisible(true);

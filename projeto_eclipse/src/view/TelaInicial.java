@@ -1,5 +1,5 @@
 package view;
-
+ 
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -16,7 +16,6 @@ import javax.swing.border.EmptyBorder;
 import model.Usuario;
 
 public class TelaInicial extends JFrame {
-
 	private Usuario usuario;
 	private JPanel contentPane;
 
@@ -98,8 +97,7 @@ public class TelaInicial extends JFrame {
 
 		JLabel label_1 = new JLabel("");
 		label_1.setBounds(839, 257, 0, 0);
-		contentPane.add(label_1);
-		
+		contentPane.add(label_1);	
 
 	}
 }

@@ -164,17 +164,12 @@ public class TelaListaProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(produtoSelecionado);
 				if (produtoSelecionado != null) {
-					try {
-						ProdutoDao dao = new ProdutoDao();
-						ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
-						TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
-						telaHistoricoPrecos.atualizarJTable();
-						telaHistoricoPrecos.setVisible(true);
-						dispose();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					ProdutoDao dao = new ProdutoDao();
+					ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
+					TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
+					telaHistoricoPrecos.atualizarJTable();
+					telaHistoricoPrecos.setVisible(true);
+					dispose();
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
 					telaMensagem.setVisible(true);

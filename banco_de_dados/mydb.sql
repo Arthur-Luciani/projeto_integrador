@@ -264,3 +264,4 @@ INSERT INTO Estados(id, nome, uf, ibge, pais, ddd) VALUES
 (27, 'Tocantins', 'TO', 17, 1, '63'),
 (99, 'Exterior', 'EX', 99, NULL, NULL);
 
+ cnpj_fornecedorupdate Produto set nome_produto='Ma��', preco_produto=16.16, estoque=50, nome_empresa='Jo�o', cnpj_fornecedor='000004' where id_produto=6

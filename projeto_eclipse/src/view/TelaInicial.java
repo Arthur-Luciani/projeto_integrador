@@ -16,7 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dao.ClienteDao;
 import dao.EstadoDao;
+import model.Cliente;
 import model.Estado;
 import model.Usuario;
 
@@ -91,8 +93,11 @@ public class TelaInicial extends JFrame {
 		JButton btnCadastroDeClientes = new JButton("Cadastro de Clientes");
 		btnCadastroDeClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCliente cliente = new TelaCliente();
-				cliente.setVisible(true);
+				ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
+				ClienteDao dao = new ClienteDao();
+				listaCliente = dao.resgatarCliente();
+				TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+				cadastros.setVisible(true);
 				dispose();
 			}
 		});

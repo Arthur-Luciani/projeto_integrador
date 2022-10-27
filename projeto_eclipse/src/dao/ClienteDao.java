@@ -11,13 +11,14 @@ import model.Cliente;
 import model.Produto;
 
 public class ClienteDao {
-	Connection conexao;
+	private Connection conexao;
 	
 	public ClienteDao() {
-		conexao = BD.getConexao();
+		
 	}
 	
 	public boolean cadastrarCliente(Cliente cliente) {
+		conexao = BD.getConexao();
 		PreparedStatement ps;
 		try {
 			ps = conexao.prepareStatement("insert into endereco ( bairro, rua, cidade, cep, id_estado) values (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
@@ -52,12 +53,11 @@ public class ClienteDao {
 		}
 		return false;
 	}
-	
-	public LinkedList<Cliente> resgatarClientes() {
-		LinkedList<Cliente> listaClientes = new LinkedList<>();
+	public ArrayList<Cliente> resgatarCliente() {
+		ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
+		conexao=BD.getConexao();
 		try {
-			PreparedStatement ps = conexao
-					.prepareStatement("select * from cliente");
+			PreparedStatement ps = conexao.prepareStatement("select * from cliente inner join endereco on (cliente.id_endereco = endereco.id_endereco)");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				do {
@@ -65,9 +65,16 @@ public class ClienteDao {
 					cliente.setNome(rs.getString("nome"));
 					cliente.setCpf(rs.getString("cpf"));
 					cliente.setEmail(rs.getString("email"));
+					cliente.setDataNascimento(rs.getDate("data_de_nasc").toLocalDate());
 					cliente.setId(rs.getInt("id_cliente"));
-
-					listaClientes.add(cliente);
+					cliente.setId_endereco(rs.getInt("id_endereco"));
+					cliente.setBairro(rs.getString("bairro"));
+					cliente.setCep(rs.getString("cep"));
+					cliente.setCidade(rs.getString("cidade"));
+					cliente.setRua(rs.getString("rua"));
+					cliente.setEstado(rs.getInt("id_estado"));
+					
+					listaCliente.add(cliente);
 				} while (rs.next());
 				BD.fechaConexao();
 			}
@@ -76,6 +83,19 @@ public class ClienteDao {
 			e.printStackTrace();
 		}
 		return listaClientes;
+	}
+	public void deletarCliente(int id) {
+		conexao = BD.getConexao();
+		PreparedStatement ps;
+		try {
+			ps = conexao.prepareStatement("delete from cliente where id_cliente=?");
+			ps.setInt(1, id);
+			ps.execute();
+			BD.fechaConexao();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -37,7 +37,9 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.Format;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -51,13 +53,13 @@ import java.awt.event.FocusEvent;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
-public class TelaCadastroCliente extends JFrame {
+public class TelaAtualizarCliente extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtDataNascimento;
 	private JTextField txtEmail;
-	private static TelaCadastroCliente frame;
+	private static TelaAtualizarCliente frame;
 	
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
@@ -67,12 +69,16 @@ public class TelaCadastroCliente extends JFrame {
 	private JTextField txtNumero;
 	private JTextField txtCep;
 	private JTextField txtCPF;
+	private LinkedList<String>listaEstados= new LinkedList<>();
+	private int estadoSelecionado;
+	
+
 
 	/**
 	 * Create the frame.
 	 * 
 	 */
-	public TelaCadastroCliente(LinkedList<Estado> listaEstados, Cliente clienteSelecionado)  {
+	public TelaAtualizarCliente(LinkedList<Estado> listaEstados, Cliente clienteSelecionado)  {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -90,7 +96,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		JLabel lblCadastro = new JLabel("Cadastro");
+		JLabel lblCadastro = new JLabel("Atualizar");
 		lblCadastro.setForeground(Color.WHITE);
 		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblCadastro);
@@ -182,6 +188,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(panel_3);
 		
 		txtCPF = new JTextField();
+		txtCPF.setText(clienteSelecionado.getCpf());
 		txtCPF.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -205,6 +212,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t5);
 		
 		txtRua = new JTextField();
+		txtRua.setText(clienteSelecionado.getRua());
 		txtRua.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -222,6 +230,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t6);
 		
 		txtBairro = new JTextField();
+		txtBairro.setText(clienteSelecionado.getBairro());
 		txtBairro.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -239,6 +248,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t7);
 		
 		txtCidade = new JTextField();
+		txtCidade.setText(clienteSelecionado.getCidade());
 		txtCidade.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -256,6 +266,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t8);
 		
 		txtNumero = new JTextField();
+		txtNumero.setText(String.valueOf(clienteSelecionado.getNumero()));
 		txtNumero.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -272,15 +283,20 @@ public class TelaCadastroCliente extends JFrame {
 		t9.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t9);
 		
+		
+		
 		String[] arrayEstados = new String[listaEstados.size()];
 		for(int i = 0; i < arrayEstados.length; i++) {
 		    Estado estado = listaEstados.get(i);
-		    
+		    if (estado.getIdEstado() == clienteSelecionado.getIdEstado()) {
+		    	estadoSelecionado = i;
+		    }
 			arrayEstados[i] = estado.getNomeEstado();
 		}
 
 		JComboBox cbEstados = new JComboBox(arrayEstados);
 		cbEstados.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		cbEstados.setSelectedIndex(estadoSelecionado);
 		t9.add(cbEstados);
 
 		JLabel lblNome = new JLabel("Nome");
@@ -289,6 +305,7 @@ public class TelaCadastroCliente extends JFrame {
 		lbl1.add(lblNome);
 
 		txtNome = new JTextField();
+		txtNome.setText(clienteSelecionado.getNome());
 		txtNome.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -307,6 +324,9 @@ public class TelaCadastroCliente extends JFrame {
 
 		try {
 			txtDataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			Date date = Date.valueOf(clienteSelecionado.getDataNascimento());
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			txtDataNascimento.setText(format.format(date));
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -335,6 +355,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_1.add(lblNewLabel_1);
 
 		txtEmail = new JTextField();
+		txtEmail.setText(clienteSelecionado.getEmail());
 		txtEmail.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -353,6 +374,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(t10);
 		
 		txtCep = new JTextField();
+		txtCep.setText(clienteSelecionado.getCep());
 		txtCep.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -395,7 +417,7 @@ public class TelaCadastroCliente extends JFrame {
 		p_direita.setBackground(new Color(240, 255, 240));
 		panel_botoes.add(p_direita);
 		
-		JButton btnCadastrar = new JButton("Cadastrar");
+		JButton btnCadastrar = new JButton("Atualizar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();

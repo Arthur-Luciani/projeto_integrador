@@ -299,7 +299,7 @@ public class TelaConfirmarVenda extends JFrame {
 		UsuarioDao daoUsuario = new UsuarioDao();
 		ClienteDao daoCliente = new ClienteDao();
 		LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
-		LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+		LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarCliente();
 		TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
 		
 		

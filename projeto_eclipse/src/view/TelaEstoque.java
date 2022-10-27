@@ -102,7 +102,7 @@ public class TelaEstoque extends JFrame {
 				UsuarioDao daoUsuario = new UsuarioDao();
 				ClienteDao daoCliente = new ClienteDao();
 				LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
-				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarCliente();
 				ArrayList<ProdutoVenda> listaProdutosVendidos = new ArrayList<>();
 				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
 				telaCadastroVenda.setVisible(true);

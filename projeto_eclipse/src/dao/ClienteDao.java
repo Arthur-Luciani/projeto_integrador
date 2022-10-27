@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import model.Cliente;
@@ -53,8 +54,8 @@ public class ClienteDao {
 		}
 		return false;
 	}
-	public ArrayList<Cliente> resgatarCliente() {
-		ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
+	public LinkedList<Cliente> resgatarCliente() {
+		LinkedList<Cliente> listaCliente = new LinkedList<Cliente>();
 		conexao=BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from cliente inner join endereco on (cliente.id_endereco = endereco.id_endereco)");
@@ -82,7 +83,7 @@ public class ClienteDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return listaClientes;
+		return listaCliente;
 	}
 	public void deletarCliente(int id) {
 		conexao = BD.getConexao();

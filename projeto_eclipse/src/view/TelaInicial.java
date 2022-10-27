@@ -93,9 +93,8 @@ public class TelaInicial extends JFrame {
 		JButton btnCadastroDeClientes = new JButton("Cadastro de Clientes");
 		btnCadastroDeClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
 				ClienteDao dao = new ClienteDao();
-				listaCliente = dao.resgatarCliente();
+				LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 				TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
 				cadastros.setVisible(true);
 				dispose();

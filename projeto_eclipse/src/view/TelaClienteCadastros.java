@@ -63,8 +63,9 @@ public class TelaClienteCadastros extends JFrame {
 		JButton btnNewButton = new JButton("Voltar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCliente cliente = new TelaCliente();
-				cliente.setVisible(true);
+				
+				TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+				cadastros.setVisible(true);
 				dispose();
 			}
 		});

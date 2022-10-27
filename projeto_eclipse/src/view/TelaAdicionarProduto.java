@@ -131,7 +131,7 @@ public class TelaAdicionarProduto extends JFrame {
 				UsuarioDao daoUsuario = new UsuarioDao();
 				ClienteDao daoCliente = new ClienteDao();
 				LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
-				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarCliente();
 				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
 				telaCadastroVenda.atualizarJTable();
 				telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);
@@ -158,7 +158,7 @@ public class TelaAdicionarProduto extends JFrame {
 						UsuarioDao daoUsuario = new UsuarioDao();
 						ClienteDao daoCliente = new ClienteDao();
 						LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
-						LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarClientes();
+						LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarCliente();
 						Produto produto = listaProdutos.get(cbProduto.getSelectedIndex());
 						ProdutoVenda produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);							
 						listaProdutosVendidos.add(produtoVenda);

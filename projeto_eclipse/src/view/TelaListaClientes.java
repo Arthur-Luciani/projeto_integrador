@@ -40,12 +40,12 @@ public class TelaListaClientes extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
+	private LinkedList<Cliente> listaCliente = new LinkedList<Cliente>();
 	private Cliente clienteSelecionado;
 	/**
 	 * Create the frame.
 	 */
-	public TelaListaClientes(ArrayList<Cliente> listaCliente) {
+	public TelaListaClientes(LinkedList<Cliente> listaCliente) {
 		this.listaCliente = listaCliente;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);

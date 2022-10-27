@@ -376,9 +376,8 @@ public class TelaCadastroCliente extends JFrame {
 		JButton btnNewButton = new JButton("Voltar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
 				ClienteDao dao = new ClienteDao();
-				listaCliente = dao.resgatarCliente();
+				LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 				TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
 				cadastros.setVisible(true);
 				dispose();
@@ -450,13 +449,10 @@ public class TelaCadastroCliente extends JFrame {
 					
 					Cliente cliente = new Cliente(nome, cpf, email, dataNascimentoLD, rua, bairro, cidade, cep, idEstadoInt, NumeroInt);
 					
-					ClienteDao dao;
-					dao = new ClienteDao();
+					ClienteDao dao = new ClienteDao();
 					dao.cadastrarCliente(cliente);
+					LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 					
-					ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
-					//ClienteDao dao = new ClienteDao();
-					listaCliente = dao.resgatarCliente();
 					TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
 					cadastros.setVisible(true);
 					dispose();

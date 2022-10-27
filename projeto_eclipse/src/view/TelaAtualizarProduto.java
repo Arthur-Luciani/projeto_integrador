@@ -287,10 +287,8 @@ public class TelaAtualizarProduto extends JFrame {
 				} else {
 					Produto produto = new Produto(nome, preco, quantidade, fornecedor);					
 					ProdutoDao dao = new ProdutoDao();
-					
-					
-						produto.setId(produtoSelecionado.getId());
-						dao.atualizarProduto(produto);
+					produto.setId(produtoSelecionado.getId());
+					dao.atualizarProduto(produto);
 					
 					
 					TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());

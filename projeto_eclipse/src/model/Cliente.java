@@ -10,8 +10,9 @@ public class Cliente extends Endereco{
 	private int id;
 	private int id_endereco;	
 	
-	public Cliente(String nome, String cpf, String email, LocalDate dataNascimento, String rua, String bairro, String cidade, String cep, int idEstado, int numero) {
+	public Cliente(int id, String nome, String cpf, String email, LocalDate dataNascimento, String rua, String bairro, String cidade, String cep, int idEstado, int numero) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;

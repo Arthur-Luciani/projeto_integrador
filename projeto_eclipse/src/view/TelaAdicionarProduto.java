@@ -11,6 +11,7 @@ import java.awt.event.FocusAdapter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -153,15 +154,31 @@ public class TelaAdicionarProduto extends JFrame {
 				JButton btnAdicionar = new JButton("Adicionar");
 				panel_17.add(btnAdicionar);
 				btnAdicionar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {				
+					public void actionPerformed(ActionEvent e) {	
 						
 						UsuarioDao daoUsuario = new UsuarioDao();
 						ClienteDao daoCliente = new ClienteDao();
 						LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
 						LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarCliente();
 						Produto produto = listaProdutos.get(cbProduto.getSelectedIndex());
-						ProdutoVenda produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);							
-						listaProdutosVendidos.add(produtoVenda);
+						ProdutoVenda produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);
+						
+						
+						if (listaProdutosVendidos.isEmpty()) {
+							listaProdutosVendidos.add(produtoVenda);
+						} else {
+							for (int i = 0; i < listaProdutosVendidos.size(); i++) {
+								ProdutoVenda produtoVendido = listaProdutosVendidos.get(i);
+								if (produtoVendido.getId() == produtoVenda.getId()) {
+									produtoVendido.setQuantidade(produtoVendido.getQuantidade()+produtoVenda.getQuantidade());
+									listaProdutosVendidos.set(i, produtoVendido);
+								}
+								else {
+									listaProdutosVendidos.add(produtoVenda);
+								}
+							}
+						}
+						
 						TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
 						telaCadastroVenda.atualizarJTable();
 						telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);

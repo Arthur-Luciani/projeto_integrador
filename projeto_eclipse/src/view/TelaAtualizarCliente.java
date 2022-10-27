@@ -471,10 +471,10 @@ public class TelaAtualizarCliente extends JFrame {
 					int NumeroInt = Integer.parseInt(numero);
 					int idEstadoInt = Integer.parseInt(idEstado);
 					
-					Cliente cliente = new Cliente(nome, cpf, email, dataNascimentoLD, rua, bairro, cidade, cep, idEstadoInt, NumeroInt);
+					Cliente cliente = new Cliente(clienteSelecionado.getId(), nome, cpf, email, dataNascimentoLD, rua, bairro, cidade, cep, idEstadoInt, NumeroInt);
 					
 					ClienteDao dao = new ClienteDao();
-					dao.cadastrarCliente(cliente);
+					dao.atualizarCliente(cliente);
 					
 					LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 					TelaListaClientes cadastros = new TelaListaClientes(listaCliente);

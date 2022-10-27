@@ -20,14 +20,14 @@ public class ProdutoDao {
 		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"insert into produto (id_produto, nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor)"
-							+ "values ( ? , ? , ? , ? , ?, ? )");
-			ps.setInt(1, produto.getId());
-			ps.setString(2, produto.getNome());
-			ps.setFloat(3, produto.getPreco());
-			ps.setInt(4, produto.getQuantEstoque());
-			ps.setString(5, produto.getFornecedor().getNome());
-			ps.setString(6, produto.getFornecedor().getCnpj());
+					"insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) "
+							+ "values ( ? , ? , ? , ? , ? )");
+			//ps.setInt(1, produto.getId());
+			ps.setString(1, produto.getNome());
+			ps.setFloat(2, produto.getPreco());
+			ps.setInt(3, produto.getQuantEstoque());
+			ps.setString(4, produto.getFornecedor().getNome());
+			ps.setString(5, produto.getFornecedor().getCnpj());
 			
 			System.out.println(ps);
 			ps.execute();
@@ -84,14 +84,16 @@ public class ProdutoDao {
 		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"update Produto set nome_produto=?, preco_produto=?, estoque=?, nome_empresa=? where id_produto=?, cnpj_empresa=?");
+					"update Produto set nome_produto=?, preco_produto=?, estoque=?, nome_empresa=?, cnpj_fornecedor=? where id_produto=?");
 
 			ps.setString(1, produto.getNome());
 			ps.setFloat(2, produto.getPreco());
 			ps.setInt(3, produto.getQuantEstoque());
 			ps.setString(4, produto.getFornecedor().getNome());
-			ps.setInt(5, produto.getId());
-			ps.setString(6, produto.getFornecedor().getCnpj());
+			ps.setString(5, produto.getFornecedor().getCnpj());
+			ps.setInt(6, produto.getId());
+			
+			System.out.println(ps);
 			ps.executeUpdate();
 			BD.fechaConexao();
 		} catch (SQLException e) {

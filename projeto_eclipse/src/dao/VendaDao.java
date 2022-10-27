@@ -55,13 +55,11 @@ public class VendaDao {
 				}
 				ps = conexao
 						.prepareStatement("insert into venda_produtos  "
-								+ "values (?,?,?)");
-				ps.setInt(1, venda.getIdVenda());
-				ps.setInt(2, produtoVenda.getQuantidade());
-				ps.setInt(3, idHistorico);
-				
-				
-				
+								+ "values (?, ?,?,?)");
+				ps.setInt(1, produtoVenda.getIdVendaProduto());
+				ps.setInt(2, venda.getIdVenda());
+				ps.setInt(3, produtoVenda.getQuantidade());
+				ps.setInt(4, idHistorico);
 				ps.execute();
 				
 				

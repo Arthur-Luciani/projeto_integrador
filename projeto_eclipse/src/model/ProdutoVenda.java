@@ -1,6 +1,7 @@
 package model;
 
 public class ProdutoVenda extends Produto{
+	private int idVendaProduto;
 	private int quantidade;
 	
 	
@@ -25,6 +26,16 @@ public class ProdutoVenda extends Produto{
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
+
+	public int getIdVendaProduto() {
+		return idVendaProduto;
+	}
+
+	public void setIdVendaProduto(int idVendaProduto) {
+		this.idVendaProduto = idVendaProduto;
+	}
+	
+	
 
 	
 	

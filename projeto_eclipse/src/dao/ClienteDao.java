@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -96,6 +97,30 @@ public class ClienteDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public void atualizarCliente(Cliente cliente) {
+		conexao = BD.getConexao();
+		try {
+			PreparedStatement ps = conexao
+					.prepareStatement("update cliente, endereco set nome=?, cpf=?, email=?, data_de_nasc=?, bairro=?, rua=?, cidade=?, cep=?, id_estado=? "
+							+ "where cliente.id_endereco = endereco.id_endereco "
+							+ "and cliente.id_cliente=?");
+			ps.setString(1, cliente.getNome());
+			ps.setString(2, cliente.getCpf());
+			ps.setString(3, cliente.getEmail());
+			ps.setDate(4, Date.valueOf(cliente.getDataNascimento()));
+			ps.setString(5, cliente.getBairro());
+			ps.setString(6, cliente.getRua());
+			ps.setString(7, cliente.getCidade());
+			ps.setString(8, cliente.getCep());
+			ps.setInt(9, cliente.getIdEstado());
+			ps.setInt(10, cliente.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
 		}
 	}
 

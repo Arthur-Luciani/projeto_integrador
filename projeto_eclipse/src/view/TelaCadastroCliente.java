@@ -447,7 +447,7 @@ public class TelaCadastroCliente extends JFrame {
 					int NumeroInt = Integer.parseInt(numero);
 					int idEstadoInt = Integer.parseInt(idEstado);
 					
-					Cliente cliente = new Cliente(nome, cpf, email, dataNascimentoLD, rua, bairro, cidade, cep, idEstadoInt, NumeroInt);
+					Cliente cliente = new Cliente(0, nome, cpf, email, dataNascimentoLD, rua, bairro, cidade, cep, idEstadoInt, NumeroInt);
 					
 					ClienteDao dao = new ClienteDao();
 					dao.cadastrarCliente(cliente);

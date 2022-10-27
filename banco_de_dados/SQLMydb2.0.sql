@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
   `estoque` INT(11) NOT NULL,
   `nome_empresa` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id_produto`),
-  INDEX `fk_fornecedor_idx` (`nome_empresa` ASC) VISIBLE,
+  INDEX `fk_fornecedor_idx` (`nome_empresa` ASC),
   CONSTRAINT `fk_fornecedor`
     FOREIGN KEY (`nome_empresa`)
     REFERENCES `mydb`.`fornecedor` (`nome_empresa`)

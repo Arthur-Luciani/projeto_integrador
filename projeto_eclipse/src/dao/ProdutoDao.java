@@ -20,13 +20,16 @@ public class ProdutoDao {
 		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"insert into produto (id_produto, nome_produto, preco_produto, estoque, nome_empresa)"
-							+ "values ( ? , ? , ? , ? , ? )");
+					"insert into produto (id_produto, nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor)"
+							+ "values ( ? , ? , ? , ? , ?, ? )");
 			ps.setInt(1, produto.getId());
 			ps.setString(2, produto.getNome());
 			ps.setFloat(3, produto.getPreco());
 			ps.setInt(4, produto.getQuantEstoque());
 			ps.setString(5, produto.getFornecedor().getNome());
+			ps.setString(6, produto.getFornecedor().getCnpj());
+			
+			System.out.println(ps);
 			ps.execute();
 			BD.fechaConexao();
 		} catch (SQLException e) {
@@ -40,7 +43,9 @@ public class ProdutoDao {
 		conexao = BD.getConexao();
 		ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select * from produto ");
+			PreparedStatement ps = conexao.prepareStatement("select * from produto "
+					+ "inner join fornecedor on produto.cnpj_fornecedor = fornecedor.cnpj "
+					+ "inner join endereco on (fornecedor.id_endereco=endereco.id_endereco)");
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
@@ -51,29 +56,20 @@ public class ProdutoDao {
 					produto.setPreco(rs.getFloat("preco_produto"));
 					produto.setNome(rs.getString("nome_produto"));
 					produto.setQuantEstoque(rs.getInt("estoque"));				
+					
 					fornecedores.setNome(rs.getString("nome_empresa"));
-					
-					PreparedStatement psF = conexao.prepareStatement("select * from fornecedor inner join endereco on (fornecedor.id_endereco=endereco.id_endereco) "
-							+ "where nome_empresa=?");
-					psF.setString(1, fornecedores.getNome());
-					
-					ResultSet rsF = psF.executeQuery();
-					if (rsF.next()) {
-						do {
-							fornecedores.setNome(rsF.getString("nome_empresa"));
-							fornecedores.setTelefone(rsF.getString("telefone"));
-							fornecedores.setEmail(rsF.getString("email"));
-							fornecedores.setIdEndereco(rsF.getInt("id_endereco"));
-							fornecedores.setCnpj(rsF.getString("cnpj"));
-							fornecedores.setBairro(rsF.getString("bairro"));
-							fornecedores.setRua(rsF.getString("rua"));
-							fornecedores.setCidade(rsF.getString("cidade"));
-							fornecedores.setCep(rsF.getString("cep"));
-							fornecedores.setEstado(rsF.getInt("id_estado"));
-						} while (rsF.next());	
-						produto.setFornecedor(fornecedores);
-					}
+					fornecedores.setTelefone(rs.getString("telefone"));
+					fornecedores.setEmail(rs.getString("email"));
+					fornecedores.setIdEndereco(rs.getInt("id_endereco"));
+					fornecedores.setCnpj(rs.getString("cnpj"));
+					fornecedores.setBairro(rs.getString("bairro"));
+					fornecedores.setRua(rs.getString("rua"));
+					fornecedores.setCidade(rs.getString("cidade"));
+					fornecedores.setCep(rs.getString("cep"));
+					fornecedores.setEstado(rs.getInt("id_estado"));
+					produto.setFornecedor(fornecedores);
 					listaProduto.add(produto);
+					
 				} while (rs.next());
 				BD.fechaConexao();
 			}
@@ -88,13 +84,14 @@ public class ProdutoDao {
 		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"update Produto set nome_produto=?, preco_produto=?, estoque=?, nome_empresa=? where id_produto=?");
+					"update Produto set nome_produto=?, preco_produto=?, estoque=?, nome_empresa=? where id_produto=?, cnpj_empresa=?");
 
 			ps.setString(1, produto.getNome());
 			ps.setFloat(2, produto.getPreco());
 			ps.setInt(3, produto.getQuantEstoque());
 			ps.setString(4, produto.getFornecedor().getNome());
 			ps.setInt(5, produto.getId());
+			ps.setString(6, produto.getFornecedor().getCnpj());
 			ps.executeUpdate();
 			BD.fechaConexao();
 		} catch (SQLException e) {

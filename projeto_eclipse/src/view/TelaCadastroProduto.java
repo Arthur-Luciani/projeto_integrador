@@ -277,7 +277,7 @@ public class TelaCadastroProduto extends JFrame {
 						txtPreco.setBorder(bordaVermelha);
 					}
 				} else {
-					Produto produto = new Produto(nome, preco, quantidade, fornecedor);					
+					Produto produto = new Produto(nome, preco, quantidade, fornecedor);
 					ProdutoDao dao = new ProdutoDao();
 						dao.cadastroProduto(produto);
 					

@@ -71,6 +71,13 @@ public class TelaInicial extends JFrame {
 		contentPane.add(btnEstoque);
 
 		JButton btnRelatorios = new JButton("Rel\u00E1t\u00F3rios");
+		btnRelatorios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaRelatorios telaRelatorios = new TelaRelatorios();
+				telaRelatorios.setVisible(true);
+				dispose();
+			}
+		});
 		btnRelatorios.setBounds(328, 276, 170, 39);
 		btnRelatorios.setForeground(new Color(255, 255, 255));
 		btnRelatorios.setFont(new Font("Segoe Print", Font.PLAIN, 16));

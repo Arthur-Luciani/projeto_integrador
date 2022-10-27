@@ -34,6 +34,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 public class TelaListaClientes extends JFrame {
 
@@ -93,8 +94,16 @@ public class TelaListaClientes extends JFrame {
 		));
 		scrollPane.setViewportView(table);
 		atualizarJTable();
+		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		panel_1.add(panel_3);
 		
 		JButton btnNewButton = new JButton("Voltar");
+		panel_3.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial inicio = new TelaInicial(null);
@@ -105,9 +114,15 @@ public class TelaListaClientes extends JFrame {
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(btnNewButton);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.RIGHT);
+		panel_1.add(panel_2);
 		
 		JButton btnNewButton_1 = new JButton("Cadastrar");
+		panel_2.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EstadoDao estados = new EstadoDao();
@@ -120,9 +135,9 @@ public class TelaListaClientes extends JFrame {
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
 		btnNewButton_1.setBackground(new Color(85, 107, 47));
 		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(btnNewButton_1);
 		
 		JButton btnNewButton_3 = new JButton("Atualizar");
+		panel_2.add(btnNewButton_3);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(clienteSelecionado!=null) {
@@ -140,9 +155,9 @@ public class TelaListaClientes extends JFrame {
 		btnNewButton_3.setBackground(new Color(85, 107, 47));
 		btnNewButton_3.setForeground(new Color(255, 255, 255));
 		btnNewButton_3.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(btnNewButton_3);
 		
 		JButton btnNewButton_2 = new JButton("Deletar");
+		panel_2.add(btnNewButton_2);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClienteDao dao;
@@ -155,7 +170,6 @@ public class TelaListaClientes extends JFrame {
 		btnNewButton_2.setBackground(new Color(85, 107, 47));
 		btnNewButton_2.setForeground(new Color(255, 255, 255));
 		btnNewButton_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(btnNewButton_2);
 	}
 	protected void atualizarJTable() {
 		DefaultTableModel modelo = new DefaultTableModel(

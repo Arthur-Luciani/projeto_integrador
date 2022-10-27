@@ -40,7 +40,7 @@ public class ProdutoDao {
 		conexao = BD.getConexao();
 		ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select * from produto");
+			PreparedStatement ps = conexao.prepareStatement("select * from produto ");
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {

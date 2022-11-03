@@ -1,4 +1,4 @@
- package view;
+package view;
 
 import java.awt.EventQueue;
 
@@ -46,28 +46,10 @@ public class TelaRelatorioProdutoMaisVendido extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaEstoque frame = new TelaEstoque();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	
+	/**
+	 * Create the frame.
+	 */
 	public TelaRelatorioProdutoMaisVendido() {
-		
-		//calculos arraylist
-		
-		
-		
-		
 		
 		setBackground(new Color(240, 255, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +66,7 @@ public class TelaRelatorioProdutoMaisVendido extends JFrame {
 		contentPane.add(pTitulo, BorderLayout.NORTH);
 		pTitulo.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
-		JLabel lblNewLabel = new JLabel("Produtos Mais Vendidos");
+		JLabel lblNewLabel = new JLabel("Produtos mais vendidos");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBackground(new Color(85, 107, 47));
 		lblNewLabel.setFont(new Font("Segoe Print", Font.PLAIN, 50));
@@ -111,7 +93,7 @@ public class TelaRelatorioProdutoMaisVendido extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-					"Nome", "Lucro", "Quantidade vendida"
+				"Nome", "Lucro", "Quantidade vendida"
 			}
 		));
 		table.getColumnModel().getColumn(3).setPreferredWidth(123);
@@ -135,29 +117,11 @@ public class TelaRelatorioProdutoMaisVendido extends JFrame {
 		fl_pBotoesDireita.setAlignment(FlowLayout.TRAILING);
 		pBotoes.add(pBotoesDireita);
 		
-		
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaCadastroProduto cadastroProduto;
-				try {
-					FornecedorDao dao = new FornecedorDao();
-					ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
-					
-					cadastroProduto = new TelaCadastroProduto(listaFornecedores, null);
-					cadastroProduto.setVisible(true);
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
-				dispose();
-			}
-		});
-		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRelatorios telaEstoque = new TelaRelatorios();
-				telaEstoque.setVisible(true);
+				TelaRelatorios telaRelatorios = new TelaRelatorios();
+				telaRelatorios.setVisible(true);
 				dispose();
 			}
 		});
@@ -165,16 +129,13 @@ public class TelaRelatorioProdutoMaisVendido extends JFrame {
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
 		pBotoesEsquerda.add(btnVoltar);
-		btnAdicionar.setForeground(new Color(255, 255, 255));
-		btnAdicionar.setBackground(new Color(85, 107, 47));
-		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		pBotoesDireita.add(btnAdicionar);
 		
 		
 		
 		
 	}
+	
+	
+	
 
 }
- 
-

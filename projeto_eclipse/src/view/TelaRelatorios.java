@@ -55,8 +55,8 @@ public class TelaRelatorios extends JFrame {
 		btnProdutosVendidos.setBounds(10, 276, 256, 39);
 		btnProdutosVendidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TelaRelatorioProdutoMaisVendido telaProdutosMaisVendidos = new TelaRelatorioProdutoMaisVendido();
-				telaProdutosMaisVendidos.setVisible(true);
+				TelaRelatorioProdutoMaisVendido telaRelatorioProdutoMaisVendido = new TelaRelatorioProdutoMaisVendido();
+				telaRelatorioProdutoMaisVendido.setVisible(true);
 				dispose();
 				
 			}

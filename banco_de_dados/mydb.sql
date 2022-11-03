@@ -213,14 +213,14 @@ DELIMITER $$
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_INSERT` AFTER INSERT ON `produto` FOR EACH ROW
 BEGIN
-	insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa);
+	insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa, new.cnpj_fornecedor);
 END$$
 
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_UPDATE` AFTER UPDATE ON `produto` FOR EACH ROW
 BEGIN
 	if new.preco_produto <> old.preco_produto then
-		insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa);
+		insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa, new.cnpj_fornecedor);
 	end if;
 END$$
 

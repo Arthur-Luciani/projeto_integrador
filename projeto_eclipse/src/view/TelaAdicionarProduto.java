@@ -163,7 +163,6 @@ public class TelaAdicionarProduto extends JFrame {
 						Produto produto = listaProdutos.get(cbProduto.getSelectedIndex());
 						ProdutoVenda produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);
 						
-						
 						if (listaProdutosVendidos.isEmpty()) {
 							listaProdutosVendidos.add(produtoVenda);
 						} else {

@@ -107,7 +107,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
   `nome_empresa` VARCHAR(200) NOT NULL,
   `cnpj_fornecedor` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_produto`),
-  
   INDEX `fk_fornecedor_idx` (`cnpj_fornecedor` ASC),
   CONSTRAINT `fk_fornecedor_cnpj`
     FOREIGN KEY (`cnpj_fornecedor`)
@@ -263,5 +262,3 @@ INSERT INTO Estados(id, nome, uf, ibge, pais, ddd) VALUES
 (26, 'São Paulo', 'SP', 35, 1, '11,12,13,14,15,16,17,18,19'),
 (27, 'Tocantins', 'TO', 17, 1, '63'),
 (99, 'Exterior', 'EX', 99, NULL, NULL);
-
- cnpj_fornecedorupdate Produto set nome_produto='Ma��', preco_produto=16.16, estoque=50, nome_empresa='Jo�o', cnpj_fornecedor='000004' where id_produto=6

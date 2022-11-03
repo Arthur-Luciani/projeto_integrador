@@ -279,16 +279,13 @@ public class TelaCadastroProduto extends JFrame {
 				} else {
 					Produto produto = new Produto(nome, preco, quantidade, fornecedor);
 					ProdutoDao dao = new ProdutoDao();
-					//ArrayList<Produto>listaProdutos = dao.resgatarProdutos();
 					boolean verificacao = false; //true= ja existe false= nao existe
-					
 					for (Produto produtoLista : dao.resgatarProdutos()) {
 						if (produtoLista.getNome().equals(produto.getNome())) {
 							verificacao = true;
 						}
 					}
 					
-
 					if (verificacao==false) {
 						dao.cadastroProduto(produto);
 						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
@@ -303,11 +300,6 @@ public class TelaCadastroProduto extends JFrame {
 						telaMensagem.setVisible(true);
 						dispose();
 					}
-					
-					
-					
-					
-					
 				}
 			}
 		});

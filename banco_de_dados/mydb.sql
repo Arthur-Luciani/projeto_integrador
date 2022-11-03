@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`estados` (
   `pais` INT(3) NULL DEFAULT NULL,
   `ddd` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
-ENGINE = MyISAM
+ENGINE = InnoDB
 AUTO_INCREMENT = 100
 DEFAULT CHARACTER SET = utf8
 COMMENT = 'Unidades Federativas';
@@ -107,7 +107,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
   `nome_empresa` VARCHAR(200) NOT NULL,
   `cnpj_fornecedor` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_produto`),
-  
   INDEX `fk_fornecedor_idx` (`cnpj_fornecedor` ASC),
   CONSTRAINT `fk_fornecedor_cnpj`
     FOREIGN KEY (`cnpj_fornecedor`)
@@ -214,14 +213,14 @@ DELIMITER $$
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_INSERT` AFTER INSERT ON `produto` FOR EACH ROW
 BEGIN
-	insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa);
+	insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa, new.cnpj_fornecedor);
 END$$
 
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_UPDATE` AFTER UPDATE ON `produto` FOR EACH ROW
 BEGIN
 	if new.preco_produto <> old.preco_produto then
-		insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa);
+		insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa, new.cnpj_fornecedor);
 	end if;
 END$$
 
@@ -229,7 +228,7 @@ END$$
 DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET FOREIGN_KEY_CHECKS=0;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
@@ -263,3 +262,21 @@ INSERT INTO Estados(id, nome, uf, ibge, pais, ddd) VALUES
 (26, 'São Paulo', 'SP', 35, 1, '11,12,13,14,15,16,17,18,19'),
 (27, 'Tocantins', 'TO', 17, 1, '63'),
 (99, 'Exterior', 'EX', 99, NULL, NULL);
+
+
+
+select sum(lucro), historico_produto.id_produto, nome_produto  
+from (select id_produto,  historico_produto.preco_novo * venda_produtos.quantidade_produto as lucro
+from historico_produto inner join venda_produtos
+on historico_produto.id_historico_produto = venda_produtos.id_historico_produto) as lucro_produto
+inner join produto 
+on historico_produto.id_produto = produto.id_produto
+group by lucro_produto.id_produto;
+
+select id_produto,  historico_produto.preco_novo * venda_produtos.quantidade_produto as lucro
+from historico_produto inner join venda_produtos
+on historico_produto.id_historico_produto = venda_produtos.id_historico_produto;
+
+
+select * from venda_produtos;
+

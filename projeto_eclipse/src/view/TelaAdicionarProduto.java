@@ -163,26 +163,34 @@ public class TelaAdicionarProduto extends JFrame {
 						Produto produto = listaProdutos.get(cbProduto.getSelectedIndex());
 						ProdutoVenda produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);
 						
-						if (listaProdutosVendidos.isEmpty()) {
-							listaProdutosVendidos.add(produtoVenda);
-						} else {
-							for (int i = 0; i < listaProdutosVendidos.size(); i++) {
-								ProdutoVenda produtoVendido = listaProdutosVendidos.get(i);
-								if (produtoVendido.getId() == produtoVenda.getId()) {
-									produtoVendido.setQuantidade(produtoVendido.getQuantidade()+produtoVenda.getQuantidade());
-									listaProdutosVendidos.set(i, produtoVendido);
-								}
-								else {
-									listaProdutosVendidos.add(produtoVenda);
+						if (produtoVenda.getQuantEstoque()>produtoVenda.getQuantidade()) {
+							if (listaProdutosVendidos.isEmpty()) {
+								listaProdutosVendidos.add(produtoVenda);
+							} else {
+								for (int i = 0; i < listaProdutosVendidos.size(); i++) {
+									ProdutoVenda produtoVendido = listaProdutosVendidos.get(i);
+									if (produtoVendido.getId() == produtoVenda.getId()) {
+										produtoVendido.setQuantidade(produtoVendido.getQuantidade()+produtoVenda.getQuantidade());
+										listaProdutosVendidos.set(i, produtoVendido);
+										break;
+									}
+									else {
+										listaProdutosVendidos.add(produtoVenda);
+									}
 								}
 							}
+							TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
+							telaCadastroVenda.atualizarJTable();
+							telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);
+							telaCadastroVenda.setVisible(true);
+							dispose();
+						} else {
+							TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
+							telaCadastroVenda.setVisible(true);
+							TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
+							telaMensagem.setVisible(true);
+							dispose();
 						}
-						
-						TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
-						telaCadastroVenda.atualizarJTable();
-						telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);
-						telaCadastroVenda.setVisible(true);
-						dispose();
 					}
 				});
 		btnAdicionar.setBackground(new Color(85, 107, 47));

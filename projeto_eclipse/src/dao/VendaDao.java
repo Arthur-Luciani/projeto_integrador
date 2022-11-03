@@ -108,16 +108,15 @@ public class VendaDao {
 		ArrayList<Venda> listaComissao = new ArrayList<Venda>();
 		try {
 			PreparedStatement ps = conexao
-					.prepareStatement("select comissao_vendedor from Venda");
+					.prepareStatement("select venda.comissao_vendedor, usuarios.nome from venda inner join usuarios on venda.id_usuario = usuarios.id_usuario");
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
 				do {
 					Venda venda = new Venda();
+					Usuario vendedor = new Usuario();
 					venda.setComissaoVendedor(rs.getFloat("comissao_vendedor"));
-					
-					
-					//falta fazer a parte de vendedor e de cliente
+					vendedor.setNome(rs.getString("nome"));
 					
 					listaComissao.add(venda);
 				} while (rs.next());

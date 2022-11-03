@@ -103,4 +103,26 @@ public class UsuarioDao {
 		}
 		return listaNomesUsuarios;
 	}
+	public LinkedList<Usuario> resgatarVendedor(){
+		LinkedList<Usuario> listaVendedor = new LinkedList<>();
+		Connection conexao = BD.getConexao();
+		try {
+			
+			PreparedStatement ps = conexao.prepareStatement("select nome from usuarios");
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				do {
+					Usuario usuario = new Usuario();
+					usuario.setNome(rs.getString("nome"));
+					
+					listaVendedor.add(usuario);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return listaVendedor;
+		
+	}
 }

@@ -103,6 +103,32 @@ public class VendaDao {
 		}
 		return listaVenda;
 	}
+	public ArrayList<Venda> resgatarComissao(){
+		Connection conexao = BD.getConexao();
+		ArrayList<Venda> listaComissao = new ArrayList<Venda>();
+		try {
+			PreparedStatement ps = conexao
+					.prepareStatement("select comissao_vendedor from Venda");
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				do {
+					Venda venda = new Venda();
+					venda.setComissaoVendedor(rs.getFloat("comissao_vendedor"));
+					
+					
+					//falta fazer a parte de vendedor e de cliente
+					
+					listaComissao.add(venda);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listaComissao;
+	}
+	
 	/*
 	public void atualizarVenda(Venda venda){		
 		Connection conexao = BD.getConexao();

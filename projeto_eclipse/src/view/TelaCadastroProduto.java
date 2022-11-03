@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -263,7 +264,6 @@ public class TelaCadastroProduto extends JFrame {
 					String precoStr = txtPreco.getText().replace("R$ ", "");
 					preco = Float.parseFloat(precoStr.replace(",", "."));
 				} catch (NumberFormatException e2) {
-					// TODO: handle exception
 					txtQuantidade.setBorder(bordaVermelha);
 				}				
 				if (nome.isEmpty() || fornecedor==null || txtPreco.getText().equals("R$   ,  ") ) {
@@ -279,12 +279,35 @@ public class TelaCadastroProduto extends JFrame {
 				} else {
 					Produto produto = new Produto(nome, preco, quantidade, fornecedor);
 					ProdutoDao dao = new ProdutoDao();
-						dao.cadastroProduto(produto);
+					//ArrayList<Produto>listaProdutos = dao.resgatarProdutos();
+					boolean verificacao = false; //true= ja existe false= nao existe
 					
-					TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
-					telaListaProdutos.atualizarJTable();
-					telaListaProdutos.setVisible(true);
-					dispose();
+					for (Produto produtoLista : dao.resgatarProdutos()) {
+						if (produtoLista.getNome().equals(produto.getNome())) {
+							verificacao = true;
+						}
+					}
+					
+
+					if (verificacao==false) {
+						dao.cadastroProduto(produto);
+						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+						telaListaProdutos.atualizarJTable();
+						telaListaProdutos.setVisible(true);
+						dispose();
+					} else {
+						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+						telaListaProdutos.atualizarJTable();
+						telaListaProdutos.setVisible(true);
+						TelaMensagem telaMensagem = new TelaMensagem("Produto já cadastrado no sistema");
+						telaMensagem.setVisible(true);
+						dispose();
+					}
+					
+					
+					
+					
+					
 				}
 			}
 		});

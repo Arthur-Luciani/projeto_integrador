@@ -32,7 +32,7 @@ import model.ProdutoVenda;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 
-public class TelaAdicionarProduto extends JFrame {
+public class TelaAdicionarProdutoVenda extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtQuantidade;
@@ -43,7 +43,7 @@ public class TelaAdicionarProduto extends JFrame {
 	 * 
 	 * @param listaNomesProdutos
 	 */
-	public TelaAdicionarProduto(ArrayList<Produto> listaProdutos, ArrayList<ProdutoVenda> listaProdutosVendidos, int usuarioSelecionado, int clienteSelecionado) {
+	public TelaAdicionarProdutoVenda(ArrayList<Produto> listaProdutos, ArrayList<ProdutoVenda> listaProdutosVendidos, int usuarioSelecionado, int clienteSelecionado) {
 		if (listaProdutosVendidos.isEmpty()) {
 			this.listaProdutosVendidos = new ArrayList<>();
 		} else {

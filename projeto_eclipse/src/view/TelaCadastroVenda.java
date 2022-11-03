@@ -250,10 +250,10 @@ public class TelaCadastroVenda extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar produtos");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaAdicionarProduto telaAdicionaProduto;
+				TelaAdicionarProdutoVenda telaAdicionaProduto;
 				ProdutoDao dao = new ProdutoDao();
 				ArrayList<Produto> listaProdutos = dao.resgatarProdutos();
-				telaAdicionaProduto = new TelaAdicionarProduto(listaProdutos, listaProdutosVendidos, cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
+				telaAdicionaProduto = new TelaAdicionarProdutoVenda(listaProdutos, listaProdutosVendidos, cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
 				telaAdicionaProduto.setVisible(true);
 				dispose();
 			

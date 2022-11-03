@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -15,7 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.ClienteDao;
+import dao.VendaDao;
 import model.Cliente;
+import model.Produto;
+import model.Venda;
+
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
@@ -25,11 +30,15 @@ public class TelaRelatorioComissao extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private ArrayList<Venda> listaComissao = new ArrayList<Venda>();
+	float comissaoTotal=0;
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaRelatorioComissao() {
+	public TelaRelatorioComissao(ArrayList<Venda> listaComissao) {
+		this.listaComissao = listaComissao;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -81,8 +90,23 @@ public class TelaRelatorioComissao extends JFrame {
 		));
 		table.getColumnModel().getColumn(2).setPreferredWidth(97);
 		scrollPane.setViewportView(table);
-
 		
 		
+	}
+	protected void atualizarJTable() {
+		DefaultTableModel modelo = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Vendedor", "Comiss\u00E3o", "Vendas realizadas"
+				}
+			);
+		for(int i=0; i< listaComissao.size(); i++) {
+			Venda v = listaComissao.get(i);
+			
+			
+			modelo.addRow(new Object[] {v.getVendedor(), v.getComissaoVendedor()});
+		}
+		table.setModel(modelo);
 	}
 }

@@ -108,15 +108,17 @@ public class VendaDao {
 		ArrayList<Venda> listaComissao = new ArrayList<Venda>();
 		try {
 			PreparedStatement ps = conexao
-					.prepareStatement("select venda.comissao_vendedor, usuarios.nome from venda inner join usuarios on venda.id_usuario = usuarios.id_usuario");
+					.prepareStatement("select usuarios.nome, SUM(venda.comissao_vendedor) AS total, COUNT(venda.id_usuario) from venda inner join usuarios on venda.id_usuario = usuarios.id_usuario group by venda.id_usuario");
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
 				do {
 					Venda venda = new Venda();
 					Usuario vendedor = new Usuario();
-					venda.setComissaoVendedor(rs.getFloat("comissao_vendedor"));
+					venda.setComissaoVendedor(rs.getFloat("total"));
 					vendedor.setNome(rs.getString("nome"));
+					
+					//chamar count
 					
 					listaComissao.add(venda);
 				} while (rs.next());

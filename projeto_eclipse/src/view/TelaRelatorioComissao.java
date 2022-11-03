@@ -53,11 +53,18 @@ public class TelaRelatorioComissao extends JFrame {
 		panel_1.setBackground(new Color(240, 255, 240));
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		JLabel lblNewLabel_1 = new JLabel("Voltar");
-		lblNewLabel_1.setBackground(new Color(85, 107, 47));
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(lblNewLabel_1);
+		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaRelatorios relatorio = new TelaRelatorios();
+				relatorio.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBackground(new Color(85, 107, 47));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_1.add(btnNewButton);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);

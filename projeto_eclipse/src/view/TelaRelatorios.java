@@ -22,22 +22,6 @@ public class TelaRelatorios extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaRelatorios frame = new TelaRelatorios();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public TelaRelatorios() {
@@ -89,7 +73,9 @@ public class TelaRelatorios extends JFrame {
 		JButton btnComissao = new JButton("Comissão");
 		btnComissao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				TelaRelatorioComissao comissao = new TelaRelatorioComissao();
+				comissao.setVisible(true);
+				dispose();
 			}
 		});
 		

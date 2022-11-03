@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -15,7 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.ClienteDao;
+import dao.ProdutoDao;
 import model.Cliente;
+import model.Produto;
 
 public class TelaRelatorios extends JFrame {
 
@@ -52,6 +55,9 @@ public class TelaRelatorios extends JFrame {
 		btnProdutosVendidos.setBounds(10, 276, 256, 39);
 		btnProdutosVendidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				TelaRelatorioProdutoMaisVendido telaProdutosMaisVendidos = new TelaRelatorioProdutoMaisVendido();
+				telaProdutosMaisVendidos.setVisible(true);
+				dispose();
 				
 			}
 		});

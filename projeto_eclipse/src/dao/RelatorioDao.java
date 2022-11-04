@@ -62,6 +62,30 @@ where select_lucro.id_produto = produto.id_produto
     and select_quantidade.id_produto = historico_produto.id_produto
     and select_quantidade.id_produto = select_lucro.id_produto
 group by historico_produto.id_produto;
+
+
+
+
+
+
+
+MAGIA NEGRA FUNCIONANDO
+
+select produto.nome_produto, select_lucro.lucro, select_quantidade.quantidade
+from produto 
+inner join (historico_produto)
+on (produto.id_produto = historico_produto.id_produto)
+inner join (select id_produto, sum(historico_produto.preco_novo * venda_produtos.quantidade_produto)  as lucro
+from historico_produto inner join venda_produtos
+on historico_produto.id_historico_produto = venda_produtos.id_historico_produto
+group by historico_produto.id_produto) as select_lucro 
+on mydb.historico_produto.id_produto = mydb.select_lucro.id_produto
+inner join (select id_produto,  sum(quantidade_produto) as quantidade
+from historico_produto inner join venda_produtos
+on historico_produto.id_historico_produto = venda_produtos.id_historico_produto
+group by id_produto) as select_quantidade
+on mydb.historico_produto.id_produto = mydb.select_quantidade.id_produto
+group by historico_produto.id_produto;
 		 */
 //	}
 }

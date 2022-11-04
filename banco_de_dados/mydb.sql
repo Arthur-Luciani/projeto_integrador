@@ -188,10 +188,11 @@ ENGINE = InnoDB;
 -- Table `mydb`.`venda_produtos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`venda_produtos` (
+  `id_venda_produto` INT auto_increment not null,
   `id_venda` INT(11) NOT NULL,
   `quantidade_produto` INT(11) NOT NULL,
   `id_historico_produto` INT NOT NULL,
-  PRIMARY KEY (`id_venda`),
+  PRIMARY KEY (`id_venda_produto`),
   INDEX `fk_Venda_has_Produto_Venda1_idx` (`id_venda` ASC),
   INDEX `fk_vendaprodutos_historico_produto1_idx` (`id_historico_produto` ASC),
   CONSTRAINT `fk_Venda_has_Produto_Venda1`
@@ -280,3 +281,49 @@ on historico_produto.id_historico_produto = venda_produtos.id_historico_produto;
 
 select * from venda_produtos;
 
+
+
+
+select produto.nome_produto, sum(lucro), sum(quantidade)
+from produto 
+inner join historico_produto
+on (produto.id_produto = historico_produto.id_produto),
+(select id_produto, historico_produto.preco_novo * venda_produtos.quantidade_produto as lucro
+from historico_produto inner join venda_produtos
+on historico_produto.id_historico_produto = venda_produtos.id_historico_produto
+) as select_lucro,
+(select id_produto, sum(quantidade_produto) as quantidade
+from historico_produto inner join venda_produtos
+on historico_produto.id_historico_produto = venda_produtos.id_historico_produto
+group by id_produto) as select_quantidade
+where select_lucro.id_produto = produto.id_produto 
+	and select_lucro.id_produto = historico_produto.id_produto
+    and select_quantidade.id_produto = produto.id_produto
+    and select_quantidade.id_produto = historico_produto.id_produto
+    and select_quantidade.id_produto = select_lucro.id_produto
+group by historico_produto.id_produto;
+
+
+
+
+
+
+select produto.nome_produto from produto 
+inner join historico_produto
+on (produto.id_produto = historico_produto.id_produto)
+group by historico_produto.id_produto;
+
+
+select sum(lucro), id_produto  
+from (select id_produto,  historico_produto.preco_novo * venda_produtos.quantidade_produto as lucro
+from historico_produto inner join venda_produtos
+on historico_produto.id_historico_produto = venda_produtos.id_historico_produto) as sub
+group by id_produto;
+
+
+select id_produto,  sum(quantidade_produto) as quantidade
+from historico_produto inner join venda_produtos
+on historico_produto.id_historico_produto = venda_produtos.id_historico_produto
+group by id_produto;
+
+select * from venda_produtos;

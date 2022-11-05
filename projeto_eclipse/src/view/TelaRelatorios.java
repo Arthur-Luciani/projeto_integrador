@@ -48,11 +48,13 @@ public class TelaRelatorios extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JButton btnProdutosVendidos = new JButton("Produtos mais vendidos");
+		JButton btnProdutosVendidos = new JButton("Produtos");
 		btnProdutosVendidos.setBounds(10, 276, 256, 39);
 		btnProdutosVendidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				TelaRelatorioVendas telaRelatorioVendas = new TelaRelatorioVendas();
+				telaRelatorioVendas.setVisible(true);
+				dispose();
 			}
 		});
 		contentPane.setLayout(null);

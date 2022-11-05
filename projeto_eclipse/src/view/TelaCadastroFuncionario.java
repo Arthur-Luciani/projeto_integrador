@@ -73,7 +73,6 @@ public class TelaCadastroFuncionario extends JFrame {
 	/**
 	 * Create the frame.
 	 * 
-	 * @throws ParseException
 	 */
 	public TelaCadastroFuncionario() throws ParseException {
 		setResizable(false);

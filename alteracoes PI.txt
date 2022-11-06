@@ -1,0 +1,10 @@
+Tela cadastrar/atualizar produtos
+//	Mudar txt de preço
+//	Foco ganho mudar borda do txt
+
+Tela listar produtos
+//	Adicionar botão de excluir
+// Adicionar botão pesquisar
+
+Tela Venda
+	Adicionar botão rápido de adicionar cliente

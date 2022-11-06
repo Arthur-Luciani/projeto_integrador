@@ -143,6 +143,59 @@ public class ProdutoDao {
 		}
 		return null;
 	}
+	public ArrayList<Produto> pesquisaProduto(String nome) {
+		conexao = BD.getConexao();
+		ArrayList<Produto> listaPesquisa = new ArrayList<>();
+		
+		try {
+			PreparedStatement ps;
+			if (!nome.equals("")) {
+				ps = conexao.prepareStatement("select * from produto "
+						+ "inner join fornecedor on produto.cnpj_fornecedor = fornecedor.cnpj "
+						+ "inner join endereco on (fornecedor.id_endereco=endereco.id_endereco) "
+						+ "where produto.nome_produto like '%' ? '%'");
+				ps.setString(1, nome);
+				System.out.println(ps);
+			} else {
+				ps = conexao.prepareStatement("select * from produto "
+						+ "inner join fornecedor on produto.cnpj_fornecedor = fornecedor.cnpj "
+						+ "inner join endereco on (fornecedor.id_endereco=endereco.id_endereco) ");
+			}
+			
+			
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				do {
+					Produto produto = new Produto();
+					Fornecedores fornecedores = new Fornecedores();
+					produto.setId(rs.getInt("id_produto"));
+					produto.setPreco(rs.getFloat("preco_produto"));
+					produto.setNome(rs.getString("nome_produto"));
+					produto.setQuantEstoque(rs.getInt("estoque"));				
+					
+					fornecedores.setNome(rs.getString("nome_empresa"));
+					fornecedores.setTelefone(rs.getString("telefone"));
+					fornecedores.setEmail(rs.getString("email"));
+					fornecedores.setIdEndereco(rs.getInt("id_endereco"));
+					fornecedores.setCnpj(rs.getString("cnpj"));
+					fornecedores.setBairro(rs.getString("bairro"));
+					fornecedores.setRua(rs.getString("rua"));
+					fornecedores.setCidade(rs.getString("cidade"));
+					fornecedores.setCep(rs.getString("cep"));
+					fornecedores.setEstado(rs.getInt("id_estado"));
+					produto.setFornecedor(fornecedores);
+					listaPesquisa.add(produto);
+					
+				} while (rs.next());
+				BD.fechaConexao();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listaPesquisa;
+	}
 	
 
 }

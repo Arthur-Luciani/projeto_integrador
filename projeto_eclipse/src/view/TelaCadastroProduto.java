@@ -104,7 +104,7 @@ public class TelaCadastroProduto extends JFrame {
 		Titulo.setBackground(new Color(85, 107, 47));
 		contentPane.add(Titulo, BorderLayout.NORTH);
 		
-		JLabel lbAtualizaCadastrar = new JLabel("Adicionar");
+		JLabel lbAtualizaCadastrar = new JLabel("Cadastrar produto");
 		lbAtualizaCadastrar.setForeground(Color.WHITE);
 		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		Titulo.add(lbAtualizaCadastrar);
@@ -185,6 +185,10 @@ public class TelaCadastroProduto extends JFrame {
 			public void focusLost(FocusEvent e) {
 				txtNome.setBorder(bordaNormal);
 			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtNome.setBorder(bordaNormal);
+			}
 		});
 		txtNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		txtNome.setColumns(20);
@@ -227,7 +231,7 @@ public class TelaCadastroProduto extends JFrame {
 		txtQuantidade = new JTextField();
 		txtQuantidade.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusGained(FocusEvent e) {
 				txtQuantidade.setBorder(bordaNormal);
 			}
 		});
@@ -241,10 +245,10 @@ public class TelaCadastroProduto extends JFrame {
 		panel_14.setBackground(new Color(240, 255, 240));
 		Txts.add(panel_14);
 		
-		txtPreco = new JFormattedTextField(new MaskFormatter("R$ ##,##"));
+		txtPreco = new JFormattedTextField();
 		txtPreco.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusGained(FocusEvent e) {
 				txtPreco.setBorder(bordaNormal);
 			}
 		});

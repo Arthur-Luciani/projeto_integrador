@@ -183,7 +183,7 @@ public class TelaAtualizarProduto extends JFrame {
 		txtNome = new JTextField(produtoSelecionado.getNome());
 		txtNome.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusGained(FocusEvent e) {
 				txtNome.setBorder(bordaNormal);
 			}
 		});
@@ -232,7 +232,7 @@ public class TelaAtualizarProduto extends JFrame {
 		
 		txtQuantidade.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusGained(FocusEvent e) {
 				txtQuantidade.setBorder(bordaNormal);
 			}
 		});
@@ -247,11 +247,11 @@ public class TelaAtualizarProduto extends JFrame {
 		Txts.add(panel_14);
 		
 		
-		txtPreco = new JFormattedTextField(new MaskFormatter("R$ ##,##"));
-		txtPreco.setText("R$ "+String.valueOf(produtoSelecionado.getPreco()).replace(".", ","));
+		txtPreco = new JFormattedTextField();
+		txtPreco.setText(String.valueOf(produtoSelecionado.getPreco()).replace(".", ","));
 		txtPreco.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusGained(FocusEvent e) {
 				txtPreco.setBorder(bordaNormal);
 			}
 		});

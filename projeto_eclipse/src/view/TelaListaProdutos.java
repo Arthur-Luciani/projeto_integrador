@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dao.ClienteDao;
 import dao.EstadoDao;
 import dao.FornecedorDao;
 import dao.ProdutoDao;
@@ -40,6 +41,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
+import javax.swing.JTextField;
 
 public class TelaListaProdutos extends JFrame {
 
@@ -47,6 +49,8 @@ public class TelaListaProdutos extends JFrame {
 	private JTable table;
 	private ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 	private Produto produtoSelecionado = null;
+	private JTextField txtPesquisa;
+	private ProdutoDao dao = new ProdutoDao();
 
 	/**
 	 * Create the frame.
@@ -103,6 +107,29 @@ public class TelaListaProdutos extends JFrame {
 		table.getColumnModel().getColumn(3).setPreferredWidth(123);
 		scrollPane.setViewportView(table);
 		
+		JPanel pPesquisa = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) pPesquisa.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		pPesquisa.setBackground(new Color(240, 255, 240));
+		pTable.add(pPesquisa, BorderLayout.NORTH);
+		
+		txtPesquisa = new JTextField();
+		txtPesquisa.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pPesquisa.add(txtPesquisa);
+		txtPesquisa.setColumns(20);
+		
+		JButton btnNewButton = new JButton("Pesquisar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaListaProdutos.this.listaProduto = dao.pesquisaProduto(txtPesquisa.getText());
+				atualizarJTable();
+			}
+		});
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(85, 107, 47));
+		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pPesquisa.add(btnNewButton);
+		
 		JPanel pBotoes = new JPanel();
 		pBotoes.setBackground(new Color(240, 255, 240));
 		contentPane.add(pBotoes, BorderLayout.SOUTH);
@@ -122,13 +149,13 @@ public class TelaListaProdutos extends JFrame {
 		pBotoes.add(pBotoesDireita);
 		
 		
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
+		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProduto cadastroProduto;
 				try {
-					FornecedorDao dao = new FornecedorDao();
-					ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
+					FornecedorDao daoF = new FornecedorDao();
+					ArrayList<Fornecedores> listaFornecedores= daoF.resgatarFornecedores();
 					
 					cadastroProduto = new TelaCadastroProduto(listaFornecedores, null);
 					cadastroProduto.setVisible(true);
@@ -151,17 +178,12 @@ public class TelaListaProdutos extends JFrame {
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
 		pBotoesEsquerda.add(btnVoltar);
-		btnAdicionar.setForeground(new Color(255, 255, 255));
-		btnAdicionar.setBackground(new Color(85, 107, 47));
-		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		pBotoesDireita.add(btnAdicionar);
 		
 		JButton btnHistorico = new JButton("Histórico de preços");
 		btnHistorico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(produtoSelecionado);
 				if (produtoSelecionado != null) {
-					ProdutoDao dao = new ProdutoDao();
 					ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
 					TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
 					telaHistoricoPrecos.atualizarJTable();
@@ -179,18 +201,21 @@ public class TelaListaProdutos extends JFrame {
 		btnHistorico.setBackground(new Color(85, 107, 47));
 		btnHistorico.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		pBotoesDireita.add(btnHistorico);
+		btnCadastrar.setForeground(new Color(255, 255, 255));
+		btnCadastrar.setBackground(new Color(85, 107, 47));
+		btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pBotoesDireita.add(btnCadastrar);
 		
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				try {
 					if (produtoSelecionado != null) {
-						ProdutoDao da = new ProdutoDao();
 						
-						da.resgatarProdutos();
-						FornecedorDao dao = new FornecedorDao();
-						ArrayList<Produto> listaproduto = da.resgatarProdutos();
-						ArrayList<Fornecedores> listaFornecedores = dao.resgatarFornecedores();
+						dao.resgatarProdutos();
+						FornecedorDao daoF = new FornecedorDao();
+						ArrayList<Produto> listaproduto = dao.resgatarProdutos();
+						ArrayList<Fornecedores> listaFornecedores = daoF.resgatarFornecedores();
 						TelaAtualizarProduto telaAtualizarProduto = new TelaAtualizarProduto(listaFornecedores, produtoSelecionado);
 						telaAtualizarProduto.setVisible(true);
 						dispose();
@@ -209,6 +234,27 @@ public class TelaListaProdutos extends JFrame {
 		btnAtualizar.setBackground(new Color(85, 107, 47));
 		btnAtualizar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		pBotoesDireita.add(btnAtualizar);
+		
+		JButton btnDeletar = new JButton("Deletar");
+		btnDeletar.setForeground(new Color(255, 255, 255));
+		btnDeletar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (produtoSelecionado != null) {
+					dao.deletarProduto(produtoSelecionado.getId());
+					TelaListaProdutos.this.listaProduto = dao.resgatarProdutos();
+					atualizarJTable();
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
+					telaMensagem.setVisible(true);
+				}
+				
+				
+				
+			}
+		});
+		btnDeletar.setBackground(new Color(85, 107, 47));
+		btnDeletar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pBotoesDireita.add(btnDeletar);
 		
 		
 		

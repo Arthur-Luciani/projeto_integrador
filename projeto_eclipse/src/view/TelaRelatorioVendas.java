@@ -293,6 +293,12 @@ public class TelaRelatorioVendas extends JFrame {
 			RelatorioVendas r = listaRelatorioVendas.get(i);
 			modelo.addRow(new Object[] { r.getNome(), r.getLucro(), r.getQuantidade()});
 		}
+		if (listaRelatorioVendas.size()<17) {
+			for (int i = 0; i < (17-listaRelatorioVendas.size()); i++) {
+				
+				modelo.addRow(new Object[][] {null, null, null});
+			}
+		}
 		
 		table_2.setModel(modelo);
 	}

@@ -12,7 +12,7 @@ public class Venda {
 	private Usuario vendedor;
 	private ArrayList<ProdutoVenda>listaProdutosVendidos;
 	private String tipoPagamento;
-	
+	private int Vendas_Vendedor;
 	
 	public Venda( LocalDate dataVenda, float comissaoVendedor, float lucro, Cliente cliente, Usuario vendedor, String tipoPagamento) {
 		super();
@@ -23,8 +23,18 @@ public class Venda {
 		this.vendedor = vendedor;
 		this.tipoPagamento = tipoPagamento;
 	}
+	
 	public Venda() {}
 	
+	
+	public int getVendas_Vendedor() {
+		return Vendas_Vendedor;
+	}
+
+	public void setVendas_Vendedor(int vendas_Vendedor) {
+		Vendas_Vendedor = vendas_Vendedor;
+	}
+
 	public int getIdVenda() {
 		return idVenda;
 	}

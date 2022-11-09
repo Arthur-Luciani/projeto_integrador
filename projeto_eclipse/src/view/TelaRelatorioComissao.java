@@ -79,19 +79,20 @@ public class TelaRelatorioComissao extends JFrame {
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(btnNewButton);
 		
-		JFormattedTextField txtData1 = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		panel_1.add(txtData1);
+		JFormattedTextField txtDataEntrada = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		panel_1.add(txtDataEntrada);
 		
-		JLabel lblNewLabel_1 = new JLabel("Até");
-		lblNewLabel_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(lblNewLabel_1);
+		JLabel lblAte = new JLabel("Até");
+		lblAte.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_1.add(lblAte);
 		
-		JFormattedTextField txtData2 = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		panel_1.add(txtData2);
+		JFormattedTextField txtDataSaida = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		panel_1.add(txtDataSaida);
 		
 		JButton btnAte = new JButton("Buscar");
 		btnAte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnAte.setBackground(new Color(85, 107, 47));

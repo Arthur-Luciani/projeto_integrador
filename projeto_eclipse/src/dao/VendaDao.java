@@ -108,7 +108,9 @@ public class VendaDao {
 		ArrayList<Venda> listaComissao = new ArrayList<Venda>();
 		try {
 			PreparedStatement ps = conexao
-					.prepareStatement("select usuarios.nome As nome_usuario, SUM(venda.comissao_vendedor) AS total, COUNT(venda.id_usuario) AS total2 from venda inner join usuarios on venda.id_usuario = usuarios.id_usuario group by venda.id_usuario");
+					.prepareStatement("select usuarios.nome As nome_usuario, SUM(venda.comissao_vendedor) AS total, COUNT(venda.id_usuario) AS total2 from venda inner join usuarios on venda.id_usuario = usuarios.id_usuario where mydb.venda.data_venda between ? and ? group by venda.id_usuario");
+			ps.setDate(1, entrada);
+			ps.setDate(2, saida);
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {

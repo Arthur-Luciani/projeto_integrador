@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -54,6 +55,7 @@ public class TelaCadastroVenda extends JFrame {
 	private JTable table;
 	private	JComboBox cbClientes;
 	private JComboBox cbVendedor;
+	private JTextField txtQuantidade;
 
 	/**
 	 * Create the frame.
@@ -225,6 +227,38 @@ public class TelaCadastroVenda extends JFrame {
 		pBtnsTabela.setBackground(new Color(240, 255, 240));
 		pBorderDir.add(pBtnsTabela, BorderLayout.SOUTH);
 		
+		JPanel p1pbtn = new JPanel();
+		p1pbtn.setBackground(new Color(240, 255, 240));
+		pBtnsTabela.add(p1pbtn);
+		
+		JPanel p1addProd = new JPanel();
+		FlowLayout flowLayout_3 = (FlowLayout) p1addProd.getLayout();
+		flowLayout_3.setAlignment(FlowLayout.LEFT);
+		p1addProd.setBackground(new Color(240, 255, 240));
+		p1pbtn.setBackground(new Color(240, 255, 240));
+		p1pbtn.setLayout(new GridLayout(0, 1, 0, 0));
+		p1pbtn.add(p1addProd);
+		
+		
+		
+		JPanel p2addProd = new JPanel();
+		FlowLayout flowLayout_7 = (FlowLayout) p2addProd.getLayout();
+		flowLayout_7.setAlignment(FlowLayout.LEFT);
+		p2addProd.setBackground(new Color(240, 255, 240));
+		p1pbtn.setBackground(new Color(240, 255, 240));
+		p1pbtn.add(p2addProd);
+		
+		pBtnsTabela.add(p1pbtn);
+		
+		
+		
+		JPanel p2pbtn = new JPanel();
+		FlowLayout flowLayout_6 = (FlowLayout) p2pbtn.getLayout();
+		flowLayout_6.setAlignment(FlowLayout.RIGHT);
+		p2pbtn.setBackground(new Color(240, 255, 240));
+		pBtnsTabela.add(p2pbtn);	
+		
+		
 		JButton btnContinuar = new JButton("Continuar");
 		panel_8.add(btnContinuar);
 		btnContinuar.addActionListener(new ActionListener() {
@@ -247,24 +281,90 @@ public class TelaCadastroVenda extends JFrame {
 		btnContinuar.setForeground(new Color(255, 255, 255));
 		btnContinuar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
-		JButton btnAdicionar = new JButton("Adicionar produtos");
+		
+		ProdutoDao dao = new ProdutoDao();
+		ArrayList<Produto> listaProdutos = dao.resgatarProdutos(); 
+		String[] arrayProdutos = new String[listaProdutos.size()];
+		for(int i = 0; i < arrayProdutos.length; i++) {
+		    Produto produto = listaProdutos.get(i);
+			arrayProdutos[i] = produto.getNome();
+		}
+		pBtnsTabela.setLayout(new GridLayout(0, 2, 0, 0));
+		JComboBox cbProduto = new JComboBox(arrayProdutos);
+		p1addProd.add(cbProduto);
+		cbProduto.addFocusListener(new FocusAdapter() {
+		});
+		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		cbProduto.setForeground(new Color(255, 255, 255));
+		cbProduto.setBackground(new Color(85, 107, 47));
+		cbProduto.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JLabel lblQuantidade = new JLabel("Quantidade");
+		lblQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		p2addProd.add(lblQuantidade);
+		
+		txtQuantidade = new JTextField();
+		txtQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		p2addProd.add(txtQuantidade);
+		txtQuantidade.setColumns(4);
+		
+		
+		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Produto produto = listaProdutos.get(cbProduto.getSelectedIndex());
+				ProdutoVenda produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);
+				
+				if (produtoVenda.getQuantEstoque()>produtoVenda.getQuantidade()) {
+					if (listaProdutosVendidos.isEmpty()) {
+						listaProdutosVendidos.add(produtoVenda);
+					} else {
+						boolean jaExiste =false;
+						for (int i = 0; i < listaProdutosVendidos.size(); i++) {
+							ProdutoVenda produtoVendido = listaProdutosVendidos.get(i);
+							if (produtoVendido.getId() == produtoVenda.getId()) {
+								jaExiste = true;								
+								produtoVendido.setQuantidade(produtoVendido.getQuantidade()+produtoVenda.getQuantidade());
+								listaProdutosVendidos.set(i, produtoVendido);
+								break;
+							}
+							else {
+								jaExiste = false;
+							}
+						}
+						if (!jaExiste) {
+							listaProdutosVendidos.add(produtoVenda);
+						}	
+					}
+					
+					atualizarJTable(listaProdutosVendidos);
+
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
+					telaMensagem.setVisible(true);
+				}
+				
+				
+				/*
 				TelaAdicionarProdutoVenda telaAdicionaProduto;
 				ProdutoDao dao = new ProdutoDao();
 				ArrayList<Produto> listaProdutos = dao.resgatarProdutos();
 				telaAdicionaProduto = new TelaAdicionarProdutoVenda(listaProdutos, listaProdutosVendidos, cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
 				telaAdicionaProduto.setVisible(true);
-				dispose();
+				dispose();**/
 			
 			}
 		});
+		
 		btnAdicionar.setBackground(new Color(85, 107, 47));
 		btnAdicionar.setForeground(new Color(255, 255, 255));
 		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		pBtnsTabela.add(btnAdicionar);
+		p2pbtn.add(btnAdicionar);
+		
+		
 	}
-	protected void atualizarJTable() {
+	protected void atualizarJTable(ArrayList<ProdutoVenda>listaProdutosVendidos) {
 		DefaultTableModel modelo = new DefaultTableModel(
 				
 				new Object[][] {

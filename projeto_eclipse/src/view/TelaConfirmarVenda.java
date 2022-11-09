@@ -306,7 +306,7 @@ public class TelaConfirmarVenda extends JFrame {
 		//Voltar
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				telaCadastroVenda.atualizarJTable();
+				telaCadastroVenda.atualizarJTable(listaProdutosVendidos);
 				telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);
 				telaCadastroVenda.setVisible(true);
 				dispose();

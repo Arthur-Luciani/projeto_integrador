@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`estados` (
   `pais` INT(3) NULL DEFAULT NULL,
   `ddd` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
-ENGINE = MyISAM
+ENGINE = InnoDB
 AUTO_INCREMENT = 100
 DEFAULT CHARACTER SET = utf8
 COMMENT = 'Unidades Federativas';
@@ -263,3 +263,26 @@ INSERT INTO Estados(id, nome, uf, ibge, pais, ddd) VALUES
 (27, 'Tocantins', 'TO', 17, 1, '63'),
 (99, 'Exterior', 'EX', 99, NULL, NULL);
 
+
+
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade) values ( 'arthur' , 'Arthur' , '123' , '2004-10-14' , '08607179926' , 18 );
+
+
+
+
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('b','r','c','5465',1);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Gabrieli','132456','e','2000-01-01',2);
+
+
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('cajkb','fbai','cvaskb','1634',1);
+insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Nicolas' , '(47) 99999-9999' , 'e' , 3 , '1564' );
+
+
+
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Agua' , 3.0 , 5 , 'Nicolas' , '1564' );
+
+
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.15,3.0,21,22);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)values (101,1,1);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.3,6.0,21,22);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)values (102,2,1) ;

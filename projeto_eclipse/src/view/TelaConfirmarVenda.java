@@ -253,7 +253,7 @@ public class TelaConfirmarVenda extends JFrame {
 					float lucroProduto = p.getPreco()*p.getQuantidade();
 					lucroTotal = lucroTotal + lucroProduto;
 				}
-				lblValorTotal.setText("Valor total: R$"+ lucroTotal);
+				lblValorTotal.setText("Valor total: R$ %.2f "+ lucroTotal);
 				lblComissao.setText("Comiss�o: R$"+ lucroTotal*5/100);
 			}
 		});

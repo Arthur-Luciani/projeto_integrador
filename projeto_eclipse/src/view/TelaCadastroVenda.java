@@ -43,6 +43,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JRadioButton;
+import java.awt.event.FocusEvent;
 
 public class TelaCadastroVenda extends JFrame {
 
@@ -304,6 +305,12 @@ public class TelaCadastroVenda extends JFrame {
 		p2addProd.add(lblQuantidade);
 		
 		txtQuantidade = new JTextField();
+		txtQuantidade.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtQuantidade.setBorder(bordaNormal);
+			}
+		});
 		txtQuantidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		p2addProd.add(txtQuantidade);
 		txtQuantidade.setColumns(4);
@@ -314,9 +321,61 @@ public class TelaCadastroVenda extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Produto produto = listaProdutos.get(cbProduto.getSelectedIndex());
-				ProdutoVenda produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);
+				ProdutoVenda produtoVenda = null;
 				
-				if (produtoVenda.getQuantEstoque()>produtoVenda.getQuantidade()) {
+				
+				try {
+					produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);
+					
+					if (listaProdutosVendidos.isEmpty()) {
+						listaProdutosVendidos.add(produtoVenda);
+					} else {
+						boolean jaExiste = false;
+						int posicaoLista=0;
+						ProdutoVenda produtoLista = null;
+						
+						
+						for (int i = 0; i < listaProdutosVendidos.size(); i++) {
+							produtoLista =listaProdutosVendidos.get(i);
+							
+							if (produtoVenda.getId()==produtoLista.getId()) {
+								jaExiste = true;
+								posicaoLista = i;
+								break;
+							} else {
+								jaExiste = false;
+							}
+						}
+						if (jaExiste) {
+							produtoVenda.setQuantidade(produtoLista.getQuantidade()+produtoVenda.getQuantidade());
+							if (produtoVenda.getQuantEstoque()>=produtoVenda.getQuantidade()) {
+								listaProdutosVendidos.set(posicaoLista, produtoVenda);
+							}else {
+								TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
+								telaMensagem.setVisible(true);
+							}
+						} else {
+							if (produtoVenda.getQuantEstoque()>=produtoVenda.getQuantidade()) {
+								listaProdutosVendidos.add(produtoVenda);
+							} else {
+								TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
+								telaMensagem.setVisible(true);
+							}
+						}
+					}
+					atualizarJTable(listaProdutosVendidos);
+				} catch (NumberFormatException e2) {
+					TelaMensagem telaMensagem = new TelaMensagem("Indique a quantidade");
+					telaMensagem.setVisible(true);
+					txtQuantidade.setBorder(bordaVermelha);
+				}
+
+			
+				
+				
+				
+				/*
+				
 					if (listaProdutosVendidos.isEmpty()) {
 						listaProdutosVendidos.add(produtoVenda);
 					} else {
@@ -326,34 +385,29 @@ public class TelaCadastroVenda extends JFrame {
 							if (produtoVendido.getId() == produtoVenda.getId()) {
 								jaExiste = true;								
 								produtoVendido.setQuantidade(produtoVendido.getQuantidade()+produtoVenda.getQuantidade());
-								listaProdutosVendidos.set(i, produtoVendido);
-								break;
+								if (produtoVendido.getQuantEstoque()>=produtoVendido.getQuantidade()) {
+									listaProdutosVendidos.set(i, produtoVendido);
+								} else {
+									TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
+									telaMensagem.setVisible(true);
+									break;
+								}
+								
 							}
 							else {
 								jaExiste = false;
 							}
 						}
 						if (!jaExiste) {
-							listaProdutosVendidos.add(produtoVenda);
+							if (produtoVenda.getQuantEstoque()>produtoVenda.getQuantidade()) {
+								listaProdutosVendidos.add(produtoVenda);
+							} else {
+								TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
+								telaMensagem.setVisible(true);
+							}
 						}	
-					}
+					}		*/			
 					
-					atualizarJTable(listaProdutosVendidos);
-
-				} else {
-					TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
-					telaMensagem.setVisible(true);
-				}
-				
-				
-				/*
-				TelaAdicionarProdutoVenda telaAdicionaProduto;
-				ProdutoDao dao = new ProdutoDao();
-				ArrayList<Produto> listaProdutos = dao.resgatarProdutos();
-				telaAdicionaProduto = new TelaAdicionarProdutoVenda(listaProdutos, listaProdutosVendidos, cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
-				telaAdicionaProduto.setVisible(true);
-				dispose();**/
-			
 			}
 		});
 		

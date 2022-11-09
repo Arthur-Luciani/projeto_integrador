@@ -42,6 +42,7 @@ public class VendaDao {
 			}
 			
 			for (ProdutoVenda produtoVenda : listaProdutosVendidos) {
+				produtoVenda.setQuantEstoque(produtoVenda.getQuantEstoque()-produtoVenda.getQuantidade());
 				
 				int idHistorico=0;
 				ps = conexao
@@ -54,15 +55,24 @@ public class VendaDao {
 					System.out.println(idHistorico);
 				}
 				ps = conexao
-						.prepareStatement("insert into venda_produtos  "
-								+ "values (?, ?,?,?)");
-				ps.setInt(1, produtoVenda.getIdVendaProduto());
-				ps.setInt(2, venda.getIdVenda());
-				ps.setInt(3, produtoVenda.getQuantidade());
-				ps.setInt(4, idHistorico);
+						.prepareStatement("insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)"
+								+ "values (?,?,?) ");
+				ps.setInt(1, venda.getIdVenda());
+				ps.setInt(2, produtoVenda.getQuantidade());
+				ps.setInt(3, idHistorico);
+				
+				System.out.println(ps);
+				
 				ps.execute();
 				
 				
+				ps = conexao
+						.prepareStatement("update Produto "
+								+ "set estoque = ? "
+								+ "where id_produto = ?");
+				ps.setInt(1, produtoVenda.getQuantEstoque());
+				ps.setInt(2, produtoVenda.getId());
+				ps.execute();
 			}
 			
 		} catch (SQLException e) {

@@ -34,6 +34,9 @@ public class UsuarioDao {
 				ps.setDate(4, Date.valueOf(novoUsuario.getDataNascimento()));
 				ps.setString(5, novoUsuario.getCpfUsuario());
 				ps.setInt(6, novoUsuario.getIdade());
+				
+				System.out.println(ps);
+				
 				ps.execute();
 				BD.fechaConexao();
 				return true;

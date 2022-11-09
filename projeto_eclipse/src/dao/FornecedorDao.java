@@ -42,6 +42,7 @@ public class FornecedorDao {
 			ps.setString(3, fornecedores.getEmail());
 			ps.setInt(4, fornecedores.getIdEndereco());
 			ps.setString(5, fornecedores.getCnpj());
+			System.out.println(ps);
 			ps.execute();
 			BD.fechaConexao();
 		} catch (SQLException e) {
@@ -78,6 +79,7 @@ public class FornecedorDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return listaFornecedores;
 	}

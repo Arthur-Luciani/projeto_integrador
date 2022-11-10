@@ -84,9 +84,9 @@ public class TelaEstoque extends JFrame {
 				ProdutoDao dao = new ProdutoDao();
 
 
-				dao.resgatarProdutos();
+				ArrayList<Produto>listaProdutos =  dao.resgatarProdutos();
 				
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProdutos);
 				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
 				dispose();

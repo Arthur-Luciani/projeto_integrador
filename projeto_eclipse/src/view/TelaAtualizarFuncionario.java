@@ -39,7 +39,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class TelaCadastroFuncionario extends JFrame {
+public class TelaAtualizarFuncionario extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -48,33 +48,18 @@ public class TelaCadastroFuncionario extends JFrame {
 	private JTextField txtLogin;
 	private JPasswordField txtSenha;
 	private JPasswordField txtConfSenha;
-	private static TelaCadastroFuncionario frame;
+	private static TelaAtualizarFuncionario frame;
 	
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new TelaCadastroFuncionario();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 * 
 	 */
-	public TelaCadastroFuncionario() {
+	public TelaAtualizarFuncionario(Usuario usuario) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -109,7 +94,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblNome);
 
-		txtNome = new JTextField();
+		txtNome = new JTextField(usuario.getNome());
 		txtNome.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -128,6 +113,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		try {
 			txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+			txtCpf.setText(usuario.getCpfUsuario());
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -150,6 +136,7 @@ public class TelaCadastroFuncionario extends JFrame {
 
 		try {
 			txtDataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			txtDataNascimento.setText(usuario.getDataNascimento().toString());
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -170,7 +157,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblLogin);
 
-		txtLogin = new JTextField();
+		txtLogin = new JTextField(usuario.getLogin());
 		txtLogin.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -188,7 +175,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblSenha);
 
-		txtSenha = new JPasswordField();
+		txtSenha = new JPasswordField(usuario.getSenha());
 		
 		txtSenha.addFocusListener(new FocusAdapter() {
 			@Override
@@ -206,7 +193,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblConfSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblConfSenha);
 
-		txtConfSenha = new JPasswordField();
+		txtConfSenha = new JPasswordField(usuario.getSenha());
 		txtConfSenha.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -261,14 +248,14 @@ public class TelaCadastroFuncionario extends JFrame {
 					}
 					
 				} else {
-					Usuario novoUsuario = new Usuario(login, nome, senha, LocalDate.parse(dataNascimentoStr, formatacao), cpf);
+					Usuario usuarioAtualizado = new Usuario(login, nome, senha, LocalDate.parse(dataNascimentoStr, formatacao), cpf);
 					UsuarioDao dao = new UsuarioDao();
-					if (dao.cadastro(novoUsuario)== true) {
+					if (dao.atualizarUsuario(usuarioAtualizado)== true) {
 						TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
 						telaListaFuncionarios.setVisible(true);
 						dispose();
 					} else {
-						TelaMensagem m = new TelaMensagem("Login j� utilizado");
+						TelaMensagem m = new TelaMensagem("Login já utilizado");
 						m.setVisible(true);
 						txtLogin.setForeground(new Color(255, 0, 0));
 					}
@@ -284,9 +271,8 @@ public class TelaCadastroFuncionario extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioDao dao = new UsuarioDao();
-				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
-				telaListaFuncionarios.setVisible(true);
+				TelaLogin telaLogin = new TelaLogin();
+				telaLogin.setVisible(true);
 				dispose();
 			}
 		}); 

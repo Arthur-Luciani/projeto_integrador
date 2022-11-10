@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import dao.ClienteDao;
 import dao.EstadoDao;
+import dao.UsuarioDao;
 import model.Cliente;
 import model.Estado;
 import model.Usuario;
@@ -115,6 +116,26 @@ public class TelaInicial extends JFrame {
 		JLabel label_1 = new JLabel("");
 		label_1.setBounds(839, 257, 0, 0);
 		contentPane.add(label_1);	
+		
+		JButton btnFuncionarios = new JButton("Funcionários");
+		if (usuario.isPermissao()) {
+			btnFuncionarios.setEnabled(true);
+		} else {
+			btnFuncionarios.setEnabled(false);
+		}
+		btnFuncionarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UsuarioDao dao = new UsuarioDao();
+				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
+				telaListaFuncionarios.setVisible(true);
+				dispose();
+			}
+		});
+		btnFuncionarios.setForeground(Color.WHITE);
+		btnFuncionarios.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnFuncionarios.setBackground(new Color(85, 107, 47));
+		btnFuncionarios.setBounds(668, 439, 142, 39);
+		contentPane.add(btnFuncionarios);
 
 	}
 }

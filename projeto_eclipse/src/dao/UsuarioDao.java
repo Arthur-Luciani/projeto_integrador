@@ -106,4 +106,49 @@ public class UsuarioDao {
 		}
 		return listaNomesUsuarios;
 	}
+	
+	public void deletarUsuario(int id) {
+		Connection connection = BD.getConexao();
+		try {
+			PreparedStatement ps= connection
+					.prepareStatement("delete from usuarios where id_usuario = ?");
+			ps.setInt(1, id);
+			ps.execute();
+			BD.fechaConexao();
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public boolean atualizarUsuario(Usuario usuario) {
+		Connection connection = BD.getConexao();
+		try {
+			PreparedStatement ps = connection
+					.prepareStatement("select login from usuarios where login like ? ");
+			ps.setString(1, usuario.getLogin());
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next() != true) {
+				ps = connection
+						.prepareStatement("update usuarios "
+								+ "set login=?, nome=?, senha=?, data_nascimento=?, cpf=?, idade=? "
+								+ "where id = ?");
+				ps.setString(1, usuario.getLogin());
+				ps.setString(2, usuario.getNome());
+				ps.setString(3, usuario.getSenha());
+				ps.setDate(4, Date.valueOf(usuario.getDataNascimento()));
+				ps.setString(5, usuario.getCpfUsuario());
+				ps.setInt(6, usuario.getIdade());
+				ps.setInt(7, usuario.getIdUsuario());
+				ps.execute();
+				BD.fechaConexao();
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		BD.fechaConexao();
+		return false;
+	}
+	
 }

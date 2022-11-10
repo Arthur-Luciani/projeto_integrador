@@ -8,14 +8,15 @@ import java.util.Date;
 
 public class Usuario {
 	
-	String login;
-	String nome;
-	String senha;
-	boolean permissao;
-	int idUsuario;
-	LocalDate dataNascimento;
-	String cpfUsuario;
-	int idade;
+	private String login;
+	private String nome;
+	private String senha;
+	private boolean permissao;
+	private int idUsuario;
+	private LocalDate dataNascimento;
+	private String cpfUsuario;
+	private int idade;
+	private String funcao;
 	
 	public Usuario() {
 	}
@@ -34,6 +35,11 @@ public class Usuario {
 		this.senha = senha;
 		this.dataNascimento = dataNascimento;
 		this.cpfUsuario = cpfUsuario;
+		if (permissao) {
+			this.funcao = "Administrador";
+		} else {
+			this.funcao = "Vendedor";
+		}
 	}
 
 	public String getLogin() {
@@ -103,6 +109,16 @@ public class Usuario {
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
+
+	public String getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
+	}
+	
+	
 
 	
 }

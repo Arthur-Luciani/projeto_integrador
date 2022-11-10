@@ -35,6 +35,7 @@ import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.ImageIcon;
 
 public class TelaAtualizarProduto extends JFrame {
 
@@ -77,6 +78,7 @@ public class TelaAtualizarProduto extends JFrame {
 		panel_6.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaAtualizarProduto.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProdutoDao dao = new ProdutoDao();
@@ -104,7 +106,7 @@ public class TelaAtualizarProduto extends JFrame {
 		Titulo.setBackground(new Color(85, 107, 47));
 		contentPane.add(Titulo, BorderLayout.NORTH);
 		
-		JLabel lbAtualizaCadastrar = new JLabel("Atualizar");
+		JLabel lbAtualizaCadastrar = new JLabel("Atualizar Produto");
 		
 		lbAtualizaCadastrar.setForeground(Color.WHITE);
 		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
@@ -260,6 +262,7 @@ public class TelaAtualizarProduto extends JFrame {
 		panel_14.add(txtPreco);
 		
 		JButton btnAtualizarCadastrar = new JButton("Atualizar");
+		btnAtualizarCadastrar.setIcon(new ImageIcon(TelaAtualizarProduto.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		btnAtualizarCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();
@@ -304,6 +307,7 @@ public class TelaAtualizarProduto extends JFrame {
 		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setIcon(new ImageIcon(TelaAtualizarProduto.class.getResource("/images/icons8-excluir-24.png")));
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProdutoDao dao = new ProdutoDao();

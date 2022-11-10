@@ -52,6 +52,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class TelaAtualizarCliente extends JFrame {
 
@@ -96,7 +97,7 @@ public class TelaAtualizarCliente extends JFrame {
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		JLabel lblCadastro = new JLabel("Atualizar");
+		JLabel lblCadastro = new JLabel("Atualizar Cliente");
 		lblCadastro.setForeground(Color.WHITE);
 		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblCadastro);
@@ -396,6 +397,7 @@ public class TelaAtualizarCliente extends JFrame {
 		panel_botoes.add(p_esquerda);
 		
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setIcon(new ImageIcon(TelaAtualizarCliente.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -419,6 +421,7 @@ public class TelaAtualizarCliente extends JFrame {
 		panel_botoes.add(p_direita);
 		
 		JButton btnCadastrar = new JButton("Atualizar");
+		btnCadastrar.setIcon(new ImageIcon(TelaAtualizarCliente.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();

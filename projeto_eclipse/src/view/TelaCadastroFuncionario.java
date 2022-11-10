@@ -38,6 +38,7 @@ import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroFuncionario extends JFrame {
 
@@ -210,6 +211,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel_1.add(txtConfSenha);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setIcon(new ImageIcon(TelaCadastroFuncionario.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -273,6 +275,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnCadastrar.setBackground(new Color(85, 107, 47));
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaCadastroFuncionario.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaLogin telaLogin = new TelaLogin();

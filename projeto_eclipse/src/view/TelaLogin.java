@@ -105,7 +105,7 @@ public class TelaLogin extends JFrame {
 		panel_2.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 								
 										JButton btnNewButton = new JButton("Cadastrar usuário");
-										btnNewButton.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\icons\\icons8-mais-2-matemática-24.png"));
+										btnNewButton.setIcon(new ImageIcon(TelaLogin.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 										btnNewButton.addActionListener(new ActionListener() {
 											public void actionPerformed(ActionEvent e) {
 												TelaCadastroFuncionario telaCadastroFuncionario;
@@ -127,7 +127,7 @@ public class TelaLogin extends JFrame {
 						
 								JButton btnEntrar = new JButton("Entrar");
 								panel_2.add(btnEntrar);
-								btnEntrar.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\icons\\icons8-entrar-24.png"));
+								btnEntrar.setIcon(new ImageIcon(TelaLogin.class.getResource("/images/icons8-entrar-24.png")));
 								btnEntrar.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent arg0) {
 										String login = txtLogin.getText();

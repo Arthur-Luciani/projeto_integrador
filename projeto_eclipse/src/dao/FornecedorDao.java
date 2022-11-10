@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -85,24 +86,24 @@ public class FornecedorDao {
 	}
 	
 	public void atualizarFornecedor(Fornecedores fornecedores) {
+		
 		conexao = BD.getConexao();
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"update fornecedor, endereco set "
-					+ "nome_empresa=?, telefone=?,email=?,cnpj=?, bairro=?, rua=?, cidade=?, cep=?, id_estado=? "
-					+ "where fornecedor.id_endereco=? and endereco.id_endereco=?");
+					+ "nome_empresa=?, telefone=?,email=?, bairro=?, rua=?, cidade=?, cep=?, id_estado=? "
+					+ "where fornecedor.cnpj=? and fornecedor.id_endereco=?");
 
 			ps.setString(1, fornecedores.getNome());
 			ps.setString(2, fornecedores.getTelefone());
 			ps.setString(3, fornecedores.getEmail());
-			ps.setString(4, fornecedores.getCnpj());
-			ps.setString(5, fornecedores.getBairro());
-			ps.setString(6, fornecedores.getRua());
-			ps.setString(7, fornecedores.getCidade());
-			ps.setString(8, fornecedores.getCep());
-			ps.setInt(9, fornecedores.getIdEstado());
+			ps.setString(4, fornecedores.getBairro());
+			ps.setString(5, fornecedores.getRua());
+			ps.setString(6, fornecedores.getCidade());
+			ps.setString(7, fornecedores.getCep());
+			ps.setInt(8, fornecedores.getIdEstado());
+			ps.setString(9, fornecedores.getCnpj());
 			ps.setInt(10, fornecedores.getIdEndereco());
-			ps.setInt(11, fornecedores.getIdEndereco());
 			
 			System.out.println(ps);
 			ps.executeUpdate();

@@ -134,14 +134,9 @@ public class TelaLogin extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroFuncionario telaCadastroFuncionario;
-				try {
-					telaCadastroFuncionario = new TelaCadastroFuncionario();
-					telaCadastroFuncionario.setVisible(true);
-					dispose();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				telaCadastroFuncionario = new TelaCadastroFuncionario();
+				telaCadastroFuncionario.setVisible(true);
+				dispose();
 
 			}
 		});

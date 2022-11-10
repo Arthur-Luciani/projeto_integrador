@@ -6,14 +6,23 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import dao.ClienteDao;
@@ -34,14 +43,21 @@ public class TelaRelatorioComissao extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private ArrayList<Venda> listaComissao = new ArrayList<Venda>();
+	//private ArrayList<Venda> listaComissao = new ArrayList<Venda>();
+	private Date entrada;
+	private Date saida;
+	
+	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
+	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
+
+
 
 	/**
 	 * Create the frame.
 	 */
 	public TelaRelatorioComissao(ArrayList<Venda> listaComissao) throws ParseException {
 		VendaDao dao = new VendaDao();
-		this.listaComissao = dao.resgatarComissao();
+		//this.listaComissao = dao.resgatarComissao(null, null);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -81,6 +97,14 @@ public class TelaRelatorioComissao extends JFrame {
 		
 		JFormattedTextField txtDataEntrada = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		panel_1.add(txtDataEntrada);
+		txtDataEntrada.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtDataEntrada.setBorder(bordaNormal);
+			}
+		});
+		
+		
 		
 		JLabel lblAte = new JLabel("Até");
 		lblAte.setFont(new Font("Segoe Print", Font.PLAIN, 16));
@@ -88,17 +112,40 @@ public class TelaRelatorioComissao extends JFrame {
 		
 		JFormattedTextField txtDataSaida = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		panel_1.add(txtDataSaida);
-		
-		JButton btnAte = new JButton("Buscar");
-		btnAte.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+		txtDataSaida.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtDataEntrada.setBorder(bordaNormal);
 			}
 		});
-		btnAte.setBackground(new Color(85, 107, 47));
-		btnAte.setForeground(new Color(255, 255, 255));
-		btnAte.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(btnAte);
+		
+		
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				
+				VendaDao dao = new VendaDao();
+				
+				try {
+					String entrada = txtDataEntrada.getText();
+					Date dataEntrada = (Date) formatacao.parse(entrada);
+				} catch (DateTimeException e2) {
+					txtDataEntrada.setBorder(bordaVermelha);
+				}
+				try {
+					String saida = txtDataSaida.getText();
+					Date dataSaida = (Date) formatacao.parse(saida);
+				} catch (DateTimeException e2) {
+					txtDataSaida.setBorder(bordaVermelha);
+				}
+				dao.resgatarComissao(entrada, saida);
+				atualizarJTable(listaComissao);
+		}});
+		btnPesquisar.setBackground(new Color(85, 107, 47));
+		btnPesquisar.setForeground(new Color(255, 255, 255));
+		btnPesquisar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		panel_1.add(btnPesquisar);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -115,10 +162,10 @@ public class TelaRelatorioComissao extends JFrame {
 		));
 		table.getColumnModel().getColumn(2).setPreferredWidth(97);
 		scrollPane.setViewportView(table);
-		atualizarJTable();
+		
 		
 	}
-	protected void atualizarJTable() {
+	protected void atualizarJTable(ArrayList<Venda> listaComissao) {
 		DefaultTableModel modelo = new DefaultTableModel(
 				new Object[][] {
 				},

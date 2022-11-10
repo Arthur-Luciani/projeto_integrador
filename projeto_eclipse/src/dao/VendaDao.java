@@ -1,12 +1,12 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
 
 import model.Cliente;
 import model.ProdutoVenda;
@@ -26,7 +26,7 @@ public class VendaDao {
 			PreparedStatement ps = conexao
 					.prepareStatement("insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)"
 							+ "values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			ps.setDate(1, Date.valueOf(venda.getDataVenda()));
+			ps.setDate(1,Date.valueOf(venda.getDataVenda()));
 			ps.setFloat(2, venda.getComissaoVendedor());
 			ps.setFloat(3, venda.getLucro());
 			ps.setInt(4, cliente.getId());

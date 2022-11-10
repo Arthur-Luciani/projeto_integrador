@@ -43,7 +43,7 @@ public class TelaRelatorioComissao extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	//private ArrayList<Venda> listaComissao = new ArrayList<Venda>();
+	private ArrayList<Venda> listaComissao;
 	private Date entrada;
 	private Date saida;
 	
@@ -56,8 +56,9 @@ public class TelaRelatorioComissao extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaRelatorioComissao(ArrayList<Venda> listaComissao) throws ParseException {
+		this.listaComissao=listaComissao;
 		VendaDao dao = new VendaDao();
-		//this.listaComissao = dao.resgatarComissao(null, null);
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -127,19 +128,20 @@ public class TelaRelatorioComissao extends JFrame {
 				
 				VendaDao dao = new VendaDao();
 				
+				LocalDate dataEntrada = null;
+				LocalDate dataSaida = null;
+				
 				try {
-					String entrada = txtDataEntrada.getText();
-					Date dataEntrada = (Date) formatacao.parse(entrada);
+					dataEntrada = LocalDate.parse(txtDataEntrada.getText(), formatacao);
 				} catch (DateTimeException e2) {
 					txtDataEntrada.setBorder(bordaVermelha);
 				}
 				try {
-					String saida = txtDataSaida.getText();
-					Date dataSaida = (Date) formatacao.parse(saida);
+					dataSaida = LocalDate.parse(txtDataSaida.getText(), formatacao);
 				} catch (DateTimeException e2) {
 					txtDataSaida.setBorder(bordaVermelha);
 				}
-				dao.resgatarComissao(entrada, saida);
+				ArrayList<Venda> listaComissao = dao.resgatarComissao(Date.valueOf(dataEntrada), Date.valueOf(dataSaida));
 				atualizarJTable(listaComissao);
 		}});
 		btnPesquisar.setBackground(new Color(85, 107, 47));

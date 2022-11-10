@@ -50,6 +50,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroCliente extends JFrame {
 
@@ -374,6 +375,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_botoes.add(p_esquerda);
 		
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\icons\\icons8-à-esquerda-dentro-de-um-círculo-24.png"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClienteDao dao = new ClienteDao();
@@ -395,6 +397,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_botoes.add(p_direita);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\icons\\icons8-mais-2-matemática-24.png"));
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();

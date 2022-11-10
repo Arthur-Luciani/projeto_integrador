@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import dao.UsuarioDao;
 import model.Usuario;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 
 public class TelaLogin extends JFrame {
 
@@ -102,56 +103,58 @@ public class TelaLogin extends JFrame {
 		panel_2.setBackground(new Color(240, 255, 240));
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+								
+										JButton btnNewButton = new JButton("Cadastrar usuário");
+										btnNewButton.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\icons\\icons8-mais-2-matemática-24.png"));
+										btnNewButton.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												TelaCadastroFuncionario telaCadastroFuncionario;
+												try {
+													telaCadastroFuncionario = new TelaCadastroFuncionario();
+													telaCadastroFuncionario.setVisible(true);
+													dispose();
+												} catch (ParseException e1) {
+													// TODO Auto-generated catch block
+													e1.printStackTrace();
+												}
 
-		JButton btnEntrar = new JButton("Entrar");
-		btnEntrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String login = txtLogin.getText();
-				String senha = txtPassSenha.getText();
+											}
+										});
+										btnNewButton.setForeground(new Color(255, 255, 255));
+										btnNewButton.setBackground(new Color(85, 107, 47));
+										btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+										panel_2.add(btnNewButton);
+						
+								JButton btnEntrar = new JButton("Entrar");
+								panel_2.add(btnEntrar);
+								btnEntrar.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\icons\\icons8-entrar-24.png"));
+								btnEntrar.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										String login = txtLogin.getText();
+										String senha = txtPassSenha.getText();
 
-				Usuario usuario = null;
+										Usuario usuario = null;
 
-				if (!login.isEmpty() && !senha.isEmpty()) {
-					UsuarioDao usuarioDao;
-					usuarioDao = new UsuarioDao();
+										if (!login.isEmpty() && !senha.isEmpty()) {
+											UsuarioDao usuarioDao;
+											usuarioDao = new UsuarioDao();
 
-					usuario = usuarioDao.verificacao(new Usuario(login, senha));
+											usuario = usuarioDao.verificacao(new Usuario(login, senha));
 
-					if (usuario != null) {
-						TelaInicial telaInicial = new TelaInicial(usuario);
-						telaInicial.setVisible(true);
-						dispose();
-					} else {
-						TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
-						telaMensagem.setVisible(true);
-					}
+											if (usuario != null) {
+												TelaInicial telaInicial = new TelaInicial(usuario);
+												telaInicial.setVisible(true);
+												dispose();
+											} else {
+												TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
+												telaMensagem.setVisible(true);
+											}
 
-				}
-			}
-		});
-
-		JButton btnNewButton = new JButton("Cadastrar usuário");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFuncionario telaCadastroFuncionario;
-				try {
-					telaCadastroFuncionario = new TelaCadastroFuncionario();
-					telaCadastroFuncionario.setVisible(true);
-					dispose();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
-		});
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(85, 107, 47));
-		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_2.add(btnNewButton);
-		btnEntrar.setBackground(new Color(85, 107, 47));
-		btnEntrar.setForeground(new Color(255, 255, 255));
-		btnEntrar.setFont(new Font("Segoe Script", Font.PLAIN, 16));
-		panel_2.add(btnEntrar);
+										}
+									}
+								});
+								btnEntrar.setBackground(new Color(85, 107, 47));
+								btnEntrar.setForeground(new Color(255, 255, 255));
+								btnEntrar.setFont(new Font("Segoe Script", Font.PLAIN, 16));
 	}
 }

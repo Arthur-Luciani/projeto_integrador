@@ -286,7 +286,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
-		btnVoltar.setBounds(65, 367, 134, 37);
+		btnVoltar.setBounds(65, 363, 134, 37);
 		panel_1.add(btnVoltar);
 
 	}

@@ -52,6 +52,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroFornecedor extends JFrame {
 
@@ -223,6 +224,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		panel_1.add(txtBairro);
 
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaCadastroFornecedor.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.setBounds(65, 360, 115, 37);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -279,6 +281,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		panel_1.add(btnVoltar);
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setIcon(new ImageIcon(TelaCadastroFornecedor.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Validacoes validacoes = new Validacoes();

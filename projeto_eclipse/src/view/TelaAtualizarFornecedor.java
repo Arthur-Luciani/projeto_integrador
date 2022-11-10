@@ -345,7 +345,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		btnAdicionar.setForeground(Color.WHITE);
 		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAdicionar.setBackground(new Color(85, 107, 47));
-		btnAdicionar.setBounds(676, 360, 115, 37);
+		btnAdicionar.setBounds(639, 360, 152, 37);
 		panel_1.add(btnAdicionar);
 	}
 }

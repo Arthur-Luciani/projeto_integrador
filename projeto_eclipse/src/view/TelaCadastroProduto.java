@@ -36,6 +36,7 @@ import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroProduto extends JFrame {
 
@@ -77,6 +78,7 @@ public class TelaCadastroProduto extends JFrame {
 		panel_6.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaCadastroProduto.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProdutoDao dao = new ProdutoDao();
@@ -257,6 +259,7 @@ public class TelaCadastroProduto extends JFrame {
 		panel_14.add(txtPreco);
 		
 		JButton btnAtualizarCadastrar = new JButton("Adicionar");
+		btnAtualizarCadastrar.setIcon(new ImageIcon(TelaCadastroProduto.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		btnAtualizarCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();

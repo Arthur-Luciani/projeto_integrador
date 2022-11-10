@@ -44,6 +44,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JRadioButton;
 import java.awt.event.FocusEvent;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroVenda extends JFrame {
 
@@ -175,6 +176,7 @@ public class TelaCadastroVenda extends JFrame {
 		pBotoes.add(panel_4);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaCadastroVenda.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		panel_4.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -261,6 +263,7 @@ public class TelaCadastroVenda extends JFrame {
 		
 		
 		JButton btnContinuar = new JButton("Continuar");
+		btnContinuar.setIcon(new ImageIcon(TelaCadastroVenda.class.getResource("/images/icons8-à-direita-dentro-de-um-círculo-24.png")));
 		panel_8.add(btnContinuar);
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -317,6 +320,7 @@ public class TelaCadastroVenda extends JFrame {
 		
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setIcon(new ImageIcon(TelaCadastroVenda.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

@@ -140,6 +140,7 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(btnFornecedores);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaEstoque.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial telaInicial = new TelaInicial(null);

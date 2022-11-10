@@ -303,7 +303,7 @@ public class TelaAtualizarProduto extends JFrame {
 		btnAtualizarCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
 		
-		JButton btnExcluir = new JButton("Excluir");
+		JButton btnExcluir = new JButton("Deletar");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProdutoDao dao = new ProdutoDao();

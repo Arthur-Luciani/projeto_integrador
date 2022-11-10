@@ -46,6 +46,7 @@ import java.awt.event.FocusEvent;
 import javax.swing.JButton;
 import java.awt.Rectangle;
 import javax.swing.ListSelectionModel;
+import javax.swing.ImageIcon;
 
 public class TelaConfirmarVenda extends JFrame {
 
@@ -214,6 +215,7 @@ public class TelaConfirmarVenda extends JFrame {
 		pBotoes.add(pEsqBtns);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaConfirmarVenda.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.setForeground(new Color(255, 255, 255));
 		btnVoltar.setBackground(new Color(85, 107, 47));
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
@@ -226,6 +228,7 @@ public class TelaConfirmarVenda extends JFrame {
 		pBotoes.add(pDireiraBtns);
 		
 		JButton btnCadastrarVenda = new JButton("Cadastrar Venda");
+		btnCadastrarVenda.setIcon(new ImageIcon(TelaConfirmarVenda.class.getResource("/images/icons8-tag-de-preço-de-venda-24.png")));
 		btnCadastrarVenda.setForeground(new Color(255, 255, 255));
 		btnCadastrarVenda.setBackground(new Color(85, 107, 47));
 		btnCadastrarVenda.setFont(new Font("Segoe Print", Font.PLAIN, 16));

@@ -35,6 +35,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 
 public class TelaListaClientes extends JFrame {
 
@@ -103,6 +104,7 @@ public class TelaListaClientes extends JFrame {
 		panel_1.add(panel_3);
 		
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setIcon(new ImageIcon(TelaListaClientes.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		panel_3.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,6 +124,7 @@ public class TelaListaClientes extends JFrame {
 		panel_1.add(panel_2);
 		
 		JButton btnNewButton_1 = new JButton("Cadastrar");
+		btnNewButton_1.setIcon(new ImageIcon(TelaListaClientes.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		panel_2.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -137,6 +140,7 @@ public class TelaListaClientes extends JFrame {
 		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JButton btnNewButton_3 = new JButton("Atualizar");
+		btnNewButton_3.setIcon(new ImageIcon(TelaListaClientes.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		panel_2.add(btnNewButton_3);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -157,6 +161,7 @@ public class TelaListaClientes extends JFrame {
 		btnNewButton_3.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JButton btnNewButton_2 = new JButton("Deletar");
+		btnNewButton_2.setIcon(new ImageIcon(TelaListaClientes.class.getResource("/images/icons8-excluir-24.png")));
 		panel_2.add(btnNewButton_2);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

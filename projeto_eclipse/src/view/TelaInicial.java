@@ -117,12 +117,12 @@ public class TelaInicial extends JFrame {
 		label_1.setBounds(839, 257, 0, 0);
 		contentPane.add(label_1);	
 		
-		JButton btnFuncionarios = new JButton("Funcionários");
-		if (usuario.isPermissao()) {
+		JButton btnFuncionarios = new JButton("Funcionários");		
+		/*if (usuario.isPermissao()) {
 			btnFuncionarios.setEnabled(true);
 		} else {
 			btnFuncionarios.setEnabled(false);
-		}
+		}*/
 		btnFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsuarioDao dao = new UsuarioDao();

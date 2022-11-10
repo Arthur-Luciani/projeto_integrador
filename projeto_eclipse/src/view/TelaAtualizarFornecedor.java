@@ -188,6 +188,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		panel_1.add(lblCnpj);
 
 		txtCnpj = new JTextField(fornecedorSelecionado.getCnpj());
+		txtCnpj.setEditable(false);
 		txtCnpj.setBounds(320, 120, 265, 35);
 		txtCnpj.addFocusListener(new FocusAdapter() {
 			@Override

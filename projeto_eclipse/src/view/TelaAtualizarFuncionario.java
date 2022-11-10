@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -78,7 +79,7 @@ public class TelaAtualizarFuncionario extends JFrame {
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel);
 
-		JLabel lblCadastro = new JLabel("Cadastro");
+		JLabel lblCadastro = new JLabel("Atualizar funcionário");
 		lblCadastro.setForeground(Color.WHITE);
 		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblCadastro);
@@ -136,7 +137,9 @@ public class TelaAtualizarFuncionario extends JFrame {
 
 		try {
 			txtDataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
-			txtDataNascimento.setText(usuario.getDataNascimento().toString());
+			Date date = Date.valueOf(usuario.getDataNascimento());
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			txtDataNascimento.setText(format.format(date));
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

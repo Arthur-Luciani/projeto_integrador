@@ -38,6 +38,9 @@ import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.SystemColor;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class TelaCadastroFuncionario extends JFrame {
 
@@ -75,6 +78,7 @@ public class TelaCadastroFuncionario extends JFrame {
 	 * 
 	 */
 	public TelaCadastroFuncionario() {
+		setBackground(new Color(240, 255, 240));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -96,17 +100,21 @@ public class TelaCadastroFuncionario extends JFrame {
 		lblCadastro.setForeground(Color.WHITE);
 		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblCadastro);
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(240, 255, 240));
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
 		
+		
+		
+		JPanel panel_9 = new JPanel();
+		contentPane.add(panel_9, BorderLayout.WEST);
+		panel_9.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel_10 = new JPanel();
+		panel_10.setBackground(new Color(240, 255, 240));
+		panel_9.add(panel_10);
 		
 		JPanel pEsquerda = new JPanel();
-		panel_1.add(pEsquerda);
+		pEsquerda.setBackground(new Color(240, 255, 240));
+		panel_9.add(pEsquerda);
 		pEsquerda.setLayout(new GridLayout(0, 1, 0, 0));
-		
 		
 		
 		
@@ -120,31 +128,37 @@ public class TelaCadastroFuncionario extends JFrame {
 		pEsquerda.add(lblCpf);
 		lblCpf.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
-				JLabel lblDataNascimento = new JLabel("Data de Nascimento");
-				lblDataNascimento.setBackground(new Color(240, 255, 240));
-				pEsquerda.add(lblDataNascimento);
-				lblDataNascimento.setFont(new Font("Segoe Script", Font.PLAIN, 16));
+		JLabel lblDataNascimento = new JLabel("Data de Nascimento");
+		lblDataNascimento.setBackground(new Color(240, 255, 240));
+		pEsquerda.add(lblDataNascimento);
+		lblDataNascimento.setFont(new Font("Segoe Script", Font.PLAIN, 16));
+		
+		JLabel lblLogin = new JLabel("Login");
+		lblLogin.setBackground(new Color(240, 255, 240));
+		pEsquerda.add(lblLogin);
+		lblLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JLabel lblSenha = new JLabel("Senha");
+		lblSenha.setBackground(new Color(240, 255, 240));
+		pEsquerda.add(lblSenha);
+		lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 				
-						JLabel lblLogin = new JLabel("Login");
-						lblLogin.setBackground(new Color(240, 255, 240));
-						pEsquerda.add(lblLogin);
-						lblLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-						
-								JLabel lblSenha = new JLabel("Senha");
-								lblSenha.setBackground(new Color(240, 255, 240));
-								pEsquerda.add(lblSenha);
-								lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-								
-										JLabel lblConfSenha = new JLabel("Confirmar senha");
-										lblConfSenha.setBackground(new Color(240, 255, 240));
-										pEsquerda.add(lblConfSenha);
-										lblConfSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		JLabel lblConfSenha = new JLabel("Confirmar senha");
+		lblConfSenha.setBackground(new Color(240, 255, 240));
+		pEsquerda.add(lblConfSenha);
+		lblConfSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JLabel lblFunção = new JLabel("Fun\u00E7\u00E3o");
+		lblFunção.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pEsquerda.add(lblFunção);
 
-JPanel pDireita = new JPanel();
-panel_1.add(pDireita);
+		JPanel pDireita = new JPanel();
+		contentPane.add(pDireita);
 		pDireita.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel panel_3 = new JPanel();
+		FlowLayout flowLayout_3 = (FlowLayout) panel_3.getLayout();
+		flowLayout_3.setAlignment(FlowLayout.LEFT);
 		panel_3.setBackground(new Color(240, 255, 240));
 		pDireita.add(panel_3);
 
@@ -157,8 +171,10 @@ panel_1.add(pDireita);
 			}
 		});
 		txtNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		txtNome.setColumns(10);
+		txtNome.setColumns(15);
 		JPanel panel_4 = new JPanel();
+		FlowLayout flowLayout_4 = (FlowLayout) panel_4.getLayout();
+		flowLayout_4.setAlignment(FlowLayout.LEFT);
 		panel_4.setBackground(new Color(240, 255, 240));
 		pDireita.add(panel_4);
 		try {
@@ -175,8 +191,10 @@ panel_1.add(pDireita);
 			}
 		});
 		txtCpf.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		txtCpf.setColumns(10);
+		txtCpf.setColumns(15);
 		JPanel panel_5 = new JPanel();
+		FlowLayout flowLayout_5 = (FlowLayout) panel_5.getLayout();
+		flowLayout_5.setAlignment(FlowLayout.LEFT);
 		panel_5.setBackground(new Color(240, 255, 240));
 		pDireita.add(panel_5);
 		try {
@@ -193,9 +211,11 @@ panel_1.add(pDireita);
 			}
 		});
 		txtDataNascimento.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		txtDataNascimento.setColumns(10);
+		txtDataNascimento.setColumns(15);
 				
 				JPanel panel_6 = new JPanel();
+				FlowLayout flowLayout_6 = (FlowLayout) panel_6.getLayout();
+				flowLayout_6.setAlignment(FlowLayout.LEFT);
 				panel_6.setBackground(new Color(240, 255, 240));
 				pDireita.add(panel_6);
 		
@@ -209,9 +229,11 @@ panel_1.add(pDireita);
 					}
 				});
 				txtLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-				txtLogin.setColumns(10);
+				txtLogin.setColumns(15);
 						
 						JPanel panel_7 = new JPanel();
+						FlowLayout flowLayout_7 = (FlowLayout) panel_7.getLayout();
+						flowLayout_7.setAlignment(FlowLayout.LEFT);
 						panel_7.setBackground(new Color(240, 255, 240));
 						pDireita.add(panel_7);
 				
@@ -225,22 +247,35 @@ panel_1.add(pDireita);
 							}
 						});
 						txtSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-						txtSenha.setColumns(10);
+						txtSenha.setColumns(15);
 								
 								JPanel panel_8 = new JPanel();
+								FlowLayout flowLayout_8 = (FlowLayout) panel_8.getLayout();
+								flowLayout_8.setAlignment(FlowLayout.LEFT);
 								panel_8.setBackground(new Color(240, 255, 240));
 								pDireita.add(panel_8);
-						
-								txtConfSenha = new JPasswordField();
-								panel_8.add(txtConfSenha);
-								txtConfSenha.addFocusListener(new FocusAdapter() {
-									@Override
-									public void focusGained(FocusEvent e) {
-										txtConfSenha.setBorder(bordaNormal);
-									}
-								});
-								txtConfSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-								txtConfSenha.setColumns(10);
+								
+										txtConfSenha = new JPasswordField();
+										panel_8.add(txtConfSenha);
+										txtConfSenha.addFocusListener(new FocusAdapter() {
+											@Override
+											public void focusGained(FocusEvent e) {
+												txtConfSenha.setBorder(bordaNormal);
+											}
+										});
+										txtConfSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+										txtConfSenha.setColumns(15);
+								
+								JPanel panel_1 = new JPanel();
+								FlowLayout flowLayout_9 = (FlowLayout) panel_1.getLayout();
+								flowLayout_9.setAlignment(FlowLayout.LEFT);
+								panel_1.setBackground(new Color(240, 255, 240));
+								pDireita.add(panel_1);
+								
+								JComboBox cbPermissao = new JComboBox();
+								cbPermissao.setFont(new Font("Tahoma", Font.PLAIN, 16));
+								cbPermissao.setModel(new DefaultComboBoxModel(new String[] {"Vendedor", "Administrador"}));
+								panel_1.add(cbPermissao);
 								
 								JPanel panel_2 = new JPanel();
 								contentPane.add(panel_2, BorderLayout.SOUTH);
@@ -284,7 +319,12 @@ panel_1.add(pDireita);
 				String dataNascimentoStr = txtDataNascimento.getText();
 				LocalDate dataNascimento = null;	
 				DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				
+				boolean permissao = false;
+				if (cbPermissao.getSelectedIndex()==0) {
+					permissao = false;
+				} else if (cbPermissao.getSelectedIndex()==1) {
+					permissao = true;
+				} 
 				try {
 					dataNascimento = LocalDate.parse(txtDataNascimento.getText(), formatacao);
 				} catch (DateTimeException e2) {
@@ -313,7 +353,7 @@ panel_1.add(pDireita);
 					}
 					
 				} else {
-					Usuario novoUsuario = new Usuario(login, nome, senha, LocalDate.parse(dataNascimentoStr, formatacao), cpf);
+					Usuario novoUsuario = new Usuario(login, nome, senha, LocalDate.parse(dataNascimentoStr, formatacao), cpf, permissao);
 					UsuarioDao dao = new UsuarioDao();
 					if (dao.cadastro(novoUsuario)== true) {
 						TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
@@ -345,6 +385,8 @@ panel_1.add(pDireita);
 		btnCadastrar.setForeground(new Color(255, 255, 255));
 		btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnCadastrar.setBackground(new Color(85, 107, 47));
+		
+		
 	
 				
 				

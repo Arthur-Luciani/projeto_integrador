@@ -27,7 +27,7 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public Usuario(String login, String nome, String senha, LocalDate dataNascimento, String cpfUsuario) {
+	public Usuario(String login, String nome, String senha, LocalDate dataNascimento, String cpfUsuario, boolean permissao) {
 		super();
 		idade = Period.between(dataNascimento, LocalDate.now()).getYears();
 		this.login = login;
@@ -40,6 +40,25 @@ public class Usuario {
 		} else {
 			this.funcao = "Vendedor";
 		}
+		this.permissao = permissao;
+	}
+
+	public Usuario(String login, String nome, String senha, LocalDate dataNascimento, String cpfUsuario, boolean permissao, int idade, int id) {
+		super();
+		idade = Period.between(dataNascimento, LocalDate.now()).getYears();
+		this.login = login;
+		this.nome = nome;
+		this.senha = senha;
+		this.dataNascimento = dataNascimento;
+		this.cpfUsuario = cpfUsuario;
+		if (permissao) {
+			this.funcao = "Administrador";
+		} else {
+			this.funcao = "Vendedor";
+		}
+		this.permissao = permissao;
+		this.idade = idade;
+		this.idUsuario = id;
 	}
 
 	public String getLogin() {

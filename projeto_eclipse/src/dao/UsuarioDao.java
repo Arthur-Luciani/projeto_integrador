@@ -105,7 +105,8 @@ public class UsuarioDao {
 					LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
 					String cpf = rs.getString("cpf");
 					int idade = rs.getInt("idade");
-					Usuario usuario = new Usuario(login, nome, senha, dataNascimento, cpf);
+					boolean permisao = rs.getBoolean("permissao");
+					Usuario usuario = new Usuario(login, nome, senha, dataNascimento, cpf, permisao, idade, idUsuario);
 
 					
 					listaUsuarios.add(usuario);
@@ -134,15 +135,25 @@ public class UsuarioDao {
 		Connection connection = BD.getConexao();
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("select login from usuarios where login like ? ");
+					.prepareStatement("select login, id_usuario from usuarios where login like ? ");
 			ps.setString(1, usuario.getLogin());
 			ResultSet rs = ps.executeQuery();
 			
-			if (rs.next() != true) {
+			boolean autorizado = false;
+			
+			if (rs.next()) {
+				if (usuario.getLogin().equals(rs.getString("login")) && usuario.getIdUsuario() == rs.getInt("id_usuario")){
+					autorizado = true;
+				}
+			} else {
+				autorizado = true;
+			}
+			
+			if (autorizado) {
 				ps = connection
 						.prepareStatement("update usuarios "
 								+ "set login=?, nome=?, senha=?, data_nascimento=?, cpf=?, idade=? , permissao=? "
-								+ "where id = ?");
+								+ "where id_usuario = ?");
 				ps.setString(1, usuario.getLogin());
 				ps.setString(2, usuario.getNome());
 				ps.setString(3, usuario.getSenha());
@@ -155,6 +166,9 @@ public class UsuarioDao {
 				BD.fechaConexao();
 				return true;
 			}
+			
+			
+			
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}

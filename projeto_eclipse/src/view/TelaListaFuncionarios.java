@@ -158,11 +158,18 @@ public class TelaListaFuncionarios extends JFrame {
 		panel_2.add(btnNewButton_2);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioDao dao;
-				dao = new UsuarioDao();
-				dao.deletarUsuario(funcionarioSelecionado.getIdUsuario());
-				TelaListaFuncionarios.this.listaFuncionario = dao.resgatarUsuarios();
-				atualizarJTable();
+				if (funcionarioSelecionado!=null) {
+					UsuarioDao dao;
+					dao = new UsuarioDao();
+					dao.deletarUsuario(funcionarioSelecionado.getIdUsuario());
+					TelaListaFuncionarios.this.listaFuncionario = dao.resgatarUsuarios();
+					atualizarJTable();
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum funcionario selecionado");
+					telaMensagem.setVisible(true);
+				}
+				
+				
 			}
 		});
 		btnNewButton_2.setBackground(new Color(85, 107, 47));

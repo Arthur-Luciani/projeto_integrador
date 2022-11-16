@@ -278,11 +278,17 @@ insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('cajkb','fba
 insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Nicolas' , '(47) 99999-9999' , 'e' , 3 , '1564' );
 
 
-
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Bolsa' , 3.0 , 5 , 'Creu' , '1564' );
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Pote' , 3.0 , 5 , 'Daniel' , '1564' );
 insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Agua' , 3.0 , 5 , 'Nicolas' , '1564' );
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Uva' , 3.0 , 5 , 'Creu' , '1564' );
+insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Limao' , 3.0 , 5 , 'Daniel' , '1564' );
 
 
 insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.15,3.0,21,22);
 insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)values (101,1,1);
 insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.3,6.0,21,22);
 insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)values (102,2,1) ;
+
+
+

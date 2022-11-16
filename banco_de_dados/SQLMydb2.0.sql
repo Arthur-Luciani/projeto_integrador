@@ -343,3 +343,5 @@ insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) 
 insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (8, 8, 8);
 insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (9, 9, 9);
 insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto) values (10, 10, 10);
+
+

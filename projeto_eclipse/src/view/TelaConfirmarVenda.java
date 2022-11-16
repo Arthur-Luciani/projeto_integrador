@@ -118,6 +118,7 @@ public class TelaConfirmarVenda extends JFrame {
 		pPagamento.add(pTituloPagamento, BorderLayout.NORTH);
 		
 		JPanel pRBtn = new JPanel();
+		pRBtn.setBackground(new Color(240, 255, 240));
 		pPagamento.add(pRBtn);
 		
 		JLabel lblNewLabel_2 = new JLabel("Forma de pagamento");

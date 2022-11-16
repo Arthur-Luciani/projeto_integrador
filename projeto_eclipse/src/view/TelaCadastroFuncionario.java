@@ -153,6 +153,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		pEsquerda.add(lblFunção);
 
 		JPanel pDireita = new JPanel();
+		pDireita.setBackground(new Color(240, 255, 240));
 		contentPane.add(pDireita);
 		pDireita.setLayout(new GridLayout(0, 1, 0, 0));
 		

@@ -166,9 +166,7 @@ public class UsuarioDao {
 				BD.fechaConexao();
 				return true;
 			}
-			
-			
-			
+
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}

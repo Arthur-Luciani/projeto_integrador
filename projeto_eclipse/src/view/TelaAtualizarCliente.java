@@ -102,6 +102,7 @@ public class TelaAtualizarCliente extends JFrame {
 		panel.add(lblCadastro);
 		
 		JPanel panel_lbl = new JPanel();
+		panel_lbl.setBackground(new Color(240, 255, 240));
 		contentPane.add(panel_lbl, BorderLayout.WEST);
 		panel_lbl.setLayout(new GridLayout(10, 0, 0, 0));
 		

@@ -111,6 +111,7 @@ public class TelaAtualizarProduto extends JFrame {
 		Titulo.add(lbAtualizaCadastrar);
 		
 		JPanel Lbls = new JPanel();
+		Lbls.setBackground(new Color(240, 255, 240));
 		contentPane.add(Lbls, BorderLayout.WEST);
 		Lbls.setLayout(new GridLayout(4, 2, 0, 0));
 		
@@ -171,6 +172,7 @@ public class TelaAtualizarProduto extends JFrame {
 		panel_13.add(lblPreco);
 		
 		JPanel Txts = new JPanel();
+		Txts.setBackground(new Color(240, 255, 240));
 		contentPane.add(Txts, BorderLayout.CENTER);
 		Txts.setLayout(new GridLayout(4, 0, 0, 0));
 		

@@ -25,6 +25,10 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
@@ -57,6 +61,8 @@ public class TelaHistoricoPrecos extends JFrame {
 		getContentPane().add(panel, BorderLayout.NORTH);
 		
 		JLabel lblHistoricoPreco = new JLabel("Hist\u00F3rico de pre\u00E7os");
+		lblHistoricoPreco.setForeground(new Color(255, 255, 255));
+		lblHistoricoPreco.setBackground(new Color(255, 255, 255));
 		lblHistoricoPreco.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblHistoricoPreco);
 		
@@ -136,12 +142,18 @@ public class TelaHistoricoPrecos extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-					"Data", "Pre\u00E7o"
+					"Data", "Pre\u00E7o", "Diferença de preços"
 				}
 			);
 		for(int i=0; i< listaAtualizacoes.size(); i++) {
 			AtualizacaoProduto p = listaAtualizacoes.get(i);
-			modelo.addRow(new Object[] {p.getDataAtualizacao(), "R$"+p.getPreco()});
+			
+			NumberFormat nf= NumberFormat.getInstance();
+	        nf.setMaximumFractionDigits(2);
+			
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			String data = (format.format(p.getDataAtualizacao()));
+			modelo.addRow(new Object[] {data, "R$"+p.getPreco(), nf.format(p.getDiferencaPorcent())+"%"});
 		}
 		
 		table.setModel(modelo);

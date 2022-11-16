@@ -36,6 +36,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -244,6 +245,9 @@ public class TelaConfirmarVenda extends JFrame {
 		rBtnDinheiro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				NumberFormat nf= NumberFormat.getInstance();
+		        nf.setMaximumFractionDigits(2);
+				
 				tipoPagamento = "Dinheiro";
 				txtParcelas.setEditable(false);
 				
@@ -253,9 +257,9 @@ public class TelaConfirmarVenda extends JFrame {
 					ProdutoVenda p = listaProdutosVendidos.get(i);
 					float lucroProduto = p.getPreco()*p.getQuantidade();
 					lucroTotal = lucroTotal + lucroProduto;
-				}
-				lblValorTotal.setText("Valor total: R$ %.2f "+ lucroTotal);
-				lblComissao.setText("Comiss�o: R$"+ lucroTotal*5/100);
+				}				
+				lblValorTotal.setText("Valor total: R$"+ nf.format(lucroTotal));
+				lblComissao.setText("Comiss�o: R$"+ nf.format(lucroTotal*5/100));
 			}
 		});
 		
@@ -352,14 +356,17 @@ public class TelaConfirmarVenda extends JFrame {
 	
 	protected void atualizarCampos() {
 		lucroTotal=0;
+		NumberFormat nf= NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        
 		for(int i=0; i< listaProdutosVendidos.size(); i++) {
 			ProdutoVenda p = listaProdutosVendidos.get(i);
 			float lucroProduto = p.getPreco()*p.getQuantidade();
 			lucroTotal = lucroTotal + lucroProduto;
 		}
 		comissao = lucroTotal*5/100;
-		lblValorTotal.setText("Valor total: R$"+ lucroTotal);
-		lblComissao.setText("Comiss�o: R$"+ lucroTotal*5/100);
+		lblValorTotal.setText("Valor total: R$"+ nf.format(lucroTotal));
+		lblComissao.setText("Comiss�o: R$"+ nf.format(lucroTotal*5/100));
 		
 		if (rBtnCredito.isSelected()) {
 			int parcelas =1;
@@ -370,10 +377,9 @@ public class TelaConfirmarVenda extends JFrame {
 			}		
 			
 			float lucroParcelado = lucroTotal/parcelas;
-			comissao = lucroTotal*5/100;
 			
-			lblValorTotal.setText("Valor total: R$"+ lucroParcelado+" ("+txtParcelas.getText()+" vezes)");
-			lblComissao.setText("Comiss�o: R$"+ comissao);
+			lblValorTotal.setText("Valor total: R$"+ nf.format(lucroParcelado)+" ("+txtParcelas.getText()+" vezes)");
+			lblComissao.setText("Comiss�o: R$"+ nf.format(lucroTotal*5/100));
 		}
 		
 	}

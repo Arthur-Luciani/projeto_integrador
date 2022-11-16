@@ -182,7 +182,6 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnHistorico = new JButton("Histórico de preços");
 		btnHistorico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(produtoSelecionado);
 				if (produtoSelecionado != null) {
 					ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
 					TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
@@ -272,7 +271,18 @@ public class TelaListaProdutos extends JFrame {
 			);
 		for(int i=0; i< listaProduto.size(); i++) {
 			Produto p = listaProduto.get(i);
-			modelo.addRow(new Object[] { p.getId(), p.getNome(),"R$"+p.getPreco(), p.getQuantEstoque()});
+			String quantidade;
+			if (p.getQuantEstoque()<=0) {
+				quantidade = "Indispon�vel";
+			} else {
+				quantidade = String.valueOf(p.getQuantEstoque());
+			}
+			modelo.addRow(new Object[] { 
+					p.getId(), 
+					p.getNome(),
+					"R$"+p.getPreco(),
+					quantidade					
+					});
 		}
 		
 		table.setModel(modelo);

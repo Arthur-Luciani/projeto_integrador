@@ -22,6 +22,7 @@ import dao.ClienteDao;
 import dao.UsuarioDao;
 import model.AtualizacaoProduto;
 import model.Cliente;
+import model.DadosCadastroVenda;
 import model.Estado;
 import model.Usuario;
 import model.ValidaCPF;
@@ -72,7 +73,7 @@ public class TelaCadastroCliente extends JFrame {
 	 * Create the frame.
 	 * 
 	 */
-	public TelaCadastroCliente(LinkedList<Estado> listaEstados, Cliente clienteSelecionado)  {
+	public TelaCadastroCliente(LinkedList<Estado> listaEstados, boolean depoisDaLista, Object objeto )  {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -379,9 +380,19 @@ public class TelaCadastroCliente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ClienteDao dao = new ClienteDao();
 				LinkedList<Cliente> listaCliente = dao.resgatarCliente();
-				TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
-				cadastros.setVisible(true);
-				dispose();
+				if (depoisDaLista) {
+					TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+					cadastros.setVisible(true);
+					dispose();
+				} else {
+					DadosCadastroVenda dados = (DadosCadastroVenda) objeto;
+					
+					TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(dados.getListaProdutosVendidos(), dados.getListaNomesUsuarios(), listaCliente);
+					telaCadastroVenda.atualizarJTable(dados.getListaProdutosVendidos());
+					telaCadastroVenda.atualizarComboBox(dados.getClienteSelecionado(), dados.getUsuarioSelecionado());
+					telaCadastroVenda.setVisible(true);
+					dispose();
+				}
 			}
 		});
 		btnNewButton.setBackground(new Color(85, 107, 47));
@@ -454,9 +465,21 @@ public class TelaCadastroCliente extends JFrame {
 					dao.cadastrarCliente(cliente);
 					LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 					
-					TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
-					cadastros.setVisible(true);
-					dispose();
+					if (depoisDaLista) {
+						TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+						cadastros.setVisible(true);
+						dispose();
+					} else {
+						DadosCadastroVenda dados = (DadosCadastroVenda) objeto;
+						
+						TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(dados.getListaProdutosVendidos(), dados.getListaNomesUsuarios(), listaCliente);
+						telaCadastroVenda.atualizarJTable(dados.getListaProdutosVendidos());
+						telaCadastroVenda.atualizarComboBox(dados.getClienteSelecionado(), dados.getUsuarioSelecionado());
+						telaCadastroVenda.setVisible(true);
+						dispose();
+					}
+					
+					
 					
 				}
 				

@@ -127,7 +127,7 @@ public class TelaListaClientes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EstadoDao estados = new EstadoDao();
 				LinkedList<Estado> listaEstados = estados.resgatarEstados();
-				TelaCadastroCliente cadastro = new TelaCadastroCliente(listaEstados, null);
+				TelaCadastroCliente cadastro = new TelaCadastroCliente(listaEstados, true, null);
 				cadastro.setVisible(true);
 				dispose();
 			}

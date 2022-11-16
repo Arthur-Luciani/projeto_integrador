@@ -28,9 +28,11 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import dao.EstadoDao;
 import dao.ProdutoDao;
 import dao.VendaDao;
 import model.Cliente;
+import model.DadosCadastroVenda;
 import model.Estado;
 import model.Produto;
 import model.ProdutoVenda;
@@ -53,6 +55,7 @@ public class TelaCadastroVenda extends JFrame {
 	
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
+	private static Border bordaInvisivel = BorderFactory.createLineBorder(new Color(240, 255, 240));
 	private JTable table;
 	private	JComboBox cbClientes;
 	private JComboBox cbVendedor;
@@ -114,11 +117,17 @@ public class TelaCadastroVenda extends JFrame {
 		
 	
 		
-		JPanel panel_17 = new JPanel();
-		panel_17.setBackground(new Color(240, 255, 240));
-		FlowLayout flowLayout_1 = (FlowLayout) panel_17.getLayout();
-		flowLayout_1.setAlignment(FlowLayout.LEFT);
-		ptxt.add(panel_17);
+		JPanel pCliente = new JPanel();
+		pCliente.setBackground(new Color(240, 255, 240));
+		ptxt.add(pCliente);
+		
+		JPanel pCbCli = new JPanel();
+		pCbCli.setBackground(new Color(240, 255, 240));
+		pCliente.add(pCbCli);
+		
+		JPanel pbtnCli = new JPanel();
+		pbtnCli.setBackground(new Color(240, 255, 240));
+		pCliente.add(pbtnCli);
 		
 		String[] arrayClientes = new String[listaNomesCliente.size()];
 		for(int i = 0; i < arrayClientes.length; i++) {
@@ -126,11 +135,37 @@ public class TelaCadastroVenda extends JFrame {
 		    
 			arrayClientes[i] = cliente.getNome();
 		}
+		pCliente.setLayout(new GridLayout(0, 1, 0, 0));
 		cbClientes = new JComboBox(arrayClientes);
 		cbClientes.setBackground(new Color(85, 107, 47));
 		cbClientes.setForeground(new Color(255, 255, 255));
 		cbClientes.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_17.add(cbClientes);
+		pCbCli.add(cbClientes);
+		
+		
+		JButton btnAdicionarCliente = new JButton("Cadastrar cliente");
+		btnAdicionarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EstadoDao dao = new EstadoDao();
+				DadosCadastroVenda dados = new DadosCadastroVenda(
+						listaProdutosVendidos, 
+						listaNomesUsuarios, 
+						listaNomesCliente, 
+						cbClientes.getSelectedIndex(), 
+						cbVendedor.getSelectedIndex()
+						);
+				
+				TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(dao.resgatarEstados(), false, dados);
+				telaCadastroCliente.setVisible(true);
+				dispose();
+			}
+		});
+		btnAdicionarCliente.setBackground(new Color(240, 255, 240));
+		btnAdicionarCliente.setBorder(bordaInvisivel);
+		btnAdicionarCliente.setForeground(new Color(0, 0, 0));
+		btnAdicionarCliente.setFont(new Font("Segoe Print", Font.PLAIN, 12));
+		pbtnCli.add(btnAdicionarCliente);
+		
 		
 		JPanel panel_20 = new JPanel();
 		panel_20.setBackground(new Color(240, 255, 240));
@@ -327,14 +362,13 @@ public class TelaCadastroVenda extends JFrame {
 				try {
 					produtoVenda = new ProdutoVenda(Integer.parseInt(txtQuantidade.getText()), produto);
 					
+					boolean jaExiste = false;
+					int posicaoLista=0;
+					ProdutoVenda produtoLista = null;
+					
 					if (listaProdutosVendidos.isEmpty()) {
-						listaProdutosVendidos.add(produtoVenda);
+						jaExiste = false;
 					} else {
-						boolean jaExiste = false;
-						int posicaoLista=0;
-						ProdutoVenda produtoLista = null;
-						
-						
 						for (int i = 0; i < listaProdutosVendidos.size(); i++) {
 							produtoLista =listaProdutosVendidos.get(i);
 							
@@ -346,21 +380,21 @@ public class TelaCadastroVenda extends JFrame {
 								jaExiste = false;
 							}
 						}
-						if (jaExiste) {
-							produtoVenda.setQuantidade(produtoLista.getQuantidade()+produtoVenda.getQuantidade());
-							if (produtoVenda.getQuantEstoque()>=produtoVenda.getQuantidade()) {
-								listaProdutosVendidos.set(posicaoLista, produtoVenda);
-							}else {
-								TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
-								telaMensagem.setVisible(true);
-							}
+					}
+					if (jaExiste) {
+						produtoVenda.setQuantidade(produtoLista.getQuantidade()+produtoVenda.getQuantidade());
+						if (produtoVenda.getQuantEstoque()>=produtoVenda.getQuantidade()) {
+							listaProdutosVendidos.set(posicaoLista, produtoVenda);
+						}else {
+							TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
+							telaMensagem.setVisible(true);
+						}
+					} else {
+						if (produtoVenda.getQuantEstoque()>=produtoVenda.getQuantidade()) {
+							listaProdutosVendidos.add(produtoVenda);
 						} else {
-							if (produtoVenda.getQuantEstoque()>=produtoVenda.getQuantidade()) {
-								listaProdutosVendidos.add(produtoVenda);
-							} else {
-								TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
-								telaMensagem.setVisible(true);
-							}
+							TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
+							telaMensagem.setVisible(true);
 						}
 					}
 					atualizarJTable(listaProdutosVendidos);

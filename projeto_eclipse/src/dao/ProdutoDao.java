@@ -45,7 +45,8 @@ public class ProdutoDao {
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from produto "
 					+ "inner join fornecedor on produto.cnpj_fornecedor = fornecedor.cnpj "
-					+ "inner join endereco on (fornecedor.id_endereco=endereco.id_endereco)");
+					+ "inner join endereco on (fornecedor.id_endereco=endereco.id_endereco) "
+					+ "order by id_produto asc");
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
@@ -123,7 +124,10 @@ public class ProdutoDao {
 		PreparedStatement ps;
 		try {
 			ps = conexao
-					.prepareStatement("select * from historico_produto where id_produto=? order by id_historico_produto desc");
+					.prepareStatement("select data_atualizacao, preco_novo, preco_antigo, (((preco_novo/preco_antigo)*100)-100) as diferenca "
+							+ "from historico_produto "
+							+ "where id_produto=? "
+							+ "order by id_historico_produto desc");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
@@ -133,6 +137,7 @@ public class ProdutoDao {
 					AtualizacaoProduto a= new AtualizacaoProduto();
 					a.setDataAtualizacao(rs.getDate("data_atualizacao"));
 					a.setPreco(rs.getFloat("preco_novo"));
+					a.setDiferencaPorcent(rs.getDouble("diferenca"));
 					listaAtualizacoes.add(a);
 				} while (rs.next());
 			}
@@ -153,13 +158,15 @@ public class ProdutoDao {
 				ps = conexao.prepareStatement("select * from produto "
 						+ "inner join fornecedor on produto.cnpj_fornecedor = fornecedor.cnpj "
 						+ "inner join endereco on (fornecedor.id_endereco=endereco.id_endereco) "
-						+ "where produto.nome_produto like '%' ? '%'");
+						+ "where produto.nome_produto like '%' ? '%' "
+						+ "order by id_produto asc");
 				ps.setString(1, nome);
 				System.out.println(ps);
 			} else {
 				ps = conexao.prepareStatement("select * from produto "
 						+ "inner join fornecedor on produto.cnpj_fornecedor = fornecedor.cnpj "
-						+ "inner join endereco on (fornecedor.id_endereco=endereco.id_endereco) ");
+						+ "inner join endereco on (fornecedor.id_endereco=endereco.id_endereco) "
+						+ "order by id_produto asc");
 			}
 			
 			

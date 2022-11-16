@@ -92,7 +92,7 @@ public class FornecedorDao {
 			PreparedStatement ps = conexao.prepareStatement(
 					"update fornecedor, endereco set "
 					+ "nome_empresa=?, telefone=?,email=?, bairro=?, rua=?, cidade=?, cep=?, id_estado=? "
-					+ "where fornecedor.cnpj=? and fornecedor.id_endereco=?");
+					+ "where fornecedor.cnpj=? and endereco.id_endereco=?");
 
 			ps.setString(1, fornecedores.getNome());
 			ps.setString(2, fornecedores.getTelefone());

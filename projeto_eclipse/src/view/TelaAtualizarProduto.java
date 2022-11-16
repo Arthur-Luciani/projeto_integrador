@@ -287,9 +287,8 @@ public class TelaAtualizarProduto extends JFrame {
 						txtPreco.setBorder(bordaVermelha);
 					}
 				} else {
-					Produto produto = new Produto(nome, preco, quantidade, fornecedor);					
+					Produto produto = new Produto(nome, preco, quantidade, fornecedor, produtoSelecionado.getId());					
 					ProdutoDao dao = new ProdutoDao();
-					produto.setId(produtoSelecionado.getId());
 					dao.atualizarProduto(produto);
 					
 					
@@ -304,22 +303,6 @@ public class TelaAtualizarProduto extends JFrame {
 		btnAtualizarCadastrar.setForeground(Color.WHITE);
 		btnAtualizarCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAtualizarCadastrar.setBackground(new Color(85, 107, 47));
-		
-		JButton btnExcluir = new JButton("Deletar");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ProdutoDao dao = new ProdutoDao();
-				dao.deletarProduto(produtoSelecionado.getId());
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
-				telaListaProdutos.atualizarJTable();
-				telaListaProdutos.setVisible(true);
-				dispose();
-			}
-		});
-		btnExcluir.setForeground(Color.WHITE);
-		btnExcluir.setFont(new Font("Segoe Script", Font.PLAIN, 16));
-		btnExcluir.setBackground(new Color(85, 107, 47));
-		panel_7.add(btnExcluir);
 		
 	}
 }

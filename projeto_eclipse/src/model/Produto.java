@@ -27,6 +27,14 @@ public class Produto {
 		this.quantEstoque = quantEstoque;
 		this.fornecedor = fornecedor;
 	}
+	public Produto(String nome, float preco, int quantEstoque, Fornecedores fornecedor, int id) {
+		super();
+		this.nome = nome;
+		this.preco = preco;
+		this.quantEstoque = quantEstoque;
+		this.fornecedor = fornecedor;
+		this.id = id;
+	}
 	
 	
 

@@ -1,10 +1,29 @@
+PARA QUINTA
+	Ver o que deve ser feito em relação ao deletar_fornecedores
+
+
 Tela cadastrar/atualizar produtos
-//	Mudar txt de preço
-//	Foco ganho mudar borda do txt
+	//Mudar txt de preço
+	//Foco ganho mudar borda do txt
 
 Tela listar produtos
-//	Adicionar botão de excluir
-// Adicionar botão pesquisar
+	//Adicionar botão de excluir
+	// Adicionar botão pesquisar
+	//Se estoque ==0 mostrar indisponível
+
+Tela Historico Produto
+	//Arrumar formatação data
+	//Mostrar a % de diferença de preços
 
 Tela Venda
-	Adicionar botão rápido de adicionar cliente
+	//Adicionar botão rápido de adicionar cliente
+
+Produtos
+	//Verificar se o estoque esta mudando após a venda
+
+Fornecedores
+	//Verificar a atualização do DAO
+
+
+Banco de dados
+	Arrumar trigger atualização produto

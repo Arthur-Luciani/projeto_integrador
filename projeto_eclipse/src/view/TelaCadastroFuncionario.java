@@ -148,9 +148,9 @@ public class TelaCadastroFuncionario extends JFrame {
 		pEsquerda.add(lblConfSenha);
 		lblConfSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
-		JLabel lblFunção = new JLabel("Fun\u00E7\u00E3o");
-		lblFunção.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		pEsquerda.add(lblFunção);
+		JLabel lblFuncao = new JLabel("Fun\u00E7\u00E3o");
+		lblFuncao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pEsquerda.add(lblFuncao);
 
 		JPanel pDireita = new JPanel();
 		pDireita.setBackground(new Color(240, 255, 240));

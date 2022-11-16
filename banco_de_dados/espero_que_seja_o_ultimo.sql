@@ -73,7 +73,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`cliente` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 21
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -105,7 +104,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
   `nome_produto` VARCHAR(200) NOT NULL,
   `preco_produto` FLOAT NOT NULL,
   `estoque` INT(11) NOT NULL,
-  `nome_empresa` VARCHAR(200) NOT NULL,
   `cnpj_fornecedor` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_produto`),
   INDEX `fk_fornecedor_idx` (`cnpj_fornecedor` ASC),
@@ -119,20 +117,39 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `mydb`.`historico_produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`historico_produto` (
+  `id_historico_produto` INT NOT NULL AUTO_INCREMENT,
+  `id_produto` INT NOT NULL,
+  `data_atualizacao` DATE NULL,
+  `preco_novo` FLOAT NULL,
+  `preco_antigo` FLOAT NULL,
+  `cnpj_fornecedor` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_historico_produto`),
+  INDEX `fk_historico_produto_fornecedor1_idx` (`cnpj_fornecedor` ASC),
+  CONSTRAINT `fk_historico_produto_fornecedor1`
+    FOREIGN KEY (`cnpj_fornecedor`)
+    REFERENCES `mydb`.`fornecedor` (`cnpj`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `mydb`.`usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`usuarios` (
-  `id_usuario` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(30) NOT NULL,
   `nome` VARCHAR(200) NOT NULL,
   `senha` VARCHAR(10) NOT NULL,
   `cpf` VARCHAR(16) NULL DEFAULT NULL,
   `data_nascimento` DATE NULL DEFAULT NULL,
-  `idade` INT(11) NULL DEFAULT NULL,
+  `idade` INT NULL DEFAULT NULL,
   `permissao` TINYINT(4) NULL DEFAULT NULL,
   PRIMARY KEY (`id_usuario`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 22
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -140,12 +157,12 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `mydb`.`venda`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`venda` (
-  `id_venda` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_venda` INT NOT NULL AUTO_INCREMENT,
   `data_venda` DATE NOT NULL,
   `comissao_vendedor` FLOAT NULL DEFAULT NULL,
   `lucro` FLOAT NOT NULL,
-  `id_cliente` INT(11) NOT NULL,
-  `id_usuario` INT(11) NOT NULL,
+  `id_cliente` INT NOT NULL,
+  `id_usuario` INT NOT NULL,
   PRIMARY KEY (`id_venda`),
   INDEX `fk_Venda_idCliente` (`id_cliente` ASC),
   INDEX `fk_Venda_idUsuario` (`id_usuario` ASC),
@@ -160,29 +177,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`venda` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 101
 DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`historico_produto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`historico_produto` (
-  `id_historico_produto` INT NOT NULL AUTO_INCREMENT,
-  `id_produto` INT NOT NULL,
-  `data_atualizacao` DATE NULL,
-  `preco_novo` FLOAT NULL,
-  `preco_antigo` FLOAT NULL,
-  `nome_empresa` VARCHAR(200) NOT NULL,
-  `cnpj_fornecedor` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_historico_produto`),
-  INDEX `fk_historico_produto_fornecedor1_idx` (`cnpj_fornecedor` ASC),
-  CONSTRAINT `fk_historico_produto_fornecedor1`
-    FOREIGN KEY (`cnpj_fornecedor`)
-    REFERENCES `mydb`.`fornecedor` (`cnpj`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -190,8 +185,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`venda_produtos` (
   `id_venda_produto` INT NOT NULL AUTO_INCREMENT,
-  `id_venda` INT(11) NOT NULL,
-  `quantidade_produto` INT(11) NOT NULL,
+  `id_venda` INT NOT NULL,
+  `quantidade_produto` INT NOT NULL,
   `id_historico_produto` INT NOT NULL,
   INDEX `fk_Venda_has_Produto_Venda1_idx` (`id_venda` ASC),
   INDEX `fk_vendaprodutos_historico_produto1_idx` (`id_historico_produto` ASC),
@@ -215,14 +210,14 @@ DELIMITER $$
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_INSERT` AFTER INSERT ON `produto` FOR EACH ROW
 BEGIN
-	insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, new.preco_produto, new.nome_empresa, new.cnpj_fornecedor);
+	insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, new.preco_produto, new.cnpj_fornecedor);
 END$$
 
 USE `mydb`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`produto_AFTER_UPDATE` AFTER UPDATE ON `produto` FOR EACH ROW
 BEGIN
 	if new.preco_produto <> old.preco_produto then
-		insert into historico_produto values (null, id_produto, now(), new.preco_produto, old.preco_produto, new.nome_empresa, new.cnpj_fornecedor);
+		insert into historico_produto values (null, new.id_produto, now(), new.preco_produto, old.preco_produto, new.cnpj_fornecedor);
 	end if;
 END$$
 
@@ -270,25 +265,24 @@ insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade) values ( 
 
 
 
-insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('b','r','c','5465',1);
-insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Gabrieli','132456','e','2000-01-01',2);
+insert into endereco ( bairro, rua, cidade, cep, numero, id_estado) values ('b','r','c','5465',30 ,1);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Gabrieli','132456','e','2000-01-01',1);
 
 
-insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('cajkb','fbai','cvaskb','1634',1);
-insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Nicolas' , '(47) 99999-9999' , 'e' , 3 , '1564' );
+insert into endereco ( bairro, rua, cidade, cep, numero,id_estado) values ('cajkb','fbai','cvaskb','1634', 15,1);
+insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Nicolas' , '(47) 99999-9999' , 'e' , 2 , '1564' );
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('b','r','c','123456',24);
+insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Marcao do gas' , '(47) 99999-9999' , 'e' , 3 , '987654' );
 
 
-insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Bolsa' , 3.0 , 5 , 'Creu' , '1564' );
-insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Pote' , 3.0 , 5 , 'Daniel' , '1564' );
-insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Agua' , 3.0 , 5 , 'Nicolas' , '1564' );
-insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Uva' , 3.0 , 5 , 'Creu' , '1564' );
-insert into produto (nome_produto, preco_produto, estoque, nome_empresa, cnpj_fornecedor) values ( 'Limao' , 3.0 , 5 , 'Daniel' , '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Bolsa' , 3.0 , 5 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Pote' , 3.0 , 5 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Agua' , 3.0 , 5 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Uva' , 3.0 , 5 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Limao' , 3.0 , 5 ,  '1564' );
 
 
-insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.15,3.0,21,22);
-insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)values (101,1,1);
-insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.3,6.0,21,22);
-insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)values (102,2,1) ;
-
-
-
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.15,3.0,1,1);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)values (1,1,1);
+insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.3,6.0,1,1);
+insert into venda_produtos (id_venda, quantidade_produto, id_historico_produto)values (2,2,1);

@@ -28,6 +28,7 @@ import model.Cliente;
 import model.Estado;
 import model.Produto;
 import model.Usuario;
+import swingDesign.JTableViridisSinus;
 
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
@@ -76,7 +77,7 @@ public class TelaListaFuncionarios extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
+		table = new JTableViridisSinus().padraoJtable();
 		table.setBackground(new Color(240, 255, 240));
 		table.addMouseListener(new MouseAdapter() {
 			@Override

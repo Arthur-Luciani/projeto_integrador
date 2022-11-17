@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import dao.ClienteDao;
 import model.Cliente;
+import model.Usuario;
 import model.Venda;
 
 public class TelaRelatorios extends JFrame {
@@ -27,7 +28,7 @@ public class TelaRelatorios extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaRelatorios() {
+	public TelaRelatorios(Usuario usuarioLogado) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -39,7 +40,7 @@ public class TelaRelatorios extends JFrame {
 		btnProdutosVendidos.setBounds(10, 276, 256, 39);
 		btnProdutosVendidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TelaRelatorioVendas telaRelatorioVendas = new TelaRelatorioVendas();
+				TelaRelatorioVendas telaRelatorioVendas = new TelaRelatorioVendas(usuarioLogado);
 				telaRelatorioVendas.setVisible(true);
 				dispose();
 			}
@@ -80,7 +81,7 @@ public class TelaRelatorios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaRelatorioComissao comissao;
 				try {
-					comissao = new TelaRelatorioComissao(null);
+					comissao = new TelaRelatorioComissao(null, usuarioLogado);
 					comissao.setVisible(true);
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block

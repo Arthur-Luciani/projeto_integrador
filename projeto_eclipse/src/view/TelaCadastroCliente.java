@@ -74,7 +74,7 @@ public class TelaCadastroCliente extends JFrame {
 	 * Create the frame.
 	 * 
 	 */
-	public TelaCadastroCliente(LinkedList<Estado> listaEstados, boolean depoisDaLista, Object objeto )  {
+	public TelaCadastroCliente(LinkedList<Estado> listaEstados, boolean depoisDaLista, Object objeto, Usuario usuarioLogado )  {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -384,13 +384,13 @@ public class TelaCadastroCliente extends JFrame {
 				ClienteDao dao = new ClienteDao();
 				LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 				if (depoisDaLista) {
-					TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+					TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 					cadastros.setVisible(true);
 					dispose();
 				} else {
 					DadosCadastroVenda dados = (DadosCadastroVenda) objeto;
 					
-					TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(dados.getListaProdutosVendidos(), dados.getListaNomesUsuarios(), listaCliente);
+					TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(dados.getListaProdutosVendidos(), dados.getListaNomesUsuarios(), listaCliente, usuarioLogado);
 					telaCadastroVenda.atualizarJTable(dados.getListaProdutosVendidos());
 					telaCadastroVenda.atualizarComboBox(dados.getClienteSelecionado(), dados.getUsuarioSelecionado());
 					telaCadastroVenda.setVisible(true);
@@ -464,13 +464,13 @@ public class TelaCadastroCliente extends JFrame {
 					LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 					
 					if (depoisDaLista) {
-						TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+						TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 						cadastros.setVisible(true);
 						dispose();
 					} else {
 						DadosCadastroVenda dados = (DadosCadastroVenda) objeto;
 						
-						TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(dados.getListaProdutosVendidos(), dados.getListaNomesUsuarios(), listaCliente);
+						TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(dados.getListaProdutosVendidos(), dados.getListaNomesUsuarios(), listaCliente, usuarioLogado);
 						telaCadastroVenda.atualizarJTable(dados.getListaProdutosVendidos());
 						telaCadastroVenda.atualizarComboBox(dados.getClienteSelecionado(), dados.getUsuarioSelecionado());
 						telaCadastroVenda.setVisible(true);

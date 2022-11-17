@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import dao.ClienteDao;
 import model.Cliente;
 import model.Produto;
+import model.Usuario;
 
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
@@ -38,7 +39,7 @@ public class TelaClienteCadastros extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaClienteCadastros(LinkedList<Cliente> listaClientes) {
+	public TelaClienteCadastros(LinkedList<Cliente> listaClientes, Usuario usuarioLogado) {
 		this.listaCliente = listaClientes;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -69,7 +70,7 @@ public class TelaClienteCadastros extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+				TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 				cadastros.setVisible(true);
 				dispose();
 			}

@@ -79,7 +79,7 @@ public class TelaAtualizarCliente extends JFrame {
 	 * Create the frame.
 	 * 
 	 */
-	public TelaAtualizarCliente(LinkedList<Estado> listaEstados, Cliente clienteSelecionado)  {
+	public TelaAtualizarCliente(LinkedList<Estado> listaEstados, Cliente clienteSelecionado, Usuario usuarioLogado)  {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -405,7 +405,7 @@ public class TelaAtualizarCliente extends JFrame {
 				ClienteDao dao = new ClienteDao();
 				LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 				
-				TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+				TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 				cadastros.setVisible(true);
 				dispose();
 			}
@@ -481,7 +481,7 @@ public class TelaAtualizarCliente extends JFrame {
 					dao.atualizarCliente(cliente);
 					
 					LinkedList<Cliente> listaCliente = dao.resgatarCliente();
-					TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+					TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 					cadastros.setVisible(true);
 					dispose();
 					

@@ -23,6 +23,7 @@ import model.Estado;
 import model.Fornecedores;
 import model.Produto;
 import model.RelatorioVendas;
+import model.Usuario;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -75,7 +76,7 @@ public class TelaRelatorioVendas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaRelatorioVendas() {
+	public TelaRelatorioVendas(Usuario usuarioLogado) {
 		
 		setBackground(new Color(240, 255, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -268,7 +269,7 @@ public class TelaRelatorioVendas extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRelatorios telaRelatorios = new TelaRelatorios();
+				TelaRelatorios telaRelatorios = new TelaRelatorios(usuarioLogado);
 				telaRelatorios.setVisible(true);
 				dispose();
 				

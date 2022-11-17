@@ -26,6 +26,7 @@ import dao.ProdutoDao;
 import model.Cliente;
 import model.Estado;
 import model.Produto;
+import model.Usuario;
 
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
@@ -46,7 +47,7 @@ public class TelaListaClientes extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListaClientes(LinkedList<Cliente> listaCliente) {
+	public TelaListaClientes(LinkedList<Cliente> listaCliente, Usuario usuarioLogado) {
 		this.listaCliente = listaCliente;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -130,7 +131,7 @@ public class TelaListaClientes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EstadoDao estados = new EstadoDao();
 				LinkedList<Estado> listaEstados = estados.resgatarEstados();
-				TelaCadastroCliente cadastro = new TelaCadastroCliente(listaEstados, true, null);
+				TelaCadastroCliente cadastro = new TelaCadastroCliente(listaEstados, true, null, usuarioLogado);
 				cadastro.setVisible(true);
 				dispose();
 			}
@@ -147,7 +148,7 @@ public class TelaListaClientes extends JFrame {
 				if(clienteSelecionado!=null) {
 					EstadoDao estados = new EstadoDao();
 					LinkedList<Estado> listaEstados = estados.resgatarEstados();
-					TelaAtualizarCliente atualizado = new TelaAtualizarCliente(listaEstados, clienteSelecionado);
+					TelaAtualizarCliente atualizado = new TelaAtualizarCliente(listaEstados, clienteSelecionado, usuarioLogado);
 					atualizado.setVisible(true);
 					dispose();
 				}else {

@@ -32,6 +32,7 @@ import dao.ProdutoDao;
 import model.Estado;
 import model.Fornecedores;
 import model.Produto;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import swingDesign.JTableViridisSinus;
 
@@ -48,7 +49,7 @@ public class TelaListaFornecedores extends JFrame {
 	
 	
 
-	public TelaListaFornecedores(ArrayList<Fornecedores> listaFornecedores) {
+	public TelaListaFornecedores(ArrayList<Fornecedores> listaFornecedores, Usuario usuarioLogado) {
 		setBackground(new Color(240, 255, 240));
 		this.listaFornecedores = listaFornecedores;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,7 +122,7 @@ public class TelaListaFornecedores extends JFrame {
 		btnVoltar.setIcon(new ImageIcon(TelaListaFornecedores.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaEstoque telaEstoque = new TelaEstoque();
+				TelaEstoque telaEstoque = new TelaEstoque(usuarioLogado);
 				telaEstoque.setVisible(true);
 				dispose();
 			}
@@ -142,7 +143,7 @@ public class TelaListaFornecedores extends JFrame {
 					EstadoDao daoEstado = new EstadoDao();
 					ArrayList<Fornecedores> listaFornecedores = daoFornecedor.resgatarFornecedores();
 					LinkedList<Estado>listaEstados = daoEstado.resgatarEstados();
-					telaAtualizarFornecedor = new TelaAtualizarFornecedor(listaFornecedores, fornecedorSelecionado, listaEstados);
+					telaAtualizarFornecedor = new TelaAtualizarFornecedor(listaFornecedores, fornecedorSelecionado, listaEstados, usuarioLogado);
 					telaAtualizarFornecedor.setVisible(true);
 					dispose();
 				} else {
@@ -162,7 +163,7 @@ public class TelaListaFornecedores extends JFrame {
 					EstadoDao  daoEstado = new EstadoDao();
 					ArrayList<Fornecedores> listaFornecedores= daoFornecedor.resgatarFornecedores();
 					LinkedList<Estado> listaEstado = daoEstado.resgatarEstados();
-					cadastroFornecedor = new TelaCadastroFornecedor(listaFornecedores, fornecedorSelecionado, listaEstado);
+					cadastroFornecedor = new TelaCadastroFornecedor(listaFornecedores, fornecedorSelecionado, listaEstado, usuarioLogado);
 					cadastroFornecedor.setVisible(true);
 					dispose();
 				}
@@ -197,6 +198,16 @@ public class TelaListaFornecedores extends JFrame {
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_4.add(btnNewButton);
+		
+		if (usuarioLogado.isPermissao()) {
+			btnAtualizar.setEnabled(true);
+			btnCadastrar.setEnabled(true);
+			btnNewButton.setEnabled(true);
+		} else {
+			btnAtualizar.setEnabled(false);
+			btnCadastrar.setEnabled(false);
+			btnNewButton.setEnabled(false);
+		}
 		
 	}
 	

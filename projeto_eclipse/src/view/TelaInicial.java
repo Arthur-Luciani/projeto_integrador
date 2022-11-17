@@ -25,7 +25,6 @@ import model.Usuario;
 import javax.swing.ImageIcon;
 
 public class TelaInicial extends JFrame {
-	private Usuario usuario;
 	private JPanel contentPane;
 
 	/**
@@ -48,7 +47,7 @@ public class TelaInicial extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaInicial(Usuario usuario) {
+	public TelaInicial(Usuario usuarioLogado) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -62,7 +61,7 @@ public class TelaInicial extends JFrame {
 		btnEstoque.setBounds(89, 276, 142, 39);
 		btnEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TelaEstoque telaEstoque = new TelaEstoque(usuario);
+				TelaEstoque telaEstoque = new TelaEstoque(usuarioLogado);
 				telaEstoque.setVisible(true);
 				dispose();
 			}
@@ -77,7 +76,7 @@ public class TelaInicial extends JFrame {
 		btnRelatorios.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-editar-relatório-gráfico-24.png")));
 		btnRelatorios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRelatorios telaRelatorios = new TelaRelatorios();
+				TelaRelatorios telaRelatorios = new TelaRelatorios(usuarioLogado);
 				telaRelatorios.setVisible(true);
 				dispose();
 			}
@@ -107,7 +106,7 @@ public class TelaInicial extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ClienteDao dao = new ClienteDao();
 				LinkedList<Cliente> listaCliente = dao.resgatarCliente();
-				TelaListaClientes cadastros = new TelaListaClientes(listaCliente);
+				TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 				cadastros.setVisible(true);
 				dispose();
 			}
@@ -129,10 +128,12 @@ public class TelaInicial extends JFrame {
 		contentPane.add(label_1);	
 		
 		JButton btnFuncionarios = new JButton("Funcionários");		
-		if (usuario.isPermissao()) {
+		if (usuarioLogado.isPermissao()) {
 			btnFuncionarios.setEnabled(true);
+			btnRelatorios.setEnabled(true);
 		} else {
 			btnFuncionarios.setEnabled(false);
+			btnRelatorios.setEnabled(false);
 		}
 		btnFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

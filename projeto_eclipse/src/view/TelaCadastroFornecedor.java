@@ -78,7 +78,7 @@ public class TelaCadastroFornecedor extends JFrame {
 	 * 
 	 * @throws ParseException
 	 */
-	public TelaCadastroFornecedor(ArrayList<Fornecedores> listaFornecedores, Fornecedores FornecedorSelecionado, LinkedList<Estado>listaEstados) {
+	public TelaCadastroFornecedor(ArrayList<Fornecedores> listaFornecedores, Fornecedores FornecedorSelecionado, LinkedList<Estado>listaEstados, Usuario usuarioLogado) {
 		setBackground(new Color(240, 255, 240));
 		this.listaFornecedor = listaFornecedores;
 		this.fornecedorSelecionado = fornecedorSelecionado;
@@ -230,7 +230,7 @@ public class TelaCadastroFornecedor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				FornecedorDao dao = new FornecedorDao();
 				ArrayList<Fornecedores>listaFornecedores = dao.resgatarFornecedores();
-				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
+				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores, usuarioLogado);
 				telaFornecedores.atualizarJTable();
 				telaFornecedores.setVisible(true);
 				dispose();
@@ -329,7 +329,7 @@ public class TelaCadastroFornecedor extends JFrame {
 					FornecedorDao dao = new FornecedorDao();
 					dao.cadastroFornecedor(fornecedores);
 					
-					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(dao.resgatarFornecedores());
+					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(dao.resgatarFornecedores(), usuarioLogado);
 					telaListaFornecedores.atualizarJTable();
 					telaListaFornecedores.setVisible(true);
 					

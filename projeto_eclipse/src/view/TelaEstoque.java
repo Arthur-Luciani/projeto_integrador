@@ -37,7 +37,7 @@ public class TelaEstoque extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaEstoque(Usuario usuario) {
+	public TelaEstoque(Usuario usuarioLogado) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -72,7 +72,7 @@ public class TelaEstoque extends JFrame {
 
 				ArrayList<Produto>listaProdutos =  dao.resgatarProdutos();
 				
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProdutos, usuario);
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProdutos, usuarioLogado);
 				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
 				dispose();
@@ -91,7 +91,7 @@ public class TelaEstoque extends JFrame {
 				LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
 				LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarCliente();
 				ArrayList<ProdutoVenda> listaProdutosVendidos = new ArrayList<>();
-				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
+				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes, usuarioLogado);
 				telaCadastroVenda.setVisible(true);
 				dispose();
 
@@ -111,7 +111,7 @@ public class TelaEstoque extends JFrame {
 				dao = new FornecedorDao();
 				ArrayList<Fornecedores> listaFornecedores= dao.resgatarFornecedores();
 				
-					TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
+					TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores, usuarioLogado);
 					telaFornecedores.atualizarJTable();
 					telaFornecedores.setVisible(true);
 					dispose();
@@ -127,7 +127,7 @@ public class TelaEstoque extends JFrame {
 		btnVoltar.setIcon(new ImageIcon(TelaEstoque.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicial telaInicial = new TelaInicial(null);
+				TelaInicial telaInicial = new TelaInicial(usuarioLogado);
 				telaInicial.setVisible(true);
 				dispose();
 			}

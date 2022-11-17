@@ -56,7 +56,7 @@ public class TelaRelatorioComissao extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaRelatorioComissao(ArrayList<Venda> listaComissao) throws ParseException {
+	public TelaRelatorioComissao(ArrayList<Venda> listaComissao, Usuario usuarioLogado) throws ParseException {
 		this.listaComissao=listaComissao;
 		VendaDao dao = new VendaDao();
 		
@@ -100,7 +100,7 @@ public class TelaRelatorioComissao extends JFrame {
 		JButton btnNewButton = new JButton("Voltar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRelatorios relatorio = new TelaRelatorios();
+				TelaRelatorios relatorio = new TelaRelatorios(usuarioLogado);
 				relatorio.setVisible(true);
 				dispose();
 			}

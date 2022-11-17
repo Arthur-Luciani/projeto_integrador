@@ -79,7 +79,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 	 * 
 	 * @throws ParseException
 	 */
-	public TelaAtualizarFornecedor(ArrayList<Fornecedores> listaFornecedores, Fornecedores fornecedorSelecionado, LinkedList<Estado>listaEstados) {
+	public TelaAtualizarFornecedor(ArrayList<Fornecedores> listaFornecedores, Fornecedores fornecedorSelecionado, LinkedList<Estado>listaEstados, Usuario usuarioLogado) {
 		this.listaFornecedor = listaFornecedores;
 		this.fornecedorSelecionado = fornecedorSelecionado;
 		
@@ -234,7 +234,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				FornecedorDao dao = new FornecedorDao();
 				ArrayList<Fornecedores>listaFornecedores = dao.resgatarFornecedores();
-				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores);
+				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores, usuarioLogado);
 				telaFornecedores.atualizarJTable();
 				telaFornecedores.setVisible(true);
 				dispose();
@@ -336,7 +336,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 					FornecedorDao dao = new FornecedorDao();
 					dao.atualizarFornecedor(fornecedores);
 					
-					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(dao.resgatarFornecedores());
+					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(dao.resgatarFornecedores(), usuarioLogado);
 					telaListaFornecedores.atualizarJTable();
 					telaListaFornecedores.setVisible(true);
 					dispose();

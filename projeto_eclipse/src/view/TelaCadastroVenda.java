@@ -156,7 +156,7 @@ public class TelaCadastroVenda extends JFrame {
 						cbVendedor.getSelectedIndex()
 						);
 				
-				TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(dao.resgatarEstados(), false, dados);
+				TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(dao.resgatarEstados(), false, dados, usuarioLogado);
 				telaCadastroCliente.setVisible(true);
 				dispose();
 			}

@@ -94,6 +94,7 @@ public class ProdutoDao {
 			
 			System.out.println(ps);
 			ps.executeUpdate();
+			System.out.println(ps);
 			BD.fechaConexao();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

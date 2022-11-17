@@ -65,7 +65,7 @@ public class TelaConfirmarVenda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaConfirmarVenda(ArrayList<ProdutoVenda>listaProdutosVendidos, Usuario usuario, Cliente cliente, int usuarioSelecionado, int clienteSelecionado) {
+	public TelaConfirmarVenda(ArrayList<ProdutoVenda>listaProdutosVendidos, Usuario usuario, Cliente cliente, int usuarioSelecionado, int clienteSelecionado, Usuario usuarioLogado) {
 		this.listaProdutosVendidos= listaProdutosVendidos;
 		
 		getContentPane().setBackground(new Color(240, 255, 240));
@@ -308,7 +308,7 @@ public class TelaConfirmarVenda extends JFrame {
 		ClienteDao daoCliente = new ClienteDao();
 		LinkedList<Usuario> listaNomesUsuarios = daoUsuario.resgatarUsuarios();
 		LinkedList<Cliente> listaNomesClientes = daoCliente.resgatarCliente();
-		TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes);
+		TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes, usuarioLogado);
 		
 		
 		//Voltar

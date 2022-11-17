@@ -62,7 +62,7 @@ public class TelaInicial extends JFrame {
 		btnEstoque.setBounds(89, 276, 142, 39);
 		btnEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TelaEstoque telaEstoque = new TelaEstoque();
+				TelaEstoque telaEstoque = new TelaEstoque(usuario);
 				telaEstoque.setVisible(true);
 				dispose();
 			}
@@ -129,11 +129,11 @@ public class TelaInicial extends JFrame {
 		contentPane.add(label_1);	
 		
 		JButton btnFuncionarios = new JButton("Funcionários");		
-		/*if (usuario.isPermissao()) {
+		if (usuario.isPermissao()) {
 			btnFuncionarios.setEnabled(true);
 		} else {
 			btnFuncionarios.setEnabled(false);
-		}*/
+		}
 		btnFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsuarioDao dao = new UsuarioDao();

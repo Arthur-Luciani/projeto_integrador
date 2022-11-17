@@ -19,6 +19,7 @@ import model.AtualizacaoProduto;
 import model.Estado;
 import model.Fornecedores;
 import model.Produto;
+import model.Usuario;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -56,7 +57,7 @@ public class TelaListaProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListaProdutos(ArrayList<Produto> listaProdutos) {
+	public TelaListaProdutos(ArrayList<Produto> listaProdutos, Usuario usuario) {
 		this.listaProduto = listaProdutos;
 		
 		setBackground(new Color(240, 255, 240));
@@ -170,15 +171,11 @@ public class TelaListaProdutos extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProduto cadastroProduto;
-				try {
-					FornecedorDao daoF = new FornecedorDao();
-					ArrayList<Fornecedores> listaFornecedores= daoF.resgatarFornecedores();
-					
-					cadastroProduto = new TelaCadastroProduto(listaFornecedores, null);
-					cadastroProduto.setVisible(true);
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
+				FornecedorDao daoF = new FornecedorDao();
+				ArrayList<Fornecedores> listaFornecedores= daoF.resgatarFornecedores();
+				
+				cadastroProduto = new TelaCadastroProduto(listaFornecedores, null, usuario);
+				cadastroProduto.setVisible(true);
 				dispose();
 			}
 		});
@@ -187,7 +184,7 @@ public class TelaListaProdutos extends JFrame {
 		btnVoltar.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaEstoque telaEstoque = new TelaEstoque();
+				TelaEstoque telaEstoque = new TelaEstoque(usuario);
 				telaEstoque.setVisible(true);
 				dispose();
 			}
@@ -203,7 +200,7 @@ public class TelaListaProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (produtoSelecionado != null) {
 					ArrayList<AtualizacaoProduto> listaAtualizacaoProdutos = dao.historicoPreco(produtoSelecionado.getId());
-					TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado);
+					TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado, usuario);
 					telaHistoricoPrecos.atualizarJTable();
 					telaHistoricoPrecos.setVisible(true);
 					dispose();
@@ -228,22 +225,18 @@ public class TelaListaProdutos extends JFrame {
 		btnAtualizar.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-				try {
-					if (produtoSelecionado != null) {
-						
-						dao.resgatarProdutos();
-						FornecedorDao daoF = new FornecedorDao();
-						ArrayList<Produto> listaproduto = dao.resgatarProdutos();
-						ArrayList<Fornecedores> listaFornecedores = daoF.resgatarFornecedores();
-						TelaAtualizarProduto telaAtualizarProduto = new TelaAtualizarProduto(listaFornecedores, produtoSelecionado);
-						telaAtualizarProduto.setVisible(true);
-						dispose();
-					} else {
-						TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
-						telaMensagem.setVisible(true);
-					}
-				} catch (ParseException e1) {
-					e1.printStackTrace();
+				if (produtoSelecionado != null) {
+					
+					dao.resgatarProdutos();
+					FornecedorDao daoF = new FornecedorDao();
+					ArrayList<Produto> listaproduto = dao.resgatarProdutos();
+					ArrayList<Fornecedores> listaFornecedores = daoF.resgatarFornecedores();
+					TelaAtualizarProduto telaAtualizarProduto = new TelaAtualizarProduto(listaFornecedores, produtoSelecionado, usuario);
+					telaAtualizarProduto.setVisible(true);
+					dispose();
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
+					telaMensagem.setVisible(true);
 				}
 			}
 			
@@ -276,7 +269,15 @@ public class TelaListaProdutos extends JFrame {
 		btnDeletar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		pBotoesDireita.add(btnDeletar);
 		
-		
+		if (usuario.isPermissao()) {
+			btnCadastrar.setEnabled(true);
+			btnAtualizar.setEnabled(true);
+			btnDeletar.setEnabled(true);
+		} else {
+			btnCadastrar.setEnabled(false);
+			btnAtualizar.setEnabled(false);
+			btnDeletar.setEnabled(false);
+		}
 		
 		
 	}

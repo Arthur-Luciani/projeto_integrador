@@ -30,6 +30,7 @@ import dao.ProdutoDao;
 import model.Estado;
 import model.Fornecedores;
 import model.Produto;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -56,7 +57,7 @@ public class TelaCadastroProduto extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public TelaCadastroProduto(ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado) throws ParseException {
+	public TelaCadastroProduto(ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado, Usuario usuario)   {
 		this.listaFornecedor = listaFornecedores;
 		this.produtoSelecionado =produtoSelecionado;
 		
@@ -83,7 +84,7 @@ public class TelaCadastroProduto extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ProdutoDao dao = new ProdutoDao();
 				
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos(), usuario);
 				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
 				dispose();
@@ -297,12 +298,12 @@ public class TelaCadastroProduto extends JFrame {
 					
 					if (verificacao==false) {
 						dao.cadastroProduto(produto);
-						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos(), usuario);
 						telaListaProdutos.atualizarJTable();
 						telaListaProdutos.setVisible(true);
 						dispose();
 					} else {
-						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos(), usuario);
 						telaListaProdutos.atualizarJTable();
 						telaListaProdutos.setVisible(true);
 						TelaMensagem telaMensagem = new TelaMensagem("Produto já cadastrado no sistema");

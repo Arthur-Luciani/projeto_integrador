@@ -188,7 +188,9 @@ public class TelaRelatorioVendas extends JFrame {
 		
 		
 		JComboBox cbTipoPesquisa = new JComboBox();
-		cbTipoPesquisa.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cbTipoPesquisa.setBackground(new Color(85, 107, 47));
+		cbTipoPesquisa.setForeground(new Color(255, 255, 255));
+		cbTipoPesquisa.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		cbTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Lucro", "Quantidade"}));
 		pBotoesDireita.add(cbTipoPesquisa);
 		
@@ -225,10 +227,10 @@ public class TelaRelatorioVendas extends JFrame {
 						
 					} else {
 						if (dataSaida.isAfter(LocalDate.now())) {
-							telaMensagem = new TelaMensagem("Data de saída inválida");
+							telaMensagem = new TelaMensagem("Data de saï¿½da invï¿½lida");
 							txtDataSaida.setBorder(bordaVermelha);
 						} else {
-							telaMensagem = new TelaMensagem("Datas inválidas");
+							telaMensagem = new TelaMensagem("Datas invï¿½lidas");
 							txtDataEntrada.setBorder(bordaVermelha);
 							txtDataSaida.setBorder(bordaVermelha);
 						}
@@ -238,14 +240,14 @@ public class TelaRelatorioVendas extends JFrame {
 				} else {
 					if (dataEntrada == null) {
 						txtDataEntrada.setBorder(bordaVermelha);
-						telaMensagem = new TelaMensagem("Data de entrada inválida");
+						telaMensagem = new TelaMensagem("Data de entrada invï¿½lida");
 					} else if (dataSaida == null) {
 						txtDataSaida.setBorder(bordaVermelha);
-						telaMensagem = new TelaMensagem("Data de saída inválida");
+						telaMensagem = new TelaMensagem("Data de saï¿½da invï¿½lida");
 					} else {
 						txtDataEntrada.setBorder(bordaVermelha);
 						txtDataSaida.setBorder(bordaVermelha);
-						telaMensagem = new TelaMensagem("Datas inválidas");
+						telaMensagem = new TelaMensagem("Datas invï¿½lidas");
 					}
 					telaMensagem.setVisible(true);					
 				}

@@ -33,27 +33,11 @@ public class TelaEstoque extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaEstoque frame = new TelaEstoque();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public TelaEstoque() {
+	public TelaEstoque(Usuario usuario) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -88,7 +72,7 @@ public class TelaEstoque extends JFrame {
 
 				ArrayList<Produto>listaProdutos =  dao.resgatarProdutos();
 				
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProdutos);
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProdutos, usuario);
 				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
 				dispose();

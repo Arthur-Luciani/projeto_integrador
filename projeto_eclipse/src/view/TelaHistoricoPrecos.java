@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import dao.ProdutoDao;
 import model.AtualizacaoProduto;
 import model.Produto;
+import model.Usuario;
 import swingDesign.JTableViridisSinus;
 
 import java.awt.BorderLayout;
@@ -46,7 +47,7 @@ public class TelaHistoricoPrecos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaHistoricoPrecos(ArrayList<AtualizacaoProduto> listaAtualizacoes, Produto produtoSelecionado) {
+	public TelaHistoricoPrecos(ArrayList<AtualizacaoProduto> listaAtualizacoes, Produto produtoSelecionado, Usuario usuario) {
 		this.listaAtualizacoes = listaAtualizacoes;
 		this.produtoSelecionado = produtoSelecionado;
 		
@@ -123,7 +124,7 @@ public class TelaHistoricoPrecos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ProdutoDao dao = new ProdutoDao();
 				
-				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos());
+				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos(), usuario);
 				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
 				dispose();
@@ -144,7 +145,7 @@ public class TelaHistoricoPrecos extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-					"Data", "Pre\u00E7o", "Diferença de preços"
+					"Data", "Pre\u00E7o", "Diferenï¿½a de preï¿½os"
 				}
 			);
 		for(int i=0; i< listaAtualizacoes.size(); i++) {

@@ -67,7 +67,7 @@ public class TelaCadastroVenda extends JFrame {
 	 * @throws ParseException 
 	 */
 	public TelaCadastroVenda(ArrayList<ProdutoVenda> listaProdutosVendidos, LinkedList<Usuario> listaNomesUsuarios, 
-			LinkedList<Cliente> listaNomesCliente){
+			LinkedList<Cliente> listaNomesCliente, Usuario usuarioLogado){
 		if (listaProdutosVendidos.isEmpty()) {
 			this.listaProdutosVendidos = new ArrayList<>();
 		} else {
@@ -176,8 +176,8 @@ public class TelaCadastroVenda extends JFrame {
 		
 		String[] arrayVendedores = new String[listaNomesUsuarios.size()];
 		for(int i = 0; i < arrayVendedores.length; i++) {
-		    Usuario usuario = listaNomesUsuarios.get(i);
-			arrayVendedores[i] = usuario.getNome();
+		    Usuario usuarioLista = listaNomesUsuarios.get(i);
+			arrayVendedores[i] = usuarioLista.getNome();
 		}
 		
 		cbVendedor = new JComboBox(arrayVendedores);
@@ -215,7 +215,7 @@ public class TelaCadastroVenda extends JFrame {
 		panel_4.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaEstoque telaEstoque = new TelaEstoque();
+				TelaEstoque telaEstoque = new TelaEstoque(usuarioLogado);
 				telaEstoque.setVisible(true);
 				dispose();
 			}
@@ -305,7 +305,7 @@ public class TelaCadastroVenda extends JFrame {
 				if (!listaProdutosVendidos.isEmpty()) {
 					TelaConfirmarVenda telaConfirmarVenda = new TelaConfirmarVenda
 							(listaProdutosVendidos, listaNomesUsuarios.get(cbVendedor.getSelectedIndex()),
-							 listaNomesCliente.get(cbClientes.getSelectedIndex()), cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex());
+							 listaNomesCliente.get(cbClientes.getSelectedIndex()), cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex(), usuarioLogado);
 					telaConfirmarVenda.setVisible(true);
 					telaConfirmarVenda.atualizarJTable();
 					telaConfirmarVenda.atualizarCampos();

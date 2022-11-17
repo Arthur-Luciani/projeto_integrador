@@ -38,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JScrollPane;
 import javax.swing.JFormattedTextField;
+import java.awt.GridLayout;
 
 public class TelaRelatorioComissao extends JFrame {
 
@@ -83,6 +84,19 @@ public class TelaRelatorioComissao extends JFrame {
 		panel_1.setBackground(new Color(240, 255, 240));
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
+		JPanel pCima = new JPanel();
+		pCima.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_2 = (FlowLayout) pCima.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.LEFT);
+		panel_1.add(pCima);
+		
+		JPanel pBaixo = new JPanel();
+		pBaixo.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_1 = (FlowLayout) pBaixo.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		panel_1.add(pBaixo);
+		
+		
 		JButton btnNewButton = new JButton("Voltar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -91,13 +105,26 @@ public class TelaRelatorioComissao extends JFrame {
 				dispose();
 			}
 		});
+		panel_1.setLayout(new GridLayout(2, 7, 0, 0));
+		
+		
+		JLabel lblEntrada = new JLabel("Data de entrada");
+		lblEntrada.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pCima.add(lblEntrada);
+		
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(btnNewButton);
+		pBaixo.add(btnNewButton);
 		
 		JFormattedTextField txtDataEntrada = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		panel_1.add(txtDataEntrada);
+		txtDataEntrada.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtDataEntrada.setColumns(7);
+		pCima.add(txtDataEntrada);
+		
+		JLabel lblDataSaida = new JLabel("Data de saída");
+		lblDataSaida.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pCima.add(lblDataSaida);
 		txtDataEntrada.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -105,14 +132,9 @@ public class TelaRelatorioComissao extends JFrame {
 			}
 		});
 		
-		
-		
-		JLabel lblAte = new JLabel("Até");
-		lblAte.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(lblAte);
-		
 		JFormattedTextField txtDataSaida = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		panel_1.add(txtDataSaida);
+		txtDataSaida.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		pCima.add(txtDataSaida);
 		txtDataSaida.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -147,7 +169,7 @@ public class TelaRelatorioComissao extends JFrame {
 		btnPesquisar.setBackground(new Color(85, 107, 47));
 		btnPesquisar.setForeground(new Color(255, 255, 255));
 		btnPesquisar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(btnPesquisar);
+		pCima.add(btnPesquisar);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);

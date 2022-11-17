@@ -51,6 +51,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroCliente extends JFrame {
 
@@ -376,6 +377,8 @@ public class TelaCadastroCliente extends JFrame {
 		panel_botoes.add(p_esquerda);
 		
 		JButton btnNewButton = new JButton("Voltar");
+		p_esquerda.add(btnNewButton);
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\icons\\icons8-à-esquerda-dentro-de-um-círculo-24.png"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClienteDao dao = new ClienteDao();
@@ -398,15 +401,10 @@ public class TelaCadastroCliente extends JFrame {
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		p_esquerda.add(btnNewButton);
-		
-		JPanel p_direita = new JPanel();
-		FlowLayout flowLayout_11 = (FlowLayout) p_direita.getLayout();
-		flowLayout_11.setAlignment(FlowLayout.RIGHT);
-		p_direita.setBackground(new Color(240, 255, 240));
-		panel_botoes.add(p_direita);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		p_esquerda.add(btnCadastrar);
+		btnCadastrar.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\icons\\icons8-mais-2-matemática-24.png"));
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();
@@ -488,6 +486,5 @@ public class TelaCadastroCliente extends JFrame {
 		btnCadastrar.setForeground(Color.WHITE);
 		btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnCadastrar.setBackground(new Color(85, 107, 47));
-		p_direita.add(btnCadastrar);
 	}
 }

@@ -38,6 +38,7 @@ import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.ImageIcon;
 import java.awt.SystemColor;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -307,6 +308,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		
 
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setIcon(new ImageIcon(TelaCadastroFuncionario.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -370,6 +372,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		});
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaCadastroFuncionario.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsuarioDao dao = new UsuarioDao();
@@ -381,36 +384,8 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
-		pbtnEsquerda.add(btnVoltar);
-		pbtnDireita.add(btnCadastrar);
-		btnCadastrar.setForeground(new Color(255, 255, 255));
-		btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		btnCadastrar.setBackground(new Color(85, 107, 47));
-		
-		
-	
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+		btnVoltar.setBounds(65, 367, 134, 37);
+		panel_1.add(btnVoltar);
 
 
 

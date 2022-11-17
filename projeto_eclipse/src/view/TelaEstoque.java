@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class TelaEstoque extends JFrame {
 
@@ -76,6 +77,7 @@ public class TelaEstoque extends JFrame {
 		panel.add(lblEstoque);
 		
 		JButton btnProdutos = new JButton("Produtos");
+		btnProdutos.setIcon(new ImageIcon(TelaEstoque.class.getResource("/images/icons8-caixa-de-papelão-24.png")));
 		btnProdutos.setBackground(new Color(85, 107, 47));
 		btnProdutos.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnProdutos.setForeground(new Color(255, 255, 255));
@@ -96,6 +98,7 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(btnProdutos);
 		
 		JButton btnVenda = new JButton("Venda");
+		btnVenda.setIcon(new ImageIcon(TelaEstoque.class.getResource("/images/icons8-cesto-de-compras-2-24.png")));
 		btnVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -117,6 +120,7 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(btnVenda);
 		
 		JButton btnFornecedores = new JButton("Fornecedores");
+		btnFornecedores.setIcon(new ImageIcon(TelaEstoque.class.getResource("/images/icons8-fornecedor-24.png")));
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FornecedorDao dao;
@@ -136,6 +140,7 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(btnFornecedores);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaEstoque.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial telaInicial = new TelaInicial(null);

@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 
 public class TelaHistoricoPrecos extends JFrame {
 
@@ -117,6 +118,7 @@ public class TelaHistoricoPrecos extends JFrame {
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaHistoricoPrecos.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProdutoDao dao = new ProdutoDao();

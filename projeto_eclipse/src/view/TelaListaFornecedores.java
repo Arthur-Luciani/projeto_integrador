@@ -36,6 +36,7 @@ import net.miginfocom.swing.MigLayout;
 import swingDesign.JTableViridisSinus;
 
 import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
 
 public class TelaListaFornecedores extends JFrame {
 
@@ -117,6 +118,7 @@ public class TelaListaFornecedores extends JFrame {
 		panel.add(panel_4);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaListaFornecedores.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaEstoque telaEstoque = new TelaEstoque();
@@ -131,6 +133,7 @@ public class TelaListaFornecedores extends JFrame {
 		panel_3.add(btnVoltar);
 		
 		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setIcon(new ImageIcon(TelaListaFornecedores.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaAtualizarFornecedor telaAtualizarFornecedor;
@@ -150,6 +153,7 @@ public class TelaListaFornecedores extends JFrame {
 		});
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnAdicionar.setIcon(new ImageIcon(TelaListaFornecedores.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		
 		btnCadastrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

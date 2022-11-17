@@ -52,6 +52,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 
 public class TelaAtualizarFornecedor extends JFrame {
 
@@ -101,7 +102,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		contentPane.add(panel);
 		
 		
-		JLabel lbAtualizaCadastrar = new JLabel("Atualizar");
+		JLabel lbAtualizaCadastrar = new JLabel("Atualizar Fornecedor");
 		lbAtualizaCadastrar.setForeground(Color.WHITE);
 		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lbAtualizaCadastrar);
@@ -227,6 +228,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		panel_1.add(txtBairro);
 
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaAtualizarFornecedor.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.setBounds(65, 360, 115, 37);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -286,6 +288,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		panel_1.add(btnVoltar);
 		
 		JButton btnAdicionar = new JButton("Atualizar");
+		btnAdicionar.setIcon(new ImageIcon(TelaAtualizarFornecedor.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Validacoes validacoes = new Validacoes();
@@ -343,7 +346,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		btnAdicionar.setForeground(Color.WHITE);
 		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAdicionar.setBackground(new Color(85, 107, 47));
-		btnAdicionar.setBounds(676, 360, 115, 37);
+		btnAdicionar.setBounds(639, 360, 152, 37);
 		panel_1.add(btnAdicionar);
 	}
 }

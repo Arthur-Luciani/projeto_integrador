@@ -27,6 +27,8 @@ import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class TelaClienteCadastros extends JFrame {
 
@@ -61,6 +63,9 @@ public class TelaClienteCadastros extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(TelaClienteCadastros.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
+		btnNewButton.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

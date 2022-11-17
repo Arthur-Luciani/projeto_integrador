@@ -42,6 +42,7 @@ import java.awt.event.MouseEvent;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 
 public class TelaListaProdutos extends JFrame {
 
@@ -118,7 +119,8 @@ public class TelaListaProdutos extends JFrame {
 		pPesquisa.add(txtPesquisa);
 		txtPesquisa.setColumns(20);
 		
-		JButton btnNewButton = new JButton("Pesquisar");
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-pesquisar-24.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaListaProdutos.this.listaProduto = dao.pesquisaProduto(txtPesquisa.getText());
@@ -129,6 +131,17 @@ public class TelaListaProdutos extends JFrame {
 		btnNewButton.setBackground(new Color(85, 107, 47));
 		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		pPesquisa.add(btnNewButton);
+		
+		JButton btnLimpar = new JButton("");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnLimpar.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-cancelar-24.png")));
+		btnLimpar.setForeground(Color.WHITE);
+		btnLimpar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnLimpar.setBackground(new Color(85, 107, 47));
+		pPesquisa.add(btnLimpar);
 		
 		JPanel pBotoes = new JPanel();
 		pBotoes.setBackground(new Color(240, 255, 240));
@@ -150,6 +163,7 @@ public class TelaListaProdutos extends JFrame {
 		
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProduto cadastroProduto;
@@ -167,6 +181,7 @@ public class TelaListaProdutos extends JFrame {
 		});
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaEstoque telaEstoque = new TelaEstoque();
@@ -180,6 +195,7 @@ public class TelaListaProdutos extends JFrame {
 		pBotoesEsquerda.add(btnVoltar);
 		
 		JButton btnHistorico = new JButton("Histórico de preços");
+		btnHistorico.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-tag-de-preço-de-venda-24.png")));
 		btnHistorico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (produtoSelecionado != null) {
@@ -206,6 +222,7 @@ public class TelaListaProdutos extends JFrame {
 		pBotoesDireita.add(btnCadastrar);
 		
 		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				try {
@@ -235,6 +252,7 @@ public class TelaListaProdutos extends JFrame {
 		pBotoesDireita.add(btnAtualizar);
 		
 		JButton btnDeletar = new JButton("Deletar");
+		btnDeletar.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-excluir-24.png")));
 		btnDeletar.setForeground(new Color(255, 255, 255));
 		btnDeletar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

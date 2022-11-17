@@ -22,6 +22,7 @@ import dao.UsuarioDao;
 import model.Cliente;
 import model.Estado;
 import model.Usuario;
+import javax.swing.ImageIcon;
 
 public class TelaInicial extends JFrame {
 	private Usuario usuario;
@@ -57,6 +58,7 @@ public class TelaInicial extends JFrame {
 		setContentPane(contentPane);
 
 		JButton btnEstoque = new JButton("Estoque");
+		btnEstoque.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-mover-por-carrinho-24.png")));
 		btnEstoque.setBounds(89, 276, 142, 39);
 		btnEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -72,6 +74,7 @@ public class TelaInicial extends JFrame {
 		contentPane.add(btnEstoque);
 
 		JButton btnRelatorios = new JButton("Rel\u00E1t\u00F3rios");
+		btnRelatorios.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-editar-relatório-gráfico-24.png")));
 		btnRelatorios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaRelatorios telaRelatorios = new TelaRelatorios();
@@ -99,6 +102,7 @@ public class TelaInicial extends JFrame {
 		panel.add(lblViridiSinus);
 
 		JButton btnCadastroDeClientes = new JButton("Cadastro de Clientes");
+		btnCadastroDeClientes.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
 		btnCadastroDeClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClienteDao dao = new ClienteDao();

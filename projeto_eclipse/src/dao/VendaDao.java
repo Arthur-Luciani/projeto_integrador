@@ -1,12 +1,12 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
 
 import model.Cliente;
 import model.ProdutoVenda;
@@ -26,7 +26,7 @@ public class VendaDao {
 			PreparedStatement ps = conexao
 					.prepareStatement("insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)"
 							+ "values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			ps.setDate(1, Date.valueOf(venda.getDataVenda()));
+			ps.setDate(1,Date.valueOf(venda.getDataVenda()));
 			ps.setFloat(2, venda.getComissaoVendedor());
 			ps.setFloat(3, venda.getLucro());
 			ps.setInt(4, cliente.getId());
@@ -111,6 +111,35 @@ public class VendaDao {
 		}
 		return listaVenda;
 	}
+	public ArrayList<Venda> resgatarComissao(Date entrada, Date saida){
+		Connection conexao = BD.getConexao();
+		ArrayList<Venda> listaComissao = new ArrayList<Venda>();
+		try {
+			PreparedStatement ps = conexao
+					.prepareStatement("select usuarios.nome As nome_usuario, SUM(venda.comissao_vendedor) AS total, COUNT(venda.id_usuario) AS total2 from venda inner join usuarios on venda.id_usuario = usuarios.id_usuario where mydb.venda.data_venda between ? and ? group by venda.id_usuario");
+			ps.setDate(1, entrada);
+			ps.setDate(2, saida);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				do {
+					Venda venda = new Venda();
+					Usuario vendedor = new Usuario();
+					venda.setComissaoVendedor(rs.getFloat("total"));
+					vendedor.setNome(rs.getString("nome_usuario"));
+					venda.setVendas_Vendedor(rs.getInt("total2"));
+					
+					venda.setVendedor(vendedor);
+					listaComissao.add(venda);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listaComissao;
+	}
+	
 	/*
 	public void atualizarVenda(Venda venda){		
 		Connection conexao = BD.getConexao();

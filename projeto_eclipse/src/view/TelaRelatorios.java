@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -16,26 +18,11 @@ import javax.swing.border.EmptyBorder;
 
 import dao.ClienteDao;
 import model.Cliente;
+import model.Venda;
 
 public class TelaRelatorios extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaRelatorios frame = new TelaRelatorios();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -91,7 +78,15 @@ public class TelaRelatorios extends JFrame {
 		JButton btnComissao = new JButton("Comissão");
 		btnComissao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				TelaRelatorioComissao comissao;
+				try {
+					comissao = new TelaRelatorioComissao(null);
+					comissao.setVisible(true);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dispose();
 			}
 		});
 		

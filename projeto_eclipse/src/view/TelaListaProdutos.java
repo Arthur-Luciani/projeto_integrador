@@ -135,6 +135,9 @@ public class TelaListaProdutos extends JFrame {
 		JButton btnLimpar = new JButton("");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txtPesquisa.setText("");
+				TelaListaProdutos.this.listaProduto = dao.pesquisaProduto(txtPesquisa.getText());
+				atualizarJTable();
 			}
 		});
 		btnLimpar.setIcon(new ImageIcon(TelaListaProdutos.class.getResource("/images/icons8-cancelar-24.png")));
@@ -291,7 +294,7 @@ public class TelaListaProdutos extends JFrame {
 			Produto p = listaProduto.get(i);
 			String quantidade;
 			if (p.getQuantEstoque()<=0) {
-				quantidade = "Indisponível";
+				quantidade = "Indisponï¿½vel";
 			} else {
 				quantidade = String.valueOf(p.getQuantEstoque());
 			}

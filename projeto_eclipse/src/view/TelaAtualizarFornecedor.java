@@ -157,7 +157,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 		txtTelefone.setColumns(10);
 
 		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(65, 84, 192, 26);
+		lblEmail.setBounds(65, 83, 192, 26);
 		lblEmail.setFont(new Font("Segoe Script", Font.PLAIN, 16));
 		panel_1.add(lblEmail);
 

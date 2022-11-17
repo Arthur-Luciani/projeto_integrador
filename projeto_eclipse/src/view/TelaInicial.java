@@ -138,7 +138,7 @@ public class TelaInicial extends JFrame {
 		btnFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsuarioDao dao = new UsuarioDao();
-				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
+				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios(), usuarioLogado);
 				telaListaFuncionarios.setVisible(true);
 				dispose();
 			}

@@ -57,28 +57,13 @@ public class TelaCadastroFuncionario extends JFrame {
 	private static Border bordaVermelha = BorderFactory.createLineBorder(Color.red);
 	private static Border bordaNormal = BorderFactory.createLineBorder(Color.GRAY);
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new TelaCadastroFuncionario();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 * 
 	 */
-	public TelaCadastroFuncionario() {
+	public TelaCadastroFuncionario(Usuario usuarioLogado) {
 		setBackground(new Color(240, 255, 240));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -359,7 +344,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					Usuario novoUsuario = new Usuario(login, nome, senha, LocalDate.parse(dataNascimentoStr, formatacao), cpf, permissao);
 					UsuarioDao dao = new UsuarioDao();
 					if (dao.cadastro(novoUsuario)== true) {
-						TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
+						TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios(), usuarioLogado);
 						telaListaFuncionarios.setVisible(true);
 						dispose();
 					} else {
@@ -376,7 +361,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsuarioDao dao = new UsuarioDao();
-				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
+				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios(), usuarioLogado);
 				telaListaFuncionarios.setVisible(true);
 				dispose();
 			}

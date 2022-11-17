@@ -109,7 +109,7 @@ public class TelaRelatorios extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicial telaInicial = new TelaInicial(null);
+				TelaInicial telaInicial = new TelaInicial(usuarioLogado);
 				telaInicial.setVisible(true);
 				dispose();
 			}

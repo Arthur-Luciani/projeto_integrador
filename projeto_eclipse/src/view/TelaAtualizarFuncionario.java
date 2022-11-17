@@ -63,7 +63,7 @@ public class TelaAtualizarFuncionario extends JFrame {
 	 * Create the frame.
 	 * 
 	 */
-	public TelaAtualizarFuncionario(Usuario usuario) {
+	public TelaAtualizarFuncionario(Usuario usuario, Usuario usuarioLogado) {
 		setBackground(new Color(240, 255, 240));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -352,7 +352,7 @@ public class TelaAtualizarFuncionario extends JFrame {
 					Usuario novoUsuario = new Usuario(login, nome, senha, LocalDate.parse(dataNascimentoStr, formatacao), cpf, permissao, usuario.getIdade(), usuario.getIdUsuario());
 					UsuarioDao dao = new UsuarioDao();
 					if (dao.atualizarUsuario(novoUsuario)== true) {
-						TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
+						TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios(), usuarioLogado);
 						telaListaFuncionarios.setVisible(true);
 						dispose();
 					} else {
@@ -368,7 +368,7 @@ public class TelaAtualizarFuncionario extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsuarioDao dao = new UsuarioDao();
-				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios());
+				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios(), usuarioLogado);
 				telaListaFuncionarios.setVisible(true);
 				dispose();
 			}

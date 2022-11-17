@@ -31,6 +31,7 @@ import model.Cliente;
 import model.Produto;
 import model.Usuario;
 import model.Venda;
+import swingDesign.JTableViridisSinus;
 
 import javax.swing.JTable;
 import java.awt.BorderLayout;
@@ -174,7 +175,7 @@ public class TelaRelatorioComissao extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
+		table = new JTableViridisSinus().padraoJtable();
 		table.setBackground(new Color(240, 255, 240));
 		table.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		table.setModel(new DefaultTableModel(

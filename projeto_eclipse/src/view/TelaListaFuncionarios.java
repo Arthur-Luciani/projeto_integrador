@@ -48,7 +48,7 @@ public class TelaListaFuncionarios extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListaFuncionarios(LinkedList<Usuario> listaFuncionario) {
+	public TelaListaFuncionarios(LinkedList<Usuario> listaFuncionario, Usuario usuarioLogado) {
 		this.listaFuncionario = listaFuncionario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -109,7 +109,7 @@ public class TelaListaFuncionarios extends JFrame {
 		panel_3.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicial inicio = new TelaInicial(null);
+				TelaInicial inicio = new TelaInicial(usuarioLogado);
 				inicio.setVisible(true);
 				dispose();
 			}
@@ -128,7 +128,7 @@ public class TelaListaFuncionarios extends JFrame {
 		panel_2.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario();
+				TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario(usuarioLogado);
 				telaCadastroFuncionario.setVisible(true);
 				dispose();
 			}
@@ -142,7 +142,7 @@ public class TelaListaFuncionarios extends JFrame {
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(funcionarioSelecionado!=null) {
-					TelaAtualizarFuncionario telaAtualizarFuncionario = new TelaAtualizarFuncionario(funcionarioSelecionado);
+					TelaAtualizarFuncionario telaAtualizarFuncionario = new TelaAtualizarFuncionario(funcionarioSelecionado, usuarioLogado);
 					telaAtualizarFuncionario.setVisible(true);
 					dispose();
 				}else {

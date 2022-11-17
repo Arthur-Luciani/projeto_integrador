@@ -153,7 +153,7 @@ public class TelaListaFornecedores extends JFrame {
 		});
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
-		btnAdicionar.setIcon(new ImageIcon(TelaListaFornecedores.class.getResource("/images/icons8-mais-2-matemática-24.png")));
+		btnCadastrar.setIcon(new ImageIcon(TelaListaFornecedores.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		
 		btnCadastrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

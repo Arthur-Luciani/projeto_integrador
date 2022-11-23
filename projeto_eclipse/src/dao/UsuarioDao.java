@@ -91,7 +91,7 @@ public class UsuarioDao {
 		Connection conexao = BD.getConexao();
 		try {
 			
-			PreparedStatement ps = conexao.prepareStatement("select * from usuarios");
+			PreparedStatement ps = conexao.prepareStatement("select * from usuarios where ativo = 1");
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
@@ -122,8 +122,9 @@ public class UsuarioDao {
 		Connection connection = BD.getConexao();
 		try {
 			PreparedStatement ps= connection
-					.prepareStatement("delete from usuarios where id_usuario = ?");
+					.prepareStatement("update usuarios set ativo = 0 where id_usuario = ?");
 			ps.setInt(1, id);
+			System.out.println(ps);
 			ps.execute();
 			BD.fechaConexao();
 		} catch (SQLException e) {

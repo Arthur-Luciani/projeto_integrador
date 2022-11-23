@@ -280,20 +280,12 @@ public class TelaCadastroFuncionario extends JFrame {
 								pbtnDireita.setBackground(new Color(240, 255, 240));
 								panel_2.add(pbtnDireita);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-		JButton btnCadastrar = new JButton("Cadastrar");
+								JButton btnCadastrar = new JButton("Cadastrar");
+								btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+								btnCadastrar.setForeground(new Color(255, 255, 255));
+								btnCadastrar.setBackground(new Color(85, 107, 47));
 		btnCadastrar.setIcon(new ImageIcon(TelaCadastroFuncionario.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
+		pbtnDireita.add(btnCadastrar);
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -370,7 +362,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
 		btnVoltar.setBounds(65, 367, 134, 37);
-		panel_1.add(btnVoltar);
+		pbtnEsquerda.add(btnVoltar);
 
 
 

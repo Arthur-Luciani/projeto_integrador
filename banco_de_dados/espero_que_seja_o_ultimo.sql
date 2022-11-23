@@ -148,6 +148,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`usuarios` (
   `data_nascimento` DATE NULL DEFAULT NULL,
   `idade` INT NULL DEFAULT NULL,
   `permissao` TINYINT(4) NULL DEFAULT NULL,
+  `ativo` TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id_usuario`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -258,9 +259,9 @@ INSERT INTO Estados(id, nome, uf, ibge, pais, ddd) VALUES
 (27, 'Tocantins', 'TO', 17, 1, '63'),
 (99, 'Exterior', 'EX', 99, NULL, NULL);
 
-
-
-insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade) values ( 'arthur' , 'Arthur' , '123' , '2004-10-14' , '08607179926' , 18 );
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao, ativo) values ( 'arthur01' , 'Arthur' , '123' , '2004-10-14' , '08607179926' , 18, 1, 1);
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao, ativo) values ( 'gabi' , 'Gabrieli' , '123' , '2004-10-14' , '08607179926' , 18, 1, 1);
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao, ativo) values ( 'duda' , 'Eduarda' , '123' , '2004-10-14' , '08607179926' , 18, 1, 1);
 
 
 

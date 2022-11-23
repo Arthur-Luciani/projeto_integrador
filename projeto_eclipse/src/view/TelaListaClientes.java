@@ -30,12 +30,16 @@ import model.Usuario;
 
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window;
+
 import javax.swing.ImageIcon;
 
 public class TelaListaClientes extends JFrame {
@@ -47,6 +51,13 @@ public class TelaListaClientes extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaListaClientes(LinkedList<Cliente> listaCliente, Usuario usuarioLogado) {
 		this.listaCliente = listaCliente;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

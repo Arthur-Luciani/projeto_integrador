@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -32,6 +33,8 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
@@ -79,6 +82,13 @@ public class TelaAtualizarCliente extends JFrame {
 	 * Create the frame.
 	 * 
 	 */
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaAtualizarCliente(LinkedList<Estado> listaEstados, Cliente clienteSelecionado, Usuario usuarioLogado)  {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

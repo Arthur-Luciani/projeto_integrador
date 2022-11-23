@@ -180,37 +180,16 @@ public class TelaListaFornecedores extends JFrame {
 		btnAtualizar.setForeground(Color.WHITE);
 		btnAtualizar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAtualizar.setBackground(new Color(85, 107, 47));
-		panel_4.add(btnAtualizar);
-		
-		JButton btnNewButton = new JButton("Deletar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (fornecedorSelecionado!=null) {
-					FornecedorDao dao = new FornecedorDao();
-					dao.deletarFornecedor(fornecedorSelecionado.getCnpj());
-				}else {
-					TelaMensagem telaMensagem = new TelaMensagem("Nenhum fornecedor selecionado");
-					telaMensagem.setVisible(true);
-				}
-			}
-		});
-		btnNewButton.setBackground(new Color(85, 107, 47));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_4.add(btnNewButton);
+		panel_4.add(btnAtualizar);		
 		
 		if (usuarioLogado.isPermissao()) {
 			btnAtualizar.setEnabled(true);
 			btnCadastrar.setEnabled(true);
-			btnNewButton.setEnabled(true);
 		} else {
 			btnAtualizar.setEnabled(false);
 			btnCadastrar.setEnabled(false);
-			btnNewButton.setEnabled(false);
 		}
-		
 	}
-	
 
 	protected void atualizarJTable() {
 		DefaultTableModel modelo = new DefaultTableModel(

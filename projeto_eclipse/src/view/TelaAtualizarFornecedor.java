@@ -290,9 +290,10 @@ public class TelaAtualizarFornecedor extends JFrame {
 		}	
 		
 		JComboBox cbEstado = new JComboBox(arrayEstados);
+		cbEstado.setBackground(new Color(85, 107, 47));
 		cbEstado.setSelectedIndex(estadoSelecionado);
 		cbEstado.setBounds(320, 321, 265, 34);
-		cbEstado.setFont(new Font("Segoe Script", Font.ITALIC, 16));
+		cbEstado.setFont(new Font("Segoe Script", Font.PLAIN, 16));
 		panel_1.add(cbEstado);
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));

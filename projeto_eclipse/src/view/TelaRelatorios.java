@@ -24,6 +24,9 @@ import model.Cliente;
 import model.Usuario;
 import model.Venda;
 import javax.swing.ImageIcon;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class TelaRelatorios extends JFrame {
 
@@ -49,10 +52,24 @@ public class TelaRelatorios extends JFrame {
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+				contentPane.setLayout(null);
+		
+				JPanel panel = new JPanel();
+				panel.setBounds(3, 5, 823, 99);
+				panel.setBackground(new Color(85, 107, 47));
+				FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+				flowLayout.setAlignment(FlowLayout.RIGHT);
+				panel.setForeground(Color.WHITE);
+				contentPane.add(panel);
+				
+						JLabel lblRelatorios = new JLabel("Relatórios");
+						lblRelatorios.setForeground(Color.WHITE);
+						lblRelatorios.setFont(new Font("Segoe Print", Font.PLAIN, 50));
+						panel.add(lblRelatorios);
 		
 		JButton btnProdutosVendidos = new JButton("Produtos");
+		btnProdutosVendidos.setBounds(262, 267, 162, 37);
 		btnProdutosVendidos.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-caixa-de-papelão-24.png")));
-		btnProdutosVendidos.setBounds(10, 276, 256, 39);
 		btnProdutosVendidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaRelatorioVendas telaRelatorioVendas = new TelaRelatorioVendas(usuarioLogado);
@@ -61,58 +78,44 @@ public class TelaRelatorios extends JFrame {
 				dispose();
 			}
 		});
-		contentPane.setLayout(null);
+				
+						JLabel label_1 = new JLabel("");
+						label_1.setBounds(0, 0, 0, 0);
+						contentPane.add(label_1);	
+		
+				JLabel label = new JLabel("");
+				label.setBounds(0, 0, 0, 0);
+				contentPane.add(label);
 		btnProdutosVendidos.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnProdutosVendidos.setBackground(new Color(85, 107, 47));
 		btnProdutosVendidos.setForeground(new Color(255, 255, 255));
 		contentPane.add(btnProdutosVendidos);
-
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 5, 824, 99);
-		panel.setBackground(new Color(85, 107, 47));
-		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		panel.setForeground(Color.WHITE);
-		contentPane.add(panel);
-
-		JLabel lblRelatorios = new JLabel("Relatórios");
-		lblRelatorios.setForeground(Color.WHITE);
-		lblRelatorios.setFont(new Font("Segoe Print", Font.PLAIN, 50));
-		panel.add(lblRelatorios);
-
-		JButton btnComissao = new JButton("Comissão");
-		btnComissao.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
-		btnComissao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaRelatorioComissao comissao;
-				try {
-					comissao = new TelaRelatorioComissao(null, usuarioLogado);
-					comissao.setVisible(true);
-					comissao.setLocationRelativeTo(null);
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				dispose();
-			}
-		});
 		
-		btnComissao.setBounds(469, 276, 232, 39);
-		btnComissao.setToolTipText("");
-		btnComissao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		btnComissao.setBackground(new Color(85, 107, 47));
-		btnComissao.setForeground(new Color(255, 255, 255));
-		contentPane.add(btnComissao);
-
-		JLabel label = new JLabel("");
-		label.setBounds(839, 257, 0, 0);
-		contentPane.add(label);
-
-		JLabel label_1 = new JLabel("");
-		label_1.setBounds(839, 257, 0, 0);
-		contentPane.add(label_1);	
+				JButton btnComissao = new JButton("Comissão");
+				btnComissao.setBounds(466, 267, 133, 37);
+				btnComissao.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
+				btnComissao.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						TelaRelatorioComissao comissao;
+						try {
+							comissao = new TelaRelatorioComissao(null, usuarioLogado);
+							comissao.setVisible(true);
+							comissao.setLocationRelativeTo(null);
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						dispose();
+					}
+				});
+				btnComissao.setToolTipText("");
+				btnComissao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+				btnComissao.setBackground(new Color(85, 107, 47));
+				btnComissao.setForeground(new Color(255, 255, 255));
+				contentPane.add(btnComissao);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setBounds(3, 455, 188, 39);
 		btnVoltar.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,7 +128,6 @@ public class TelaRelatorios extends JFrame {
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnVoltar.setBackground(new Color(85, 107, 47));
-		btnVoltar.setBounds(10, 461, 140, 39);
 		contentPane.add(btnVoltar);
 
 		

@@ -45,6 +45,7 @@ import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.ImageIcon;
 
 public class TelaAtualizarFuncionario extends JFrame {
 
@@ -92,7 +93,7 @@ public class TelaAtualizarFuncionario extends JFrame {
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		JLabel lblCadastro = new JLabel("Atualizar");
+		JLabel lblCadastro = new JLabel("Atualizar Funcionário");
 		lblCadastro.setForeground(Color.WHITE);
 		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblCadastro);
@@ -274,7 +275,8 @@ public class TelaAtualizarFuncionario extends JFrame {
 								pDireita.add(panel_1);
 								
 								JComboBox cbPermissao = new JComboBox();
-								cbPermissao.setFont(new Font("Tahoma", Font.PLAIN, 16));
+								cbPermissao.setBackground(new Color(85, 107, 47));
+								cbPermissao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 								cbPermissao.setModel(new DefaultComboBoxModel(new String[] {"Vendedor", "Administrador"}));
 								if (usuario.isPermissao()) {
 									cbPermissao.setSelectedIndex(1);
@@ -312,6 +314,7 @@ public class TelaAtualizarFuncionario extends JFrame {
 		
 
 		JButton btnCadastrar = new JButton("Atualizar");
+		btnCadastrar.setIcon(new ImageIcon(TelaAtualizarFuncionario.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -378,6 +381,7 @@ public class TelaAtualizarFuncionario extends JFrame {
 		});
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaAtualizarFuncionario.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsuarioDao dao = new UsuarioDao();

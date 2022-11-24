@@ -125,6 +125,7 @@ public class TelaInicial extends JFrame {
 		contentPane.add(label_1);	
 		
 		JButton btnFuncionarios = new JButton("Funcionários");		
+		btnFuncionarios.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\src\\images\\icons8-fornecedor-24.png"));
 		
 		if (usuarioLogado.isPermissao()) {
 			btnFuncionarios.setEnabled(true);

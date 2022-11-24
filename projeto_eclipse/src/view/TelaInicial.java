@@ -122,7 +122,7 @@ public class TelaInicial extends JFrame {
 		contentPane.add(label_1);	
 		
 		JButton btnFuncionarios = new JButton("Funcionários");		
-		btnFuncionarios.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-funcionário-homem-24.png")));
+		
 		if (usuarioLogado.isPermissao()) {
 			btnFuncionarios.setEnabled(true);
 			btnRelatorios.setEnabled(true);

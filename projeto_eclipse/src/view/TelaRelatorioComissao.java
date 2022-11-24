@@ -112,6 +112,7 @@ public class TelaRelatorioComissao extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaRelatorios relatorio = new TelaRelatorios(usuarioLogado);
 				relatorio.setVisible(true);
+				relatorio.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -179,6 +180,7 @@ public class TelaRelatorioComissao extends JFrame {
 				} catch (NullPointerException e2) {
 					TelaMensagem telaMensagem = new TelaMensagem("Data inválida");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 		}});
 		btnPesquisar.setBackground(new Color(85, 107, 47));

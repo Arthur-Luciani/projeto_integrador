@@ -187,6 +187,7 @@ public class TelaListaProdutos extends JFrame {
 				
 				cadastroProduto = new TelaCadastroProduto(listaFornecedores, null, usuario);
 				cadastroProduto.setVisible(true);
+				cadastroProduto.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -197,6 +198,7 @@ public class TelaListaProdutos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaEstoque telaEstoque = new TelaEstoque(usuario);
 				telaEstoque.setVisible(true);
+				telaEstoque.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -214,10 +216,12 @@ public class TelaListaProdutos extends JFrame {
 					TelaHistoricoPrecos telaHistoricoPrecos = new TelaHistoricoPrecos(listaAtualizacaoProdutos, produtoSelecionado, usuario);
 					telaHistoricoPrecos.atualizarJTable();
 					telaHistoricoPrecos.setVisible(true);
+					telaHistoricoPrecos.setLocationRelativeTo(null);
 					dispose();
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 				
 				
@@ -244,10 +248,12 @@ public class TelaListaProdutos extends JFrame {
 					ArrayList<Fornecedores> listaFornecedores = daoF.resgatarFornecedores();
 					TelaAtualizarProduto telaAtualizarProduto = new TelaAtualizarProduto(listaFornecedores, produtoSelecionado, usuario);
 					telaAtualizarProduto.setVisible(true);
+					telaAtualizarProduto.setLocationRelativeTo(null);
 					dispose();
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 			}
 			
@@ -270,6 +276,7 @@ public class TelaListaProdutos extends JFrame {
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto selecionado");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 				
 				

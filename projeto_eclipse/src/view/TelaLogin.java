@@ -161,10 +161,12 @@ public class TelaLogin extends JFrame {
 					if (usuario != null) {
 						TelaInicial telaInicial = new TelaInicial(usuario);
 						telaInicial.setVisible(true);
+						telaInicial.setLocationRelativeTo(null);
 						dispose();
 					} else {
 						TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
 						telaMensagem.setVisible(true);
+						telaMensagem.setLocationRelativeTo(null);
 					}
 
 				}

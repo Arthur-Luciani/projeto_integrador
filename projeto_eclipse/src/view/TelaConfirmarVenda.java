@@ -343,11 +343,19 @@ public class TelaConfirmarVenda extends JFrame {
 				if (tipoPagamento!=null) {
 					Venda venda = new Venda(LocalDate.now(), comissao, lucroTotal, cliente, usuario, tipoPagamento);
 					VendaDao dao = new VendaDao();
-					dao.cadastroVenda(venda, listaProdutosVendidos);
 					
-					telaCadastroVenda.setVisible(true);
-					telaCadastroVenda.setLocationRelativeTo(null);
-					dispose();
+					
+					if (dao.cadastroVenda(venda, listaProdutosVendidos)) {
+						telaCadastroVenda.setVisible(true);
+						telaCadastroVenda.setLocationRelativeTo(null);
+						
+						dispose();
+						
+						TelaMensagem telaMensagem = new TelaMensagem("Venda realizada com sucesso");
+						telaMensagem.setVisible(true);
+						telaMensagem.setLocationRelativeTo(null);
+					}
+					
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum tipo de pagamento selecionado");
 					telaMensagem.setVisible(true);

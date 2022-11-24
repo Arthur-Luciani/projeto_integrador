@@ -68,6 +68,7 @@ public class TelaCadastroProduto extends JFrame {
 	}
 	
 	public TelaCadastroProduto(ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado, Usuario usuario)   {
+		setResizable(false);
 		this.listaFornecedor = listaFornecedores;
 		this.produtoSelecionado =produtoSelecionado;
 		

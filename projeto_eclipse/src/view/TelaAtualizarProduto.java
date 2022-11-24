@@ -68,6 +68,7 @@ public class TelaAtualizarProduto extends JFrame {
 	}
 	
 	public TelaAtualizarProduto(ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado, Usuario usuario) {
+		setResizable(false);
 		this.listaFornecedor = listaFornecedores;
 		this.produtoSelecionado =produtoSelecionado;
 		

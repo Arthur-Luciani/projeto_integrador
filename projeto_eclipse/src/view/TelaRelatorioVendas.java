@@ -26,6 +26,7 @@ import model.RelatorioVendas;
 import model.Usuario;
 
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -90,7 +91,7 @@ public class TelaRelatorioVendas extends JFrame {
 	}
 	
 	public TelaRelatorioVendas(Usuario usuarioLogado) {
-		
+		setResizable(false);
 		setBackground(new Color(240, 255, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -123,22 +124,7 @@ public class TelaRelatorioVendas extends JFrame {
 		table_2.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
+
 			},
 			new String[] {
 				"Nome", "Quantidade", "Lucro"
@@ -308,12 +294,6 @@ public class TelaRelatorioVendas extends JFrame {
 		for(int i=0; i< listaRelatorioVendas.size(); i++) {
 			RelatorioVendas r = listaRelatorioVendas.get(i);
 			modelo.addRow(new Object[] { r.getNome(), r.getLucro(), r.getQuantidade()});
-		}
-		if (listaRelatorioVendas.size()<17) {
-			for (int i = 0; i < (17-listaRelatorioVendas.size()); i++) {
-				
-				modelo.addRow(new Object[][] {null, null, null});
-			}
 		}
 		
 		table_2.setModel(modelo);

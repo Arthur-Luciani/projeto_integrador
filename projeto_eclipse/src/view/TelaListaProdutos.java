@@ -70,7 +70,7 @@ public class TelaListaProdutos extends JFrame {
 	
 	public TelaListaProdutos(ArrayList<Produto> listaProdutos, Usuario usuario) {
 		this.listaProduto = listaProdutos;
-		
+		setResizable(false);
 		setBackground(new Color(240, 255, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);

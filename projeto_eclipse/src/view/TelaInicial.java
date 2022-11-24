@@ -29,7 +29,7 @@ public class TelaInicial extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void centreWindow(Window frame) {
+	public static void centreWindow(JFrame frame) {
 	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
 	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
@@ -41,6 +41,7 @@ public class TelaInicial extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaInicial(Usuario usuarioLogado) {
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -51,7 +52,7 @@ public class TelaInicial extends JFrame {
 
 		JButton btnEstoque = new JButton("Estoque");
 		btnEstoque.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-mover-por-carrinho-24.png")));
-		btnEstoque.setBounds(89, 276, 142, 39);
+		btnEstoque.setBounds(56, 276, 142, 39);
 		btnEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaEstoque telaEstoque = new TelaEstoque(usuarioLogado);
@@ -74,7 +75,7 @@ public class TelaInicial extends JFrame {
 				dispose();
 			}
 		});
-		btnRelatorios.setBounds(328, 276, 170, 39);
+		btnRelatorios.setBounds(208, 276, 170, 39);
 		btnRelatorios.setForeground(new Color(255, 255, 255));
 		btnRelatorios.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnRelatorios.setBackground(new Color(85, 107, 47));
@@ -121,6 +122,7 @@ public class TelaInicial extends JFrame {
 		contentPane.add(label_1);	
 		
 		JButton btnFuncionarios = new JButton("Funcionários");		
+		
 		if (usuarioLogado.isPermissao()) {
 			btnFuncionarios.setEnabled(true);
 			btnRelatorios.setEnabled(true);
@@ -139,7 +141,7 @@ public class TelaInicial extends JFrame {
 		btnFuncionarios.setForeground(Color.WHITE);
 		btnFuncionarios.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnFuncionarios.setBackground(new Color(85, 107, 47));
-		btnFuncionarios.setBounds(668, 439, 142, 39);
+		btnFuncionarios.setBounds(388, 276, 180, 39);
 		contentPane.add(btnFuncionarios);
 
 	}

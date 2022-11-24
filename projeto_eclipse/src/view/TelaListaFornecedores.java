@@ -59,6 +59,7 @@ public class TelaListaFornecedores extends JFrame {
 	
 
 	public TelaListaFornecedores(ArrayList<Fornecedores> listaFornecedores, Usuario usuarioLogado) {
+		setResizable(false);
 		setBackground(new Color(240, 255, 240));
 		this.listaFornecedores = listaFornecedores;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

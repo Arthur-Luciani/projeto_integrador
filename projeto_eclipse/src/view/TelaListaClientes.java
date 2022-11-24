@@ -59,6 +59,7 @@ public class TelaListaClientes extends JFrame {
 	}
 	
 	public TelaListaClientes(LinkedList<Cliente> listaCliente, Usuario usuarioLogado) {
+		setResizable(false);
 		this.listaCliente = listaCliente;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -120,7 +121,7 @@ public class TelaListaClientes extends JFrame {
 		panel_3.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicial inicio = new TelaInicial(null);
+				TelaInicial inicio = new TelaInicial(usuarioLogado);
 				inicio.setVisible(true);
 				dispose();
 			}

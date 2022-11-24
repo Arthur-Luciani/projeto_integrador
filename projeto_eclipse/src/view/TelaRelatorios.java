@@ -37,7 +37,7 @@ public class TelaRelatorios extends JFrame {
 		setContentPane(contentPane);
 		
 		JButton btnProdutosVendidos = new JButton("Produtos");
-		btnProdutosVendidos.setBounds(10, 276, 256, 39);
+		btnProdutosVendidos.setBounds(96, 276, 256, 39);
 		btnProdutosVendidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaRelatorioVendas telaRelatorioVendas = new TelaRelatorioVendas(usuarioLogado);
@@ -50,18 +50,6 @@ public class TelaRelatorios extends JFrame {
 		btnProdutosVendidos.setBackground(new Color(85, 107, 47));
 		btnProdutosVendidos.setForeground(new Color(255, 255, 255));
 		contentPane.add(btnProdutosVendidos);
-		
-		JButton btnVendas = new JButton("Vendas por período");
-		btnVendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnVendas.setBounds(315, 276, 232, 39);
-		btnVendas.setForeground(new Color(255, 255, 255));
-		btnVendas.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		btnVendas.setBackground(new Color(85, 107, 47));
-		contentPane.add(btnVendas);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 5, 824, 99);
@@ -91,7 +79,7 @@ public class TelaRelatorios extends JFrame {
 			}
 		});
 		
-		btnComissao.setBounds(592, 276, 232, 39);
+		btnComissao.setBounds(469, 276, 232, 39);
 		btnComissao.setToolTipText("");
 		btnComissao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnComissao.setBackground(new Color(85, 107, 47));

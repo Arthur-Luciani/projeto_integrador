@@ -109,7 +109,7 @@ public class TelaListaClientes extends JFrame {
 		panel_3.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaInicial inicio = new TelaInicial(null);
+				TelaInicial inicio = new TelaInicial(usuarioLogado);
 				inicio.setVisible(true);
 				dispose();
 			}

@@ -164,8 +164,13 @@ public class TelaRelatorioComissao extends JFrame {
 				} catch (DateTimeException e2) {
 					txtDataSaida.setBorder(bordaVermelha);
 				}
-				ArrayList<Venda> listaComissao = dao.resgatarComissao(Date.valueOf(dataEntrada), Date.valueOf(dataSaida));
-				atualizarJTable(listaComissao);
+				try {
+					ArrayList<Venda> listaComissao = dao.resgatarComissao(Date.valueOf(dataEntrada), Date.valueOf(dataSaida));
+					atualizarJTable(listaComissao);
+				} catch (NullPointerException e2) {
+					TelaMensagem telaMensagem = new TelaMensagem("Data inválida");
+					telaMensagem.setVisible(true);
+				}
 		}});
 		btnPesquisar.setBackground(new Color(85, 107, 47));
 		btnPesquisar.setForeground(new Color(255, 255, 255));

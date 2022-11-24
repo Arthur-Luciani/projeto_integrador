@@ -138,6 +138,7 @@ public class TelaHistoricoPrecos extends JFrame {
 				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos(), usuario);
 				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
+				telaListaProdutos.setLocationRelativeTo(null);
 				dispose();
 			}
 		});

@@ -248,6 +248,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 				TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores, usuarioLogado);
 				telaFornecedores.atualizarJTable();
 				telaFornecedores.setVisible(true);
+				telaFornecedores.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -350,6 +351,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 					TelaListaFornecedores telaListaFornecedores = new TelaListaFornecedores(dao.resgatarFornecedores(), usuarioLogado);
 					telaListaFornecedores.atualizarJTable();
 					telaListaFornecedores.setVisible(true);
+					telaListaFornecedores.setLocationRelativeTo(null);
 					dispose();
 				}
 			}

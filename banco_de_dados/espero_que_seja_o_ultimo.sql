@@ -261,6 +261,7 @@ INSERT INTO Estados(id, nome, uf, ibge, pais, ddd) VALUES
 
 
 insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade) values ( 'arthur' , 'Arthur' , '123' , '2004-10-14' , '08607179926' , 18 );
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade) values ( 'gabi' , 'Gabrieli' , '1234' , '2004-10-14' , '11466129905' , 17,1);
 
 
 

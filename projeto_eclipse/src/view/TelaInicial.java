@@ -2,33 +2,29 @@ package view;
  
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import dao.ClienteDao;
-import dao.EstadoDao;
 import dao.UsuarioDao;
 import model.Cliente;
-import model.Estado;
 import model.Usuario;
 import javax.swing.ImageIcon;
 
+
 public class TelaInicial extends JFrame {
 	private JPanel contentPane;
+	private static TelaInicial frame;
+
 
 	/**
 	 * Launch the application.
@@ -40,19 +36,6 @@ public class TelaInicial extends JFrame {
 	    frame.setLocation(x, y);
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaInicial frame = new TelaInicial(null);
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -160,4 +143,5 @@ public class TelaInicial extends JFrame {
 		contentPane.add(btnFuncionarios);
 
 	}
+
 }

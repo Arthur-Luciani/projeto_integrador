@@ -1,4 +1,4 @@
-package model;
+package validacoes;
 
 import java.util.InputMismatchException;
 

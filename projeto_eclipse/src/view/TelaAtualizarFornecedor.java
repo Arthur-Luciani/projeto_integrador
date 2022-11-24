@@ -27,8 +27,6 @@ import model.Estado;
 import model.Fornecedores;
 import model.Produto;
 import model.Usuario;
-import model.ValidaCPF;
-import model.Validacoes;
 
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
@@ -36,6 +34,9 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
+import validacoes.ValidaCPF;
+import validacoes.Validacoes;
+
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;

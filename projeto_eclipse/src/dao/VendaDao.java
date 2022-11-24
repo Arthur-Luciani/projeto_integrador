@@ -17,7 +17,7 @@ public class VendaDao {
 
 	public VendaDao(){}
 	
-	public void cadastroVenda(Venda venda, ArrayList<ProdutoVenda>listaProdutosVendidos) {
+	public boolean cadastroVenda(Venda venda, ArrayList<ProdutoVenda>listaProdutosVendidos) {
 		Connection conexao = BD.getConexao();
 		Cliente cliente = venda.getCliente();
 		Usuario usuario = venda.getVendedor();
@@ -79,7 +79,9 @@ public class VendaDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println(e.getMessage());
+			return false;
 		}
+		return true;
 	}
 	
 	

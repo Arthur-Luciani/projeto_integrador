@@ -21,7 +21,6 @@ import javax.swing.text.MaskFormatter;
 
 import dao.UsuarioDao;
 import model.Usuario;
-import model.ValidaCPF;
 
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
@@ -33,6 +32,8 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
+import validacoes.ValidaCPF;
+
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;

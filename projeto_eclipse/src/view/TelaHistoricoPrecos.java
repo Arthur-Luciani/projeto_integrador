@@ -58,6 +58,7 @@ public class TelaHistoricoPrecos extends JFrame {
 	}
 	
 	public TelaHistoricoPrecos(ArrayList<AtualizacaoProduto> listaAtualizacoes, Produto produtoSelecionado, Usuario usuario) {
+		setResizable(false);
 		this.listaAtualizacoes = listaAtualizacoes;
 		this.produtoSelecionado = produtoSelecionado;
 		

@@ -53,7 +53,7 @@ public class TelaMensagem extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaMensagem(String mensagem) {
-		setResizable(true);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 350, 200);
 		contentPane = new JPanel();

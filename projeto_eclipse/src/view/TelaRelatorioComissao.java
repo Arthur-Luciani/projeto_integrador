@@ -70,8 +70,7 @@ public class TelaRelatorioComissao extends JFrame {
 	public TelaRelatorioComissao(ArrayList<Venda> listaComissao, Usuario usuarioLogado) throws ParseException {
 		this.listaComissao=listaComissao;
 		VendaDao dao = new VendaDao();
-		
-		
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();

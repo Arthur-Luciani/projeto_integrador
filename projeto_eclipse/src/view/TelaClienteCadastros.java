@@ -50,6 +50,7 @@ public class TelaClienteCadastros extends JFrame {
 	}
 	
 	public TelaClienteCadastros(LinkedList<Cliente> listaClientes, Usuario usuarioLogado) {
+		setResizable(false);
 		this.listaCliente = listaClientes;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);

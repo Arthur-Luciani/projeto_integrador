@@ -59,6 +59,7 @@ public class TelaListaClientes extends JFrame {
 	}
 	
 	public TelaListaClientes(LinkedList<Cliente> listaCliente, Usuario usuarioLogado) {
+		setResizable(false);
 		this.listaCliente = listaCliente;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);

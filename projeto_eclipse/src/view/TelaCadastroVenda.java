@@ -84,6 +84,7 @@ public class TelaCadastroVenda extends JFrame {
 			this.listaProdutosVendidos = listaProdutosVendidos;
 		}
 		
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();

@@ -80,6 +80,8 @@ public class TelaConfirmarVenda extends JFrame {
 	public TelaConfirmarVenda(ArrayList<ProdutoVenda>listaProdutosVendidos, Usuario usuario, Cliente cliente, int usuarioSelecionado, int clienteSelecionado, Usuario usuarioLogado) {
 		this.listaProdutosVendidos= listaProdutosVendidos;
 		
+		
+		setResizable(false);
 		getContentPane().setBackground(new Color(240, 255, 240));
 		
 		JPanel pTitulo = new JPanel();

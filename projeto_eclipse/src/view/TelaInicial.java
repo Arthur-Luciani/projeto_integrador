@@ -148,7 +148,21 @@ public class TelaInicial extends JFrame {
 		btnFuncionarios.setBackground(new Color(85, 107, 47));
 		btnFuncionarios.setBounds(388, 276, 180, 39);
 		contentPane.add(btnFuncionarios);
+		
+		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaLogin telaLogin = new TelaLogin();
+				telaLogin.setVisible(true);
+				telaLogin.setLocationRelativeTo(null);
+				dispose();
+			}
+		});
+		btnSair.setForeground(new Color(255, 255, 255));
+		btnSair.setBackground(new Color(85, 107, 47));
+		btnSair.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		btnSair.setBounds(721, 477, 89, 23);
+		contentPane.add(btnSair);
 
 	}
-
 }

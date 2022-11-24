@@ -85,6 +85,7 @@ public class TelaEstoque extends JFrame {
 				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(listaProdutos, usuarioLogado);
 				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
+				telaListaProdutos.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -103,6 +104,7 @@ public class TelaEstoque extends JFrame {
 				ArrayList<ProdutoVenda> listaProdutosVendidos = new ArrayList<>();
 				TelaCadastroVenda telaCadastroVenda = new TelaCadastroVenda(listaProdutosVendidos, listaNomesUsuarios, listaNomesClientes, usuarioLogado);
 				telaCadastroVenda.setVisible(true);
+				telaCadastroVenda.setLocationRelativeTo(null);
 				dispose();
 
 			}
@@ -124,6 +126,7 @@ public class TelaEstoque extends JFrame {
 					TelaListaFornecedores telaFornecedores = new TelaListaFornecedores(listaFornecedores, usuarioLogado);
 					telaFornecedores.atualizarJTable();
 					telaFornecedores.setVisible(true);
+					telaFornecedores.setLocationRelativeTo(null);
 					dispose();
 			}
 		});
@@ -139,6 +142,7 @@ public class TelaEstoque extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial telaInicial = new TelaInicial(usuarioLogado);
 				telaInicial.setVisible(true);
+				telaInicial.setLocationRelativeTo(null);
 				dispose();
 			}
 		});

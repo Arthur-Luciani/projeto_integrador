@@ -338,6 +338,7 @@ public class TelaCadastroFuncionario extends JFrame {
 					if (txtSenha.getText().equals(txtConfSenha.getText()) != true) {
 						TelaMensagem m = new TelaMensagem("As senhas não coincidem");
 						m.setVisible(true);
+						m.setLocationRelativeTo(null);
 					}
 					if (ValidaCPF.isCPF(cpf) != true) {
 						txtCpf.setBorder(bordaVermelha);
@@ -349,10 +350,12 @@ public class TelaCadastroFuncionario extends JFrame {
 					if (dao.cadastro(novoUsuario)== true) {
 						TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios(), usuarioLogado);
 						telaListaFuncionarios.setVisible(true);
+						telaListaFuncionarios.setLocationRelativeTo(null);
 						dispose();
 					} else {
 						TelaMensagem m = new TelaMensagem("Login j� utilizado");
 						m.setVisible(true);
+						m.setLocationRelativeTo(null);
 						txtLogin.setForeground(new Color(255, 0, 0));
 					}
 				}
@@ -366,6 +369,7 @@ public class TelaCadastroFuncionario extends JFrame {
 				UsuarioDao dao = new UsuarioDao();
 				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios(), usuarioLogado);
 				telaListaFuncionarios.setVisible(true);
+				telaListaFuncionarios.setLocationRelativeTo(null);
 				dispose();
 			}
 		}); 

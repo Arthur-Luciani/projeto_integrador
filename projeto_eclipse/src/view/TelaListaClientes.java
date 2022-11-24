@@ -123,6 +123,7 @@ public class TelaListaClientes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial inicio = new TelaInicial(usuarioLogado);
 				inicio.setVisible(true);
+				inicio.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -145,6 +146,7 @@ public class TelaListaClientes extends JFrame {
 				LinkedList<Estado> listaEstados = estados.resgatarEstados();
 				TelaCadastroCliente cadastro = new TelaCadastroCliente(listaEstados, true, null, usuarioLogado);
 				cadastro.setVisible(true);
+				cadastro.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -162,10 +164,12 @@ public class TelaListaClientes extends JFrame {
 					LinkedList<Estado> listaEstados = estados.resgatarEstados();
 					TelaAtualizarCliente atualizado = new TelaAtualizarCliente(listaEstados, clienteSelecionado, usuarioLogado);
 					atualizado.setVisible(true);
+					atualizado.setLocationRelativeTo(null);
 					dispose();
 				}else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum cliente selecionado para atualizar");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 			}
 		});

@@ -98,6 +98,7 @@ public class TelaCadastroProduto extends JFrame {
 				TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos(), usuario);
 				telaListaProdutos.atualizarJTable();
 				telaListaProdutos.setVisible(true);
+				telaListaProdutos.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -312,13 +313,16 @@ public class TelaCadastroProduto extends JFrame {
 						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos(), usuario);
 						telaListaProdutos.atualizarJTable();
 						telaListaProdutos.setVisible(true);
+						telaListaProdutos.setLocationRelativeTo(null);
 						dispose();
 					} else {
 						TelaListaProdutos telaListaProdutos = new TelaListaProdutos(dao.resgatarProdutos(), usuario);
 						telaListaProdutos.atualizarJTable();
 						telaListaProdutos.setVisible(true);
+						telaListaProdutos.setLocationRelativeTo(null);
 						TelaMensagem telaMensagem = new TelaMensagem("Produto já cadastrado no sistema");
 						telaMensagem.setVisible(true);
+						telaMensagem.setLocationRelativeTo(null);
 						dispose();
 					}
 				}

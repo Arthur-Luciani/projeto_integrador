@@ -1,9 +1,12 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -20,6 +23,7 @@ import dao.ClienteDao;
 import model.Cliente;
 import model.Usuario;
 import model.Venda;
+import javax.swing.ImageIcon;
 
 public class TelaRelatorios extends JFrame {
 
@@ -28,6 +32,15 @@ public class TelaRelatorios extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
+	
 	public TelaRelatorios(Usuario usuarioLogado) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -37,7 +50,8 @@ public class TelaRelatorios extends JFrame {
 		setContentPane(contentPane);
 		
 		JButton btnProdutosVendidos = new JButton("Produtos");
-		btnProdutosVendidos.setBounds(96, 276, 256, 39);
+		btnProdutosVendidos.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-caixa-de-papelão-24.png")));
+		btnProdutosVendidos.setBounds(10, 276, 256, 39);
 		btnProdutosVendidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaRelatorioVendas telaRelatorioVendas = new TelaRelatorioVendas(usuarioLogado);
@@ -65,6 +79,7 @@ public class TelaRelatorios extends JFrame {
 		panel.add(lblRelatorios);
 
 		JButton btnComissao = new JButton("Comissão");
+		btnComissao.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
 		btnComissao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaRelatorioComissao comissao;
@@ -95,6 +110,7 @@ public class TelaRelatorios extends JFrame {
 		contentPane.add(label_1);	
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial telaInicial = new TelaInicial(usuarioLogado);

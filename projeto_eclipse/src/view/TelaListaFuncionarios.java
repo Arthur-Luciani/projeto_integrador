@@ -32,12 +32,15 @@ import swingDesign.JTableViridisSinus;
 
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window;
 
 public class TelaListaFuncionarios extends JFrame {
 
@@ -48,6 +51,13 @@ public class TelaListaFuncionarios extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaListaFuncionarios(LinkedList<Usuario> listaFuncionario, Usuario usuarioLogado) {
 		this.listaFuncionario = listaFuncionario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

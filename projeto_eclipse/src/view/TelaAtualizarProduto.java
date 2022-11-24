@@ -1,8 +1,11 @@
 package view;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -57,6 +60,13 @@ public class TelaAtualizarProduto extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaAtualizarProduto(ArrayList<Fornecedores> listaFornecedores, Produto produtoSelecionado, Usuario usuario) {
 		this.listaFornecedor = listaFornecedores;
 		this.produtoSelecionado =produtoSelecionado;

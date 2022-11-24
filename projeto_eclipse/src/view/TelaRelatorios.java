@@ -64,20 +64,6 @@ public class TelaRelatorios extends JFrame {
 		btnProdutosVendidos.setBackground(new Color(85, 107, 47));
 		btnProdutosVendidos.setForeground(new Color(255, 255, 255));
 		contentPane.add(btnProdutosVendidos);
-		
-		JButton btnVendas = new JButton("Vendas");
-		btnVendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaRelatorioVendas vendas = new TelaRelatorioVendas(usuarioLogado);
-				vendas.setVisible(true);
-				dispose();
-			}
-		});
-		btnVendas.setBounds(315, 276, 232, 39);
-		btnVendas.setForeground(new Color(255, 255, 255));
-		btnVendas.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		btnVendas.setBackground(new Color(85, 107, 47));
-		contentPane.add(btnVendas);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 5, 824, 99);

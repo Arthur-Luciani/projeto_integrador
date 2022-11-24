@@ -83,6 +83,7 @@ public class TelaClienteCadastros extends JFrame {
 				
 				TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 				cadastros.setVisible(true);
+				cadastros.setLocationRelativeTo(null);
 				dispose();
 			}
 		});

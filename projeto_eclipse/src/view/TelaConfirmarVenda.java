@@ -331,6 +331,7 @@ public class TelaConfirmarVenda extends JFrame {
 				telaCadastroVenda.atualizarJTable(listaProdutosVendidos);
 				telaCadastroVenda.atualizarComboBox(clienteSelecionado, usuarioSelecionado);
 				telaCadastroVenda.setVisible(true);
+				telaCadastroVenda.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -345,10 +346,12 @@ public class TelaConfirmarVenda extends JFrame {
 					dao.cadastroVenda(venda, listaProdutosVendidos);
 					
 					telaCadastroVenda.setVisible(true);
+					telaCadastroVenda.setLocationRelativeTo(null);
 					dispose();
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum tipo de pagamento selecionado");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 				
 			}

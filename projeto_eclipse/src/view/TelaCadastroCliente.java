@@ -457,6 +457,7 @@ public class TelaCadastroCliente extends JFrame {
 				if (depoisDaLista) {
 					TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 					cadastros.setVisible(true);
+					cadastros.setLocationRelativeTo(null);
 					dispose();
 				} else {
 					DadosCadastroVenda dados = (DadosCadastroVenda) objeto;
@@ -466,6 +467,7 @@ public class TelaCadastroCliente extends JFrame {
 					telaCadastroVenda.atualizarJTable(dados.getListaProdutosVendidos());
 					telaCadastroVenda.atualizarComboBox(dados.getClienteSelecionado(), dados.getUsuarioSelecionado());
 					telaCadastroVenda.setVisible(true);
+					telaCadastroVenda.setLocationRelativeTo(null);
 					dispose();
 				}
 			}
@@ -546,6 +548,7 @@ public class TelaCadastroCliente extends JFrame {
 					if (depoisDaLista) {
 						TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 						cadastros.setVisible(true);
+						cadastros.setLocationRelativeTo(null);
 						dispose();
 					} else {
 						DadosCadastroVenda dados = (DadosCadastroVenda) objeto;
@@ -556,6 +559,7 @@ public class TelaCadastroCliente extends JFrame {
 						telaCadastroVenda.atualizarComboBox(dados.getClienteSelecionado(),
 								dados.getUsuarioSelecionado());
 						telaCadastroVenda.setVisible(true);
+						telaCadastroVenda.setLocationRelativeTo(null);
 						dispose();
 					}
 

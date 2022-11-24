@@ -483,6 +483,7 @@ public class TelaAtualizarCliente extends JFrame {
 				
 				TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 				cadastros.setVisible(true);
+				cadastros.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -559,6 +560,7 @@ public class TelaAtualizarCliente extends JFrame {
 					LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 					TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 					cadastros.setVisible(true);
+					cadastros.setLocationRelativeTo(null);
 					dispose();
 					
 				}

@@ -169,6 +169,7 @@ public class TelaCadastroVenda extends JFrame {
 				
 				TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente(dao.resgatarEstados(), false, dados, usuarioLogado);
 				telaCadastroCliente.setVisible(true);
+				telaCadastroCliente.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -228,6 +229,7 @@ public class TelaCadastroVenda extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaEstoque telaEstoque = new TelaEstoque(usuarioLogado);
 				telaEstoque.setVisible(true);
+				telaEstoque.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -318,12 +320,14 @@ public class TelaCadastroVenda extends JFrame {
 							(listaProdutosVendidos, listaNomesUsuarios.get(cbVendedor.getSelectedIndex()),
 							 listaNomesCliente.get(cbClientes.getSelectedIndex()), cbVendedor.getSelectedIndex(), cbClientes.getSelectedIndex(), usuarioLogado);
 					telaConfirmarVenda.setVisible(true);
+					telaConfirmarVenda.setLocationRelativeTo(null);
 					telaConfirmarVenda.atualizarJTable();
 					telaConfirmarVenda.atualizarCampos();
 					dispose();
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum produto adicionado");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 			}
 		});
@@ -403,6 +407,7 @@ public class TelaCadastroVenda extends JFrame {
 						}else {
 							TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
 							telaMensagem.setVisible(true);
+							telaMensagem.setLocationRelativeTo(null);
 						}
 					} else {
 						if (produtoVenda.getQuantEstoque()>=produtoVenda.getQuantidade()) {
@@ -410,52 +415,16 @@ public class TelaCadastroVenda extends JFrame {
 						} else {
 							TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
 							telaMensagem.setVisible(true);
+							telaMensagem.setLocationRelativeTo(null);
 						}
 					}
 					atualizarJTable(listaProdutosVendidos);
 				} catch (NumberFormatException e2) {
 					TelaMensagem telaMensagem = new TelaMensagem("Indique a quantidade");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 					txtQuantidade.setBorder(bordaVermelha);
 				}
-
-			
-				
-				
-				
-				/*
-				
-					if (listaProdutosVendidos.isEmpty()) {
-						listaProdutosVendidos.add(produtoVenda);
-					} else {
-						boolean jaExiste =false;
-						for (int i = 0; i < listaProdutosVendidos.size(); i++) {
-							ProdutoVenda produtoVendido = listaProdutosVendidos.get(i);
-							if (produtoVendido.getId() == produtoVenda.getId()) {
-								jaExiste = true;								
-								produtoVendido.setQuantidade(produtoVendido.getQuantidade()+produtoVenda.getQuantidade());
-								if (produtoVendido.getQuantEstoque()>=produtoVendido.getQuantidade()) {
-									listaProdutosVendidos.set(i, produtoVendido);
-								} else {
-									TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
-									telaMensagem.setVisible(true);
-									break;
-								}
-								
-							}
-							else {
-								jaExiste = false;
-							}
-						}
-						if (!jaExiste) {
-							if (produtoVenda.getQuantEstoque()>produtoVenda.getQuantidade()) {
-								listaProdutosVendidos.add(produtoVenda);
-							} else {
-								TelaMensagem telaMensagem = new TelaMensagem("Estoque indisponível");
-								telaMensagem.setVisible(true);
-							}
-						}	
-					}		*/			
 					
 			}
 		});

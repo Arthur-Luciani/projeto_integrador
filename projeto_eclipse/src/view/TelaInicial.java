@@ -57,6 +57,7 @@ public class TelaInicial extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaEstoque telaEstoque = new TelaEstoque(usuarioLogado);
 				telaEstoque.setVisible(true);
+				telaEstoque.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -72,6 +73,7 @@ public class TelaInicial extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaRelatorios telaRelatorios = new TelaRelatorios(usuarioLogado);
 				telaRelatorios.setVisible(true);
+				telaRelatorios.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -102,6 +104,7 @@ public class TelaInicial extends JFrame {
 				LinkedList<Cliente> listaCliente = dao.resgatarCliente();
 				TelaListaClientes cadastros = new TelaListaClientes(listaCliente, usuarioLogado);
 				cadastros.setVisible(true);
+				cadastros.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -122,6 +125,7 @@ public class TelaInicial extends JFrame {
 		contentPane.add(label_1);	
 		
 		JButton btnFuncionarios = new JButton("Funcionários");		
+		btnFuncionarios.setIcon(new ImageIcon("C:\\Users\\Aluno\\Documents\\projeto_integrador\\projeto_eclipse\\src\\images\\icons8-fornecedor-24.png"));
 		
 		if (usuarioLogado.isPermissao()) {
 			btnFuncionarios.setEnabled(true);
@@ -135,6 +139,7 @@ public class TelaInicial extends JFrame {
 				UsuarioDao dao = new UsuarioDao();
 				TelaListaFuncionarios telaListaFuncionarios = new TelaListaFuncionarios(dao.resgatarUsuarios(), usuarioLogado);
 				telaListaFuncionarios.setVisible(true);
+				telaListaFuncionarios.setLocationRelativeTo(null);
 				dispose();
 			}
 		});

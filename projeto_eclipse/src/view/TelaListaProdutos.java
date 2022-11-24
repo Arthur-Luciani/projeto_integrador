@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +25,8 @@ import model.Usuario;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
 import net.miginfocom.swing.MigLayout;
@@ -57,9 +61,16 @@ public class TelaListaProdutos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaListaProdutos(ArrayList<Produto> listaProdutos, Usuario usuario) {
 		this.listaProduto = listaProdutos;
-		
+		setResizable(false);
 		setBackground(new Color(240, 255, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);

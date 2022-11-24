@@ -29,6 +29,8 @@ import javax.swing.ButtonGroup;
 
 import java.awt.GridLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.Box;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -46,6 +48,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JButton;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.Window;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.ImageIcon;
 
@@ -65,9 +70,18 @@ public class TelaConfirmarVenda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaConfirmarVenda(ArrayList<ProdutoVenda>listaProdutosVendidos, Usuario usuario, Cliente cliente, int usuarioSelecionado, int clienteSelecionado, Usuario usuarioLogado) {
 		this.listaProdutosVendidos= listaProdutosVendidos;
 		
+		
+		setResizable(false);
 		getContentPane().setBackground(new Color(240, 255, 240));
 		
 		JPanel pTitulo = new JPanel();

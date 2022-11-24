@@ -32,12 +32,16 @@ import swingDesign.JTableViridisSinus;
 
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window;
+import javax.swing.ImageIcon;
 
 public class TelaListaFuncionarios extends JFrame {
 
@@ -48,7 +52,15 @@ public class TelaListaFuncionarios extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaListaFuncionarios(LinkedList<Usuario> listaFuncionario, Usuario usuarioLogado) {
+		setResizable(false);
 		this.listaFuncionario = listaFuncionario;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -106,6 +118,7 @@ public class TelaListaFuncionarios extends JFrame {
 		panel_1.add(panel_3);
 		
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setIcon(new ImageIcon(TelaListaFuncionarios.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		panel_3.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,6 +138,7 @@ public class TelaListaFuncionarios extends JFrame {
 		panel_1.add(panel_2);
 		
 		JButton btnNewButton_1 = new JButton("Cadastrar");
+		btnNewButton_1.setIcon(new ImageIcon(TelaListaFuncionarios.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		panel_2.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -138,6 +152,7 @@ public class TelaListaFuncionarios extends JFrame {
 		btnNewButton_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JButton btnNewButton_3 = new JButton("Atualizar");
+		btnNewButton_3.setIcon(new ImageIcon(TelaListaFuncionarios.class.getResource("/images/icons8-confirmação-e-atualização-24.png")));
 		panel_2.add(btnNewButton_3);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -156,6 +171,7 @@ public class TelaListaFuncionarios extends JFrame {
 		btnNewButton_3.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JButton btnNewButton_2 = new JButton("Deletar");
+		btnNewButton_2.setIcon(new ImageIcon(TelaListaFuncionarios.class.getResource("/images/icons8-excluir-24.png")));
 		panel_2.add(btnNewButton_2);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

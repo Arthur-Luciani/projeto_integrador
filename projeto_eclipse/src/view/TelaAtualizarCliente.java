@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -32,6 +33,8 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
@@ -79,6 +82,13 @@ public class TelaAtualizarCliente extends JFrame {
 	 * Create the frame.
 	 * 
 	 */
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaAtualizarCliente(LinkedList<Estado> listaEstados, Cliente clienteSelecionado, Usuario usuarioLogado)  {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,6 +121,9 @@ public class TelaAtualizarCliente extends JFrame {
 		lbl1.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(lbl1);
 		
+		JLabel lblNewLabel_3 = new JLabel("                            ");
+		lbl1.add(lblNewLabel_3);
+		
 		JPanel lbl3 = new JPanel();
 		lbl3.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(lbl3);
@@ -118,10 +131,6 @@ public class TelaAtualizarCliente extends JFrame {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(panel_2);
-		
-		JLabel lblNewLabel_2 = new JLabel("CPF");
-		lblNewLabel_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_2.add(lblNewLabel_2);
 		
 		JPanel lbl4 = new JPanel();
 		lbl4.setBackground(new Color(240, 255, 240));
@@ -131,41 +140,21 @@ public class TelaAtualizarCliente extends JFrame {
 		lbl5.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(lbl5);
 		
-		JLabel lblRua = new JLabel("Rua");
-		lblRua.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		lbl5.add(lblRua);
-		
 		JPanel lbl6 = new JPanel();
 		lbl6.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(lbl6);
-		
-		JLabel lblBairro = new JLabel("Bairro");
-		lblBairro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		lbl6.add(lblBairro);
 		
 		JPanel lbl7 = new JPanel();
 		lbl7.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(lbl7);
 		
-		JLabel lblCidade = new JLabel("Cidade");
-		lblCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		lbl7.add(lblCidade);
-		
 		JPanel lbl8 = new JPanel();
 		lbl8.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(lbl8);
 		
-		JLabel lblNumero = new JLabel("Numero");
-		lblNumero.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		lbl8.add(lblNumero);
-		
 		JPanel lbl9 = new JPanel();
 		lbl9.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(lbl9);
-		
-		JLabel lblNewLabel = new JLabel("Estado");
-		lblNewLabel.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		lbl9.add(lblNewLabel);
 
 		JPanel panel_txt = new JPanel();
 		panel_txt.setBackground(new Color(240, 255, 240));
@@ -177,11 +166,28 @@ public class TelaAtualizarCliente extends JFrame {
 		t1.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t1);
 		
+				JLabel lblNome = new JLabel("Nome");
+				t1.add(lblNome);
+				lblNome.setBounds(65, 10, 46, 29);
+				lblNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
 		JPanel t3 = new JPanel();
 		FlowLayout flowLayout_3 = (FlowLayout) t3.getLayout();
 		flowLayout_3.setAlignment(FlowLayout.LEFT);
 		t3.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t3);
+		
+				txtNome = new JTextField();
+				t3.add(txtNome);
+				txtNome.setText(clienteSelecionado.getNome());
+				txtNome.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent e) {
+						txtNome.setBorder(bordaNormal);
+					}
+				});
+				txtNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+				txtNome.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
 		FlowLayout flowLayout_12 = (FlowLayout) panel_3.getLayout();
@@ -189,7 +195,36 @@ public class TelaAtualizarCliente extends JFrame {
 		panel_3.setBackground(new Color(240, 255, 240));
 		panel_txt.add(panel_3);
 		
+				JLabel lblDataNascimento = new JLabel("Data de Nascimento");
+				panel_3.add(lblDataNascimento);
+				lblDataNascimento.setBounds(65, 139, 197, 26);
+				lblDataNascimento.setFont(new Font("Segoe Script", Font.PLAIN, 16));
+		
+		JPanel t4 = new JPanel();
+		FlowLayout flowLayout_9 = (FlowLayout) t4.getLayout();
+		flowLayout_9.setAlignment(FlowLayout.LEFT);
+		t4.setBackground(new Color(240, 255, 240));
+		panel_txt.add(t4);
+		
+		
+		JPanel t5 = new JPanel();
+		FlowLayout flowLayout_8 = (FlowLayout) t5.getLayout();
+		flowLayout_8.setAlignment(FlowLayout.LEFT);
+		t5.setBackground(new Color(240, 255, 240));
+		panel_txt.add(t5);
+		
+		JLabel lblNewLabel_2 = new JLabel("CPF");
+		t5.add(lblNewLabel_2);
+		lblNewLabel_2.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JPanel t6 = new JPanel();
+		FlowLayout flowLayout_7 = (FlowLayout) t6.getLayout();
+		flowLayout_7.setAlignment(FlowLayout.LEFT);
+		t6.setBackground(new Color(240, 255, 240));
+		panel_txt.add(t6);
+		
 		txtCPF = new JTextField();
+		t6.add(txtCPF);
 		txtCPF.setText(clienteSelecionado.getCpf());
 		txtCPF.addFocusListener(new FocusAdapter() {
 			@Override
@@ -198,50 +233,7 @@ public class TelaAtualizarCliente extends JFrame {
 			}
 		});
 		txtCPF.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_3.add(txtCPF);
 		txtCPF.setColumns(10);
-		
-		JPanel t4 = new JPanel();
-		FlowLayout flowLayout_9 = (FlowLayout) t4.getLayout();
-		flowLayout_9.setAlignment(FlowLayout.LEFT);
-		t4.setBackground(new Color(240, 255, 240));
-		panel_txt.add(t4);
-		
-		JPanel t5 = new JPanel();
-		FlowLayout flowLayout_8 = (FlowLayout) t5.getLayout();
-		flowLayout_8.setAlignment(FlowLayout.LEFT);
-		t5.setBackground(new Color(240, 255, 240));
-		panel_txt.add(t5);
-		
-		txtRua = new JTextField();
-		txtRua.setText(clienteSelecionado.getRua());
-		txtRua.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				txtRua.setBorder(bordaNormal);
-			}
-		});
-		txtRua.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		t5.add(txtRua);
-		txtRua.setColumns(10);
-		
-		JPanel t6 = new JPanel();
-		FlowLayout flowLayout_7 = (FlowLayout) t6.getLayout();
-		flowLayout_7.setAlignment(FlowLayout.LEFT);
-		t6.setBackground(new Color(240, 255, 240));
-		panel_txt.add(t6);
-		
-		txtBairro = new JTextField();
-		txtBairro.setText(clienteSelecionado.getBairro());
-		txtBairro.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				txtBairro.setBorder(bordaNormal);
-			}
-		});
-		txtBairro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		t6.add(txtBairro);
-		txtBairro.setColumns(10);
 		
 		JPanel t7 = new JPanel();
 		FlowLayout flowLayout_6 = (FlowLayout) t7.getLayout();
@@ -249,17 +241,10 @@ public class TelaAtualizarCliente extends JFrame {
 		t7.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t7);
 		
-		txtCidade = new JTextField();
-		txtCidade.setText(clienteSelecionado.getCidade());
-		txtCidade.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				txtCidade.setBorder(bordaNormal);
-			}
-		});
-		txtCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		t7.add(txtCidade);
-		txtCidade.setColumns(10);
+				JLabel lblEmail = new JLabel("Email");
+				t7.add(lblEmail);
+				lblEmail.setBounds(65, 200, 197, 29);
+				lblEmail.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		JPanel t8 = new JPanel();
 		FlowLayout flowLayout_5 = (FlowLayout) t8.getLayout();
@@ -267,23 +252,28 @@ public class TelaAtualizarCliente extends JFrame {
 		t8.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t8);
 		
-		txtNumero = new JTextField();
-		txtNumero.setText(String.valueOf(clienteSelecionado.getNumero()));
-		txtNumero.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				txtNumero.setBorder(bordaNormal);
-			}
-		});
-		txtNumero.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		t8.add(txtNumero);
-		txtNumero.setColumns(10);
+				txtEmail = new JTextField();
+				t8.add(txtEmail);
+				txtEmail.setText(clienteSelecionado.getEmail());
+				txtEmail.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent e) {
+						txtEmail.setBorder(bordaNormal);
+						txtEmail.setForeground(Color.DARK_GRAY);
+					}
+				});
+				txtEmail.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+				txtEmail.setColumns(10);
 		
 		JPanel t9 = new JPanel();
 		FlowLayout flowLayout_4 = (FlowLayout) t9.getLayout();
 		flowLayout_4.setAlignment(FlowLayout.LEFT);
 		t9.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t9);
+		
+		JLabel lblRua = new JLabel("Rua");
+		t9.add(lblRua);
+		lblRua.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		
 		
 		
@@ -295,79 +285,31 @@ public class TelaAtualizarCliente extends JFrame {
 		    }
 			arrayEstados[i] = estado.getNomeEstado();
 		}
-
-		JComboBox cbEstados = new JComboBox(arrayEstados);
-		cbEstados.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		cbEstados.setSelectedIndex(estadoSelecionado);
-		t9.add(cbEstados);
-
-		JLabel lblNome = new JLabel("Nome");
-		lblNome.setBounds(65, 10, 46, 29);
-		lblNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		lbl1.add(lblNome);
-
-		txtNome = new JTextField();
-		txtNome.setText(clienteSelecionado.getNome());
-		txtNome.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				txtNome.setBorder(bordaNormal);
-			}
-		});
-		panel_txt.setLayout(new GridLayout(10, 1, 0, 0));
-		txtNome.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		t1.add(txtNome);
-		txtNome.setColumns(10);
-
-		JLabel lblDataNascimento = new JLabel("Data de Nascimento");
-		lblDataNascimento.setBounds(65, 139, 197, 26);
-		lblDataNascimento.setFont(new Font("Segoe Script", Font.PLAIN, 16));
-		lbl3.add(lblDataNascimento);
+		panel_txt.setLayout(new GridLayout(10, 2, 0, 0));
 
 		try {
-			txtDataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			
 			Date date = Date.valueOf(clienteSelecionado.getDataNascimento());
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			txtDataNascimento = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			t4.add(txtDataNascimento);
 			txtDataNascimento.setText(format.format(date));
+			txtDataNascimento.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					txtDataNascimento.setBorder(bordaNormal);
+				}
+			});
+			txtDataNascimento.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+			txtDataNascimento.setColumns(10);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		txtDataNascimento.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				txtDataNascimento.setBorder(bordaNormal);
-			}
-		});
-		txtDataNascimento.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		txtDataNascimento.setColumns(10);
-		t3.add(txtDataNascimento);
-
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(65, 200, 197, 29);
-		lblEmail.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		lbl4.add(lblEmail);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(240, 255, 240));
 		panel_lbl.add(panel_1);
-		
-		JLabel lblNewLabel_1 = new JLabel("CEP");
-		lblNewLabel_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		panel_1.add(lblNewLabel_1);
-
-		txtEmail = new JTextField();
-		txtEmail.setText(clienteSelecionado.getEmail());
-		txtEmail.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				txtEmail.setBorder(bordaNormal);
-				txtEmail.setForeground(Color.DARK_GRAY);
-			}
-		});
-		txtEmail.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		txtEmail.setColumns(10);
-		t4.add(txtEmail);
 		
 		JPanel t10 = new JPanel();
 		FlowLayout flowLayout_2 = (FlowLayout) t10.getLayout();
@@ -375,7 +317,142 @@ public class TelaAtualizarCliente extends JFrame {
 		t10.setBackground(new Color(240, 255, 240));
 		panel_txt.add(t10);
 		
+		txtRua = new JTextField();
+		t10.add(txtRua);
+		txtRua.setText(clienteSelecionado.getRua());
+		txtRua.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtRua.setBorder(bordaNormal);
+			}
+		});
+		txtRua.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtRua.setColumns(10);
+		
+		JPanel panel_4 = new JPanel();
+		FlowLayout flowLayout_18 = (FlowLayout) panel_4.getLayout();
+		flowLayout_18.setAlignment(FlowLayout.LEFT);
+		panel_4.setBackground(new Color(240, 255, 240));
+		panel_txt.add(panel_4);
+		
+		JLabel lblBairro = new JLabel("Bairro");
+		panel_4.add(lblBairro);
+		lblBairro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_17 = (FlowLayout) panel_5.getLayout();
+		flowLayout_17.setAlignment(FlowLayout.LEFT);
+		panel_txt.add(panel_5);
+		
+		txtBairro = new JTextField();
+		panel_5.add(txtBairro);
+		txtBairro.setText(clienteSelecionado.getBairro());
+		txtBairro.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtBairro.setBorder(bordaNormal);
+			}
+		});
+		txtBairro.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtBairro.setColumns(10);
+		
+		JPanel panel_6 = new JPanel();
+		FlowLayout flowLayout_19 = (FlowLayout) panel_6.getLayout();
+		flowLayout_19.setAlignment(FlowLayout.LEFT);
+		panel_6.setBackground(new Color(240, 255, 240));
+		panel_txt.add(panel_6);
+		
+		JLabel lblCidade = new JLabel("Cidade");
+		panel_6.add(lblCidade);
+		lblCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_16 = (FlowLayout) panel_7.getLayout();
+		flowLayout_16.setAlignment(FlowLayout.LEFT);
+		panel_txt.add(panel_7);
+		
+		txtCidade = new JTextField();
+		panel_7.add(txtCidade);
+		txtCidade.setText(clienteSelecionado.getCidade());
+		txtCidade.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtCidade.setBorder(bordaNormal);
+			}
+		});
+		txtCidade.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtCidade.setColumns(10);
+		
+		JPanel panel_8 = new JPanel();
+		FlowLayout flowLayout_20 = (FlowLayout) panel_8.getLayout();
+		flowLayout_20.setAlignment(FlowLayout.LEFT);
+		panel_8.setBackground(new Color(240, 255, 240));
+		panel_txt.add(panel_8);
+		
+		JLabel lblNumero = new JLabel("Numero");
+		panel_8.add(lblNumero);
+		lblNumero.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JPanel panel_9 = new JPanel();
+		panel_9.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_15 = (FlowLayout) panel_9.getLayout();
+		flowLayout_15.setAlignment(FlowLayout.LEFT);
+		panel_txt.add(panel_9);
+		
+		txtNumero = new JTextField();
+		panel_9.add(txtNumero);
+		txtNumero.setText(String.valueOf(clienteSelecionado.getNumero()));
+		txtNumero.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtNumero.setBorder(bordaNormal);
+			}
+		});
+		txtNumero.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		txtNumero.setColumns(10);
+		
+		JPanel panel_10 = new JPanel();
+		FlowLayout flowLayout_21 = (FlowLayout) panel_10.getLayout();
+		flowLayout_21.setAlignment(FlowLayout.LEFT);
+		panel_10.setBackground(new Color(240, 255, 240));
+		panel_txt.add(panel_10);
+		
+		JLabel lblNewLabel = new JLabel("Estado");
+		panel_10.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JPanel panel_11 = new JPanel();
+		panel_11.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_13 = (FlowLayout) panel_11.getLayout();
+		flowLayout_13.setAlignment(FlowLayout.LEFT);
+		panel_txt.add(panel_11);
+		
+				JComboBox cbEstados = new JComboBox(arrayEstados);
+				cbEstados.setBackground(new Color(85, 107, 47));
+				panel_11.add(cbEstados);
+				cbEstados.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+				cbEstados.setSelectedIndex(estadoSelecionado);
+		
+		JPanel panel_12 = new JPanel();
+		FlowLayout flowLayout_22 = (FlowLayout) panel_12.getLayout();
+		flowLayout_22.setAlignment(FlowLayout.LEFT);
+		panel_12.setBackground(new Color(240, 255, 240));
+		panel_txt.add(panel_12);
+		
+		JLabel lblNewLabel_1 = new JLabel("CEP");
+		panel_12.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		
+		JPanel panel_13 = new JPanel();
+		panel_13.setBackground(new Color(240, 255, 240));
+		FlowLayout flowLayout_14 = (FlowLayout) panel_13.getLayout();
+		flowLayout_14.setAlignment(FlowLayout.LEFT);
+		panel_txt.add(panel_13);
+		
 		txtCep = new JTextField();
+		panel_13.add(txtCep);
 		txtCep.setText(clienteSelecionado.getCep());
 		txtCep.addFocusListener(new FocusAdapter() {
 			@Override
@@ -384,7 +461,6 @@ public class TelaAtualizarCliente extends JFrame {
 			}
 		});
 		txtCep.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		t10.add(txtCep);
 		txtCep.setColumns(10);
 		
 		JPanel panel_botoes = new JPanel();

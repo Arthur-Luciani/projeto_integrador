@@ -28,6 +28,8 @@ import model.Usuario;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JScrollPane;
 import javax.swing.border.MatteBorder;
 import net.miginfocom.swing.MigLayout;
@@ -55,6 +57,9 @@ import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.Label;
+import java.awt.Toolkit;
+import java.awt.Window;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -77,8 +82,16 @@ public class TelaRelatorioVendas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	public static void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
+	}
+	
 	public TelaRelatorioVendas(Usuario usuarioLogado) {
-		
+		setResizable(false);
 		setBackground(new Color(240, 255, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);

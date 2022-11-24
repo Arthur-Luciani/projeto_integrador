@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/images/icons8-funcionário-homem-24.png</name>
-			<type>1</type>
-			<locationURI>PARENT-3-ECLIPSE_HOME/Downloads/icons8-funcion%C3%A1rio-homem-24.png</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

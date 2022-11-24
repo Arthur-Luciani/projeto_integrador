@@ -57,6 +57,7 @@ public class TelaRelatorios extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaRelatorioVendas telaRelatorioVendas = new TelaRelatorioVendas(usuarioLogado);
 				telaRelatorioVendas.setVisible(true);
+				telaRelatorioVendas.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -87,6 +88,7 @@ public class TelaRelatorios extends JFrame {
 				try {
 					comissao = new TelaRelatorioComissao(null, usuarioLogado);
 					comissao.setVisible(true);
+					comissao.setLocationRelativeTo(null);
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -116,6 +118,7 @@ public class TelaRelatorios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial telaInicial = new TelaInicial(usuarioLogado);
 				telaInicial.setVisible(true);
+				telaInicial.setLocationRelativeTo(null);
 				dispose();
 			}
 		});

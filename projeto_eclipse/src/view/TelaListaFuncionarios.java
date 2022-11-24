@@ -124,6 +124,7 @@ public class TelaListaFuncionarios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaInicial inicio = new TelaInicial(usuarioLogado);
 				inicio.setVisible(true);
+				inicio.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -144,6 +145,7 @@ public class TelaListaFuncionarios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroFuncionario telaCadastroFuncionario = new TelaCadastroFuncionario(usuarioLogado);
 				telaCadastroFuncionario.setVisible(true);
+				telaCadastroFuncionario.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -159,10 +161,12 @@ public class TelaListaFuncionarios extends JFrame {
 				if(funcionarioSelecionado!=null) {
 					TelaAtualizarFuncionario telaAtualizarFuncionario = new TelaAtualizarFuncionario(funcionarioSelecionado, usuarioLogado);
 					telaAtualizarFuncionario.setVisible(true);
+					telaAtualizarFuncionario.setLocationRelativeTo(null);
 					dispose();
 				}else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum funcionário selecionado");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 			}
 		});
@@ -184,6 +188,7 @@ public class TelaListaFuncionarios extends JFrame {
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum funcionario selecionado");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 				
 				

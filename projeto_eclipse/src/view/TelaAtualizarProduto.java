@@ -182,7 +182,7 @@ public class TelaAtualizarProduto extends JFrame {
 		panel_13.setBackground(new Color(240, 255, 240));
 		Lbls.add(panel_13);
 		
-		JLabel lblPreco = new JLabel("Pre\u00C3\u00A7o:");
+		JLabel lblPreco = new JLabel("Preço:");
 		lblPreco.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_13.add(lblPreco);
 		
@@ -226,6 +226,7 @@ public class TelaAtualizarProduto extends JFrame {
 			arrayFornecedores[i] = fornecedor.getNome();
 		}		
 		JComboBox cbFornecedores = new JComboBox(arrayFornecedores);
+		cbFornecedores.setBackground(new Color(85, 107, 47));
 		cbFornecedores.setSelectedIndex(fornecedorSelecionado);
 		cbFornecedores.addFocusListener(new FocusAdapter() {
 			@Override

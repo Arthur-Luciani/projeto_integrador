@@ -43,6 +43,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
+import javax.swing.ImageIcon;
 
 public class TelaRelatorioComissao extends JFrame {
 
@@ -108,6 +109,7 @@ public class TelaRelatorioComissao extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setIcon(new ImageIcon(TelaRelatorioComissao.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaRelatorios relatorio = new TelaRelatorios(usuarioLogado);
@@ -144,6 +146,7 @@ public class TelaRelatorioComissao extends JFrame {
 		});
 		
 		JFormattedTextField txtDataSaida = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		txtDataSaida.setColumns(7);
 		txtDataSaida.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		pCima.add(txtDataSaida);
 		txtDataSaida.addFocusListener(new FocusAdapter() {
@@ -154,7 +157,8 @@ public class TelaRelatorioComissao extends JFrame {
 		});
 		
 		
-		JButton btnPesquisar = new JButton("Pesquisar");
+		JButton btnPesquisar = new JButton("");
+		btnPesquisar.setIcon(new ImageIcon(TelaRelatorioComissao.class.getResource("/images/icons8-pesquisar-24.png")));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");

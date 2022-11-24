@@ -98,43 +98,43 @@ public class TelaLogin extends JFrame {
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 						
-								JLabel lblLogin = new JLabel("Login");
-								lblLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-								GridBagConstraints gbc_lblLogin = new GridBagConstraints();
-								gbc_lblLogin.fill = GridBagConstraints.HORIZONTAL;
-								gbc_lblLogin.insets = new Insets(0, 0, 5, 5);
-								gbc_lblLogin.gridx = 2;
-								gbc_lblLogin.gridy = 1;
-								panel_1.add(lblLogin, gbc_lblLogin);
+		JLabel lblLogin = new JLabel("Login");
+		lblLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		GridBagConstraints gbc_lblLogin = new GridBagConstraints();
+		gbc_lblLogin.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblLogin.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLogin.gridx = 2;
+		gbc_lblLogin.gridy = 1;
+		panel_1.add(lblLogin, gbc_lblLogin);
 				
-						txtLogin = new JTextField();
-						txtLogin.setHorizontalAlignment(SwingConstants.LEFT);
-						txtLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-						GridBagConstraints gbc_txtLogin = new GridBagConstraints();
-						gbc_txtLogin.fill = GridBagConstraints.BOTH;
-						gbc_txtLogin.insets = new Insets(0, 0, 5, 5);
-						gbc_txtLogin.gridx = 4;
-						gbc_txtLogin.gridy = 1;
-						panel_1.add(txtLogin, gbc_txtLogin);
-						txtLogin.setColumns(10);
-														
-																JLabel lblSenha = new JLabel("Senha");
-																lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-																GridBagConstraints gbc_lblSenha = new GridBagConstraints();
-																gbc_lblSenha.anchor = GridBagConstraints.NORTH;
-																gbc_lblSenha.fill = GridBagConstraints.HORIZONTAL;
-																gbc_lblSenha.insets = new Insets(0, 0, 0, 5);
-																gbc_lblSenha.gridx = 2;
-																gbc_lblSenha.gridy = 3;
-																panel_1.add(lblSenha, gbc_lblSenha);
-												
-														txtPassSenha = new JPasswordField();
-														GridBagConstraints gbc_txtPassSenha = new GridBagConstraints();
-														gbc_txtPassSenha.insets = new Insets(0, 0, 0, 5);
-														gbc_txtPassSenha.fill = GridBagConstraints.BOTH;
-														gbc_txtPassSenha.gridx = 4;
-														gbc_txtPassSenha.gridy = 3;
-														panel_1.add(txtPassSenha, gbc_txtPassSenha);
+		txtLogin = new JTextField();
+		txtLogin.setHorizontalAlignment(SwingConstants.LEFT);
+		txtLogin.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		GridBagConstraints gbc_txtLogin = new GridBagConstraints();
+		gbc_txtLogin.fill = GridBagConstraints.BOTH;
+		gbc_txtLogin.insets = new Insets(0, 0, 5, 5);
+		gbc_txtLogin.gridx = 4;
+		gbc_txtLogin.gridy = 1;
+		panel_1.add(txtLogin, gbc_txtLogin);
+		txtLogin.setColumns(10);
+		
+		JLabel lblSenha = new JLabel("Senha");
+		lblSenha.setFont(new Font("Segoe Print", Font.PLAIN, 16));
+		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
+		gbc_lblSenha.anchor = GridBagConstraints.NORTH;
+		gbc_lblSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblSenha.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSenha.gridx = 2;
+		gbc_lblSenha.gridy = 3;
+		panel_1.add(lblSenha, gbc_lblSenha);
+
+		txtPassSenha = new JPasswordField();
+		GridBagConstraints gbc_txtPassSenha = new GridBagConstraints();
+		gbc_txtPassSenha.insets = new Insets(0, 0, 0, 5);
+		gbc_txtPassSenha.fill = GridBagConstraints.BOTH;
+		gbc_txtPassSenha.gridx = 4;
+		gbc_txtPassSenha.gridy = 3;
+		panel_1.add(txtPassSenha, gbc_txtPassSenha);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(240, 255, 240));
@@ -168,7 +168,11 @@ public class TelaLogin extends JFrame {
 						telaMensagem.setVisible(true);
 						telaMensagem.setLocationRelativeTo(null);
 					}
-
+					
+				} else {
+					TelaMensagem telaMensagem = new TelaMensagem("Usuário ou senha inválidos");
+					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 			}
 		});

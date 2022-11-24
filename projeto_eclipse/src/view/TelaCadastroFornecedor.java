@@ -34,6 +34,7 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
+import validacoes.ValidaCNPJ;
 import validacoes.ValidaCPF;
 import validacoes.Validacoes;
 
@@ -303,14 +304,17 @@ public class TelaCadastroFornecedor extends JFrame {
 				String nome = txtNome.getText();
 				String telefone = txtTelefone.getText();
 				String email = txtEmail.getText();
+				
 				String cnpj = txtCnpj.getText();
+				cnpj = cnpj.replaceAll("[^0-9]", "");
+				
 				String rua = txtRua.getText();
 				String bairro = txtBairro.getText();
 				String cidade = txtCidade.getText();
 				String cep = txtCep.getText();
 				Estado estado = listaEstados.get(cbEstado.getSelectedIndex());
 				
-				if (nome.equals(null)||telefone.equals(null)||email.equals(null)||cnpj.equals(null)||rua.equals(null)||bairro.equals(null)||cidade.equals(null)||cep.equals(null)||estado.equals(null)) {
+				if (nome.equals(null)||telefone.equals(null)||email.equals(null)|| ValidaCNPJ.isCNPJ(cnpj)!=true ||rua.equals(null)||bairro.equals(null)||cidade.equals(null)||cep.equals(null)||estado.equals(null)) {
 					if (nome.equals(null)) {
 						txtNome.setBorder(bordaVermelha);
 					}
@@ -320,7 +324,7 @@ public class TelaCadastroFornecedor extends JFrame {
 					if (email.equals(null)) {
 						txtEmail.setBorder(bordaVermelha);
 					}
-					if (cnpj.equals(null)) {
+					if (ValidaCNPJ.isCNPJ(cnpj)!=true) {
 						txtCnpj.setBorder(bordaVermelha);
 					}
 					if (rua.equals(null)) {

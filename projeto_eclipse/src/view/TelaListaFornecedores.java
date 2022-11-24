@@ -134,6 +134,7 @@ public class TelaListaFornecedores extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaEstoque telaEstoque = new TelaEstoque(usuarioLogado);
 				telaEstoque.setVisible(true);
+				telaEstoque.setLocationRelativeTo(null);
 				dispose();
 			}
 		});
@@ -155,10 +156,12 @@ public class TelaListaFornecedores extends JFrame {
 					LinkedList<Estado>listaEstados = daoEstado.resgatarEstados();
 					telaAtualizarFornecedor = new TelaAtualizarFornecedor(listaFornecedores, fornecedorSelecionado, listaEstados, usuarioLogado);
 					telaAtualizarFornecedor.setVisible(true);
+					telaAtualizarFornecedor.setLocationRelativeTo(null);
 					dispose();
 				} else {
 					TelaMensagem telaMensagem = new TelaMensagem("Nenhum fornecedor selecionado para atualizar");
 					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 			}
 		});
@@ -175,6 +178,7 @@ public class TelaListaFornecedores extends JFrame {
 					LinkedList<Estado> listaEstado = daoEstado.resgatarEstados();
 					cadastroFornecedor = new TelaCadastroFornecedor(listaFornecedores, fornecedorSelecionado, listaEstado, usuarioLogado);
 					cadastroFornecedor.setVisible(true);
+					cadastroFornecedor.setLocationRelativeTo(null);
 					dispose();
 				}
 			 

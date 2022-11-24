@@ -235,6 +235,7 @@ public class TelaRelatorioVendas extends JFrame {
 							txtDataSaida.setBorder(bordaVermelha);
 						}
 						telaMensagem.setVisible(true);
+						telaMensagem.setLocationRelativeTo(null);
 					
 					}
 				} else {
@@ -249,7 +250,8 @@ public class TelaRelatorioVendas extends JFrame {
 						txtDataSaida.setBorder(bordaVermelha);
 						telaMensagem = new TelaMensagem("Datas inv�lidas");
 					}
-					telaMensagem.setVisible(true);					
+					telaMensagem.setVisible(true);
+					telaMensagem.setLocationRelativeTo(null);
 				}
 			}
 		});
@@ -270,6 +272,7 @@ public class TelaRelatorioVendas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TelaRelatorios telaRelatorios = new TelaRelatorios(usuarioLogado);
 				telaRelatorios.setVisible(true);
+				telaRelatorios.setLocationRelativeTo(null);
 				dispose();
 				
 			}

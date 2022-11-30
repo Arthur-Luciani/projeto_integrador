@@ -66,7 +66,7 @@ public class TelaCadastroFornecedor extends JFrame {
 	private JTextField txtNome;
 	private JTextField txtTelefone;
 	private JTextField txtEmail;
-	private JTextField txtCnpj;
+	private JFormattedTextField txtCnpj;
 	private JTextField txtRua;
 	private JTextField txtBairro;
 	private static TelaCadastroFuncionario frame;
@@ -198,7 +198,13 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblCnpj.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCnpj);
 
-		txtCnpj = new JTextField();
+		try {
+			txtCnpj = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		txtCnpj.setBounds(320, 120, 265, 35);
 		txtCnpj.addFocusListener(new FocusAdapter() {
 			@Override

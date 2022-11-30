@@ -200,7 +200,15 @@ public class TelaAtualizarFornecedor extends JFrame {
 		lblCnpj.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCnpj);
 
-		txtCnpj = new JTextField(fornecedorSelecionado.getCnpj());
+		txtCnpj = new JTextField();
+		try {
+			txtCnpj = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+			txtCnpj.setText(fornecedorSelecionado.getCep().replaceAll("  .   .   /    -  ", ""));
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());
+		}
+
+		
 		txtCnpj.setEditable(false);
 		txtCnpj.setBounds(320, 120, 265, 35);
 		txtCnpj.addFocusListener(new FocusAdapter() {

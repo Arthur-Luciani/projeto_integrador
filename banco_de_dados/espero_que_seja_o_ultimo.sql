@@ -295,9 +295,14 @@ insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Pedro'
 
 
 insert into endereco ( bairro, rua, cidade, cep, numero,id_estado) values ('Barracao','Maria Aparecida','Gaspar','1634', 15,1);
-insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Nicolas' , '(47) 99999-9999' , 'e' , 2 , '1564' );
+insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Nicolas' , '(47) 99999-9999' , 'nicoals@gmail' , 2 , '1564' );
 insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Vila Nova','José','Luiz Alves','123456',24);
-insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Luiz Alves Imports' , '(47) 99999-9999' , 'e' , 3 , '987654' );
+insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Luiz Alves Imports' , '(47) 99999-9999' , 'nicolas@gmail' , 3 , '987654' );
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('belchior','bertonilo','gaspar','12345355',1);
+insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Johnson' , '(47) 99889-8789' , 'Johnson@gmail' , 11 , '03847461000192' );
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('bateia','traique','Gaspar','564546546',1);
+insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Maria Esponja' , '(47) 89898-9899' , 'maria@gmail' , 12 , '08613550000198' );
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('paulis','joas','rio do sul','456456464',1);
 
 
 insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Sabão' , 10.0 , 9 ,  '1564' );

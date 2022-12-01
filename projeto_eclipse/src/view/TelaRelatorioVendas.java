@@ -108,7 +108,7 @@ public class TelaRelatorioVendas extends JFrame {
 		contentPane.add(pTitulo, BorderLayout.NORTH);
 		pTitulo.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
-		JLabel lblNewLabel = new JLabel("Relat\u00F3rio de vendas");
+		JLabel lblNewLabel = new JLabel("Relatório de Produtos");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBackground(new Color(85, 107, 47));
 		lblNewLabel.setFont(new Font("Segoe Print", Font.PLAIN, 50));

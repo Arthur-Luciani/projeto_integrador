@@ -68,7 +68,7 @@ public class TelaRelatorios extends JFrame {
 						panel.add(lblRelatorios);
 		
 		JButton btnProdutosVendidos = new JButton("Produtos");
-		btnProdutosVendidos.setBounds(262, 267, 162, 37);
+		btnProdutosVendidos.setBounds(246, 267, 162, 37);
 		btnProdutosVendidos.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-caixa-de-papelão-24.png")));
 		btnProdutosVendidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -92,7 +92,7 @@ public class TelaRelatorios extends JFrame {
 		contentPane.add(btnProdutosVendidos);
 		
 				JButton btnComissao = new JButton("Comissão");
-				btnComissao.setBounds(466, 267, 133, 37);
+				btnComissao.setBounds(452, 267, 162, 37);
 				btnComissao.setIcon(new ImageIcon(TelaRelatorios.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
 				btnComissao.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

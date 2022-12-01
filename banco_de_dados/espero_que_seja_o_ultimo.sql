@@ -260,27 +260,57 @@ INSERT INTO Estados(id, nome, uf, ibge, pais, ddd) VALUES
 (99, 'Exterior', 'EX', 99, NULL, NULL);
 
 insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao, ativo) values ( 'arthur01' , 'Arthur' , '123' , '2004-10-14' , '08607179926' , 18, 1, 1);
-insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao, ativo) values ( 'gabi' , 'Gabrieli' , '123' , '2004-10-14' , '08607179926' , 18, 1, 1);
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao, ativo) values ( 'gabi' , 'Gabrieli' , '1234' , '2005-02-16' , '11466129905' , 17, 1, 1);
 insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao, ativo) values ( 'duda' , 'Eduarda' , '123' , '2004-10-14' , '08607179926' , 18, 1, 1);
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao)values ( 'rafael' , 'Rafael' , '1234' , '2004-09-09' , '11466129905' , 18 , 0 );
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao)values ( 'sabrina' , 'Sabrina' , '1234' , '2003-08-17' , '11466129905' , 19 , 0 );
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao)values ( 'bruno' , 'Bruno' , '1234' , '2004-05-16' , '11466129905' , 18 , 0 );
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao)values ( 'farias' , 'Farias' , '1234' , '2004-03-05' , '06665449050' , 18 , 0 );
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao)values ( 'pedro' , 'Pedro' , '1234' , '2009-03-02' , '06665449050' , 13 , 0 );
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao)values ( 'roberta' , 'Roberta' , '1234' , '2001-03-16' , '06665449050' , 21 , 0 );
+insert into Usuarios (login, nome, senha, data_nascimento, cpf, idade, permissao)values ( 'caue' , 'Caue' , '1234' , '2001-06-12' , '06665449050' , 21 , 0 );
 
 
 
 
-insert into endereco ( bairro, rua, cidade, cep, numero, id_estado) values ('b','r','c','5465',30 ,1);
-insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Gabrieli','132456','e','2000-01-01',1);
+insert into endereco ( bairro, rua, cidade, cep, numero, id_estado) values ('Belchior','Boinfacio','Gaspar','5465',30 ,1);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Gabrieli','132456','bacca@gmail','2000-01-01',1);
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Figueira','Luisa','Gaspar','45656454',2);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Eduarda','08931627955','duda@gmail','2004-12-09',2);
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Santa Terezinha','Paulo','Gaspar','545446',3);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Daniel','11466129905','daniel@gmail','2005-01-05',3);
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Fortaleza','Cacilda','Blumenau','84546435',4);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Arthur','11466129905','arthur@gmail','2004-10-15',4);
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Vila Nova','Mitocondria','Luiz Alves','6464646',5);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Ferdinando','56565128846','ferdianando@gmail','2004-05-05',5);
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Sao Pedro','Silvia','Gaspar','45346546',6);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Mateus','11466129905','bacca@gmail','2004-02-14',6);
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Vila Nova','Carlos','Ilhota','5445555',7);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Joao','54688944736','joao@gmail','2000-02-17',7);
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Garcia','pop house','Blumenau','454545454',8);
+insert into cliente (nome, cpf, email, data_de_nasc, id_endereco)values ('Pedro','4456649970','pop@gmail','2004-08-21',8);
 
 
-insert into endereco ( bairro, rua, cidade, cep, numero,id_estado) values ('cajkb','fbai','cvaskb','1634', 15,1);
+
+
+
+insert into endereco ( bairro, rua, cidade, cep, numero,id_estado) values ('Barracao','Maria Aparecida','Gaspar','1634', 15,1);
 insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Nicolas' , '(47) 99999-9999' , 'e' , 2 , '1564' );
-insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('b','r','c','123456',24);
-insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Marcao do gas' , '(47) 99999-9999' , 'e' , 3 , '987654' );
+insert into endereco ( bairro, rua, cidade, cep, id_estado) values ('Vila Nova','José','Luiz Alves','123456',24);
+insert into fornecedor (nome_empresa, telefone,email, id_endereco,cnpj)values ( 'Luiz Alves Imports' , '(47) 99999-9999' , 'e' , 3 , '987654' );
 
 
-insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Bolsa' , 3.0 , 5 ,  '1564' );
-insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Pote' , 3.0 , 5 ,  '1564' );
-insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Agua' , 3.0 , 5 ,  '1564' );
-insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Uva' , 3.0 , 5 ,  '1564' );
-insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Limao' , 3.0 , 5 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Sabão' , 10.0 , 9 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Copo de Fibra' , 5.0 , 50 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Esponja de coco' , 3.0 , 20 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Escova de bamboo' , 9.0 , 6 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque,  cnpj_fornecedor) values ( 'Filtro de barro' , 80.0 , 5 ,  '1564' );
+insert into produto (nome_produto, preco_produto, estoque, cnpj_fornecedor) values ( 'Coletor de �gua para banho' , 60.0 , 82 , '1564' );
+insert into produto (nome_produto, preco_produto, estoque, cnpj_fornecedor) values ( 'Saboneteira de bamboo' , 40.0 , 100 , '987654' );
+insert into produto (nome_produto, preco_produto, estoque, cnpj_fornecedor) values ( 'Papel semente' , 7.0 , 105 , '987654' );
+
+
+
 
 
 insert into venda (data_venda, comissao_vendedor, lucro, id_cliente, id_usuario)values ('2022-11-09',0.15,3.0,1,1);

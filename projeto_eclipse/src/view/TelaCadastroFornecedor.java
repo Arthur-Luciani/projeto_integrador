@@ -66,7 +66,7 @@ public class TelaCadastroFornecedor extends JFrame {
 	private JTextField txtNome;
 	private JTextField txtTelefone;
 	private JTextField txtEmail;
-	private JTextField txtCnpj;
+	private JFormattedTextField txtCnpj;
 	private JTextField txtRua;
 	private JTextField txtBairro;
 	private static TelaCadastroFuncionario frame;
@@ -115,7 +115,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		contentPane.add(panel);
 		
 		
-		JLabel lbAtualizaCadastrar = new JLabel("Adicionar");
+		JLabel lbAtualizaCadastrar = new JLabel("Adicionar Fornecedor");
 		lbAtualizaCadastrar.setForeground(Color.WHITE);
 		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lbAtualizaCadastrar);
@@ -198,7 +198,13 @@ public class TelaCadastroFornecedor extends JFrame {
 		lblCnpj.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCnpj);
 
-		txtCnpj = new JTextField();
+		try {
+			txtCnpj = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		txtCnpj.setBounds(320, 120, 265, 35);
 		txtCnpj.addFocusListener(new FocusAdapter() {
 			@Override
@@ -286,6 +292,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		}
 		
 		JComboBox cbEstado = new JComboBox(arrayEstados);
+		cbEstado.setBackground(new Color(85, 107, 47));
 		cbEstado.setBounds(320, 321, 265, 34);
 		cbEstado.setFont(new Font("Segoe Script", Font.ITALIC, 16));
 		panel_1.add(cbEstado);
@@ -358,7 +365,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		btnAdicionar.setForeground(Color.WHITE);
 		btnAdicionar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		btnAdicionar.setBackground(new Color(85, 107, 47));
-		btnAdicionar.setBounds(676, 360, 115, 37);
+		btnAdicionar.setBounds(623, 360, 168, 37);
 		panel_1.add(btnAdicionar);
 	}
 }

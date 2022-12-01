@@ -65,6 +65,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.ImageIcon;
 
 public class TelaRelatorioVendas extends JFrame {
 
@@ -194,7 +195,8 @@ public class TelaRelatorioVendas extends JFrame {
 		cbTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Lucro", "Quantidade"}));
 		pBotoesDireita.add(cbTipoPesquisa);
 		
-		JButton btnPesquisar = new JButton("Pesquisar");
+		JButton btnPesquisar = new JButton("");
+		btnPesquisar.setIcon(new ImageIcon(TelaRelatorioVendas.class.getResource("/images/icons8-pesquisar-24.png")));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaMensagem telaMensagem = null;
@@ -268,6 +270,7 @@ public class TelaRelatorioVendas extends JFrame {
 		pBotoes.add(pBotoesEsquerda);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(TelaRelatorioVendas.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaRelatorios telaRelatorios = new TelaRelatorios(usuarioLogado);

@@ -103,7 +103,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		JLabel lblCadastro = new JLabel("Cadastro");
+		JLabel lblCadastro = new JLabel("Cadastro Cliente");
 		lblCadastro.setForeground(Color.WHITE);
 		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblCadastro);
@@ -408,6 +408,7 @@ public class TelaCadastroCliente extends JFrame {
 		panel_txt.add(panel_12);
 
 		JComboBox cbEstados = new JComboBox(arrayEstados);
+		cbEstados.setBackground(new Color(85, 107, 47));
 		panel_12.add(cbEstados);
 		cbEstados.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 
@@ -450,7 +451,7 @@ public class TelaCadastroCliente extends JFrame {
 
 		JButton btnNewButton = new JButton("Voltar");
 		p_esquerda.add(btnNewButton);
-		btnNewButton.setIcon(null);
+		btnNewButton.setIcon(new ImageIcon(TelaCadastroCliente.class.getResource("/images/icons8-à-esquerda-dentro-de-um-círculo-24.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClienteDao dao = new ClienteDao();
@@ -485,7 +486,7 @@ public class TelaCadastroCliente extends JFrame {
 
 		JButton btnCadastrar = new JButton("Cadastrar");
 		panel_4.add(btnCadastrar);
-		btnCadastrar.setIcon(null);
+		btnCadastrar.setIcon(new ImageIcon(TelaCadastroCliente.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nome = txtNome.getText();

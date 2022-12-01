@@ -94,7 +94,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		panel.setForeground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		JLabel lblCadastro = new JLabel("Cadastro");
+		JLabel lblCadastro = new JLabel("Cadastro Funcionário");
 		lblCadastro.setForeground(Color.WHITE);
 		lblCadastro.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblCadastro);
@@ -272,7 +272,8 @@ public class TelaCadastroFuncionario extends JFrame {
 								pDireita.add(panel_1);
 								
 								JComboBox cbPermissao = new JComboBox();
-								cbPermissao.setFont(new Font("Tahoma", Font.PLAIN, 16));
+								cbPermissao.setBackground(new Color(85, 107, 47));
+								cbPermissao.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 								cbPermissao.setModel(new DefaultComboBoxModel(new String[] {"Vendedor", "Administrador"}));
 								panel_1.add(cbPermissao);
 								
@@ -296,7 +297,7 @@ public class TelaCadastroFuncionario extends JFrame {
 								btnCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 								btnCadastrar.setForeground(new Color(255, 255, 255));
 								btnCadastrar.setBackground(new Color(85, 107, 47));
-		btnCadastrar.setIcon(new ImageIcon(TelaCadastroFuncionario.class.getResource("/images/icons8-usuário-homem-com-círculo-24.png")));
+		btnCadastrar.setIcon(new ImageIcon(TelaCadastroFuncionario.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		pbtnDireita.add(btnCadastrar);
 		btnCadastrar.addActionListener(new ActionListener() {
 

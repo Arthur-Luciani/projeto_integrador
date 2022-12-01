@@ -150,6 +150,7 @@ public class TelaInicial extends JFrame {
 		contentPane.add(btnFuncionarios);
 		
 		JButton btnSair = new JButton("Sair");
+		//btnSair.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-fechar-janela-24.png")));
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaLogin telaLogin = new TelaLogin();
@@ -161,7 +162,7 @@ public class TelaInicial extends JFrame {
 		btnSair.setForeground(new Color(255, 255, 255));
 		btnSair.setBackground(new Color(85, 107, 47));
 		btnSair.setFont(new Font("Segoe Print", Font.PLAIN, 16));
-		btnSair.setBounds(721, 477, 89, 23);
+		btnSair.setBounds(707, 471, 103, 29);
 		contentPane.add(btnSair);
 
 	}

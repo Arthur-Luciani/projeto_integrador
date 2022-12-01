@@ -150,8 +150,6 @@ public class TelaInicial extends JFrame {
 		contentPane.add(btnFuncionarios);
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-sair-25.png")));
-		//btnSair.setIcon(new ImageIcon(TelaInicial.class.getResource("/images/icons8-fechar-janela-24.png")));
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaLogin telaLogin = new TelaLogin();

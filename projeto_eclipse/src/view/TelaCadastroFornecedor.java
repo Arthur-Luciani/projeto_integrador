@@ -115,7 +115,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		contentPane.add(panel);
 		
 		
-		JLabel lbAtualizaCadastrar = new JLabel("Adicionar Fornecedor");
+		JLabel lbAtualizaCadastrar = new JLabel("Cadastrar Fornecedor");
 		lbAtualizaCadastrar.setForeground(Color.WHITE);
 		lbAtualizaCadastrar.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lbAtualizaCadastrar);
@@ -301,7 +301,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		btnVoltar.setBackground(new Color(85, 107, 47));
 		panel_1.add(btnVoltar);
 		
-		JButton btnAdicionar = new JButton("Adicionar");
+		JButton btnAdicionar = new JButton("Cadastrar");
 		btnAdicionar.setIcon(new ImageIcon(TelaCadastroFornecedor.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -274,7 +274,7 @@ public class TelaCadastroProduto extends JFrame {
 		txtPreco.setColumns(20);
 		panel_14.add(txtPreco);
 		
-		JButton btnAtualizarCadastrar = new JButton("Adicionar");
+		JButton btnAtualizarCadastrar = new JButton("Cadastrar");
 		btnAtualizarCadastrar.setIcon(new ImageIcon(TelaCadastroProduto.class.getResource("/images/icons8-mais-2-matemática-24.png")));
 		btnAtualizarCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

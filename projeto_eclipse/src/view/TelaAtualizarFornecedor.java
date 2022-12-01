@@ -200,10 +200,9 @@ public class TelaAtualizarFornecedor extends JFrame {
 		lblCnpj.setFont(new Font("Segoe Print", Font.PLAIN, 16));
 		panel_1.add(lblCnpj);
 
-		txtCnpj = new JTextField();
 		try {
 			txtCnpj = new JFormattedTextField(new MaskFormatter("##.###.###/####-##"));
-			txtCnpj.setText(fornecedorSelecionado.getCep().replaceAll("  .   .   /    -  ", ""));
+			txtCnpj.setText(fornecedorSelecionado.getCnpj());
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
 		}
@@ -319,6 +318,7 @@ public class TelaAtualizarFornecedor extends JFrame {
 				String telefone = txtTelefone.getText();
 				String email = txtEmail.getText();
 				String cnpj = txtCnpj.getText();
+				cnpj = cnpj.replaceAll("[^0-9]", "");
 				String rua = txtRua.getText();
 				String bairro = txtBairro.getText();
 				String cidade = txtCidade.getText();

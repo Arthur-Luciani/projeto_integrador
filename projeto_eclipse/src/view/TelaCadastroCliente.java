@@ -493,6 +493,7 @@ public class TelaCadastroCliente extends JFrame {
 				String dataNascimento = txtDataNascimento.getText();
 				DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				String cpf = txtCPF.getText();
+				cpf = cpf.replaceAll("[^0-9]", "");
 				String email = txtEmail.getText();
 				String rua = txtRua.getText();
 				String bairro = txtBairro.getText();
@@ -502,7 +503,7 @@ public class TelaCadastroCliente extends JFrame {
 				String idEstado = String.valueOf(estado.getIdEstado());
 				String cep = txtCep.getText();
 
-				if (nome.isEmpty() || dataNascimento.equals("  /  /    ") || cpf.isEmpty() || email.isEmpty()
+				if (nome.isEmpty() || dataNascimento.equals("  /  /    ") || ValidaCPF.isCPF(cpf) || email.isEmpty()
 						|| rua.isEmpty() || bairro.isEmpty() || cidade.isEmpty() || numero.isEmpty()
 						|| idEstado.isEmpty() || cep.isEmpty()) {
 					if (nome.isEmpty()) {
@@ -511,7 +512,7 @@ public class TelaCadastroCliente extends JFrame {
 					if (dataNascimento.equals("  /  /    ")) {
 						txtDataNascimento.setBorder(bordaVermelha);
 					}
-					if (cpf.isEmpty()) {
+					if (ValidaCPF.isCPF(cpf)) {
 						txtCPF.setBorder(bordaVermelha);
 					}
 					if (email.isEmpty()) {

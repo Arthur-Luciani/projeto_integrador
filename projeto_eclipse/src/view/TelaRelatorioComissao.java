@@ -86,7 +86,7 @@ public class TelaRelatorioComissao extends JFrame {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("Relatorios de comissão");
+		JLabel lblNewLabel = new JLabel("Relatório de comissão");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Segoe Print", Font.PLAIN, 50));
 		panel.add(lblNewLabel);
